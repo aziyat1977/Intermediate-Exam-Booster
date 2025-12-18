@@ -1,9 +1,7 @@
 import React from 'react';
-import { ChevronRight, Mic, Play, RotateCcw } from 'lucide-react';
 
 export const Card: React.FC<{ children: React.ReactNode; className?: string }> = ({ children, className = '' }) => (
-  <div className={`art-3d-card p-8 md:p-10 relative overflow-hidden ${className}`}>
-    <div className="absolute top-0 right-0 w-64 h-64 bg-white opacity-10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none"></div>
+  <div className={`art-3d-card p-4 md:p-6 relative ${className}`}>
     {children}
   </div>
 );
@@ -14,10 +12,10 @@ export const Button: React.FC<React.ButtonHTMLAttributes<HTMLButtonElement> & { 
   className = '', 
   ...props 
 }) => {
-  const baseStyle = "px-8 py-4 font-bold text-lg tracking-wide flex items-center justify-center gap-3 transform active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed";
+  const baseStyle = "px-6 py-3 font-bold text-base tracking-wide flex items-center justify-center gap-2 transform active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200";
   const variants = {
     primary: "art-3d-btn-primary",
-    secondary: "art-3d-btn-secondary hover:text-surgical-600"
+    secondary: "art-3d-btn-secondary hover:text-surgical-600 hover:shadow-lg"
   };
 
   return (
@@ -33,7 +31,7 @@ export const Button: React.FC<React.ButtonHTMLAttributes<HTMLButtonElement> & { 
 export const ProgressBar: React.FC<{ current: number; total: number }> = ({ current, total }) => {
   const progress = ((current + 1) / total) * 100;
   return (
-    <div className="w-full h-4 art-3d-tube mt-6 relative p-1">
+    <div className="w-full h-2 art-3d-tube mt-2 relative p-[1px]">
       <div 
         className="h-full art-3d-tube-fill transition-all duration-700 ease-out"
         style={{ width: `${progress}%` }}
@@ -43,7 +41,7 @@ export const ProgressBar: React.FC<{ current: number; total: number }> = ({ curr
 };
 
 export const Badge: React.FC<{ children: React.ReactNode; color?: string }> = ({ children, color = 'bg-surgical-100 text-surgical-700' }) => (
-  <span className={`px-4 py-1.5 rounded-full text-xs font-black uppercase tracking-widest shadow-[4px_4px_8px_#bec3c9,-4px_-4px_8px_#ffffff] ${color}`}>
+  <span className={`px-2 py-1 rounded-md text-[10px] font-black uppercase tracking-widest ${color}`}>
     {children}
   </span>
 );

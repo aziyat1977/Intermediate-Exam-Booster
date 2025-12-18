@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { TOPICS } from './data/courseContent';
 import { SlideRenderer } from './components/SlideRenderer';
-import { ProgressBar, Button, Card, Badge } from './components/UI';
-import { Play, BookOpen, CheckCircle } from 'lucide-react';
+import { ProgressBar, Button, Badge } from './components/UI';
+import { Play, BookOpen, ChevronRight, Check } from 'lucide-react';
 
 const App: React.FC = () => {
   const [currentTopicIndex, setCurrentTopicIndex] = useState<number | null>(null);
@@ -14,7 +14,6 @@ const App: React.FC = () => {
   const handleNext = () => {
     if (currentTopic && currentSlideIndex < currentTopic.slides.length - 1) {
       setCurrentSlideIndex(prev => prev + 1);
-      window.scrollTo({ top: 0, behavior: 'smooth' });
     } else {
       // Finished Topic
       setCurrentTopicIndex(null);
@@ -25,92 +24,106 @@ const App: React.FC = () => {
   const startTopic = (index: number) => {
     setCurrentTopicIndex(index);
     setCurrentSlideIndex(0);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  const isLastSlide = currentTopic ? currentSlideIndex === currentTopic.slides.length - 1 : false;
+
   return (
-    <div className="min-h-screen font-sans text-slate-900 selection:bg-surgical-200 overflow-hidden relative">
+    <div className="h-screen w-screen font-sans text-slate-900 selection:bg-surgical-200 overflow-hidden relative bg-[#e0e5ec] flex flex-col">
       
-      {/* 3D Background Elements */}
-      <div className="fixed inset-0 pointer-events-none -z-10">
-        <div className="absolute top-[-10%] left-[-10%] w-[600px] h-[600px] rounded-full bg-gradient-to-br from-purple-200 to-blue-200 blur-3xl opacity-40 animate-float" style={{ animationDuration: '8s' }}></div>
-        <div className="absolute top-[20%] right-[-15%] w-[500px] h-[500px] rounded-full bg-gradient-to-bl from-surgical-200 to-teal-200 blur-3xl opacity-40 animate-float" style={{ animationDuration: '10s', animationDelay: '2s' }}></div>
-        <div className="absolute bottom-[-10%] left-[20%] w-[700px] h-[700px] rounded-full bg-gradient-to-t from-indigo-200 to-white blur-3xl opacity-50 animate-float" style={{ animationDuration: '12s', animationDelay: '1s' }}></div>
+      {/* 3D Background Elements - Static to prevent distraction/repaint */}
+      <div className="absolute inset-0 pointer-events-none -z-10 overflow-hidden">
+        <div className="absolute top-[-10%] left-[-10%] w-[50vh] h-[50vh] rounded-full bg-gradient-to-br from-purple-200 to-blue-200 blur-3xl opacity-40"></div>
+        <div className="absolute bottom-[-10%] right-[-10%] w-[60vh] h-[60vh] rounded-full bg-gradient-to-t from-surgical-200 to-white blur-3xl opacity-50"></div>
       </div>
 
-      {/* Header */}
-      <header className="fixed top-0 w-full bg-[#e0e5ec]/80 backdrop-blur-lg border-b border-white/40 z-50 h-20 flex items-center justify-between px-6 lg:px-12 shadow-sm">
+      {/* Header - Fixed Height */}
+      <header className="h-20 bg-[#e0e5ec]/90 backdrop-blur-md border-b border-white/50 z-50 flex items-center justify-between px-6 shadow-sm shrink-0">
         <div className="flex items-center gap-4">
-          <div className="w-10 h-10 art-3d-btn-primary flex items-center justify-center shadow-lg">
+          <div className="w-10 h-10 art-3d-btn-primary flex items-center justify-center shadow-lg rounded-xl">
             <BookOpen className="w-5 h-5 text-white" />
           </div>
-          <span className="font-extrabold text-2xl tracking-tight text-slate-800 drop-shadow-sm">Lingu<span className="text-surgical-600">Verse</span> <span className="text-slate-400 font-light">3D</span></span>
-        </div>
-        {currentTopic && (
-          <div className="hidden md:flex items-center gap-6 text-sm font-bold text-slate-500 bg-[#e0e5ec] px-6 py-2 rounded-full shadow-[inset_3px_3px_6px_#a3b1c6,inset_-3px_-3px_6px_#ffffff]">
-             <span className="text-surgical-600">{currentTopic.title}</span>
-             <span className="w-1.5 h-1.5 rounded-full bg-slate-300"></span>
-             <span>Slide {currentSlideIndex + 1} / {currentTopic.slides.length}</span>
+          <div>
+            <h1 className="font-black text-2xl tracking-tight text-slate-800 leading-none">
+              Lingu<span className="text-surgical-600">Verse</span>
+            </h1>
+            {currentTopic && (
+               <p className="text-xs font-bold text-slate-500 mt-1 truncate max-w-[200px] md:max-w-md">
+                 {currentTopic.title}
+               </p>
+            )}
           </div>
+        </div>
+
+        {/* TOP RIGHT NAVIGATION BUTTON */}
+        {currentTopic && (
+          <Button 
+            onClick={handleNext} 
+            className="!py-2 !px-6 !rounded-xl !text-sm shadow-xl hover:scale-105 active:scale-95"
+          >
+            {isLastSlide ? 'Finish' : 'Next'}
+            {isLastSlide ? <Check className="w-4 h-4" /> : <ChevronRight className="w-4 h-4" />}
+          </Button>
         )}
       </header>
 
-      {/* Main Content */}
-      <main className="pt-32 pb-16 px-4 md:px-8 flex flex-col items-center justify-center min-h-screen relative z-0">
+      {/* Main Content Area - Flex Grow to fill remaining height */}
+      <main className="flex-1 relative overflow-hidden flex flex-col items-center justify-center p-4 md:p-6">
         
         {!currentTopic ? (
           /* Topic Selection Screen */
-          <div className="max-w-5xl w-full animate-fade-in-up">
-            <div className="text-center mb-16 relative">
-              <h1 className="text-5xl md:text-7xl font-black text-slate-800 mb-6 tracking-tight drop-shadow-sm">
+          <div className="w-full max-w-6xl h-full overflow-y-auto no-scrollbar pb-10">
+            <div className="text-center mb-8 pt-4">
+              <h1 className="text-4xl md:text-5xl font-black text-slate-800 mb-2 tracking-tight">
                 Select Module
               </h1>
-              <p className="text-slate-500 text-xl font-medium max-w-2xl mx-auto">Immerse yourself in high-precision linguistic training with our new spatial interface.</p>
+              <p className="text-slate-500 text-lg font-medium">Precision training modules.</p>
             </div>
 
-            <div className="grid md:grid-cols-2 gap-8 lg:gap-10 px-4">
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 px-2">
               {TOPICS.map((topic, index) => (
                 <div 
                   key={topic.id}
                   onClick={() => startTopic(index)}
                   className="group cursor-pointer perspective-500"
                 >
-                  <div className="art-3d-card h-full p-8 transition-all duration-300 group-hover:-translate-y-2 group-hover:shadow-[25px_25px_50px_#a3b1c6,-25px_-25px_50px_#ffffff] relative overflow-hidden bg-gradient-to-br from-[#e0e5ec] to-[#f0f4f8]">
-                    <div className="absolute top-0 right-0 w-32 h-32 bg-surgical-400 opacity-0 group-hover:opacity-10 rounded-full blur-2xl transition-opacity duration-500 -mr-10 -mt-10"></div>
-                    
-                    <div className="flex justify-between items-start mb-8">
+                  <div className="art-3d-card p-6 transition-all duration-300 group-hover:-translate-y-2 group-hover:shadow-[15px_15px_30px_#a3b1c6,-15px_-15px_30px_#ffffff] relative overflow-hidden bg-gradient-to-br from-[#e0e5ec] to-[#f0f4f8] h-full flex flex-col">
+                    <div className="flex justify-between items-start mb-4">
                       <Badge color="bg-surgical-100 text-surgical-600 shadow-sm border border-white">Module {index + 1}</Badge>
-                      <div className="w-12 h-12 rounded-2xl bg-[#e0e5ec] shadow-[5px_5px_10px_#a3b1c6,-5px_-5px_10px_#ffffff] flex items-center justify-center group-hover:text-surgical-500 transition-colors">
-                        <Play className="w-6 h-6 ml-1 text-slate-400 group-hover:text-surgical-500 transition-colors" />
+                      <div className="w-8 h-8 rounded-lg bg-[#e0e5ec] shadow-[3px_3px_6px_#a3b1c6,-3px_-3px_6px_#ffffff] flex items-center justify-center group-hover:text-surgical-500 transition-colors">
+                        <Play className="w-4 h-4 ml-0.5 text-slate-400 group-hover:text-surgical-500" />
                       </div>
                     </div>
-                    
-                    <h3 className="text-2xl font-bold text-slate-800 mb-3 group-hover:text-surgical-700 transition-colors">{topic.title}</h3>
-                    <p className="text-slate-500 font-medium">{topic.slides.length} Interactive Slides</p>
+                    <h3 className="text-lg font-bold text-slate-800 mb-1 group-hover:text-surgical-700 leading-tight">{topic.title}</h3>
+                    <p className="text-slate-400 font-medium text-xs mt-auto pt-4">{topic.slides.length} Slides</p>
                   </div>
                 </div>
               ))}
             </div>
           </div>
         ) : (
-          /* Slide View */
-          <div className="w-full flex flex-col items-center gap-8">
-            <div className="w-full max-w-4xl px-4">
-              <ProgressBar current={currentSlideIndex} total={currentTopic.slides.length} />
-            </div>
-            
+          /* Slide View - Full Height Container */
+          <div className="w-full max-w-5xl h-full flex flex-col relative">
             {currentSlide && (
               <SlideRenderer 
                 key={currentSlide.id}
                 slide={currentSlide} 
-                onNext={handleNext}
-                isLast={currentSlideIndex === currentTopic.slides.length - 1}
               />
             )}
           </div>
         )}
 
       </main>
+      
+      {/* Fixed Bottom Progress Bar */}
+      {currentTopic && (
+        <div className="h-1.5 w-full bg-slate-200 shrink-0">
+          <div 
+            className="h-full bg-surgical-500 transition-all duration-500 ease-out shadow-[0_0_10px_#0ea5e9]"
+            style={{ width: `${((currentSlideIndex + 1) / currentTopic.slides.length) * 100}%` }}
+          />
+        </div>
+      )}
     </div>
   );
 };
