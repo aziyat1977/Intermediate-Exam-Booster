@@ -59,11 +59,18 @@ export const TOPICS: Topic[] = [
       },
       {
         id: '1-6',
-        type: 'concept',
-        title: 'Timelines and CLINE',
+        type: 'timeline',
+        title: 'Visual Timeline',
+        leadText: 'Comparing the Focus of each Tense',
+        visualContext: 'Time & Activity Flow',
+        visualData: [
+            { label: 'Past Start', subLabel: 'Action Begins', percentage: 10, type: 'start', color: 'blue' },
+            { label: 'Ongoing', subLabel: 'Process / Activity', percentage: 50, type: 'range', color: 'purple' },
+            { label: 'NOW', subLabel: 'Recent / Unfinished', percentage: 90, type: 'end', color: 'green' }
+        ],
         bulletPoints: [
-          { lang: 'en', label: 'Continuous', text: '"I\'ve been working." (Activity key. Duration mentioned.)' },
-          { lang: 'en', label: 'Simple', text: '"I\'ve written the report." (Result key. Finished.)' },
+          { lang: 'en', label: 'Continuous', text: '"I\'ve been working." (Activity is key. Duration is key.)' },
+          { lang: 'en', label: 'Simple', text: '"I\'ve written the report." (Result is key. Finished.)' },
           { lang: 'en', label: 'Note', text: 'State verbs (know, like, have) usually take the Simple form.' }
         ]
       },
@@ -235,12 +242,19 @@ export const TOPICS: Topic[] = [
       },
       {
         id: '2-6',
-        type: 'concept',
-        title: 'Timelines (Certainty)',
+        type: 'timeline',
+        title: 'Certainty Scale',
+        leadText: 'Degree of Certainty & Possibility',
+        visualContext: 'The Probability Cline',
+        visualData: [
+            { label: "CAN'T", subLabel: 'Impossible (0%)', percentage: 10, type: 'point', color: 'red' },
+            { label: "MIGHT / COULD", subLabel: 'Possible (50%)', percentage: 50, type: 'point', color: 'orange' },
+            { label: "MUST", subLabel: 'Certain (100%)', percentage: 90, type: 'point', color: 'green' }
+        ],
         bulletPoints: [
-          { lang: 'en', label: '0% (Impossible)', text: "CAN'T" },
-          { lang: 'en', label: '50% (Possible)', text: 'MIGHT / COULD' },
-          { lang: 'en', label: '100% (Certainty)', text: 'MUST' }
+          { lang: 'en', label: '0% (Impossible)', text: "CAN'T: 'It can't be true.'" },
+          { lang: 'en', label: '50% (Possible)', text: "MIGHT / COULD: 'It might be true.'" },
+          { lang: 'en', label: '100% (Certainty)', text: "MUST: 'It must be true.'" }
         ]
       },
       {
@@ -410,13 +424,19 @@ export const TOPICS: Topic[] = [
     },
     {
         id: '3-6',
-        type: 'concept',
-        title: 'Logic Flowchart',
-        leadText: 'Follow the logic steps:',
+        type: 'timeline',
+        title: 'Decision Flowchart',
+        leadText: 'Follow the steps to pick the right article',
+        visualContext: 'The Article Logic Path',
+        visualData: [
+            { label: 'Countable?', subLabel: 'Can you count it?', percentage: 20, type: 'start', color: 'blue' },
+            { label: 'Singular?', subLabel: 'Is it just one?', percentage: 50, type: 'point', color: 'purple' },
+            { label: 'Specific?', subLabel: 'Do we know which one?', percentage: 80, type: 'end', color: 'green' }
+        ],
         bulletPoints: [
-            { lang: 'en', label: 'Step 1: Countable?', text: 'No -> Zero Article or The.' },
-            { lang: 'en', label: 'Step 2: Singular?', text: 'No -> Zero (General) or The (Specific).' },
-            { lang: 'en', label: 'Step 3: Specific?', text: 'Yes -> The. No -> A/An.' }
+            { lang: 'en', label: 'Step 1: Countable?', text: 'No -> Zero Article (water) or The.' },
+            { lang: 'en', label: 'Step 2: Singular?', text: 'No (Plural) -> Zero (General) or The (Specific).' },
+            { lang: 'en', label: 'Step 3: Specific?', text: 'Yes -> THE. No -> A/AN.' }
         ]
     },
     {
@@ -591,9 +611,15 @@ export const TOPICS: Topic[] = [
       },
       {
         id: '4-6',
-        type: 'concept',
-        title: 'Timeline & Rules',
+        type: 'timeline',
+        title: 'Past Habits Timeline',
         leadText: 'Action happened regularly in past, not now.',
+        visualContext: 'Broken Habits',
+        visualData: [
+            { label: 'Past Habit', subLabel: 'Repeated Action', percentage: 20, type: 'range', color: 'blue' },
+            { label: 'STOP', subLabel: 'Change in Life', percentage: 60, type: 'point', color: 'red' },
+            { label: 'NOW', subLabel: 'Different Reality', percentage: 90, type: 'end', color: 'purple' }
+        ],
         bulletPoints: [
             { lang: 'en', label: 'Rule', text: 'STATE VERBS (Love, Be, Have, Know) -> Only Used To.' },
             { lang: 'en', label: 'Action Verbs', text: 'Can use both Used To and Would.' }
@@ -770,8 +796,15 @@ export const TOPICS: Topic[] = [
       },
       {
         id: '5-6',
-        type: 'concept',
-        title: 'Visual Rules',
+        type: 'timeline',
+        title: 'Comparison Scale',
+        leadText: 'Degrees of Comparison',
+        visualContext: 'The Quality Scale',
+        visualData: [
+            { label: 'GOOD', subLabel: 'Base Form', percentage: 20, type: 'start', color: 'blue' },
+            { label: 'BETTER', subLabel: 'Comparative', percentage: 50, type: 'point', color: 'orange' },
+            { label: 'BEST', subLabel: 'Superlative', percentage: 80, type: 'end', color: 'green' }
+        ],
         bulletPoints: [
             { lang: 'en', label: '1 Syllable', text: 'add -er / -est (Fast -> Faster -> The Fastest)' },
             { lang: 'en', label: 'Ending in -y', text: 'remove -y, add -ier / -iest (Happy -> Happier)' },
@@ -950,8 +983,15 @@ export const TOPICS: Topic[] = [
       },
       {
         id: '6-6',
-        type: 'concept',
-        title: 'Visual Structure',
+        type: 'timeline',
+        title: 'Structure Visualization',
+        leadText: 'Hypothetical Situation Structure',
+        visualContext: 'The Dream Chain',
+        visualData: [
+            { label: 'IF', subLabel: 'Condition', percentage: 20, type: 'start', color: 'blue' },
+            { label: 'PAST SIMPLE', subLabel: 'Imaginary State', percentage: 50, type: 'point', color: 'purple' },
+            { label: 'WOULD + VERB', subLabel: 'Imaginary Result', percentage: 80, type: 'end', color: 'green' }
+        ],
         bulletPoints: [
             { lang: 'en', label: 'Condition', text: 'IF + Past Simple ("If I LIVED in Italy")' },
             { lang: 'en', label: 'Result', text: 'WOULD + Infinitive ("I WOULD EAT pizza")' },
@@ -1129,8 +1169,16 @@ export const TOPICS: Topic[] = [
       },
       {
         id: '7-6',
-        type: 'concept',
-        title: 'Visual Structure',
+        type: 'timeline',
+        title: 'Word Order Construction',
+        leadText: 'Building the correct sentence structure',
+        visualContext: 'Object Question Order',
+        visualData: [
+            { label: 'Q-WORD', subLabel: 'Where / What', percentage: 20, type: 'start', color: 'blue' },
+            { label: 'AUX', subLabel: 'Do / Did', percentage: 40, type: 'point', color: 'orange' },
+            { label: 'SUBJECT', subLabel: 'You / He', percentage: 60, type: 'point', color: 'purple' },
+            { label: 'VERB', subLabel: 'Go / Like', percentage: 80, type: 'end', color: 'green' }
+        ],
         bulletPoints: [
             { lang: 'en', label: 'Object', text: 'Q-Word + Auxiliary + Subject + Verb? (Where DID you go?)' },
             { lang: 'en', label: 'Subject', text: 'Who/What + Verb? (Who WENT home?)' },
@@ -1307,8 +1355,15 @@ export const TOPICS: Topic[] = [
       },
       {
         id: '8-6',
-        type: 'concept',
-        title: 'Flowchart',
+        type: 'timeline',
+        title: 'Conditional Flow',
+        leadText: 'Structure of Cause and Effect',
+        visualContext: 'First Conditional Logic',
+        visualData: [
+            { label: 'IF', subLabel: 'Trigger', percentage: 20, type: 'start', color: 'blue' },
+            { label: 'PRESENT', subLabel: 'Condition', percentage: 50, type: 'point', color: 'purple' },
+            { label: 'WILL + VERB', subLabel: 'Future Result', percentage: 80, type: 'end', color: 'green' }
+        ],
         bulletPoints: [
             { lang: 'en', label: 'General Fact?', text: 'YES -> Present + Present (Zero)' },
             { lang: 'en', label: 'Future Possibility?', text: 'YES -> Present + Will (First)' }
@@ -1483,8 +1538,15 @@ export const TOPICS: Topic[] = [
       },
       {
         id: '9-6',
-        type: 'concept',
-        title: 'Timeline',
+        type: 'timeline',
+        title: 'Timeline of Regret',
+        leadText: 'Looking back at a past mistake',
+        visualContext: 'Retrospective View',
+        visualData: [
+            { label: 'PAST MISTAKE', subLabel: 'Action happened', percentage: 20, type: 'range', color: 'red' },
+            { label: 'TIME PASSES', subLabel: 'Consequences', percentage: 50, type: 'range', color: 'orange' },
+            { label: 'NOW', subLabel: 'Regret / Criticism', percentage: 80, type: 'point', color: 'purple' }
+        ],
         bulletPoints: [
             { lang: 'en', label: 'Past Point', text: 'Mistake happens here.' },
             { lang: 'en', label: 'Present Point', text: 'Looking back with regret.' },
@@ -1660,8 +1722,15 @@ export const TOPICS: Topic[] = [
       },
       {
         id: '10-6',
-        type: 'concept',
-        title: 'Visual Shifter',
+        type: 'timeline',
+        title: 'The Tense Backshift',
+        leadText: 'Shifting one step back in time',
+        visualContext: 'Time Shift Mechanism',
+        visualData: [
+            { label: 'DIRECT', subLabel: 'Present Simple', percentage: 20, type: 'start', color: 'blue' },
+            { label: 'BACKSHIFT', subLabel: 'Shift Tense', percentage: 50, type: 'range', color: 'purple' },
+            { label: 'REPORTED', subLabel: 'Past Simple', percentage: 80, type: 'end', color: 'green' }
+        ],
         bulletPoints: [
             { lang: 'en', label: 'Present Simple', text: '-> Past Simple ("I play" -> "He played")' },
             { lang: 'en', label: 'Past Simple', text: '-> Past Perfect ("I arrived" -> "He had arrived")' },
@@ -1836,8 +1905,15 @@ export const TOPICS: Topic[] = [
       },
       {
         id: '11-6',
-        type: 'concept',
-        title: 'Logic Tree',
+        type: 'timeline',
+        title: 'Question Transformation Flow',
+        leadText: 'From Direct to Reported Question',
+        visualContext: 'The Logic Switch',
+        visualData: [
+            { label: 'Q-WORD / IF', subLabel: 'Connector', percentage: 20, type: 'start', color: 'blue' },
+            { label: 'SUBJECT', subLabel: 'Swap Order', percentage: 50, type: 'point', color: 'purple' },
+            { label: 'VERB (PAST)', subLabel: 'Shift Tense', percentage: 80, type: 'end', color: 'green' }
+        ],
         bulletPoints: [
             { lang: 'en', label: 'Wh- Question?', text: 'YES -> Keep word. NO -> Add If/Whether.' },
             { lang: 'en', label: 'Action', text: 'Swap Subject/Verb. Backshift Tense. Remove do/did.' }

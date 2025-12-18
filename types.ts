@@ -1,4 +1,12 @@
-export type SlideType = 'intro' | 'concept' | 'quiz' | 'test' | 'gap-fill' | 'speaking' | 'reading';
+export type SlideType = 'intro' | 'concept' | 'quiz' | 'test' | 'gap-fill' | 'speaking' | 'reading' | 'timeline';
+
+export interface VisualPoint {
+  label: string;
+  subLabel?: string;
+  percentage: number; // 0 to 100
+  type: 'point' | 'range' | 'star' | 'start' | 'end'; // Visual style
+  color?: 'blue' | 'green' | 'red' | 'purple' | 'orange';
+}
 
 export interface SlideContent {
   id: string;
@@ -7,6 +15,8 @@ export interface SlideContent {
   
   // Visuals
   imageUrl?: string;
+  visualData?: VisualPoint[]; // For timeline slides
+  visualContext?: string; // Helper text for the timeline
   
   // Text Content
   leadText?: string;

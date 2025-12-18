@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { SlideContent } from '../types';
 import { Card, Button, Badge } from './UI';
+import { Timeline3D } from './Timeline3D';
 import { Mic, CheckCircle, XCircle, HelpCircle, Send, ChevronRight, Volume2 } from 'lucide-react';
 import { askTutor, checkAudio } from '../services/geminiService';
 
@@ -167,6 +168,31 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({ slide, onNext, isL
               ))}
             </div>
             {slide.question && <p className="text-surgical-700 font-bold italic mt-4 text-lg bg-surgical-100/50 p-4 rounded-xl border border-surgical-200">{renderMarkdown(slide.question)}</p>}
+          </div>
+        );
+
+      case 'timeline':
+        return (
+          <div className="space-y-8">
+            <div className="text-center mb-6">
+               <p className="text-xl text-slate-700 font-medium">{renderMarkdown(slide.leadText)}</p>
+            </div>
+            {slide.visualData && (
+              <div className="py-8">
+                <Timeline3D points={slide.visualData} context={slide.visualContext} />
+              </div>
+            )}
+            <div className="grid gap-4 mt-8">
+               {slide.bulletPoints?.map((bp, idx) => (
+                 <div key={idx} className="flex items-start gap-4 p-4 bg-white/40 rounded-xl border border-white">
+                    <div className="w-2 h-2 rounded-full bg-surgical-500 mt-2.5 shrink-0" />
+                    <div>
+                      <span className="font-bold text-surgical-700 uppercase text-xs tracking-wider block mb-1">{bp.label}</span>
+                      <p className="text-slate-700">{renderMarkdown(bp.text)}</p>
+                    </div>
+                 </div>
+               ))}
+            </div>
           </div>
         );
 
