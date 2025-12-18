@@ -2,8 +2,8 @@ import React, { useState, useRef, useEffect } from 'react';
 import { SlideContent } from '../types';
 import { Card, Button, Badge } from './UI';
 import { Timeline3D } from './Timeline3D';
-import { Mic, CheckCircle, XCircle, HelpCircle, Send, ChevronRight, Volume2 } from 'lucide-react';
-import { askTutor, checkAudio } from '../services/geminiService';
+import { Mic, CheckCircle, XCircle, ChevronRight, Volume2 } from 'lucide-react';
+import { checkAudio } from '../services/geminiService';
 
 interface SlideRendererProps {
   slide: SlideContent;
@@ -25,12 +25,6 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({ slide, onNext, isL
   
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const streamRef = useRef<MediaStream | null>(null);
-
-  // AI Tutor State
-  const [showTutor, setShowTutor] = useState(false);
-  const [tutorQuery, setTutorQuery] = useState('');
-  const [tutorResponse, setTutorResponse] = useState('');
-  const [tutorLoading, setTutorLoading] = useState(false);
 
   // Cleanup effect for audio resources
   useEffect(() => {
@@ -118,19 +112,6 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({ slide, onNext, isL
     const response = await checkAudio(audioBlob, prompt);
     setAiAnalysis(response);
     setAnalyzing(false);
-  };
-
-  const handleTutorAsk = async () => {
-    if (!tutorQuery) return;
-    setTutorLoading(true);
-    const context = JSON.stringify({
-        title: slide.title,
-        type: slide.type,
-        content: slide.leadText || slide.question || slide.passage
-    });
-    const response = await askTutor(context, tutorQuery);
-    setTutorResponse(response);
-    setTutorLoading(false);
   };
 
   const renderMarkdown = (text?: string) => {
@@ -312,7 +293,7 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({ slide, onNext, isL
                         {analyzing ? (
                           <span className="flex items-center gap-2"><div className="w-4 h-4 border-2 border-surgical-500 border-t-transparent rounded-full animate-spin"/> Analyzing...</span>
                         ) : (
-                          <span className="flex items-center gap-2"><Volume2 className="w-5 h-5"/> Analyze with AI Tutor</span>
+                          <span className="flex items-center gap-2"><Volume2 className="w-5 h-5"/> Analyze Recording</span>
                         )}
                      </Button>
                    </div>
@@ -321,7 +302,7 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({ slide, onNext, isL
                  {aiAnalysis && (
                    <div className="w-full p-8 bg-[#e0e5ec] rounded-3xl shadow-[inset_5px_5px_10px_#a3b1c6,inset_-5px_-5px_10px_#ffffff] text-left animate-fade-in border border-white/50">
                      <h4 className="font-bold text-surgical-700 mb-4 flex items-center gap-2 text-lg">
-                       <CheckCircle className="w-6 h-6" /> Tutor Analysis
+                       <CheckCircle className="w-6 h-6" /> Feedback
                      </h4>
                      <div className="whitespace-pre-wrap text-slate-700 leading-relaxed font-medium">{renderMarkdown(aiAnalysis)}</div>
                    </div>
@@ -338,15 +319,6 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({ slide, onNext, isL
 
   return (
     <div className="max-w-4xl mx-auto w-full relative perspective-1000">
-       {/* AI Tutor Toggle */}
-      <button 
-        onClick={() => setShowTutor(!showTutor)}
-        className="absolute -top-16 right-0 z-10 flex items-center gap-2 text-surgical-600 hover:text-surgical-800 font-bold bg-[#e0e5ec] px-6 py-3 rounded-full shadow-[5px_5px_10px_#a3b1c6,-5px_-5px_10px_#ffffff] transition-all hover:translate-y-[-2px] active:shadow-[inset_3px_3px_6px_#a3b1c6,inset_-3px_-3px_6px_#ffffff]"
-      >
-        <HelpCircle className="w-5 h-5" />
-        {showTutor ? 'Close' : 'AI Tutor'}
-      </button>
-
       {/* Main Slide Card */}
       <Card className="min-h-[650px] flex flex-col justify-between animate-fade-in-up">
         <div>
@@ -369,47 +341,6 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({ slide, onNext, isL
           </Button>
         </div>
       </Card>
-
-      {/* AI Tutor Panel Overlay */}
-      {showTutor && (
-        <div className="absolute top-0 right-0 w-full md:w-[450px] h-full bg-white/90 backdrop-blur-xl rounded-3xl p-6 z-20 shadow-2xl flex flex-col animate-fade-in border border-white/50">
-           <div className="flex justify-between items-center mb-6">
-             <h3 className="text-2xl font-bold text-surgical-700 drop-shadow-sm">AI Surgical Tutor</h3>
-             <button onClick={() => setShowTutor(false)} className="p-2 bg-red-100 rounded-full text-red-500 hover:bg-red-200 transition-colors"><XCircle className="w-6 h-6" /></button>
-           </div>
-           
-           <div className="flex-1 overflow-y-auto bg-[#f0f4f8] rounded-2xl p-5 mb-4 shadow-inner border border-white">
-             {tutorResponse ? (
-               <div className="prose prose-sm prose-slate font-medium">
-                 {renderMarkdown(tutorResponse)}
-               </div>
-             ) : (
-               <div className="flex flex-col items-center justify-center h-full text-slate-400">
-                 <HelpCircle className="w-12 h-12 mb-2 opacity-50" />
-                 <p>Ask me to clarify the concept!</p>
-               </div>
-             )}
-           </div>
-
-           <div className="flex gap-3">
-             <input 
-               type="text" 
-               className="flex-1 art-3d-input bg-white"
-               placeholder="Why is answer B correct?"
-               value={tutorQuery}
-               onChange={(e) => setTutorQuery(e.target.value)}
-               onKeyDown={(e) => e.key === 'Enter' && handleTutorAsk()}
-             />
-             <button 
-               onClick={handleTutorAsk} 
-               disabled={tutorLoading} 
-               className="w-12 h-12 bg-surgical-500 text-white rounded-xl shadow-[5px_5px_10px_#cbd5e1] flex items-center justify-center active:scale-95 transition-transform"
-             >
-               <Send className="w-5 h-5" />
-             </button>
-           </div>
-        </div>
-      )}
     </div>
   );
 };

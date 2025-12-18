@@ -8,22 +8,6 @@ const getAIClient = () => {
   return new GoogleGenAI({ apiKey: process.env.API_KEY });
 };
 
-export const askTutor = async (context: string, question: string): Promise<string> => {
-  const ai = getAIClient();
-  if (!ai) return "AI services are currently unavailable. Please check your configuration.";
-
-  try {
-    const response = await ai.models.generateContent({
-      model: 'gemini-3-flash-preview',
-      contents: `Context of the lesson slide: ${context}\n\nStudent Question: ${question}\n\nProvide a helpful, encouraging, and concise answer suitable for a language learner. Use the "Surgical" persona: precise, clear, and professional.`,
-    });
-    return response.text || "I couldn't generate a response. Please try again.";
-  } catch (error) {
-    console.error("Gemini Error:", error);
-    return "An error occurred while contacting the AI tutor.";
-  }
-};
-
 export const checkAudio = async (audioBlob: Blob, prompt: string): Promise<string> => {
   const ai = getAIClient();
   if (!ai) return "AI services unavailable.";
@@ -46,7 +30,7 @@ export const checkAudio = async (audioBlob: Blob, prompt: string): Promise<strin
     const base64Audio = await base64Promise;
 
     const response = await ai.models.generateContent({
-        model: 'gemini-2.5-flash-native-audio-preview-09-2025',
+        model: 'gemini-flash-latest',
         contents: {
             parts: [
                 {
