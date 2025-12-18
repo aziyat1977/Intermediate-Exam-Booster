@@ -1,0 +1,7 @@
+{
+  "name": "Intermediate Exam Booster",
+  "description": "A high-precision, 3D-styled linguistic learning platform focusing on Present Perfect and Modals.",
+  "requestFramePermissions": [
+    "microphone"
+  ]
+}
