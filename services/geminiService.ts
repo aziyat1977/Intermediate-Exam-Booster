@@ -30,7 +30,7 @@ export const checkAudio = async (audioBlob: Blob, prompt: string): Promise<strin
     const base64Audio = await base64Promise;
 
     const response = await ai.models.generateContent({
-        model: 'gemini-flash-latest',
+        model: 'gemini-3-flash-preview',
         contents: {
             parts: [
                 {

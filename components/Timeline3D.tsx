@@ -10,8 +10,7 @@ export const Timeline3D: React.FC<Timeline3DProps> = ({ points, context }) => {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    // Slight delay to let the layout settle before triggering the sequence
-    const timer = setTimeout(() => setIsVisible(true), 300);
+    const timer = setTimeout(() => setIsVisible(true), 100);
     return () => clearTimeout(timer);
   }, []);
 
@@ -19,107 +18,127 @@ export const Timeline3D: React.FC<Timeline3DProps> = ({ points, context }) => {
     switch (color) {
       case 'green': return { 
         blade: 'bg-emerald-500', 
-        glow: 'shadow-[0_0_20px_rgba(16,185,129,0.8)]', 
-        text: 'text-emerald-900',
-        bgCard: 'bg-emerald-50',
-        border: 'border-emerald-500',
-        arrow: 'border-t-emerald-500'
+        glow: 'shadow-[0_0_30px_rgba(16,185,129,1)]', 
+        text: 'text-emerald-400',
+        bgCard: 'bg-emerald-900/90',
+        border: 'border-emerald-400',
+        arrow: 'border-t-emerald-400',
+        laser: 'bg-emerald-300'
       };
       case 'red': return { 
-        blade: 'bg-rose-500', 
-        glow: 'shadow-[0_0_20px_rgba(244,63,94,0.8)]', 
-        text: 'text-rose-900',
-        bgCard: 'bg-rose-50',
+        blade: 'bg-rose-600', 
+        glow: 'shadow-[0_0_30px_rgba(225,29,72,1)]', 
+        text: 'text-rose-400',
+        bgCard: 'bg-rose-900/90',
         border: 'border-rose-500',
-        arrow: 'border-t-rose-500'
+        arrow: 'border-t-rose-500',
+        laser: 'bg-rose-300'
       };
       case 'purple': return { 
-        blade: 'bg-violet-500', 
-        glow: 'shadow-[0_0_20px_rgba(139,92,246,0.8)]', 
-        text: 'text-violet-900',
-        bgCard: 'bg-violet-50',
+        blade: 'bg-violet-600', 
+        glow: 'shadow-[0_0_30px_rgba(124,58,237,1)]', 
+        text: 'text-violet-400',
+        bgCard: 'bg-violet-900/90',
         border: 'border-violet-500',
-        arrow: 'border-t-violet-500'
+        arrow: 'border-t-violet-500',
+        laser: 'bg-violet-300'
       };
       case 'orange': return { 
         blade: 'bg-amber-500', 
-        glow: 'shadow-[0_0_20px_rgba(245,158,11,0.8)]', 
-        text: 'text-amber-900',
-        bgCard: 'bg-amber-50',
+        glow: 'shadow-[0_0_30px_rgba(245,158,11,1)]', 
+        text: 'text-amber-400',
+        bgCard: 'bg-amber-900/90',
         border: 'border-amber-500',
-        arrow: 'border-t-amber-500'
+        arrow: 'border-t-amber-500',
+        laser: 'bg-amber-300'
       };
       default: return { 
         blade: 'bg-sky-500', 
-        glow: 'shadow-[0_0_20px_rgba(14,165,233,0.8)]', 
-        text: 'text-sky-900',
-        bgCard: 'bg-sky-50',
+        glow: 'shadow-[0_0_30px_rgba(14,165,233,1)]', 
+        text: 'text-sky-400',
+        bgCard: 'bg-sky-900/90',
         border: 'border-sky-500',
-        arrow: 'border-t-sky-500'
+        arrow: 'border-t-sky-500',
+        laser: 'bg-sky-300'
       };
     }
   };
 
   const getPosition = (percentage: number) => {
-    // Keep elements within readable bounds
     return Math.max(8, Math.min(92, percentage));
   };
 
   return (
-    <div className="w-full py-16 px-2 relative min-h-[320px] flex flex-col justify-center perspective-1000 overflow-hidden">
+    <div className="w-full py-20 px-2 relative min-h-[350px] flex flex-col justify-center perspective-1000 overflow-hidden">
       
       <style>{`
         @keyframes bladeInsert {
-          0% { transform: translateY(-100px) scaleY(0); opacity: 0; }
-          60% { transform: translateY(10px) scaleY(1.1); opacity: 1; }
+          0% { transform: translateY(-200px) scaleY(2); opacity: 0; filter: blur(10px); }
+          50% { transform: translateY(20px) scaleY(0.8); opacity: 1; filter: blur(0); }
           100% { transform: translateY(0) scaleY(1); opacity: 1; }
         }
         
         @keyframes hudPop {
-          0% { transform: scale(0.5) translateY(10px); opacity: 0; }
-          80% { transform: scale(1.05) translateY(-2px); opacity: 1; }
-          100% { transform: scale(1) translateY(0); opacity: 1; }
+          0% { transform: scale(0) rotateX(90deg); opacity: 0; }
+          70% { transform: scale(1.2) rotateX(-20deg); opacity: 1; }
+          100% { transform: scale(1) rotateX(0deg); opacity: 1; }
         }
 
         @keyframes streamData {
           0% { background-position: 0 0; }
-          100% { background-position: 50px 0; }
+          100% { background-position: 200px 0; }
         }
 
         @keyframes photonRun {
-          0% { left: -10%; opacity: 0; }
-          10% { opacity: 1; }
-          90% { opacity: 1; }
-          100% { left: 110%; opacity: 0; }
+          0% { left: -20%; width: 5%; opacity: 0; }
+          20% { width: 30%; opacity: 1; }
+          80% { width: 30%; opacity: 1; }
+          100% { left: 120%; width: 5%; opacity: 0; }
+        }
+
+        @keyframes laserScan {
+          0%, 100% { opacity: 0.2; height: 100%; top: 0; }
+          50% { opacity: 0.8; height: 120%; top: -10%; box-shadow: 0 0 20px currentColor; }
+        }
+
+        @keyframes pulseRing {
+          0% { transform: scale(1); opacity: 0.8; box-shadow: 0 0 0 0 rgba(255,255,255, 0.7); }
+          70% { transform: scale(2); opacity: 0; box-shadow: 0 0 0 20px rgba(255,255,255, 0); }
+          100% { transform: scale(1); opacity: 0; }
+        }
+        
+        .gta-text-shadow {
+          text-shadow: 0 0 5px rgba(255,255,255,0.5), 0 0 10px currentColor;
         }
       `}</style>
 
-      {/* Context Title - Floating Background */}
+      {/* Context Title - Floating Background with Holographic effect */}
       {context && (
-        <div className={`absolute top-0 left-0 right-0 text-center transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-5'}`}>
-          <h3 className="text-3xl md:text-5xl font-black text-slate-300/30 uppercase tracking-[0.2em] select-none">
+        <div className={`absolute top-4 left-0 right-0 text-center transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 -translate-y-10 scale-150'}`}>
+          <h3 className="text-4xl md:text-6xl font-black text-slate-400/10 uppercase tracking-[0.3em] select-none blur-[1px] transform skew-x-12">
             {context}
           </h3>
         </div>
       )}
 
       {/* Main Track Container */}
-      <div className="relative w-full h-12 md:h-16 flex items-center z-10">
+      <div className="relative w-full h-16 flex items-center z-10">
         
-        {/* The Rail */}
-        <div className="absolute left-0 right-0 h-3 bg-slate-800 rounded-full overflow-hidden shadow-2xl">
+        {/* The Rail - High Tech Tube */}
+        <div className="absolute left-0 right-0 h-4 bg-slate-900 rounded-full overflow-hidden shadow-[0_0_30px_rgba(0,0,0,0.8)] border border-slate-700/50">
            
-           {/* Moving Data Pattern Background (Stripes) */}
-           <div className="absolute inset-0 opacity-30" 
+           {/* Moving Data Pattern Background (High Speed) */}
+           <div className="absolute inset-0 opacity-40" 
                 style={{ 
-                  backgroundImage: 'repeating-linear-gradient(90deg, transparent 0, transparent 10px, rgba(255,255,255,0.2) 10px, rgba(255,255,255,0.2) 20px)',
-                  animation: 'streamData 1s linear infinite'
+                  backgroundImage: 'repeating-linear-gradient(90deg, transparent 0, transparent 4px, rgba(255,255,255,0.8) 4px, rgba(255,255,255,0.8) 8px)',
+                  animation: 'streamData 0.5s linear infinite',
+                  backgroundSize: '200px 100%'
                 }}>
            </div>
 
-           {/* The Photon Runner (Real Movement - White Hot Pulse) */}
-           <div className={`absolute top-0 bottom-0 w-40 bg-gradient-to-r from-transparent via-white to-transparent mix-blend-overlay ${isVisible ? '' : 'hidden'}`}
-                style={{ animation: 'photonRun 2.5s cubic-bezier(0.4, 0, 0.2, 1) infinite' }}>
+           {/* The Photon Runner (Super Bright Pulse) */}
+           <div className={`absolute top-0 bottom-0 bg-white mix-blend-overlay blur-md ${isVisible ? '' : 'hidden'}`}
+                style={{ animation: 'photonRun 1.5s cubic-bezier(0.4, 0, 0.2, 1) infinite' }}>
            </div>
         </div>
 
@@ -127,64 +146,70 @@ export const Timeline3D: React.FC<Timeline3DProps> = ({ points, context }) => {
         {points.map((point, index) => {
           const theme = getColorTheme(point.color);
           const leftPos = getPosition(point.percentage);
-          const delay = index * 300; // Fast stagger
+          const delay = index * 200;
 
           return (
             <div 
               key={index}
-              className="absolute top-0 bottom-0 w-1 flex flex-col items-center justify-center z-20"
+              className="absolute top-0 bottom-0 w-2 flex flex-col items-center justify-center z-20"
               style={{ left: `${leftPos}%` }}
             >
               
-              {/* THE BLADE (Vertical Laser Cut) */}
+              {/* THE BLADE (Laser Beam) */}
               <div 
-                className={`w-1 md:w-1.5 h-40 ${theme.blade} ${theme.glow} rounded-full`}
+                className={`w-1.5 md:w-2 h-64 ${theme.blade} ${theme.glow} rounded-full relative overflow-hidden`}
                 style={{ 
                   animation: isVisible ? `bladeInsert 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards` : 'none',
                   animationDelay: `${delay}ms`,
                   opacity: 0,
                   transformOrigin: 'top'
                 }}
-              ></div>
+              >
+                {/* Internal Laser Scanner */}
+                <div className={`absolute left-0 right-0 h-full bg-white/50 animate-pulse`} style={{ animationDuration: '0.2s' }}></div>
+              </div>
 
-              {/* HUD CARD (Top Label) - MASSIVE CLARITY */}
+              {/* HUD CARD (Top Label) - 3D Floating Plate */}
               <div 
-                className={`absolute -top-20 min-w-[140px] p-4 rounded-xl border-2 ${theme.border} ${theme.bgCard} shadow-xl text-center transform origin-bottom z-50`}
+                className={`absolute -top-28 min-w-[160px] p-4 rounded-lg border-2 ${theme.border} ${theme.bgCard} shadow-[0_0_40px_rgba(0,0,0,0.5)] text-center transform-gpu z-50 backdrop-blur-md`}
                 style={{ 
-                  animation: isVisible ? `hudPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards` : 'none',
-                  animationDelay: `${delay + 300}ms`,
+                  animation: isVisible ? `hudPop 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards` : 'none',
+                  animationDelay: `${delay + 200}ms`,
                   opacity: 0
                 }}
               >
-                <div className={`text-2xl md:text-3xl font-black ${theme.text} leading-none tracking-tight mb-1`}>{point.label}</div>
+                <div className={`text-2xl md:text-4xl font-black ${theme.text} leading-none tracking-tighter mb-1 gta-text-shadow`}>{point.label}</div>
+                {/* Tech Deco Lines */}
+                <div className="w-full h-[2px] bg-white/20 mb-2"></div>
                 
                 {/* Connector Arrow */}
-                <div className={`w-0 h-0 border-l-[10px] border-l-transparent border-r-[10px] border-r-transparent border-t-[10px] ${theme.arrow} absolute -bottom-[12px] left-1/2 -translate-x-1/2 filter drop-shadow-sm`}></div>
+                <div className={`w-0 h-0 border-l-[12px] border-l-transparent border-r-[12px] border-r-transparent border-t-[12px] ${theme.arrow} absolute -bottom-[14px] left-1/2 -translate-x-1/2 filter drop-shadow-[0_5px_5px_rgba(0,0,0,0.5)]`}></div>
               </div>
 
-              {/* SUB LABEL (Bottom Example) - EXPLICIT ON TIMELINE */}
+              {/* SUB LABEL (Bottom) - Floating Chip */}
               {point.subLabel && (
                 <div 
-                  className={`absolute top-5 mt-16 min-w-[120px] bg-white px-3 py-2 rounded-lg border border-slate-200 shadow-[0_5px_10px_rgba(0,0,0,0.1)] text-center`}
+                  className={`absolute top-8 mt-24 min-w-[140px] ${theme.bgCard} px-4 py-2 rounded border ${theme.border} shadow-[0_10px_20px_rgba(0,0,0,0.5)] text-center`}
                   style={{ 
-                     animation: isVisible ? `hudPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards` : 'none',
-                     animationDelay: `${delay + 500}ms`,
+                     animation: isVisible ? `hudPop 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards` : 'none',
+                     animationDelay: `${delay + 400}ms`,
                      opacity: 0
                   }}
                 >
-                  <span className="text-slate-600 font-bold text-sm leading-tight block">{point.subLabel}</span>
+                  <span className={`font-bold text-sm leading-tight block ${theme.text} uppercase tracking-widest`}>{point.subLabel}</span>
                 </div>
               )}
 
               {/* Glowing Junction Point (Where Blade meets Rail) */}
               <div 
-                className={`absolute w-4 h-4 rounded-full bg-white border-2 ${theme.border} shadow-[0_0_10px_white] z-30`}
+                className={`absolute w-6 h-6 rounded-full bg-white border-4 ${theme.border} shadow-[0_0_20px_white] z-30`}
                 style={{
-                    animation: isVisible ? `hudPop 0.3s ease-out forwards` : 'none',
+                    animation: isVisible ? `pulseRing 2s infinite` : 'none',
                     animationDelay: `${delay + 200}ms`,
-                    opacity: 0
+                    opacity: 1 // Keep visible
                 }}
               ></div>
+              <div className={`absolute w-4 h-4 rounded-full bg-white z-40`}></div>
 
             </div>
           );

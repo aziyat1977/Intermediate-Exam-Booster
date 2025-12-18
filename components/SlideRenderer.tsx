@@ -7,9 +7,10 @@ import { checkAudio } from '../services/geminiService';
 
 interface SlideRendererProps {
   slide: SlideContent;
+  theme?: 'default' | 'gta';
 }
 
-export const SlideRenderer: React.FC<SlideRendererProps> = ({ slide }) => {
+export const SlideRenderer: React.FC<SlideRendererProps> = ({ slide, theme }) => {
   const [selectedOption, setSelectedOption] = useState<number | null>(null);
   const [feedback, setFeedback] = useState<string | null>(null);
   const [gapText, setGapText] = useState('');
@@ -27,6 +28,9 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({ slide }) => {
 
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const streamRef = useRef<MediaStream | null>(null);
+
+  // Theme check
+  const isGTA = theme === 'gta';
 
   // Reset state on slide change
   useEffect(() => {
@@ -167,27 +171,28 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({ slide }) => {
         return (
           <div className="flex flex-col h-full gap-4">
              {/* Top Section: Visual or Lead Text */}
-             <div className="flex-shrink-0 flex gap-4 items-start">
+             {/* In GTA Mode, we make the image wider and more prominent if available */}
+             <div className={`flex-shrink-0 flex gap-4 items-start ${isGTA ? 'flex-col md:flex-row' : ''}`}>
                 {slide.imageUrl && (
-                  <div className="rounded-xl overflow-hidden shadow-lg border-2 border-[#e0e5ec] w-1/3 max-w-[180px] hidden md:block">
+                  <div className={`rounded-xl overflow-hidden shadow-lg border-2 border-[#e0e5ec] ${isGTA ? 'w-full md:w-1/2 max-h-[250px]' : 'w-1/3 max-w-[180px] hidden md:block'}`}>
                     <img src={slide.imageUrl} alt="Visual" className="w-full h-full object-cover" />
                   </div>
                 )}
-                <div className="flex-1">
-                   {slide.leadText && <p className="text-xl md:text-2xl text-slate-700 font-medium leading-relaxed">{renderMarkdown(slide.leadText)}</p>}
+                <div className="flex-1 w-full">
+                   {slide.leadText && <p className={`text-xl font-medium leading-relaxed ${isGTA ? 'text-2xl text-slate-200' : 'md:text-2xl text-slate-700'}`}>{renderMarkdown(slide.leadText)}</p>}
                    <LanguageToggles className="mt-3" />
                 </div>
              </div>
 
-             {/* Main Content Area - Scrollable if strictly needed, but designed to fit */}
+             {/* Main Content Area */}
              <div className="flex-1 overflow-y-auto min-h-0 pr-2 space-y-3">
                 {enPoints.map((bp, idx) => (
-                  <div key={`en-${idx}`} className="bg-[#e0e5ec] p-4 rounded-xl shadow-[inset_2px_2px_5px_#a3b1c6,inset_-2px_-2px_5px_#ffffff] border border-white/50">
+                  <div key={`en-${idx}`} className={`${isGTA ? 'bg-slate-800 border-slate-700' : 'bg-[#e0e5ec] border-white/50'} p-4 rounded-xl shadow-[inset_2px_2px_5px_rgba(0,0,0,0.1)] border`}>
                     <div className="flex items-center gap-2 mb-1">
                       <Badge color='bg-surgical-500 text-white shadow-sm'>EN</Badge>
                       <span className="font-bold text-slate-400 uppercase text-[10px] tracking-widest">{bp.label}</span>
                     </div>
-                    <p className="text-lg text-slate-800 font-medium leading-snug">{renderMarkdown(bp.text)}</p>
+                    <p className={`text-lg font-medium leading-snug ${isGTA ? 'text-slate-200' : 'text-slate-800'}`}>{renderMarkdown(bp.text)}</p>
                   </div>
                 ))}
                 
@@ -213,8 +218,8 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({ slide }) => {
              </div>
 
              {slide.question && (
-               <div className="bg-surgical-50 p-4 rounded-xl border border-surgical-200 shadow-sm shrink-0">
-                  <p className="text-surgical-800 font-bold italic text-lg">{renderMarkdown(slide.question)}</p>
+               <div className={`${isGTA ? 'bg-green-900/30 border-green-500/50' : 'bg-surgical-50 border-surgical-200'} p-4 rounded-xl border shadow-sm shrink-0`}>
+                  <p className={`${isGTA ? 'text-green-400' : 'text-surgical-800'} font-bold italic text-lg`}>{renderMarkdown(slide.question)}</p>
                </div>
              )}
           </div>
@@ -224,7 +229,7 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({ slide }) => {
         return (
           <div className="flex flex-col h-full">
             <div className="text-center mb-2 shrink-0">
-               <p className="text-xl text-slate-700 font-medium">{renderMarkdown(slide.leadText)}</p>
+               <p className={`text-xl font-medium ${isGTA ? 'text-slate-300' : 'text-slate-700'}`}>{renderMarkdown(slide.leadText)}</p>
             </div>
             
             {/* Timeline Visual - Fixed Height */}
@@ -239,11 +244,11 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({ slide }) => {
             {/* Scrollable Points */}
             <div className="flex-1 overflow-y-auto min-h-0 space-y-2 pr-2">
                {enPoints.map((bp, idx) => (
-                 <div key={`en-${idx}`} className="flex items-start gap-3 p-3 bg-white/40 rounded-xl border border-white shadow-sm">
+                 <div key={`en-${idx}`} className={`flex items-start gap-3 p-3 rounded-xl border shadow-sm ${isGTA ? 'bg-slate-800 border-slate-600' : 'bg-white/40 border-white'}`}>
                     <div className="w-1.5 h-1.5 rounded-full bg-surgical-500 mt-2 shrink-0" />
                     <div>
                       <span className="font-bold text-surgical-700 uppercase text-[10px] tracking-wider block mb-0.5">{bp.label}</span>
-                      <p className="text-slate-800 font-medium">{renderMarkdown(bp.text)}</p>
+                      <p className={`font-medium ${isGTA ? 'text-slate-300' : 'text-slate-800'}`}>{renderMarkdown(bp.text)}</p>
                     </div>
                  </div>
                ))}
@@ -268,21 +273,28 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({ slide }) => {
       case 'reading':
         return (
           <div className="flex flex-col h-full gap-4">
+            {/* Visual for GTA */}
+            {isGTA && slide.imageUrl && (
+                <div className="w-full h-32 rounded-xl overflow-hidden shrink-0 border border-green-500/30">
+                    <img src={slide.imageUrl} className="w-full h-full object-cover opacity-80 hover:opacity-100 transition-opacity"/>
+                </div>
+            )}
+
             {/* Passage Container */}
             {slide.passage && (
-              <div className="bg-[#e0e5ec] p-5 rounded-2xl shadow-[inset_3px_3px_6px_#a3b1c6,inset_-3px_-3px_6px_#ffffff] border border-white/50 shrink-0 max-h-[30vh] overflow-y-auto">
-                 <p className="italic text-slate-700 leading-relaxed text-lg font-serif">{renderMarkdown(slide.passage)}</p>
+              <div className={`${isGTA ? 'bg-slate-800 border-slate-600 text-slate-300' : 'bg-[#e0e5ec] border-white/50 text-slate-700'} p-5 rounded-2xl shadow-inner border shrink-0 max-h-[25vh] overflow-y-auto`}>
+                 <p className="italic leading-relaxed text-lg font-serif">{renderMarkdown(slide.passage)}</p>
               </div>
             )}
             
-            <h3 className="text-2xl font-bold text-slate-800 leading-tight shrink-0">{renderMarkdown(slide.question)}</h3>
+            <h3 className={`text-2xl font-bold leading-tight shrink-0 ${isGTA ? 'text-slate-100' : 'text-slate-800'}`}>{renderMarkdown(slide.question)}</h3>
             
             {/* Options Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3 flex-shrink-0">
               {slide.options?.map((opt, idx) => {
                 const isSelected = selectedOption === idx;
                 const isCorrect = idx === slide.correctAnswer;
-                let statusClass = "art-3d-btn-secondary bg-[#e0e5ec]";
+                let statusClass = isGTA ? "bg-slate-800 text-slate-300 border-slate-600 hover:bg-slate-700" : "art-3d-btn-secondary bg-[#e0e5ec]";
                 
                 if (isSelected) {
                   statusClass = isCorrect 
@@ -294,7 +306,7 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({ slide }) => {
                   <button
                     key={idx}
                     onClick={() => handleQuizSubmit(idx)}
-                    className={`p-4 text-left font-bold text-lg transition-all ${statusClass} rounded-xl flex items-center justify-between group active:scale-98`}
+                    className={`p-4 text-left font-bold text-lg transition-all ${statusClass} rounded-xl flex items-center justify-between group active:scale-98 border`}
                   >
                     <span>{opt}</span>
                     {isSelected && (
@@ -325,8 +337,8 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({ slide }) => {
       case 'gap-fill':
         return (
           <div className="flex flex-col h-full justify-center gap-8">
-            <div className="bg-[#e0e5ec] p-8 rounded-3xl shadow-[8px_8px_16px_#a3b1c6,-8px_-8px_16px_#ffffff] border border-white/50">
-              <p className="text-2xl text-slate-800 leading-loose font-medium text-center">
+            <div className={`${isGTA ? 'bg-slate-800 border-slate-600' : 'bg-[#e0e5ec] border-white/50'} p-8 rounded-3xl shadow-lg border`}>
+              <p className={`text-2xl leading-loose font-medium text-center ${isGTA ? 'text-slate-200' : 'text-slate-800'}`}>
                 {slide.leadText?.split('__________').map((part, i, arr) => (
                   <React.Fragment key={i}>
                     {part}
@@ -335,7 +347,7 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({ slide }) => {
                         type="text"
                         value={gapText}
                         onChange={(e) => setGapText(e.target.value)}
-                        className="mx-2 w-48 art-3d-input text-center font-bold text-surgical-600 text-xl focus:scale-105 transition-transform"
+                        className={`mx-2 w-48 art-3d-input text-center font-bold text-xl focus:scale-105 transition-transform ${isGTA ? 'text-green-400 bg-slate-900 shadow-inner' : 'text-surgical-600'}`}
                         placeholder="..."
                         autoFocus
                       />
@@ -364,11 +376,11 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({ slide }) => {
           <div className="flex flex-col h-full justify-between">
             <div className="art-glass-panel p-6 flex-1 flex flex-col">
                <div className="shrink-0 mb-4">
-                 <p className="text-xl text-slate-700 font-bold mb-4">{slide.leadText}</p>
-                 <div className="bg-white/50 p-4 rounded-xl border border-white/60">
+                 <p className={`text-xl font-bold mb-4 ${isGTA ? 'text-slate-200' : 'text-slate-700'}`}>{slide.leadText}</p>
+                 <div className={`${isGTA ? 'bg-slate-800 border-slate-600' : 'bg-white/50 border-white/60'} p-4 rounded-xl border`}>
                     <ul className="space-y-3">
                       {slide.speakingPrompts?.map((prompt, i) => (
-                        <li key={i} className="flex items-start gap-3 text-slate-800 font-medium text-lg">
+                        <li key={i} className={`flex items-start gap-3 font-medium text-lg ${isGTA ? 'text-slate-300' : 'text-slate-800'}`}>
                           <span className="bg-surgical-500 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs flex-shrink-0 mt-0.5">{i + 1}</span>
                           {renderMarkdown(prompt)}
                         </li>
@@ -388,7 +400,7 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({ slide }) => {
                  
                  <div className="w-full max-w-md space-y-3">
                    {audioUrl && (
-                     <div className="animate-fade-in bg-white/50 p-3 rounded-xl border border-white flex items-center gap-3 shadow-sm">
+                     <div className={`${isGTA ? 'bg-slate-800 border-slate-600' : 'bg-white/50 border-white'} animate-fade-in p-3 rounded-xl border flex items-center gap-3 shadow-sm`}>
                        <audio controls src={audioUrl} className="flex-1 h-8" />
                        <Button onClick={analyzeAudio} disabled={analyzing} className="!py-1.5 !px-3 !text-xs whitespace-nowrap" variant="secondary">
                           {analyzing ? 'Thinking...' : 'Analyze'}
@@ -397,8 +409,8 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({ slide }) => {
                    )}
 
                    {aiAnalysis && (
-                     <div className="bg-[#e0e5ec] p-4 rounded-xl shadow-[inset_2px_2px_5px_#a3b1c6,inset_-2px_-2px_5px_#ffffff] max-h-[150px] overflow-y-auto border border-white/50">
-                       <p className="text-slate-700 text-sm font-medium whitespace-pre-wrap">{renderMarkdown(aiAnalysis)}</p>
+                     <div className={`${isGTA ? 'bg-slate-800 border-slate-600 text-slate-300' : 'bg-[#e0e5ec] border-white/50 text-slate-700'} p-4 rounded-xl shadow-inner max-h-[150px] overflow-y-auto border`}>
+                       <p className="text-sm font-medium whitespace-pre-wrap">{renderMarkdown(aiAnalysis)}</p>
                      </div>
                    )}
                  </div>
@@ -415,12 +427,12 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({ slide }) => {
   return (
     <Card className="h-full flex flex-col p-0 overflow-hidden !bg-transparent !shadow-none !border-none">
       <div className="flex items-center gap-3 mb-2 shrink-0 px-1">
-        <Badge color="bg-slate-200 text-slate-600 border border-slate-300 shadow-sm">{slide.type.toUpperCase()}</Badge>
-        <h2 className="text-3xl font-black text-slate-800 tracking-tight leading-none">{renderMarkdown(slide.title)}</h2>
+        <Badge color={isGTA ? "bg-green-900 text-green-400 border border-green-500" : "bg-slate-200 text-slate-600 border border-slate-300 shadow-sm"}>{slide.type.toUpperCase()}</Badge>
+        <h2 className={`text-3xl font-black tracking-tight leading-none ${isGTA ? 'text-slate-100' : 'text-slate-800'}`}>{renderMarkdown(slide.title)}</h2>
       </div>
       
       {/* Main Content Container - Inner Card Look */}
-      <div className="flex-1 bg-[#e0e5ec] rounded-3xl shadow-[20px_20px_60px_#bec3c9,-20px_-20px_60px_#ffffff] border border-white/60 p-5 md:p-8 overflow-hidden relative">
+      <div className={`flex-1 rounded-3xl p-5 md:p-8 overflow-hidden relative border ${isGTA ? 'bg-slate-900 border-green-500/20 shadow-[0_0_50px_rgba(0,0,0,0.5)]' : 'bg-[#e0e5ec] shadow-[20px_20px_60px_#bec3c9,-20px_-20px_60px_#ffffff] border-white/60'}`}>
          {/* Background glow for depth */}
          <div className="absolute top-0 right-0 w-64 h-64 bg-white opacity-20 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none"></div>
          {renderContent()}

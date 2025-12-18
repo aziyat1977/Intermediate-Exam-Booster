@@ -42,5 +42,6 @@ export interface SlideContent {
 export interface Topic {
   id: string;
   title: string;
+  theme?: 'default' | 'gta';
   slides: SlideContent[];
 }

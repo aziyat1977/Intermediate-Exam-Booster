@@ -4,142 +4,153 @@ import { Topic } from '../types';
 export const TOPICS: Topic[] = [
   {
     id: 'topic-1',
-    title: '6.2 Present Perfect Simple vs. Continuous',
+    title: '6.2 Present Perfect: The Big Score',
+    theme: 'gta',
     slides: [
       {
         id: '1-1-a',
         type: 'intro',
-        title: 'Lead-in: The Scene',
-        imageUrl: 'https://images.unsplash.com/photo-1589939705384-5185137a7f0f?q=80&w=1000&auto=format&fit=crop',
-        leadText: 'Look at the picture.',
+        title: 'Lead-in: The Safehouse',
+        imageUrl: 'https://images.unsplash.com/photo-1572331165267-854da2b00ca1?q=80&w=1000&auto=format&fit=crop', // Luxury pool
+        leadText: 'Look at the crew.',
         bulletPoints: [
-           { lang: 'en', label: 'Observe', text: 'Notice the paint, the clothes, and the wall.' }
+           { lang: 'en', label: 'Observe', text: 'Michael is drinking by the pool. Trevor is covered in mud.' }
         ]
       },
       {
         id: '1-1-b',
         type: 'concept',
-        title: 'Scenario A',
-        leadText: 'The boy has **painted** the wall.',
+        title: 'Scenario A: Michael',
+        imageUrl: 'https://images.unsplash.com/photo-1580519542036-c47de6196ba5?q=80&w=1000&auto=format&fit=crop', // Money stacks
+        leadText: 'Michael has **laundered** the money.',
         bulletPoints: [
-          { lang: 'en', label: 'Context', text: 'The wall is finished.' },
-          { lang: 'en', label: 'Result', text: 'He is clean. The job is done.' }
+          { lang: 'en', label: 'Context', text: 'The job is done.' },
+          { lang: 'en', label: 'Result', text: 'He is clean. The money is safe.' }
         ]
       },
       {
         id: '1-1-c',
         type: 'concept',
-        title: 'Scenario B',
-        leadText: 'The boy has **been painting** the wall.',
+        title: 'Scenario B: Trevor',
+        imageUrl: 'https://images.unsplash.com/photo-1541414779316-956a5084c0d4?q=80&w=1000&auto=format&fit=crop', // Dirty hands / Mud
+        leadText: 'Trevor has **been burying** the gold.',
         bulletPoints: [
-          { lang: 'en', label: 'Context', text: 'The wall is only half done.' },
-          { lang: 'en', label: 'Activity', text: 'He has paint on his clothes. He is still working.' }
+          { lang: 'en', label: 'Context', text: 'He is still dirty from the desert.' },
+          { lang: 'en', label: 'Activity', text: 'He has dirt on his hands. He might not be finished.' }
         ]
       },
       {
         id: '1-1-d',
         type: 'intro',
-        title: 'Critical Question',
-        leadText: 'Think about the difference.',
-        question: 'Which sentence focuses on the RESULT? Which one focuses on the ACTIVITY?'
+        title: 'Critical Choice',
+        imageUrl: 'https://images.unsplash.com/photo-1531297461136-82lw8z9a?q=80&w=1000&auto=format&fit=crop', // Strategy/Heist planning
+        leadText: 'Analyze the Heist.',
+        question: 'Which sentence focuses on the PAYOUT (Result)? Which one focuses on the GRIND (Activity)?'
       },
       {
         id: '1-2-a',
         type: 'concept',
-        title: 'Continuous Definition',
+        title: 'Continuous: The Grind',
+        imageUrl: 'https://images.unsplash.com/photo-1594736797933-d0501ba2fe65?q=80&w=1000&auto=format&fit=crop', // Sports car action
         leadText: 'Present Perfect **Continuous**',
         bulletPoints: [
-          { lang: 'en', label: 'Focus', text: 'Focuses on the **ACTIVITY** itself.' },
-          { lang: 'en', label: 'Detail', text: 'Emphasizes that the action is unfinished or has been happening recently.' },
-          { lang: 'en', label: 'Evidence', text: 'Explains a current physical state (e.g., sweating, dirty hands).' }
+          { lang: 'en', label: 'Focus', text: 'Focuses on the **ACTIVITY** (The Heist/Chase).' },
+          { lang: 'en', label: 'Detail', text: 'Action is unfinished or explains a physical state (Wasted/Tired).' }
         ]
       },
       {
         id: '1-2-b',
         type: 'concept',
-        title: 'Simple Definition',
+        title: 'Simple: Mission Passed',
+        imageUrl: 'https://images.unsplash.com/photo-1518183214770-9cffbec72538?q=80&w=1000&auto=format&fit=crop', // Success / Money
         leadText: 'Present Perfect **Simple**',
         bulletPoints: [
-          { lang: 'en', label: 'Focus', text: 'Focuses on the **RESULT** or completion.' },
-          { lang: 'en', label: 'Detail', text: 'Emphasizes that the action is finished.' },
-          { lang: 'en', label: 'Evidence', text: 'We can see the final outcome.' }
+          { lang: 'en', label: 'Focus', text: 'Focuses on the **RESULT** (Mission Passed).' },
+          { lang: 'en', label: 'Detail', text: 'The job is done. We see the money.' }
         ]
       },
       {
         id: '1-2-c',
         type: 'concept',
         title: 'Translations',
+        imageUrl: 'https://images.unsplash.com/photo-1532012197267-da84d127e765?q=80&w=1000&auto=format&fit=crop', // Book / Translate
         bulletPoints: [
-          { lang: 'uz', label: 'Continuous', text: 'Harakatning o‘ziga yoki uning davomiyligiga urg‘u beradi. Ish tugallanmagan bo‘lishi mumkin.' },
-          { lang: 'uz', label: 'Simple', text: 'Harakatning natijasiga yoki tugallanganligiga urg‘u beradi.' },
-          { lang: 'ru', label: 'Continuous', text: 'Акцент на **процессе**. Действие может быть не закончено.' },
-          { lang: 'ru', label: 'Simple', text: 'Акцент на **результате**. Действие завершено.' }
+          { lang: 'uz', label: 'Continuous', text: 'Harakatning o‘ziga urg‘u (Jarayon). Ish tugamagan bo‘lishi mumkin.' },
+          { lang: 'uz', label: 'Simple', text: 'Natijaga urg‘u (Mission Passed).' },
+          { lang: 'ru', label: 'Continuous', text: 'Акцент на **процессе** (Погоня/Стрельба).' },
+          { lang: 'ru', label: 'Simple', text: 'Акцент на **результате** (Деньги получены).' }
         ]
       },
       {
         id: '1-3-a',
         type: 'intro',
-        title: 'Concept Check 1: Context',
-        leadText: 'Analyze the situation.',
+        title: 'Concept Check 1',
+        imageUrl: 'https://images.unsplash.com/photo-1552674605-5d226a58b357?q=80&w=1000&auto=format&fit=crop', // Runner sweating
+        leadText: 'Franklin is out of breath.',
         bulletPoints: [
-            { lang: 'en', label: 'Situation', text: 'You see your friend. His face is red and he is breathing hard.' }
+            { lang: 'en', label: 'Situation', text: 'Franklin is sweating and panting behind a wall.' }
         ]
       },
       {
         id: '1-3-b',
         type: 'quiz',
         title: 'Concept Check 1: Question',
+        imageUrl: 'https://images.unsplash.com/photo-1563720223185-11003d516935?q=80&w=1000&auto=format&fit=crop', // Police lights abstract
         question: 'What do you say?',
-        options: ['You have run.', 'You have been running.'],
+        options: ['You have escaped.', 'You have been running from the cops.'],
         correctAnswer: 1,
-        explanation: 'Correct! We see evidence of the activity (red face), so we focus on the process.'
+        explanation: 'Correct! We see the physical evidence of the activity (sweat/breath).'
       },
       {
         id: '1-4-a',
         type: 'intro',
-        title: 'Concept Check 2: Context',
-        leadText: 'Analyze the situation.',
+        title: 'Concept Check 2',
+        imageUrl: 'https://images.unsplash.com/photo-1589829085413-56de8ae18c73?q=80&w=1000&auto=format&fit=crop', // Bank Vault
+        leadText: 'The Union Depository Vault.',
         bulletPoints: [
-            { lang: 'en', label: 'Situation', text: 'The plate is empty. The cookies are gone.' }
+            { lang: 'en', label: 'Situation', text: 'The vault door is open. The gold bars are GONE.' }
         ]
       },
       {
         id: '1-4-b',
         type: 'quiz',
         title: 'Concept Check 2: Question',
+        imageUrl: 'https://images.unsplash.com/photo-1577416412292-747c6607f055?q=80&w=1000&auto=format&fit=crop', // Empty warehouse
         question: 'What happened?',
-        options: ['Someone has eaten the cookies.', 'Someone has been eating the cookies.'],
+        options: ['Someone has stolen the gold.', 'Someone has been stealing the gold.'],
         correctAnswer: 0,
-        explanation: 'Correct! The action is finished and the result is "empty plate".'
+        explanation: 'Correct! The gold is gone. Result achieved.'
       },
       {
         id: '1-5-a',
         type: 'intro',
-        title: 'Concept Check 3: Context',
-        leadText: 'Analyze the situation.',
+        title: 'Concept Check 3',
+        imageUrl: 'https://images.unsplash.com/photo-1510915228340-29c85a43dcfe?q=80&w=1000&auto=format&fit=crop', // Hacker setup
+        leadText: 'Lester Crest at his computer.',
         bulletPoints: [
-            { lang: 'en', label: 'Situation', text: 'I started reading this book yesterday. I am on page 50 now.' }
+            { lang: 'en', label: 'Situation', text: 'Lester started hacking the FIB server an hour ago. He is still typing.' }
         ]
       },
       {
         id: '1-5-b',
         type: 'quiz',
         title: 'Concept Check 3: Question',
+        imageUrl: 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?q=80&w=1000&auto=format&fit=crop', // Matrix code / Hacking
         question: 'Which is correct?',
-        options: ['I have read this book.', 'I have been reading this book.'],
+        options: ['I have hacked the server.', 'I have been hacking the server.'],
         correctAnswer: 1,
-        explanation: 'Correct! The action is unfinished. You are still reading it.'
+        explanation: 'Correct! The hacking is unfinished. He is still doing it.'
       },
       {
         id: '1-6-a',
         type: 'timeline',
         title: 'Timeline: Continuous',
         leadText: 'Present Perfect **Continuous**',
-        visualContext: 'Activity Focused',
+        visualContext: 'Wanted Level Active',
         visualData: [
-            { label: 'Start', subLabel: 'Action Begins', percentage: 10, type: 'start', color: 'blue' },
-            { label: 'Ongoing', subLabel: 'Process', percentage: 50, type: 'range', color: 'purple' },
-            { label: 'NOW', subLabel: 'Unfinished', percentage: 90, type: 'end', color: 'green' }
+            { label: 'Crime', subLabel: 'Start', percentage: 10, type: 'start', color: 'red' },
+            { label: 'Evading', subLabel: 'Driving Fast', percentage: 50, type: 'range', color: 'orange' },
+            { label: 'NOW', subLabel: 'Still Wanted', percentage: 90, type: 'end', color: 'green' }
         ]
       },
       {
@@ -147,74 +158,81 @@ export const TOPICS: Topic[] = [
         type: 'timeline',
         title: 'Timeline: Simple',
         leadText: 'Present Perfect **Simple**',
-        visualContext: 'Result Focused',
+        visualContext: 'Wanted Level Gone',
         visualData: [
-            { label: 'Action', subLabel: 'Done', percentage: 40, type: 'range', color: 'blue' },
-            { label: 'STOP', subLabel: 'Finished', percentage: 60, type: 'point', color: 'red' },
-            { label: 'NOW', subLabel: 'Result', percentage: 90, type: 'end', color: 'green' }
+            { label: 'Escape', subLabel: 'Action', percentage: 40, type: 'range', color: 'blue' },
+            { label: 'HIDDEN', subLabel: 'Stars Flashing', percentage: 60, type: 'point', color: 'red' },
+            { label: 'NOW', subLabel: 'Safe', percentage: 90, type: 'end', color: 'green' }
         ]
       },
       {
         id: '1-6-c',
         type: 'concept',
-        title: 'Timeline Summary',
+        title: 'Timeline Intel',
+        imageUrl: 'https://images.unsplash.com/photo-1577083552431-6e5fd01aa342?q=80&w=1000&auto=format&fit=crop', // Strategy Map
         bulletPoints: [
-          { lang: 'en', label: 'Continuous', text: '"I\'ve been working." (Activity is key. Length of time is often mentioned.)' },
-          { lang: 'en', label: 'Simple', text: '"I\'ve written the report." (Result is key. Finished.)' },
-          { lang: 'en', label: 'State Verbs', text: 'State verbs (know, like, have) usually take the **Simple** form.' }
+          { lang: 'en', label: 'Continuous', text: '"I\'ve been driving for hours." (Focus on the getaway duration.)' },
+          { lang: 'en', label: 'Simple', text: '"I\'ve lost the cops." (Focus on safety.)' },
+          { lang: 'en', label: 'State Verbs', text: 'Verbs like "Own", "Know", "Have" (property) use **Simple**. "I have owned this garage for years."' }
         ]
       },
       {
         id: '1-7-a',
         type: 'concept',
-        title: 'Example 1: Activity vs Result',
+        title: 'Example 1: Planning vs Ready',
+        imageUrl: 'https://images.unsplash.com/photo-1584742680602-536735a28169?q=80&w=1000&auto=format&fit=crop', // Heist planning
         bulletPoints: [
-          { lang: 'en', label: 'Continuous', text: 'She’s **been writing** emails all morning. (She is busy.)' },
-          { lang: 'en', label: 'Simple', text: 'She’s **written** 10 emails. (Quantity/Result.)' }
+          { lang: 'en', label: 'Continuous', text: 'Lester has **been planning** the heist all week. (He is busy.)' },
+          { lang: 'en', label: 'Simple', text: 'Lester has **planned** the heist. (We are ready to go.)' }
         ]
       },
       {
         id: '1-7-b',
         type: 'concept',
-        title: 'Example 2: Evidence',
+        title: 'Example 2: Damage',
+        imageUrl: 'https://images.unsplash.com/photo-1599933339840-b397b966b9a9?q=80&w=1000&auto=format&fit=crop', // Car crash/Smoke
         bulletPoints: [
-          { lang: 'en', label: 'Continuous', text: 'It’s **been raining**. (The ground is wet.)' },
-          { lang: 'en', label: 'Simple', text: 'It has **rained**. (Fact.)' }
+          { lang: 'en', label: 'Continuous', text: 'Why is the car smoking? I\'ve **been drifting**. (Explanation of state).' },
+          { lang: 'en', label: 'Simple', text: 'I have **crashed** the car. (It is destroyed).' }
         ]
       },
       {
         id: '1-7-c',
         type: 'concept',
-        title: 'Example 3: Duration vs Completion',
+        title: 'Example 3: Duration vs Count',
+        imageUrl: 'https://images.unsplash.com/photo-1617788138017-80ad40651399?q=80&w=1000&auto=format&fit=crop', // Car mod shop
         bulletPoints: [
-          { lang: 'en', label: 'Continuous', text: 'How long **have you been learning** Spanish?' },
-          { lang: 'en', label: 'Simple', text: '**Have you learnt** the new vocabulary list?' }
+          { lang: 'en', label: 'Continuous', text: 'How long **have you been modding** this car?' },
+          { lang: 'en', label: 'Simple', text: 'How many cars **have you stolen** today?' }
         ]
       },
       {
         id: '1-8',
         type: 'test',
-        title: 'Test 1',
-        question: 'Look! The ground is wet. It ______ all night.',
-        options: ['has rained', 'has been raining', 'rained'],
+        title: 'Job Test 1',
+        imageUrl: 'https://images.unsplash.com/photo-1517594422361-5eeb8ae275a9?q=80&w=1000&auto=format&fit=crop', // Muddy tires
+        question: 'Look at Trevor\'s truck! It\'s covered in mud. He ______ off-road.',
+        options: ['has driven', 'has been driving', 'drove'],
         correctAnswer: 1,
-        explanation: 'Evidence (wet ground) implies recent continuous activity.'
+        explanation: 'Evidence (mud) implies recent continuous activity.'
       },
       {
         id: '1-9',
         type: 'test',
-        title: 'Test 2',
-        question: 'I ______ three cups of coffee today.',
-        options: ['have been drinking', 'have drunk', 'drink'],
+        title: 'Job Test 2',
+        imageUrl: 'https://images.unsplash.com/photo-1501167786227-4cba60f6d58f?q=80&w=1000&auto=format&fit=crop', // Bank exterior
+        question: 'I ______ three banks this month.',
+        options: ['have been robbing', 'have robbed', 'rob'],
         correctAnswer: 1,
-        explanation: 'Quantity specified (3 cups) = Simple.'
+        explanation: 'Quantity specified (3 banks) = Simple.'
       },
       {
         id: '1-10',
         type: 'test',
-        title: 'Test 3',
-        question: 'Sorry I’m late. ______ long?',
-        options: ['Have you waited', 'Did you wait', 'Have you been waiting'],
+        title: 'Job Test 3',
+        imageUrl: 'https://images.unsplash.com/photo-1533073526757-2c8ca1df9f1c?q=80&w=1000&auto=format&fit=crop', // Watch / Time
+        question: 'Lester is angry. "Where are you? I ______ for 20 minutes!"',
+        options: ['have waited', 'did wait', 'have been waiting'],
         correctAnswer: 2,
         explanation: 'Focus on duration up to now.'
       },
@@ -222,72 +240,81 @@ export const TOPICS: Topic[] = [
         id: '1-11',
         type: 'quiz',
         title: 'True/False Quiz',
-        question: 'True or False: We use Present Perfect Continuous to talk about *how many* things we have finished.',
+        imageUrl: 'https://images.unsplash.com/photo-1555445054-d83391295325?q=80&w=1000&auto=format&fit=crop', // Security Guard
+        question: 'True or False: We use Continuous to say how many guards we have knocked out.',
         options: ['True', 'False'],
         correctAnswer: 1,
-        explanation: 'False. We use Simple for quantities.'
+        explanation: 'False. Quantities use Simple.'
       },
       {
         id: '1-12',
         type: 'quiz',
-        title: 'Spot the Mistake',
-        question: 'Is this correct? "I have been knowing him for 10 years."',
+        title: 'Spot the Snitch',
+        imageUrl: 'https://images.unsplash.com/photo-1531384441138-2736e62e0919?q=80&w=1000&auto=format&fit=crop', // Handshake / Knowing
+        question: 'Is this correct? "I have been knowing Michael for 10 years."',
         options: ['Yes', 'No, "know" is a state verb.'],
         correctAnswer: 1,
-        explanation: 'Correct. "Know" is a state verb, so "I have known him" is correct.'
+        explanation: 'Correct. "Know" is a state verb. Use "have known".'
       },
       {
         id: '1-13',
         type: 'quiz',
         title: 'Context Match',
-        question: 'Your hands are covered in flour. Why?',
-        options: ["I've made a cake.", "I've been making a cake."],
+        imageUrl: 'https://images.unsplash.com/photo-1581092921461-eab62e97a782?q=80&w=1000&auto=format&fit=crop', // Dirty mechanic hands
+        question: 'Your hands are covered in grease. Why?',
+        options: ["I've fixed the engine.", "I've been fixing the engine."],
         correctAnswer: 1,
-        explanation: 'Flour on hands is evidence of the activity.'
+        explanation: 'Grease on hands is evidence of the activity.'
       },
       {
         id: '1-14',
         type: 'test',
         title: 'Rapid Fire',
         question: 'Select the one that implies UNFINISHED action.',
-        options: ['He has gone to the gym.', 'She has painted the portrait.', 'I\'ve been reading a book.'],
+        imageUrl: 'https://images.unsplash.com/photo-1557002665-c552e1832483?q=80&w=1000&auto=format&fit=crop', // Action in progress
+        options: ['He has escaped prison.', 'She has bought a weapon.', 'I\'ve been scoping out the bank.'],
         correctAnswer: 2
       },
       {
         id: '1-15',
         type: 'gap-fill',
-        title: 'Gap Fill 1',
-        leadText: '"You look tired, Sarah!" "Yes, I __________ (work) in the garden all day."',
+        title: 'Heist Prep 1',
+        imageUrl: 'https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?q=80&w=1000&auto=format&fit=crop', // Garage work
+        leadText: '"You look exhausted, Franklin!" "Yes, I __________ (work) on the car all night."',
         correctAnswer: 'have been working'
       },
       {
         id: '1-16',
         type: 'gap-fill',
-        title: 'Gap Fill 2',
-        leadText: '"Congratulations! You __________ (win) the competition!"',
+        title: 'Heist Prep 2',
+        imageUrl: 'https://images.unsplash.com/photo-1511512578047-dfb367046420?q=80&w=1000&auto=format&fit=crop', // Winning / Checkered Flag
+        leadText: '"Mission Passed! You __________ (win) the race!"',
         correctAnswer: 'have won'
       },
       {
         id: '1-17',
         type: 'gap-fill',
-        title: 'Gap Fill 3',
-        leadText: '"Hi Tom. I haven\'t seen you for ages. What __________ (you / do) recently?"',
+        title: 'Heist Prep 3',
+        imageUrl: 'https://images.unsplash.com/photo-1516259762381-22954d7d3ad2?q=80&w=1000&auto=format&fit=crop', // Phone call
+        leadText: '"Lester, pick up! What __________ (you / do) all morning?"',
         correctAnswer: 'have you been doing'
       },
       {
         id: '1-18-a',
         type: 'reading',
-        title: 'Reading: Climate Change',
-        passage: '"Climate change is a serious issue. Scientists **have been investigating** the causes for decades. They **have found** that global temperatures are rising. The ice in the Arctic **has been melting** steadily. Recently, researchers **have published** a new report stating that we must act now. Many activists **have been protesting** in the streets to demand change."',
-        question: 'Q1: Why do scientists use "have been investigating"?',
-        options: ['Because they finished yesterday.', 'Because it is a long process continuing up to now.'],
+        title: 'Intel: The Union Depository',
+        imageUrl: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=1000&auto=format&fit=crop', // Skyscraper / Bank
+        passage: '"The crew **has been planning** the Union Depository job for months. They **have found** a weakness in the security. The guards **have been patrolling** the same route every day. Recently, Trevor **has stolen** a helicopter for the getaway. The FIB **has been watching** them closely."',
+        question: 'Q1: Why "have been planning"?',
+        options: ['Because the plan is finished.', 'Because it is a long process continuing up to now.'],
         correctAnswer: 1
       },
       {
         id: '1-18-b',
         type: 'reading',
-        title: 'Reading: Climate Change',
-        passage: '"Climate change is a serious issue. Scientists **have been investigating** the causes for decades. They **have found** that global temperatures are rising..."',
+        title: 'Intel: The Union Depository',
+        imageUrl: 'https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?q=80&w=1000&auto=format&fit=crop', // Security System
+        passage: '"...They **have found** a weakness in the security..."',
         question: 'Q2: "They have found..." implies:',
         options: ['A completed result / discovery.', 'An ongoing search.'],
         correctAnswer: 0
@@ -295,55 +322,61 @@ export const TOPICS: Topic[] = [
       {
         id: '1-18-c',
         type: 'reading',
-        title: 'Reading: Climate Change',
-        passage: '"...The ice in the Arctic **has been melting** steadily..."',
-        question: 'Q3: "The ice has been melting" focuses on:',
-        options: ['The total amount of water.', 'The continuous change occurring over time.'],
+        title: 'Intel: The Union Depository',
+        imageUrl: 'https://images.unsplash.com/photo-1582139329536-e7284fece509?q=80&w=1000&auto=format&fit=crop', // Patrol / Guard
+        passage: '"...The guards **have been patrolling** the same route every day..."',
+        question: 'Q3: "Have been patrolling" focuses on:',
+        options: ['The total number of patrols.', 'The repeated continuous activity.'],
         correctAnswer: 1
       },
       {
         id: '1-18-d',
         type: 'reading',
-        title: 'Reading: Climate Change',
-        passage: '"...Recently, researchers **have published** a new report stating that we must act now..."',
-        question: 'Q4: Why "have published" and not "have been publishing"?',
-        options: ['The report is finished and released.', 'They are still writing it.'],
+        title: 'Intel: The Union Depository',
+        imageUrl: 'https://images.unsplash.com/photo-1542281286-9e0a16bb7366?q=80&w=1000&auto=format&fit=crop', // Helicopter
+        passage: '"...Recently, Trevor **has stolen** a helicopter for the getaway..."',
+        question: 'Q4: Why "has stolen"?',
+        options: ['The helicopter is now in his possession (Result).', 'He is still stealing it.'],
         correctAnswer: 0
       },
       {
         id: '1-18-e',
         type: 'reading',
-        title: 'Reading: Climate Change',
-        passage: '"...Many activists **have been protesting** in the streets to demand change."',
-        question: 'Q5: "Activists have been protesting." This means:',
-        options: ['They protested once last year.', 'They have done this repeatedly recently and might continue.'],
+        title: 'Intel: The Union Depository',
+        imageUrl: 'https://images.unsplash.com/photo-1535378437321-29e64d30630d?q=80&w=1000&auto=format&fit=crop', // Surveillance
+        passage: '"...The FIB **has been watching** them closely."',
+        question: 'Q5: "Has been watching" means:',
+        options: ['They watched once.', 'They have done this repeatedly recently and might continue.'],
         correctAnswer: 1
       },
       {
         id: '1-19-a',
         type: 'speaking',
-        title: 'Speaking Task 1',
-        leadText: 'Record your answer for feedback.',
+        title: 'Interrogation 1',
+        imageUrl: 'https://images.unsplash.com/photo-1589578527966-fdac0f44566c?q=80&w=1000&auto=format&fit=crop', // Interrogation room
+        leadText: 'Record your answer for the FIB.',
         speakingPrompts: [
-          'What is a hobby you have started recently? How long have you been doing it and how much progress have you made?'
+          'Why are your clothes dirty? What have you been doing in the desert?'
         ]
       },
       {
         id: '1-19-b',
         type: 'speaking',
-        title: 'Speaking Task 2',
-        leadText: 'Record your answer for feedback.',
+        title: 'Interrogation 2',
+        imageUrl: 'https://images.unsplash.com/photo-1556742049-0cfed4f7a07d?q=80&w=1000&auto=format&fit=crop', // Money Bag
+        leadText: 'Record your answer for the FIB.',
         speakingPrompts: [
-          'Think of a popular TV series or game. How many episodes/levels have you finished? Have you been binge-watching/playing it lately?'
+          'How much money have you stolen from the bank? (Use Simple)'
         ]
       },
       {
         id: '1-19-c',
         type: 'speaking',
-        title: 'Speaking Task 3',
-        leadText: 'Record your answer for feedback.',
+        title: 'Interrogation 3',
+        imageUrl: 'https://images.unsplash.com/photo-1628155930542-3c7a64e2c833?q=80&w=1000&auto=format&fit=crop', // Police lights
+        leadText: 'Record your answer for the FIB.',
         speakingPrompts: [
-          'You look really tired today. What have you been doing recently that made you so exhausted?'
+          'You look tired. Have you been running from the police?'
         ]
       }
     ]
