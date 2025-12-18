@@ -52,6 +52,15 @@ export const Timeline3D: React.FC<Timeline3DProps> = ({ points, context }) => {
         arrow: 'border-t-amber-500',
         laser: 'bg-amber-300'
       };
+      case 'gold': return {
+        blade: 'bg-yellow-500',
+        glow: 'shadow-[0_0_40px_rgba(234,179,8,1)]',
+        text: 'text-yellow-300',
+        bgCard: 'bg-yellow-900/90',
+        border: 'border-yellow-400',
+        arrow: 'border-t-yellow-400',
+        laser: 'bg-yellow-200'
+      };
       default: return { 
         blade: 'bg-sky-500', 
         glow: 'shadow-[0_0_30px_rgba(14,165,233,1)]', 

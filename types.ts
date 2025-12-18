@@ -5,7 +5,7 @@ export interface VisualPoint {
   subLabel?: string;
   percentage: number; // 0 to 100
   type: 'point' | 'range' | 'star' | 'start' | 'end'; // Visual style
-  color?: 'blue' | 'green' | 'red' | 'purple' | 'orange';
+  color?: 'blue' | 'green' | 'red' | 'purple' | 'orange' | 'gold';
 }
 
 export interface SlideContent {
@@ -42,6 +42,6 @@ export interface SlideContent {
 export interface Topic {
   id: string;
   title: string;
-  theme?: 'default' | 'gta';
+  theme?: 'default' | 'gta' | 'wukong';
   slides: SlideContent[];
 }

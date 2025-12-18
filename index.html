@@ -5,13 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>LinguVerse Surgical 3D</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Cinzel:wght@400;700;900&display=swap" rel="stylesheet">
     <script>
       tailwind.config = {
         theme: {
           extend: {
             fontFamily: {
               sans: ['Inter', 'sans-serif'],
+              mythical: ['Cinzel', 'serif'],
             },
             colors: {
               surgical: {
@@ -28,6 +29,12 @@
               },
               slate: {
                 850: '#1e293b',
+              },
+              wukong: {
+                red: '#991b1b',
+                gold: '#d97706',
+                cream: '#fffbeb',
+                dark: '#450a0a',
               }
             },
             boxShadow: {
@@ -46,12 +53,18 @@
               float: {
                 '0%, 100%': { transform: 'translateY(0)' },
                 '50%': { transform: 'translateY(-10px)' },
+              },
+              cloudFloat: {
+                '0%': { backgroundPosition: '0% 50%' },
+                '50%': { backgroundPosition: '100% 50%' },
+                '100%': { backgroundPosition: '0% 50%' },
               }
             },
             animation: {
               'fade-in': 'fadeIn 0.5s ease-out',
               'fade-in-up': 'fadeInUp 0.6s cubic-bezier(0.2, 0.8, 0.2, 1)',
               'float': 'float 6s ease-in-out infinite',
+              'cloud-move': 'cloudFloat 20s ease infinite',
             }
           }
         }
@@ -302,6 +315,86 @@
       .gta-mode .bg-green-50 {
         background-color: rgba(34, 197, 94, 0.1) !important;
         color: #86efac !important;
+      }
+
+      /* ========================================= */
+      /* WUKONG THEME OVERRIDES                    */
+      /* ========================================= */
+      .wukong-mode {
+        background-color: #450a0a !important;
+        background-image: radial-gradient(circle at top center, #7f1d1d 0%, #450a0a 100%) !important;
+        color: #fef3c7 !important;
+      }
+      .wukong-mode header {
+        background-color: rgba(69, 10, 10, 0.95) !important;
+        border-bottom-color: #d97706 !important; /* Gold border */
+      }
+      .wukong-mode header h1 {
+        font-family: 'Cinzel', serif !important;
+        color: #fcd34d !important; /* Gold text */
+        text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+      }
+      .wukong-mode .art-3d-card,
+      .wukong-mode .bg-\[\#e0e5ec\] {
+        background: #fffbeb !important; /* Cream scroll background */
+        box-shadow: 0 10px 40px rgba(0,0,0,0.6), inset 0 0 20px rgba(217, 119, 6, 0.1) !important;
+        border: 2px solid #b45309 !important;
+        position: relative;
+      }
+      .wukong-mode .art-3d-card::before {
+        /* Ancient Scroll Pattern Overlay */
+        content: '';
+        position: absolute;
+        inset: 0;
+        background-image: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1h2v2H1V1zm4 0h2v2H5V1zm4 0h2v2H9V1z' fill='%23d97706' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E");
+        pointer-events: none;
+        opacity: 0.5;
+      }
+      .wukong-mode .text-slate-800, 
+      .wukong-mode .text-slate-700,
+      .wukong-mode .text-slate-900 {
+        color: #451a03 !important; /* Dark Brown Text */
+        font-family: 'Cinzel', serif !important;
+      }
+      .wukong-mode .art-3d-btn-primary {
+        background: linear-gradient(to bottom, #f59e0b, #b45309) !important; /* Gold Gradient */
+        border: 1px solid #fcd34d !important;
+        color: #fffbeb !important;
+        text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+      }
+      .wukong-mode .art-3d-btn-secondary {
+        background: #fffbeb !important;
+        color: #78350f !important;
+        border: 1px solid #d97706 !important;
+      }
+      .wukong-mode .art-3d-btn-secondary:hover {
+        background: #fef3c7 !important;
+      }
+      .wukong-mode .bg-surgical-500 {
+        background-color: #d97706 !important;
+      }
+      .wukong-mode .bg-surgical-100 {
+        background-color: #fef3c7 !important;
+        color: #92400e !important;
+        border: 1px solid #d97706 !important;
+      }
+      .wukong-mode .art-3d-input {
+        background: #fff7ed !important;
+        color: #78350f !important;
+        border: 1px solid #fdba74 !important;
+        box-shadow: inset 0 2px 4px rgba(0,0,0,0.05) !important;
+      }
+      /* Progress Bar Wukong */
+      .wukong-mode .art-3d-tube {
+        background: #450a0a !important;
+        box-shadow: inset 0 2px 4px rgba(0,0,0,0.5) !important;
+      }
+      .wukong-mode .art-3d-tube-fill {
+        background: linear-gradient(90deg, #f59e0b, #fbbf24) !important;
+        box-shadow: 0 0 10px #f59e0b !important;
+      }
+      .wukong-mode .text-surgical-600 {
+        color: #d97706 !important;
       }
     </style>
   <script type="importmap">

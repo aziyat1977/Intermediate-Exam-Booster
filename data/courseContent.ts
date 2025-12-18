@@ -1,4 +1,3 @@
-
 import { Topic } from '../types';
 
 export const TOPICS: Topic[] = [
@@ -1901,118 +1900,164 @@ export const TOPICS: Topic[] = [
   },
   {
     id: 'topic-10',
-    title: '12.1 Reported Speech: Time Travel',
+    title: '12.1 Reported Speech: Wukong\'s Wisdom',
+    theme: 'wukong',
     slides: [
       {
         id: '10-1',
         type: 'intro',
-        title: 'The Concept: Backshifting',
-        leadText: 'Imagine a Time Machine.',
+        title: 'The Great Sage speaks.',
+        leadText: 'Wukong is a master of time and change.',
         bulletPoints: [
-          { lang: 'en', label: 'Direct', text: 'Tom is here NOW. He says: "I LIKE pizza."' },
-          { lang: 'en', label: 'Reported', text: 'Later, you tell Sarah. You are in the FUTURE. Tom is in the PAST.' },
-          { lang: 'en', label: 'Result', text: 'Tom said he LIKED pizza.' }
+          { lang: 'en', label: 'The Concept', text: 'When we report what someone said, we step BACK in time. Just like Wukong steps into the past.' },
+          { lang: 'en', label: 'Mechanism', text: 'Direct Speech (Present) -> Reported Speech (Past)' }
         ],
-        question: 'We move the tense ONE STEP BACK into the past.'
+        question: 'Prepare to shift reality.'
       },
       {
-        id: '10-2',
+        id: '10-2-a',
         type: 'concept',
-        title: 'Mechanism: Say vs Tell',
-        leadText: 'Reporting Verbs',
+        title: 'The Pronoun Shift',
+        leadText: 'Identity Transformation (72 Forms)',
         bulletPoints: [
-          { lang: 'en', label: 'SAY (Said)', text: 'Use when there is NO object person. "He SAID (that) he was tired."' },
-          { lang: 'en', label: 'TELL (Told)', text: 'Use when there IS a person. "He TOLD ME (that) he was tired."' },
-          { lang: 'uz', label: 'Say', text: 'Eshityotgan odam aniq bo‘lmasa.' },
-          { lang: 'uz', label: 'Tell', text: 'Eshityotgan odam (me, him, her) aniq bo‘lsa.' }
+          { lang: 'en', label: 'I becomes He/She', text: 'Wukong says "I am strong." -> He said HE was strong.' },
+          { lang: 'en', label: 'My becomes His/Her', text: 'Wukong says "My staff is heavy." -> He said HIS staff was heavy.' },
+          { lang: 'en', label: 'We becomes They', text: '"We are fighting." -> They said THEY were fighting.' }
         ]
       },
       {
-        id: '10-3',
+        id: '10-2-b',
+        type: 'quiz',
+        title: 'Pronoun Test',
+        question: 'Direct: "I lost my book." -> Reported: He said ____ lost ____ book.',
+        options: ['I / my', 'he / his'],
+        correctAnswer: 1,
+        explanation: 'We must shift the perspective to HIM.'
+      },
+      {
+        id: '10-3-a',
         type: 'timeline',
-        title: 'Visual: The Present Shift',
-        leadText: 'Direct (Present) -> Reported (Past)',
-        visualContext: 'Time Jump 1',
+        title: 'Shift 1: Present to Past',
+        leadText: 'The Present Realm -> The Past Realm',
+        visualContext: 'The Golden Staff Shift',
         visualData: [
-            { label: 'DIRECT: "I PLAY"', subLabel: 'Present Simple', percentage: 10, type: 'start', color: 'blue' },
-            { label: 'THE WALL', subLabel: 'Shift Tense', percentage: 50, type: 'range', color: 'purple' },
-            { label: 'REPORTED: HE PLAYED', subLabel: 'Past Simple', percentage: 90, type: 'end', color: 'green' }
+            { label: 'DIRECT: "I AM"', subLabel: 'Present', percentage: 15, type: 'start', color: 'gold' },
+            { label: 'THE BARRIER', subLabel: 'Time Wall', percentage: 50, type: 'range', color: 'red' },
+            { label: 'REPORTED: HE WAS', subLabel: 'Past', percentage: 85, type: 'end', color: 'orange' }
+        ]
+      },
+      {
+        id: '10-3-b',
+        type: 'concept',
+        title: 'Analysis: Present -> Past',
+        leadText: 'One step backward.',
+        bulletPoints: [
+            { lang: 'en', label: 'Am/Is -> Was', text: '"I am ready." -> He said he WAS ready.' },
+            { lang: 'en', label: 'Are -> Were', text: '"We are flying." -> They said they WERE flying.' },
+            { lang: 'en', label: 'Have -> Had', text: '"I have a peach." -> He said he HAD a peach.' },
+            { lang: 'en', label: 'Do/Does -> Did', text: '"I do kung fu." -> He said he DID kung fu.' }
         ]
       },
       {
         id: '10-4',
-        type: 'concept',
-        title: 'Slow Motion: Present -> Past',
-        leadText: 'Analyzing the shift word by word.',
-        bulletPoints: [
-            { lang: 'en', label: '1. Subject', text: '"I" becomes "He/She".' },
-            { lang: 'en', label: '2. Verb', text: 'Present Simple (play) -> Past Simple (played).' },
-            { lang: 'en', label: '3. Example', text: '"I want it." -> He said he WANTED it.' }
+        type: 'quiz',
+        title: 'Quick Check: Present',
+        question: 'Wukong says: "I want the fan." -> He said he ____ the fan.',
+        options: ['wants', 'wanted'],
+        correctAnswer: 1,
+        explanation: 'Present Simple "want" becomes Past Simple "wanted".'
+      },
+      {
+        id: '10-5-a',
+        type: 'timeline',
+        title: 'Shift 2: Past to Perfect',
+        leadText: 'The Past Realm -> The Void (Perfect)',
+        visualContext: 'Deep Meditation',
+        visualData: [
+            { label: 'DIRECT: "I ATE"', subLabel: 'Past Simple', percentage: 15, type: 'start', color: 'orange' },
+            { label: 'DEEP TIME', subLabel: 'Shift Back', percentage: 50, type: 'range', color: 'purple' },
+            { label: 'REPORTED: HE HAD EATEN', subLabel: 'Past Perfect', percentage: 85, type: 'end', color: 'gold' }
         ]
       },
-       {
-        id: '10-5',
-        type: 'timeline',
-        title: 'Visual: The Past Shift',
-        leadText: 'Direct (Past) -> Reported (Past Perfect)',
-        visualContext: 'Time Jump 2',
-        visualData: [
-            { label: 'DIRECT: "I PLAYED"', subLabel: 'Past Simple', percentage: 10, type: 'start', color: 'orange' },
-            { label: 'THE WALL', subLabel: 'Deep Past', percentage: 50, type: 'range', color: 'red' },
-            { label: 'REPORTED: HE HAD PLAYED', subLabel: 'Past Perfect', percentage: 90, type: 'end', color: 'green' }
+      {
+        id: '10-5-b',
+        type: 'concept',
+        title: 'Analysis: Past -> Past Perfect',
+        leadText: 'The action was ALREADY past. Now it is ANCIENT.',
+        bulletPoints: [
+            { lang: 'en', label: 'V2 (Past) -> Had + V3', text: '"I defeated the demon." -> He said he HAD DEFEATED the demon.' },
+            { lang: 'en', label: 'Was/Were -> Had been', text: '"It was cold." -> He said it HAD BEEN cold.' },
+            { lang: 'en', label: 'Did -> Had done', text: '"I did it." -> He said he HAD DONE it.' }
         ]
       },
       {
         id: '10-6',
-        type: 'concept',
-        title: 'Slow Motion: Past -> Past Perfect',
-        leadText: 'Moving deeper into history.',
-        bulletPoints: [
-            { lang: 'en', label: 'Rule', text: 'Past Simple becomes Past Perfect (Had + V3).' },
-            { lang: 'en', label: 'Reason', text: 'To show the action happened BEFORE he spoke.' },
-            { lang: 'en', label: 'Example', text: '"I saw her." -> He said he HAD SEEN her.' }
+        type: 'quiz',
+        title: 'Quick Check: Past',
+        question: 'Pigsy says: "I slept all day." -> He said he ____ all day.',
+        options: ['slept', 'had slept'],
+        correctAnswer: 1,
+        explanation: 'Past Simple "slept" backshifts to Past Perfect "had slept".'
+      },
+      {
+        id: '10-7-a',
+        type: 'timeline',
+        title: 'Shift 3: The Modals',
+        leadText: 'Future (Will) -> Conditional (Would)',
+        visualContext: 'Cloud Somersault',
+        visualData: [
+            { label: 'DIRECT: "I WILL"', subLabel: 'Certainty', percentage: 15, type: 'start', color: 'blue' },
+            { label: 'THE CLOUD', subLabel: 'Softening', percentage: 50, type: 'range', color: 'gold' },
+            { label: 'REPORTED: HE WOULD', subLabel: 'Distance', percentage: 85, type: 'end', color: 'green' }
         ]
       },
       {
-        id: '10-7',
-        type: 'timeline',
-        title: 'Visual: The Modal Shift',
-        leadText: 'Future (Will) -> Conditional (Would)',
-        visualContext: 'Modal Shift',
-        visualData: [
-            { label: 'DIRECT: "I WILL"', subLabel: 'Future', percentage: 10, type: 'start', color: 'blue' },
-            { label: 'THE WALL', subLabel: 'Softening', percentage: 50, type: 'range', color: 'orange' },
-            { label: 'REPORTED: HE WOULD', subLabel: 'Conditional', percentage: 90, type: 'end', color: 'green' }
+        id: '10-7-b',
+        type: 'concept',
+        title: 'Analysis: Modals',
+        leadText: 'The shape changes, but the meaning remains.',
+        bulletPoints: [
+            { lang: 'en', label: 'Will -> Would', text: '"I will go." -> He said he WOULD go.' },
+            { lang: 'en', label: 'Can -> Could', text: '"I can fly." -> He said he COULD fly.' },
+            { lang: 'en', label: 'Must -> Had to', text: '"I must leave." -> He said he HAD TO leave.' },
+            { lang: 'en', label: 'Static', text: 'Should, Could, Might do NOT change.' }
         ]
       },
       {
         id: '10-8',
+        type: 'quiz',
+        title: 'Quick Check: Modals',
+        question: '"I can see the future." -> He said he ____ see the future.',
+        options: ['can', 'could'],
+        correctAnswer: 1,
+        explanation: 'Can becomes Could.'
+      },
+      {
+        id: '10-9-a',
         type: 'concept',
-        title: 'Modal Changes Detail',
-        leadText: 'Not all modals change.',
+        title: 'Time & Place Shifting',
+        leadText: 'Teleportation Logic',
         bulletPoints: [
-            { lang: 'en', label: 'Will -> Would', text: '"I will go." -> He said he WOULD go.' },
-            { lang: 'en', label: 'Can -> Could', text: '"I can swim." -> He said he COULD swim.' },
-            { lang: 'en', label: 'Must -> Had to', text: '"I must leave." -> He said he HAD TO leave.' },
-            { lang: 'en', label: 'No Change', text: 'Should, Could, Might, Would do not change.' }
+            { lang: 'en', label: 'Now -> Then', text: '"I am busy NOW." -> He was busy THEN.' },
+            { lang: 'en', label: 'Here -> There', text: '"Come HERE." -> Go THERE.' },
+            { lang: 'en', label: 'Tomorrow -> The next day', text: '"I will win TOMORROW." -> He would win THE NEXT DAY.' },
+            { lang: 'en', label: 'Yesterday -> The day before', text: '"I won YESTERDAY." -> He had won THE DAY BEFORE.' }
         ]
       },
       {
-        id: '10-9',
-        type: 'concept',
-        title: 'Place & Time Shifts',
-        leadText: 'Words must match the new perspective.',
-        bulletPoints: [
-            { lang: 'en', label: 'Time', text: 'Now -> Then. Today -> That day. Tomorrow -> The next day.' },
-            { lang: 'en', label: 'Past Time', text: 'Yesterday -> The day before. Last week -> The week before.' },
-            { lang: 'en', label: 'Place', text: 'Here -> There. This -> That.' }
-        ]
+        id: '10-9-b',
+        type: 'quiz',
+        title: 'Time Check',
+        question: '"I will arrive tomorrow." -> He said he would arrive ____.',
+        options: ['tomorrow', 'the next day'],
+        correctAnswer: 1,
+        explanation: 'We are reporting it later, so "tomorrow" might be in the past now.'
       },
       {
         id: '10-10',
         type: 'test',
         title: 'Test 1: Present to Past',
-        question: '"I live in New York." -> He said he ____ in New York.',
+        question: '"I live in the mountain." -> He said he ____ in the mountain.',
         options: ['lived', 'lives', 'had lived'],
         correctAnswer: 0,
         explanation: 'Present Simple backshifts to Past Simple.'
@@ -2021,7 +2066,7 @@ export const TOPICS: Topic[] = [
         id: '10-11',
         type: 'test',
         title: 'Test 2: Past to Perfect',
-        question: '"I finished the job." -> He said he ____ the job.',
+        question: '"I finished the training." -> He said he ____ the training.',
         options: ['finished', 'has finished', 'had finished'],
         correctAnswer: 2,
         explanation: 'Past Simple backshifts to Past Perfect.'
@@ -2030,7 +2075,7 @@ export const TOPICS: Topic[] = [
         id: '10-12',
         type: 'test',
         title: 'Test 3: Continuous',
-        question: '"I am sleeping." -> She said she ____ sleeping.',
+        question: '"I am meditating." -> She said she ____ meditating.',
         options: ['is', 'was', 'been'],
         correctAnswer: 1,
         explanation: 'am (Present) -> was (Past).'
@@ -2057,7 +2102,7 @@ export const TOPICS: Topic[] = [
         id: '10-15',
         type: 'test',
         title: 'Test 6: Place Words',
-        question: '"Put it here." -> He told me to put it ____.',
+        question: '"Put the staff here." -> He told me to put it ____.',
         options: ['here', 'there'],
         correctAnswer: 1,
         explanation: 'Here becomes There.'
@@ -2093,94 +2138,10 @@ export const TOPICS: Topic[] = [
         id: '10-19',
         type: 'test',
         title: 'Test 10: Will',
-        question: '"It will rain." -> The forecast said it ____ rain.',
+        question: '"It will rain fire." -> The forecast said it ____ rain fire.',
         options: ['will', 'would', 'is'],
         correctAnswer: 1,
         explanation: 'Will becomes Would.'
-      },
-      {
-        id: '10-20',
-        type: 'quiz',
-        title: 'Quiz 1: Logic',
-        question: 'True or False: We move the tense FORWARD into the future.',
-        options: ['True', 'False'],
-        correctAnswer: 1,
-        explanation: 'False. We move it BACK into the past.'
-      },
-      {
-        id: '10-21',
-        type: 'quiz',
-        title: 'Quiz 2: Verbs',
-        question: 'Which verb needs an object person? (e.g. "Him", "Me")',
-        options: ['Say', 'Tell'],
-        correctAnswer: 1
-      },
-      {
-        id: '10-22',
-        type: 'quiz',
-        title: 'Quiz 3: Time',
-        question: 'What does "Now" become?',
-        options: ['Then', 'Before'],
-        correctAnswer: 0
-      },
-      {
-        id: '10-23',
-        type: 'quiz',
-        title: 'Quiz 4: Modals',
-        question: 'Does "Should" change in reported speech?',
-        options: ['Yes', 'No'],
-        correctAnswer: 1,
-        explanation: 'Should, Could, Might, Ought to do not change.'
-      },
-      {
-        id: '10-24',
-        type: 'quiz',
-        title: 'Quiz 5: Mechanics',
-        question: 'Odd one out: Which tense does NOT change?',
-        options: ['Present Simple', 'Past Perfect', 'Future Simple'],
-        correctAnswer: 1
-      },
-      {
-        id: '10-25',
-        type: 'quiz',
-        title: 'Quiz 6: Identification',
-        question: 'Is this correct? "He said me that he was busy."',
-        options: ['Yes', 'No'],
-        correctAnswer: 1,
-        explanation: 'No. "He TOLD me" or "He SAID (no object)".'
-      },
-      {
-        id: '10-26',
-        type: 'quiz',
-        title: 'Quiz 7: Pronouns',
-        question: '"I like my car." -> He said he liked ____ car.',
-        options: ['my', 'his'],
-        correctAnswer: 1
-      },
-      {
-        id: '10-27',
-        type: 'quiz',
-        title: 'Quiz 8: Universal Truth',
-        question: 'If the statement is always true (e.g., "The sun is hot"), do we HAVE to backshift?',
-        options: ['Yes', 'No'],
-        correctAnswer: 1,
-        explanation: 'No. If it is still true, you can keep the present tense.'
-      },
-      {
-        id: '10-28',
-        type: 'quiz',
-        title: 'Quiz 9: This/That',
-        question: '"I like this book." -> He said he liked ____ book.',
-        options: ['this', 'that'],
-        correctAnswer: 1
-      },
-      {
-        id: '10-29',
-        type: 'quiz',
-        title: 'Quiz 10: Ago',
-        question: 'What does "Two days ago" become?',
-        options: ['Two days before', 'Two days past'],
-        correctAnswer: 0
       },
       {
         id: '10-30',
@@ -2277,6 +2238,7 @@ export const TOPICS: Topic[] = [
   {
     id: 'topic-11',
     title: '12.2 Reported Questions',
+    theme: 'wukong',
     slides: [
       {
         id: '11-1',

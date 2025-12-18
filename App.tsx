@@ -47,7 +47,10 @@ const App: React.FC = () => {
   const isLastSlide = currentTopic ? currentSlideIndex === currentTopic.slides.length - 1 : false;
   const isFirstSlide = currentSlideIndex === 0;
 
-  const themeClass = currentTopic?.theme === 'gta' ? 'gta-mode' : '';
+  // Determine theme class
+  let themeClass = '';
+  if (currentTopic?.theme === 'gta') themeClass = 'gta-mode';
+  if (currentTopic?.theme === 'wukong') themeClass = 'wukong-mode';
 
   return (
     <div className={`h-screen w-screen font-sans text-slate-900 selection:bg-surgical-200 overflow-hidden relative bg-[#e0e5ec] flex flex-col ${themeClass}`}>
@@ -114,24 +117,46 @@ const App: React.FC = () => {
             </div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 px-2">
-              {TOPICS.map((topic, index) => (
-                <div 
-                  key={topic.id}
-                  onClick={() => startTopic(index)}
-                  className="group cursor-pointer perspective-500"
-                >
-                  <div className={`art-3d-card p-6 transition-all duration-300 group-hover:-translate-y-2 group-hover:shadow-[15px_15px_30px_#a3b1c6,-15px_-15px_30px_#ffffff] relative overflow-hidden h-full flex flex-col ${topic.theme === 'gta' ? 'bg-gradient-to-br from-slate-800 to-slate-900 border-green-500/30' : 'bg-gradient-to-br from-[#e0e5ec] to-[#f0f4f8]'}`}>
-                    <div className="flex justify-between items-start mb-4">
-                      <Badge color={topic.theme === 'gta' ? 'bg-green-900 text-green-400 border border-green-500' : 'bg-surgical-100 text-surgical-600 shadow-sm border border-white'}>Module {index + 1}</Badge>
-                      <div className={`w-8 h-8 rounded-lg shadow-[3px_3px_6px_#a3b1c6,-3px_-3px_6px_#ffffff] flex items-center justify-center transition-colors ${topic.theme === 'gta' ? 'bg-slate-800 group-hover:text-green-500' : 'bg-[#e0e5ec] group-hover:text-surgical-500'}`}>
-                        <Play className={`w-4 h-4 ml-0.5 transition-colors ${topic.theme === 'gta' ? 'text-green-700 group-hover:text-green-400' : 'text-slate-400 group-hover:text-surgical-500'}`} />
+              {TOPICS.map((topic, index) => {
+                let cardThemeClass = 'bg-gradient-to-br from-[#e0e5ec] to-[#f0f4f8]';
+                let badgeClass = 'bg-surgical-100 text-surgical-600 shadow-sm border border-white';
+                let iconBgClass = 'bg-[#e0e5ec] group-hover:text-surgical-500';
+                let iconColorClass = 'text-slate-400 group-hover:text-surgical-500';
+                let titleColorClass = 'text-slate-800 group-hover:text-surgical-700';
+
+                if (topic.theme === 'gta') {
+                  cardThemeClass = 'bg-gradient-to-br from-slate-800 to-slate-900 border-green-500/30';
+                  badgeClass = 'bg-green-900 text-green-400 border border-green-500';
+                  iconBgClass = 'bg-slate-800 group-hover:text-green-500';
+                  iconColorClass = 'text-green-700 group-hover:text-green-400';
+                  titleColorClass = 'text-slate-100 group-hover:text-green-400';
+                } else if (topic.theme === 'wukong') {
+                  cardThemeClass = 'bg-gradient-to-br from-[#fffbeb] to-[#fef3c7] border-amber-500/50';
+                  badgeClass = 'bg-amber-100 text-amber-800 border border-amber-500';
+                  iconBgClass = 'bg-[#fffbeb] group-hover:text-amber-600';
+                  iconColorClass = 'text-amber-700 group-hover:text-amber-500';
+                  titleColorClass = 'text-[#451a03] group-hover:text-amber-700 font-mythical';
+                }
+
+                return (
+                  <div 
+                    key={topic.id}
+                    onClick={() => startTopic(index)}
+                    className="group cursor-pointer perspective-500"
+                  >
+                    <div className={`art-3d-card p-6 transition-all duration-300 group-hover:-translate-y-2 group-hover:shadow-[15px_15px_30px_#a3b1c6,-15px_-15px_30px_#ffffff] relative overflow-hidden h-full flex flex-col ${cardThemeClass}`}>
+                      <div className="flex justify-between items-start mb-4">
+                        <Badge color={badgeClass}>Module {index + 1}</Badge>
+                        <div className={`w-8 h-8 rounded-lg shadow-[3px_3px_6px_#a3b1c6,-3px_-3px_6px_#ffffff] flex items-center justify-center transition-colors ${iconBgClass}`}>
+                          <Play className={`w-4 h-4 ml-0.5 transition-colors ${iconColorClass}`} />
+                        </div>
                       </div>
+                      <h3 className={`text-lg font-bold mb-1 leading-tight transition-colors ${titleColorClass}`}>{topic.title}</h3>
+                      <p className={`font-medium text-xs mt-auto pt-4 ${topic.theme === 'gta' ? 'text-slate-400' : 'text-slate-400'}`}>{topic.slides.length} Slides</p>
                     </div>
-                    <h3 className={`text-lg font-bold mb-1 leading-tight transition-colors ${topic.theme === 'gta' ? 'text-slate-100 group-hover:text-green-400' : 'text-slate-800 group-hover:text-surgical-700'}`}>{topic.title}</h3>
-                    <p className={`font-medium text-xs mt-auto pt-4 ${topic.theme === 'gta' ? 'text-slate-400' : 'text-slate-400'}`}>{topic.slides.length} Slides</p>
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
         ) : (
@@ -153,7 +178,11 @@ const App: React.FC = () => {
       {currentTopic && (
         <div className="h-1.5 w-full bg-slate-200/50 shrink-0">
           <div 
-            className={`h-full transition-all duration-500 ease-out shadow-[0_0_10px_#0ea5e9] ${currentTopic.theme === 'gta' ? 'bg-green-500 shadow-[0_0_15px_#22c55e]' : 'bg-surgical-500'}`}
+            className={`h-full transition-all duration-500 ease-out shadow-[0_0_10px_#0ea5e9] ${
+              currentTopic.theme === 'gta' ? 'bg-green-500 shadow-[0_0_15px_#22c55e]' : 
+              currentTopic.theme === 'wukong' ? 'bg-amber-500 shadow-[0_0_15px_#f59e0b]' :
+              'bg-surgical-500'
+            }`}
             style={{ width: `${((currentSlideIndex + 1) / currentTopic.slides.length) * 100}%` }}
           />
         </div>
