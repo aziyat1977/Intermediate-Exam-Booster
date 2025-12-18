@@ -33,8 +33,12 @@ export const checkAudio = async (audioBlob: Blob, prompt: string): Promise<strin
     const reader = new FileReader();
     const base64Promise = new Promise<string>((resolve, reject) => {
       reader.onloadend = () => {
-        const base64String = (reader.result as string).split(',')[1];
-        resolve(base64String);
+        if (typeof reader.result === 'string') {
+           const base64String = reader.result.split(',')[1];
+           resolve(base64String);
+        } else {
+           reject(new Error("Failed to convert blob to string"));
+        }
       };
       reader.onerror = reject;
     });
@@ -47,7 +51,7 @@ export const checkAudio = async (audioBlob: Blob, prompt: string): Promise<strin
             parts: [
                 {
                     inlineData: {
-                        mimeType: 'audio/webm', // Or the actual mime type from the recorder
+                        mimeType: audioBlob.type || 'audio/webm', // Use the actual mime type of the recording
                         data: base64Audio
                     }
                 },

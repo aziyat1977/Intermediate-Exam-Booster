@@ -3,9 +3,9 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>LinguVerse Surgical</title>
+    <title>LinguVerse Surgical 3D</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     <script>
       tailwind.config = {
         theme: {
@@ -31,9 +31,27 @@
               }
             },
             boxShadow: {
-              '3d': '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05), 0 20px 25px -5px rgba(0, 0, 0, 0.1)',
-              'inner-3d': 'inset 0 2px 4px 0 rgba(0, 0, 0, 0.06)',
-              'surgical-panel': '0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06), inset 0 1px 0 0 rgba(255, 255, 255, 0.5)',
+              '3d-floating': '20px 20px 40px #a3b1c6, -20px -20px 40px #ffffff',
+              '3d-inner': 'inset 5px 5px 10px #a3b1c6, inset -5px -5px 10px #ffffff',
+            },
+            keyframes: {
+              fadeIn: {
+                '0%': { opacity: '0' },
+                '100%': { opacity: '1' },
+              },
+              fadeInUp: {
+                '0%': { opacity: '0', transform: 'translateY(40px)' },
+                '100%': { opacity: '1', transform: 'translateY(0)' },
+              },
+              float: {
+                '0%, 100%': { transform: 'translateY(0)' },
+                '50%': { transform: 'translateY(-10px)' },
+              }
+            },
+            animation: {
+              'fade-in': 'fadeIn 0.5s ease-out',
+              'fade-in-up': 'fadeInUp 0.6s cubic-bezier(0.2, 0.8, 0.2, 1)',
+              'float': 'float 6s ease-in-out infinite',
             }
           }
         }
@@ -41,29 +59,138 @@
     </script>
     <style>
       body {
-        background-color: #f8fafc;
-        color: #0f172a;
+        background-color: #e0e5ec;
+        color: #334155;
+        overflow-x: hidden;
       }
-      .surgical-card {
-        background: linear-gradient(145deg, #ffffff, #f1f5f9);
-        border: 1px solid white;
-        box-shadow: 5px 5px 10px #d1d5db, -5px -5px 10px #ffffff;
-        border-radius: 1.5rem;
+      
+      /* 3D Card Style */
+      .art-3d-card {
+        background: #e0e5ec;
+        border-radius: 30px;
+        box-shadow: 
+          20px 20px 60px #bec3c9, 
+          -20px -20px 60px #ffffff;
+        border: 1px solid rgba(255,255,255,0.4);
       }
-      .surgical-btn {
+
+      /* 3D Button Primary - Blue Resin Look */
+      .art-3d-btn-primary {
         background: linear-gradient(145deg, #0ea5e9, #0284c7);
         color: white;
-        box-shadow: 3px 3px 6px #b0c4de, -3px -3px 6px #ffffff;
+        border-radius: 20px;
+        box-shadow: 
+          8px 8px 16px #a3b1c6, 
+          -8px -8px 16px #ffffff;
+        border: none;
+        transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        position: relative;
+        overflow: hidden;
+      }
+      .art-3d-btn-primary::before {
+        content: '';
+        position: absolute;
+        top: 0; left: 0; right: 0; height: 50%;
+        background: linear-gradient(to bottom, rgba(255,255,255,0.2), transparent);
+        border-radius: 20px 20px 0 0;
+      }
+      .art-3d-btn-primary:active {
+        box-shadow: 
+          inset 4px 4px 8px #005a87, 
+          inset -4px -4px 8px #38bdf8;
+        transform: scale(0.98);
+      }
+
+      /* 3D Button Secondary - Clay Look */
+      .art-3d-btn-secondary {
+        background: #e0e5ec;
+        color: #0f172a;
+        border-radius: 20px;
+        box-shadow: 
+          8px 8px 16px #a3b1c6, 
+          -8px -8px 16px #ffffff;
+        border: 1px solid rgba(255,255,255,0.2);
         transition: all 0.2s ease;
       }
-      .surgical-btn:active {
-        box-shadow: inset 3px 3px 6px #026aa7, inset -3px -3px 6px #4db8ff;
+      .art-3d-btn-secondary:active:not(:disabled) {
+        box-shadow: 
+          inset 6px 6px 12px #a3b1c6, 
+          inset -6px -6px 12px #ffffff;
+        transform: scale(0.98);
       }
-      .glass-panel {
-        background: rgba(255, 255, 255, 0.7);
-        backdrop-filter: blur(12px);
-        -webkit-backdrop-filter: blur(12px);
+
+      /* 3D Sphere for Mic */
+      .art-3d-sphere {
+        background: linear-gradient(145deg, #38bdf8, #0ea5e9);
+        border-radius: 50%;
+        box-shadow: 
+          10px 10px 20px #a3b1c6, 
+          -10px -10px 20px #ffffff;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
+      }
+      .art-3d-sphere::after {
+        content: '';
+        position: absolute;
+        top: 15%; left: 15%; width: 25%; height: 25%;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(255,255,255,0.8), transparent);
+        filter: blur(2px);
+      }
+      .art-3d-sphere:active {
+        box-shadow: inset 6px 6px 12px #026aa7, inset -6px -6px 12px #7dd3fc;
+        transform: scale(0.95);
+      }
+      .art-3d-sphere.recording {
+        background: linear-gradient(145deg, #ef4444, #b91c1c);
+        box-shadow: 
+          0 0 30px #ef4444,
+          inset 4px 4px 8px #7f1d1d, 
+          inset -4px -4px 8px #fca5a5;
+      }
+
+      /* 3D Input (Inset) */
+      .art-3d-input {
+        background: #e0e5ec;
+        border-radius: 12px;
+        box-shadow: 
+          inset 6px 6px 12px #a3b1c6, 
+          inset -6px -6px 12px #ffffff;
+        border: none;
+        padding: 1rem;
+        outline: none;
+        transition: box-shadow 0.2s;
+      }
+      .art-3d-input:focus {
+        box-shadow: 
+          inset 3px 3px 6px #a3b1c6, 
+          inset -3px -3px 6px #ffffff,
+          0 0 0 2px #38bdf8;
+      }
+
+      /* 3D Tube for Progress */
+      .art-3d-tube {
+        background: #e0e5ec;
+        box-shadow: inset 5px 5px 10px #a3b1c6, inset -5px -5px 10px #ffffff;
+        border-radius: 50px;
+      }
+      .art-3d-tube-fill {
+        background: linear-gradient(90deg, #38bdf8, #0ea5e9);
+        box-shadow: 2px 2px 5px rgba(0,0,0,0.2), inset 0 2px 2px rgba(255,255,255,0.4);
+        border-radius: 50px;
+      }
+
+      /* Glass Panel */
+      .art-glass-panel {
+        background: rgba(224, 229, 236, 0.6);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
         border: 1px solid rgba(255, 255, 255, 0.4);
+        box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+        border-radius: 24px;
       }
     </style>
   <script type="importmap">
