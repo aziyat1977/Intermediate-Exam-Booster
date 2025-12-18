@@ -1901,171 +1901,359 @@ export const TOPICS: Topic[] = [
   },
   {
     id: 'topic-10',
-    title: '12.1 Reported Speech',
+    title: '12.1 Reported Speech: Time Travel',
     slides: [
       {
         id: '10-1',
         type: 'intro',
-        title: 'Lead-in',
-        leadText: 'Tom says "I like pizza." -> Sarah says "Tom said he LIKED pizza."',
+        title: 'The Concept: Backshifting',
+        leadText: 'Imagine a Time Machine.',
         bulletPoints: [
-          { lang: 'en', label: 'Context', text: 'Direct: Present tense. Reported: Past tense (Backshift).' }
+          { lang: 'en', label: 'Direct', text: 'Tom is here NOW. He says: "I LIKE pizza."' },
+          { lang: 'en', label: 'Reported', text: 'Later, you tell Sarah. You are in the FUTURE. Tom is in the PAST.' },
+          { lang: 'en', label: 'Result', text: 'Tom said he LIKED pizza.' }
         ],
-        question: 'Why does "like" become "liked"?'
+        question: 'We move the tense ONE STEP BACK into the past.'
       },
       {
         id: '10-2',
         type: 'concept',
-        title: 'Meaning & Definition',
+        title: 'Mechanism: Say vs Tell',
+        leadText: 'Reporting Verbs',
         bulletPoints: [
-          { lang: 'en', label: 'Use', text: 'To tell someone what another person said.' },
-          { lang: 'en', label: 'Backshift', text: 'Present -> Past. Past -> Past Perfect. Will -> Would.' },
-          { lang: 'en', label: 'Say vs Tell', text: '"He SAID..." vs "He TOLD ME..."' },
-          { lang: 'uz', label: 'Ma’nosi', text: 'Ko‘chirma gap. Zamon bir qadam ortga suriladi.' },
-          { lang: 'ru', label: 'Значение', text: 'Косвенная речь. Сдвиг времен назад.' }
+          { lang: 'en', label: 'SAY (Said)', text: 'Use when there is NO object person. "He SAID (that) he was tired."' },
+          { lang: 'en', label: 'TELL (Told)', text: 'Use when there IS a person. "He TOLD ME (that) he was tired."' },
+          { lang: 'uz', label: 'Say', text: 'Eshityotgan odam aniq bo‘lmasa.' },
+          { lang: 'uz', label: 'Tell', text: 'Eshityotgan odam (me, him, her) aniq bo‘lsa.' }
         ]
       },
       {
         id: '10-3',
-        type: 'quiz',
-        title: 'Concept Check 1',
-        question: 'Direct: "I am happy." -> Reported: He said he ____ happy.',
-        options: ['is', 'was'],
-        correctAnswer: 1,
-        explanation: 'Present (am) becomes Past (was).'
-      },
-      {
-        id: '10-4',
-        type: 'quiz',
-        title: 'Concept Check 2',
-        question: 'Direct: "I will call you." -> Reported: She said she ____ call me.',
-        options: ['will', 'would'],
-        correctAnswer: 1,
-        explanation: 'Will changes to Would.'
-      },
-      {
-        id: '10-5',
-        type: 'quiz',
-        title: 'Concept Check 3',
-        question: 'He ____ US the news.',
-        options: ['said', 'told'],
-        correctAnswer: 1,
-        explanation: 'We have an object "us", so we must use "told".'
-      },
-      {
-        id: '10-6-a',
         type: 'timeline',
-        title: 'The Tense Backshift',
-        leadText: 'Shifting one step back in time',
-        visualContext: 'Time Shift Mechanism',
+        title: 'Visual: The Present Shift',
+        leadText: 'Direct (Present) -> Reported (Past)',
+        visualContext: 'Time Jump 1',
         visualData: [
-            { label: 'DIRECT', subLabel: 'Present', percentage: 20, type: 'start', color: 'blue' },
-            { label: 'BACKSHIFT', subLabel: 'Shift', percentage: 50, type: 'range', color: 'purple' },
-            { label: 'REPORTED', subLabel: 'Past', percentage: 80, type: 'end', color: 'green' }
+            { label: 'DIRECT: "I PLAY"', subLabel: 'Present Simple', percentage: 10, type: 'start', color: 'blue' },
+            { label: 'THE WALL', subLabel: 'Shift Tense', percentage: 50, type: 'range', color: 'purple' },
+            { label: 'REPORTED: HE PLAYED', subLabel: 'Past Simple', percentage: 90, type: 'end', color: 'green' }
         ]
       },
       {
-        id: '10-6-b',
+        id: '10-4',
         type: 'concept',
-        title: 'Shift Rules',
+        title: 'Slow Motion: Present -> Past',
+        leadText: 'Analyzing the shift word by word.',
         bulletPoints: [
-            { lang: 'en', label: 'Present Simple', text: '-> Past Simple ("I play" -> "He played")' },
-            { lang: 'en', label: 'Past Simple', text: '-> Past Perfect ("I arrived" -> "He had arrived")' },
-            { lang: 'en', label: 'Will', text: '-> Would ("I will go" -> "He would go")' }
+            { lang: 'en', label: '1. Subject', text: '"I" becomes "He/She".' },
+            { lang: 'en', label: '2. Verb', text: 'Present Simple (play) -> Past Simple (played).' },
+            { lang: 'en', label: '3. Example', text: '"I want it." -> He said he WANTED it.' }
+        ]
+      },
+       {
+        id: '10-5',
+        type: 'timeline',
+        title: 'Visual: The Past Shift',
+        leadText: 'Direct (Past) -> Reported (Past Perfect)',
+        visualContext: 'Time Jump 2',
+        visualData: [
+            { label: 'DIRECT: "I PLAYED"', subLabel: 'Past Simple', percentage: 10, type: 'start', color: 'orange' },
+            { label: 'THE WALL', subLabel: 'Deep Past', percentage: 50, type: 'range', color: 'red' },
+            { label: 'REPORTED: HE HAD PLAYED', subLabel: 'Past Perfect', percentage: 90, type: 'end', color: 'green' }
+        ]
+      },
+      {
+        id: '10-6',
+        type: 'concept',
+        title: 'Slow Motion: Past -> Past Perfect',
+        leadText: 'Moving deeper into history.',
+        bulletPoints: [
+            { lang: 'en', label: 'Rule', text: 'Past Simple becomes Past Perfect (Had + V3).' },
+            { lang: 'en', label: 'Reason', text: 'To show the action happened BEFORE he spoke.' },
+            { lang: 'en', label: 'Example', text: '"I saw her." -> He said he HAD SEEN her.' }
         ]
       },
       {
         id: '10-7',
-        type: 'concept',
-        title: '3 Examples',
-        bulletPoints: [
-            { lang: 'en', label: 'Present to Past', text: '"I WORK here." -> "He said he WORKED there."' },
-            { lang: 'en', label: 'Past to Past Perfect', text: '"I ARRIVED." -> "He said he HAD ARRIVED."' },
-            { lang: 'en', label: 'Modal Change', text: '"I CAN help." -> "He said he COULD help."' }
+        type: 'timeline',
+        title: 'Visual: The Modal Shift',
+        leadText: 'Future (Will) -> Conditional (Would)',
+        visualContext: 'Modal Shift',
+        visualData: [
+            { label: 'DIRECT: "I WILL"', subLabel: 'Future', percentage: 10, type: 'start', color: 'blue' },
+            { label: 'THE WALL', subLabel: 'Softening', percentage: 50, type: 'range', color: 'orange' },
+            { label: 'REPORTED: HE WOULD', subLabel: 'Conditional', percentage: 90, type: 'end', color: 'green' }
         ]
       },
       {
         id: '10-8',
-        type: 'test',
-        title: 'Test 1',
-        question: '"I am leaving." -> She said she ____.',
-        options: ['is leaving', 'was leaving', 'had left'],
-        correctAnswer: 1,
-        explanation: 'Present Cont. -> Past Cont.'
+        type: 'concept',
+        title: 'Modal Changes Detail',
+        leadText: 'Not all modals change.',
+        bulletPoints: [
+            { lang: 'en', label: 'Will -> Would', text: '"I will go." -> He said he WOULD go.' },
+            { lang: 'en', label: 'Can -> Could', text: '"I can swim." -> He said he COULD swim.' },
+            { lang: 'en', label: 'Must -> Had to', text: '"I must leave." -> He said he HAD TO leave.' },
+            { lang: 'en', label: 'No Change', text: 'Should, Could, Might, Would do not change.' }
+        ]
       },
       {
         id: '10-9',
-        type: 'test',
-        title: 'Test 2',
-        question: '"We have finished." -> They told me they ____.',
-        options: ['have finished', 'had finished', 'finished'],
-        correctAnswer: 1,
-        explanation: 'Present Perfect -> Past Perfect.'
+        type: 'concept',
+        title: 'Place & Time Shifts',
+        leadText: 'Words must match the new perspective.',
+        bulletPoints: [
+            { lang: 'en', label: 'Time', text: 'Now -> Then. Today -> That day. Tomorrow -> The next day.' },
+            { lang: 'en', label: 'Past Time', text: 'Yesterday -> The day before. Last week -> The week before.' },
+            { lang: 'en', label: 'Place', text: 'Here -> There. This -> That.' }
+        ]
       },
       {
         id: '10-10',
         type: 'test',
-        title: 'Test 3',
-        question: 'He ____ that he was tired.',
-        options: ['said', 'told', 'told to'],
+        title: 'Test 1: Present to Past',
+        question: '"I live in New York." -> He said he ____ in New York.',
+        options: ['lived', 'lives', 'had lived'],
         correctAnswer: 0,
-        explanation: 'No person object -> Said.'
+        explanation: 'Present Simple backshifts to Past Simple.'
       },
       {
         id: '10-11',
-        type: 'quiz',
-        title: 'Word Transformation',
-        question: 'Reported form of "here":',
-        options: ['here', 'there'],
-        correctAnswer: 1
+        type: 'test',
+        title: 'Test 2: Past to Perfect',
+        question: '"I finished the job." -> He said he ____ the job.',
+        options: ['finished', 'has finished', 'had finished'],
+        correctAnswer: 2,
+        explanation: 'Past Simple backshifts to Past Perfect.'
       },
       {
         id: '10-12',
-        type: 'quiz',
-        title: 'Word Transformation',
-        question: 'Reported form of "tomorrow":',
-        options: ['yesterday', 'the next day'],
-        correctAnswer: 1
+        type: 'test',
+        title: 'Test 3: Continuous',
+        question: '"I am sleeping." -> She said she ____ sleeping.',
+        options: ['is', 'was', 'been'],
+        correctAnswer: 1,
+        explanation: 'am (Present) -> was (Past).'
       },
       {
         id: '10-13',
-        type: 'quiz',
-        title: 'Spot the Mistake',
-        question: 'Is "She said me that she was hungry" correct?',
-        options: ['Yes', 'No, "She told me..."'],
-        correctAnswer: 1
+        type: 'test',
+        title: 'Test 4: Modals',
+        question: '"I can help you." -> He said he ____ help me.',
+        options: ['can', 'could', 'should'],
+        correctAnswer: 1,
+        explanation: 'Can becomes Could.'
       },
       {
         id: '10-14',
         type: 'test',
-        title: 'Rapid Fire',
-        question: '"I must go." -> He said he ____ go.',
-        options: ['must', 'had to'],
-        correctAnswer: 1
+        title: 'Test 5: Time Words',
+        question: '"I will see you tomorrow." -> He said he would see me ____.',
+        options: ['tomorrow', 'the next day', 'yesterday'],
+        correctAnswer: 1,
+        explanation: 'Tomorrow changes to "the next day" in reported speech.'
       },
       {
         id: '10-15',
-        type: 'gap-fill',
-        title: 'Gap Fill 1',
-        leadText: '"I like ice cream." -> "Tom said he __________ (like) ice cream."',
-        correctAnswer: 'liked'
+        type: 'test',
+        title: 'Test 6: Place Words',
+        question: '"Put it here." -> He told me to put it ____.',
+        options: ['here', 'there'],
+        correctAnswer: 1,
+        explanation: 'Here becomes There.'
       },
       {
         id: '10-16',
-        type: 'gap-fill',
-        title: 'Gap Fill 2',
-        leadText: '"I\'ll help you." -> "She told me she __________ (help) me."',
-        correctAnswer: 'would help'
+        type: 'test',
+        title: 'Test 7: Must',
+        question: '"I must go." -> He said he ____ go.',
+        options: ['must', 'had to', 'would'],
+        correctAnswer: 1,
+        explanation: 'Must typically changes to "Had to".'
       },
       {
         id: '10-17',
-        type: 'gap-fill',
-        title: 'Gap Fill 3',
-        leadText: '"I\'ve never been to Paris." -> "He said he __________ (never / be) to Paris."',
-        correctAnswer: 'had never been'
+        type: 'test',
+        title: 'Test 8: Reporting Verbs',
+        question: 'He ____ me that he was hungry.',
+        options: ['said', 'told', 'asked'],
+        correctAnswer: 1,
+        explanation: 'Object "me" requires "told".'
       },
       {
         id: '10-18',
+        type: 'test',
+        title: 'Test 9: Past Perfect',
+        question: '"I had already eaten." -> He said he ____ already eaten.',
+        options: ['had', 'has', 'have'],
+        correctAnswer: 0,
+        explanation: 'Past Perfect DOES NOT change.'
+      },
+      {
+        id: '10-19',
+        type: 'test',
+        title: 'Test 10: Will',
+        question: '"It will rain." -> The forecast said it ____ rain.',
+        options: ['will', 'would', 'is'],
+        correctAnswer: 1,
+        explanation: 'Will becomes Would.'
+      },
+      {
+        id: '10-20',
+        type: 'quiz',
+        title: 'Quiz 1: Logic',
+        question: 'True or False: We move the tense FORWARD into the future.',
+        options: ['True', 'False'],
+        correctAnswer: 1,
+        explanation: 'False. We move it BACK into the past.'
+      },
+      {
+        id: '10-21',
+        type: 'quiz',
+        title: 'Quiz 2: Verbs',
+        question: 'Which verb needs an object person? (e.g. "Him", "Me")',
+        options: ['Say', 'Tell'],
+        correctAnswer: 1
+      },
+      {
+        id: '10-22',
+        type: 'quiz',
+        title: 'Quiz 3: Time',
+        question: 'What does "Now" become?',
+        options: ['Then', 'Before'],
+        correctAnswer: 0
+      },
+      {
+        id: '10-23',
+        type: 'quiz',
+        title: 'Quiz 4: Modals',
+        question: 'Does "Should" change in reported speech?',
+        options: ['Yes', 'No'],
+        correctAnswer: 1,
+        explanation: 'Should, Could, Might, Ought to do not change.'
+      },
+      {
+        id: '10-24',
+        type: 'quiz',
+        title: 'Quiz 5: Mechanics',
+        question: 'Odd one out: Which tense does NOT change?',
+        options: ['Present Simple', 'Past Perfect', 'Future Simple'],
+        correctAnswer: 1
+      },
+      {
+        id: '10-25',
+        type: 'quiz',
+        title: 'Quiz 6: Identification',
+        question: 'Is this correct? "He said me that he was busy."',
+        options: ['Yes', 'No'],
+        correctAnswer: 1,
+        explanation: 'No. "He TOLD me" or "He SAID (no object)".'
+      },
+      {
+        id: '10-26',
+        type: 'quiz',
+        title: 'Quiz 7: Pronouns',
+        question: '"I like my car." -> He said he liked ____ car.',
+        options: ['my', 'his'],
+        correctAnswer: 1
+      },
+      {
+        id: '10-27',
+        type: 'quiz',
+        title: 'Quiz 8: Universal Truth',
+        question: 'If the statement is always true (e.g., "The sun is hot"), do we HAVE to backshift?',
+        options: ['Yes', 'No'],
+        correctAnswer: 1,
+        explanation: 'No. If it is still true, you can keep the present tense.'
+      },
+      {
+        id: '10-28',
+        type: 'quiz',
+        title: 'Quiz 9: This/That',
+        question: '"I like this book." -> He said he liked ____ book.',
+        options: ['this', 'that'],
+        correctAnswer: 1
+      },
+      {
+        id: '10-29',
+        type: 'quiz',
+        title: 'Quiz 10: Ago',
+        question: 'What does "Two days ago" become?',
+        options: ['Two days before', 'Two days past'],
+        correctAnswer: 0
+      },
+      {
+        id: '10-30',
+        type: 'gap-fill',
+        title: 'Gap Fill 1',
+        leadText: '"I am happy." -> He said he __________ (be) happy.',
+        correctAnswer: 'was'
+      },
+      {
+        id: '10-31',
+        type: 'gap-fill',
+        title: 'Gap Fill 2',
+        leadText: '"I have finished." -> She said she __________ (finish).',
+        correctAnswer: 'had finished'
+      },
+      {
+        id: '10-32',
+        type: 'gap-fill',
+        title: 'Gap Fill 3',
+        leadText: '"I will call." -> He said he __________ (call).',
+        correctAnswer: 'would call'
+      },
+      {
+        id: '10-33',
+        type: 'gap-fill',
+        title: 'Gap Fill 4',
+        leadText: '"I can swim." -> She said she __________ (swim).',
+        correctAnswer: 'could swim'
+      },
+      {
+        id: '10-34',
+        type: 'gap-fill',
+        title: 'Gap Fill 5',
+        leadText: '"I saw him yesterday." -> He said he had seen him the day __________.',
+        correctAnswer: 'before'
+      },
+      {
+        id: '10-35',
+        type: 'gap-fill',
+        title: 'Gap Fill 6',
+        leadText: '"I must go." -> He said he __________ (have to) go.',
+        correctAnswer: 'had to'
+      },
+      {
+        id: '10-36',
+        type: 'gap-fill',
+        title: 'Gap Fill 7',
+        leadText: '"We are playing." -> They said they __________ (play).',
+        correctAnswer: 'were playing'
+      },
+      {
+        id: '10-37',
+        type: 'gap-fill',
+        title: 'Gap Fill 8',
+        leadText: '"I don\'t know." -> He said he __________ (not / know).',
+        correctAnswer: 'didn\'t know'
+      },
+      {
+        id: '10-38',
+        type: 'gap-fill',
+        title: 'Gap Fill 9',
+        leadText: '"I am here." -> He said he was __________.',
+        correctAnswer: 'there'
+      },
+      {
+        id: '10-39',
+        type: 'gap-fill',
+        title: 'Gap Fill 10',
+        leadText: '"I will do it tomorrow." -> He said he would do it the __________ day.',
+        correctAnswer: 'next'
+      },
+      {
+        id: '10-40',
         type: 'reading',
         title: 'Reading Comprehension',
         passage: 'He told me that he **loved** acting but he **hated** the paparazzi. He said that he **was working** on a new movie then. He mentioned that he **had seen** the script the week before. He promised that he **would give** me an exclusive interview.',
@@ -2074,7 +2262,7 @@ export const TOPICS: Topic[] = [
         correctAnswer: 1
       },
       {
-        id: '10-19',
+        id: '10-41',
         type: 'speaking',
         title: 'Speaking Task',
         leadText: 'Report the gossip.',
@@ -2277,4 +2465,3 @@ export const TOPICS: Topic[] = [
     ]
   }
 ];
-    
