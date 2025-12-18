@@ -1,3 +1,4 @@
+
 import { Topic } from '../types';
 
 export const TOPICS: Topic[] = [
@@ -5,85 +6,221 @@ export const TOPICS: Topic[] = [
     id: 'topic-1',
     title: '6.2 Present Perfect Simple vs. Continuous',
     slides: [
+      // --- Intro / Lead-in Section Split ---
       {
-        id: '1-1',
+        id: '1-1-a',
         type: 'intro',
-        title: 'Lead-in',
-        imageUrl: 'https://picsum.photos/800/600?grayscale',
-        leadText: 'Look at the scenarios below.',
+        title: 'Lead-in: The Scene',
+        imageUrl: 'https://images.unsplash.com/photo-1589939705384-5185137a7f0f?q=80&w=1000&auto=format&fit=crop',
+        leadText: 'Look at the picture.',
         bulletPoints: [
-          { lang: 'en', label: 'Scenario A', text: 'The boy has painted the wall. (Finished, he is clean.)' },
-          { lang: 'en', label: 'Scenario B', text: 'The boy has been painting the wall. (Half done, paint on clothes.)' }
-        ],
-        question: 'Which sentence focuses on the result? Which one focuses on the activity?'
-      },
-      {
-        id: '1-2',
-        type: 'concept',
-        title: 'Meaning & Definition',
-        bulletPoints: [
-          { lang: 'en', label: 'Present Perfect Continuous', text: 'Focuses on the ACTIVITY. Unfinished or recent. Physical side effects visible.' },
-          { lang: 'en', label: 'Present Perfect Simple', text: 'Focuses on the RESULT. Finished action.' },
-          { lang: 'uz', label: 'Continuous', text: 'Harakatning o‘ziga yoki uning davomiyligiga urg‘u beradi.' },
-          { lang: 'uz', label: 'Simple', text: 'Harakatning natijasiga yoki tugallanganligiga urg‘u beradi.' },
-          { lang: 'ru', label: 'Continuous', text: 'Акцент на процессе или длительности действия.' },
-          { lang: 'ru', label: 'Simple', text: 'Акцент на результате. Действие завершено.' }
+           { lang: 'en', label: 'Observe', text: 'Notice the paint, the clothes, and the wall.' }
         ]
       },
       {
-        id: '1-3',
+        id: '1-1-b',
+        type: 'concept',
+        title: 'Scenario A',
+        leadText: 'The boy has **painted** the wall.',
+        bulletPoints: [
+          { lang: 'en', label: 'Context', text: 'The wall is finished.' },
+          { lang: 'en', label: 'Result', text: 'He is clean. The job is done.' }
+        ]
+      },
+      {
+        id: '1-1-c',
+        type: 'concept',
+        title: 'Scenario B',
+        leadText: 'The boy has **been painting** the wall.',
+        bulletPoints: [
+          { lang: 'en', label: 'Context', text: 'The wall is only half done.' },
+          { lang: 'en', label: 'Activity', text: 'He has paint on his clothes. He is still working.' }
+        ]
+      },
+      {
+        id: '1-1-d',
+        type: 'intro',
+        title: 'Critical Question',
+        leadText: 'Think about the difference.',
+        question: 'Which sentence focuses on the RESULT? Which one focuses on the ACTIVITY?'
+      },
+
+      // --- Meaning Section Split ---
+      {
+        id: '1-2-a',
+        type: 'concept',
+        title: 'Continuous Definition',
+        leadText: 'Present Perfect **Continuous**',
+        bulletPoints: [
+          { lang: 'en', label: 'Focus', text: 'Focuses on the **ACTIVITY** itself.' },
+          { lang: 'en', label: 'Detail', text: 'Emphasizes that the action is unfinished or has been happening recently.' },
+          { lang: 'en', label: 'Evidence', text: 'Explains a current physical state (e.g., sweating, dirty hands).' }
+        ]
+      },
+      {
+        id: '1-2-b',
+        type: 'concept',
+        title: 'Simple Definition',
+        leadText: 'Present Perfect **Simple**',
+        bulletPoints: [
+          { lang: 'en', label: 'Focus', text: 'Focuses on the **RESULT** or completion.' },
+          { lang: 'en', label: 'Detail', text: 'Emphasizes that the action is finished.' },
+          { lang: 'en', label: 'Evidence', text: 'We can see the final outcome.' }
+        ]
+      },
+      {
+        id: '1-2-c',
+        type: 'concept',
+        title: 'Uzbek Explanation',
+        bulletPoints: [
+          { lang: 'uz', label: 'Continuous', text: 'Harakatning o‘ziga yoki uning davomiyligiga urg‘u beradi. Ish tugallanmagan bo‘lishi mumkin. (Masalan: "Men 2 soatdan beri kutib yuribman").' },
+          { lang: 'uz', label: 'Simple', text: 'Harakatning natijasiga yoki tugallanganligiga urg‘u beradi. (Masalan: "Men kitobni o‘qib bo‘ldim").' }
+        ]
+      },
+      {
+        id: '1-2-d',
+        type: 'concept',
+        title: 'Russian Explanation',
+        bulletPoints: [
+          { lang: 'ru', label: 'Continuous', text: 'Акцент на **процессе** или длительности действия. Действие может быть не закончено или только что прекратилось.' },
+          { lang: 'ru', label: 'Simple', text: 'Акцент на **результате**. Действие завершено, и мы видим итог.' }
+        ]
+      },
+
+      // --- Quiz 1 Split ---
+      {
+        id: '1-3-a',
+        type: 'intro',
+        title: 'Concept Check 1: Context',
+        leadText: 'Analyze the situation.',
+        bulletPoints: [
+            { lang: 'en', label: 'Situation', text: 'You see your friend. His face is red and he is breathing hard.' }
+        ]
+      },
+      {
+        id: '1-3-b',
         type: 'quiz',
-        title: 'Concept Check 1',
-        question: 'You see your friend. His face is red and he is breathing hard. What do you say?',
+        title: 'Concept Check 1: Question',
+        question: 'What do you say?',
         options: ['You have run.', 'You have been running.'],
         correctAnswer: 1,
         explanation: 'Correct! We see evidence of the activity (red face), so we focus on the process.'
       },
+
+      // --- Quiz 2 Split ---
       {
-        id: '1-4',
+        id: '1-4-a',
+        type: 'intro',
+        title: 'Concept Check 2: Context',
+        leadText: 'Analyze the situation.',
+        bulletPoints: [
+            { lang: 'en', label: 'Situation', text: 'The plate is empty. The cookies are gone.' }
+        ]
+      },
+      {
+        id: '1-4-b',
         type: 'quiz',
-        title: 'Concept Check 2',
-        question: 'The plate is empty. The cookies are gone. What happened?',
+        title: 'Concept Check 2: Question',
+        question: 'What happened?',
         options: ['Someone has eaten the cookies.', 'Someone has been eating the cookies.'],
         correctAnswer: 0,
         explanation: 'Correct! The action is finished and the result is "empty plate".'
       },
+
+      // --- Quiz 3 Split ---
       {
-        id: '1-5',
-        type: 'quiz',
-        title: 'Concept Check 3',
-        question: 'I started reading this book yesterday. I am on page 50 now.',
-        options: ['I have read this book.', 'I have been reading this book.'],
-        correctAnswer: 1,
-        explanation: 'Correct! The action is unfinished.'
+        id: '1-5-a',
+        type: 'intro',
+        title: 'Concept Check 3: Context',
+        leadText: 'Analyze the situation.',
+        bulletPoints: [
+            { lang: 'en', label: 'Situation', text: 'I started reading this book yesterday. I am on page 50 now.' }
+        ]
       },
       {
-        id: '1-6',
+        id: '1-5-b',
+        type: 'quiz',
+        title: 'Concept Check 3: Question',
+        question: 'Which is correct?',
+        options: ['I have read this book.', 'I have been reading this book.'],
+        correctAnswer: 1,
+        explanation: 'Correct! The action is unfinished. You are still reading it.'
+      },
+
+      // --- Timeline Split ---
+      {
+        id: '1-6-a',
         type: 'timeline',
         title: 'Visual Timeline',
-        leadText: 'Comparing the Focus of each Tense',
-        visualContext: 'Time & Activity Flow',
+        leadText: 'Present Perfect **Continuous**',
+        visualContext: 'Activity Focused',
         visualData: [
             { label: 'Past Start', subLabel: 'Action Begins', percentage: 10, type: 'start', color: 'blue' },
             { label: 'Ongoing', subLabel: 'Process / Activity', percentage: 50, type: 'range', color: 'purple' },
             { label: 'NOW', subLabel: 'Recent / Unfinished', percentage: 90, type: 'end', color: 'green' }
-        ],
-        bulletPoints: [
-          { lang: 'en', label: 'Continuous', text: '"I\'ve been working." (Activity is key. Duration is key.)' },
-          { lang: 'en', label: 'Simple', text: '"I\'ve written the report." (Result is key. Finished.)' },
-          { lang: 'en', label: 'Note', text: 'State verbs (know, like, have) usually take the Simple form.' }
         ]
       },
       {
-        id: '1-7',
-        type: 'concept',
-        title: '3 Examples',
-        bulletPoints: [
-          { lang: 'en', label: 'Activity vs Result', text: 'She’s been writing emails (Busy) vs She’s written 10 emails (Result).' },
-          { lang: 'en', label: 'Evidence', text: 'It’s been raining (Wet ground) vs It has rained (Fact).' },
-          { lang: 'en', label: 'Duration vs Completion', text: 'How long have you been learning? vs Have you learnt the list?' }
+        id: '1-6-b',
+        type: 'timeline',
+        title: 'Visual Timeline',
+        leadText: 'Present Perfect **Simple**',
+        visualContext: 'Result Focused',
+        visualData: [
+            { label: 'Action', subLabel: 'Done', percentage: 40, type: 'range', color: 'blue' },
+            { label: 'STOP', subLabel: 'Finished', percentage: 60, type: 'point', color: 'red' },
+            { label: 'NOW', subLabel: 'Result Visible', percentage: 90, type: 'end', color: 'green' }
         ]
       },
+      {
+        id: '1-6-c',
+        type: 'concept',
+        title: 'Timeline Key Points',
+        bulletPoints: [
+          { lang: 'en', label: 'Continuous', text: '"I\'ve been working." (Activity is key. Length of time is often mentioned.)' },
+          { lang: 'en', label: 'Simple', text: '"I\'ve written the report." (Result is key. Finished.)' }
+        ]
+      },
+      {
+        id: '1-6-d',
+        type: 'concept',
+        title: 'Important Note',
+        leadText: 'State Verbs',
+        bulletPoints: [
+          { lang: 'en', label: 'Rule', text: 'State verbs (know, like, have) usually take the **Simple** form, not continuous.' }
+        ]
+      },
+
+      // --- Examples Split ---
+      {
+        id: '1-7-a',
+        type: 'concept',
+        title: 'Example 1: Activity vs Result',
+        bulletPoints: [
+          { lang: 'en', label: 'Continuous', text: 'She’s **been writing** emails all morning. (She is busy.)' },
+          { lang: 'en', label: 'Simple', text: 'She’s **written** 10 emails. (Quantity/Result.)' }
+        ]
+      },
+      {
+        id: '1-7-b',
+        type: 'concept',
+        title: 'Example 2: Evidence',
+        bulletPoints: [
+          { lang: 'en', label: 'Continuous', text: 'It’s **been raining**. (The ground is wet.)' },
+          { lang: 'en', label: 'Simple', text: 'It has **rained**. (Fact.)' }
+        ]
+      },
+      {
+        id: '1-7-c',
+        type: 'concept',
+        title: 'Example 3: Duration vs Completion',
+        bulletPoints: [
+          { lang: 'en', label: 'Continuous', text: 'How long **have you been learning** Spanish?' },
+          { lang: 'en', label: 'Simple', text: '**Have you learnt** the new vocabulary list?' }
+        ]
+      },
+
+      // --- Tests ---
       {
         id: '1-8',
         type: 'test',
@@ -133,7 +270,7 @@ export const TOPICS: Topic[] = [
         id: '1-13',
         type: 'quiz',
         title: 'Context Match',
-        question: 'Your hands are covered in flour.',
+        question: 'Your hands are covered in flour. Why?',
         options: ["I've made a cake.", "I've been making a cake."],
         correctAnswer: 1,
         explanation: 'Flour on hands is evidence of the activity.'
@@ -146,6 +283,8 @@ export const TOPICS: Topic[] = [
         options: ['He has gone to the gym.', 'She has painted the portrait.', 'I\'ve been reading a book.'],
         correctAnswer: 2
       },
+
+      // --- Gap Fills ---
       {
         id: '1-15',
         type: 'gap-fill',
@@ -167,23 +306,79 @@ export const TOPICS: Topic[] = [
         leadText: '"Hi Tom. I haven\'t seen you for ages. What __________ (you / do) recently?"',
         correctAnswer: 'have you been doing'
       },
+
+      // --- Reading Expanded ---
       {
-        id: '1-18',
+        id: '1-18-a',
         type: 'reading',
-        title: 'Reading Comprehension',
-        passage: 'Climate change is a serious issue. Scientists **have been investigating** the causes for decades. They **have found** that global temperatures are rising. The ice in the Arctic **has been melting** steadily. Recently, researchers **have published** a new report stating that we must act now. Many activists **have been protesting** in the streets to demand change.',
-        question: 'Why do scientists use "have been investigating"?',
+        title: 'Reading: Climate Change',
+        passage: '"Climate change is a serious issue. Scientists **have been investigating** the causes for decades. They **have found** that global temperatures are rising. The ice in the Arctic **has been melting** steadily. Recently, researchers **have published** a new report stating that we must act now. Many activists **have been protesting** in the streets to demand change."',
+        question: 'Q1: Why do scientists use "have been investigating"?',
         options: ['Because they finished yesterday.', 'Because it is a long process continuing up to now.'],
         correctAnswer: 1
       },
       {
-        id: '1-19',
+        id: '1-18-b',
+        type: 'reading',
+        title: 'Reading: Climate Change',
+        passage: '"Climate change is a serious issue. Scientists **have been investigating** the causes for decades. They **have found** that global temperatures are rising..."',
+        question: 'Q2: "They have found..." implies:',
+        options: ['A completed result / discovery.', 'An ongoing search.'],
+        correctAnswer: 0
+      },
+      {
+        id: '1-18-c',
+        type: 'reading',
+        title: 'Reading: Climate Change',
+        passage: '"...The ice in the Arctic **has been melting** steadily..."',
+        question: 'Q3: "The ice has been melting" focuses on:',
+        options: ['The total amount of water.', 'The continuous change occurring over time.'],
+        correctAnswer: 1
+      },
+      {
+        id: '1-18-d',
+        type: 'reading',
+        title: 'Reading: Climate Change',
+        passage: '"...Recently, researchers **have published** a new report stating that we must act now..."',
+        question: 'Q4: Why "have published" and not "have been publishing"?',
+        options: ['The report is finished and released.', 'They are still writing it.'],
+        correctAnswer: 0
+      },
+      {
+        id: '1-18-e',
+        type: 'reading',
+        title: 'Reading: Climate Change',
+        passage: '"...Many activists **have been protesting** in the streets to demand change."',
+        question: 'Q5: "Activists have been protesting." This means:',
+        options: ['They protested once last year.', 'They have done this repeatedly recently and might continue.'],
+        correctAnswer: 1
+      },
+
+      // --- Speaking Expanded ---
+      {
+        id: '1-19-a',
         type: 'speaking',
-        title: 'Speaking Task',
+        title: 'Speaking Task 1',
         leadText: 'Record your answer for feedback.',
         speakingPrompts: [
-          'What is a hobby you have started recently? How long have you been doing it and how much progress have you made?',
-          'Think of a popular TV series. How many episodes have you finished? Have you been binge-watching it?',
+          'What is a hobby you have started recently? How long have you been doing it and how much progress have you made?'
+        ]
+      },
+      {
+        id: '1-19-b',
+        type: 'speaking',
+        title: 'Speaking Task 2',
+        leadText: 'Record your answer for feedback.',
+        speakingPrompts: [
+          'Think of a popular TV series or game. How many episodes/levels have you finished? Have you been binge-watching/playing it lately?'
+        ]
+      },
+      {
+        id: '1-19-c',
+        type: 'speaking',
+        title: 'Speaking Task 3',
+        leadText: 'Record your answer for feedback.',
+        speakingPrompts: [
           'You look really tired today. What have you been doing recently that made you so exhausted?'
         ]
       }
@@ -551,7 +746,7 @@ export const TOPICS: Topic[] = [
           'What do you want to be in the future? (Use a/an for professions)',
           'Describe your school. Is the library big?'
         ]
-    }
+      }
     ]
   },
   {
@@ -2035,3 +2230,4 @@ export const TOPICS: Topic[] = [
     ]
   }
 ];
+    

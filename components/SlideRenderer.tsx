@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { SlideContent } from '../types';
 import { Card, Button, Badge } from './UI';
 import { Timeline3D } from './Timeline3D';
-import { Mic, CheckCircle, XCircle, ChevronRight, Volume2 } from 'lucide-react';
+import { Mic, CheckCircle, XCircle, ChevronRight, Volume2, Globe } from 'lucide-react';
 import { checkAudio } from '../services/geminiService';
 
 interface SlideRendererProps {
@@ -23,24 +23,33 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({ slide, onNext, isL
   const [aiAnalysis, setAiAnalysis] = useState<string>('');
   const [analyzing, setAnalyzing] = useState(false);
   
+  // Language Toggle State
+  const [showRu, setShowRu] = useState(false);
+  const [showUz, setShowUz] = useState(false);
+
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const streamRef = useRef<MediaStream | null>(null);
+
+  // Reset state on slide change
+  useEffect(() => {
+    setSelectedOption(null);
+    setFeedback(null);
+    setGapText('');
+    setAiAnalysis('');
+    setAudioBlob(null);
+    setShowRu(false);
+    setShowUz(false);
+  }, [slide.id]);
 
   // Cleanup effect for audio resources
   useEffect(() => {
     return () => {
-      // Clean up audio URL
-      if (audioUrl) {
-        URL.revokeObjectURL(audioUrl);
-      }
-      // Stop recording tracks if component unmounts
-      if (streamRef.current) {
-        streamRef.current.getTracks().forEach(track => track.stop());
-      }
+      if (audioUrl) URL.revokeObjectURL(audioUrl);
+      if (streamRef.current) streamRef.current.getTracks().forEach(track => track.stop());
     };
   }, [audioUrl]);
 
-  // Handle blob to URL conversion separately
+  // Handle blob to URL conversion
   useEffect(() => {
     if (audioBlob) {
       const url = URL.createObjectURL(audioBlob);
@@ -77,10 +86,8 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({ slide, onNext, isL
       
       recorder.ondataavailable = (e) => chunks.push(e.data);
       recorder.onstop = () => {
-        // Blob type should match recorder type
         const blob = new Blob(chunks, { type: recorder.mimeType || 'audio/webm' });
         setAudioBlob(blob);
-        // Stop stream tracks
         stream.getTracks().forEach(track => track.stop());
         streamRef.current = null;
       };
@@ -104,7 +111,6 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({ slide, onNext, isL
   const analyzeAudio = async () => {
     if (!audioBlob) return;
     setAnalyzing(true);
-    // Safe check for speaking prompts
     const prompt = slide.speakingPrompts && slide.speakingPrompts.length > 0 
       ? slide.speakingPrompts[0] 
       : slide.title;
@@ -125,6 +131,37 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({ slide, onNext, isL
     });
   };
 
+  // Filter bullet points by language
+  const enPoints = slide.bulletPoints?.filter(bp => bp.lang === 'en') || [];
+  const uzPoints = slide.bulletPoints?.filter(bp => bp.lang === 'uz') || [];
+  const ruPoints = slide.bulletPoints?.filter(bp => bp.lang === 'ru') || [];
+  const hasUz = uzPoints.length > 0;
+  const hasRu = ruPoints.length > 0;
+
+  const LanguageToggles = ({ className = "" }: { className?: string }) => {
+    if (!hasUz && !hasRu) return null;
+    return (
+      <div className={`flex gap-3 ${className}`}>
+        {hasUz && (
+          <button 
+            onClick={() => setShowUz(!showUz)}
+            className={`px-4 py-2 rounded-xl font-bold transition-all shadow-[5px_5px_10px_#a3b1c6,-5px_-5px_10px_#ffffff] active:scale-95 flex items-center gap-2 border border-white/50 ${showUz ? 'bg-surgical-500 text-white' : 'bg-[#e0e5ec] text-slate-500 hover:text-surgical-600'}`}
+          >
+            <Globe className="w-4 h-4" /> UZ
+          </button>
+        )}
+        {hasRu && (
+          <button 
+            onClick={() => setShowRu(!showRu)}
+            className={`px-4 py-2 rounded-xl font-bold transition-all shadow-[5px_5px_10px_#a3b1c6,-5px_-5px_10px_#ffffff] active:scale-95 flex items-center gap-2 border border-white/50 ${showRu ? 'bg-surgical-500 text-white' : 'bg-[#e0e5ec] text-slate-500 hover:text-surgical-600'}`}
+          >
+            <Globe className="w-4 h-4" /> RU
+          </button>
+        )}
+      </div>
+    );
+  };
+
   const renderContent = () => {
     switch (slide.type) {
       case 'intro':
@@ -136,18 +173,37 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({ slide, onNext, isL
                 <img src={slide.imageUrl} alt="Visual" className="w-full h-64 object-cover hover:scale-105 transition-transform duration-700" />
               </div>
             )}
+            
             {slide.leadText && <p className="text-xl text-slate-700 font-medium leading-relaxed">{renderMarkdown(slide.leadText)}</p>}
+
+            <LanguageToggles className="justify-end" />
+
             <div className="grid gap-6">
-              {slide.bulletPoints?.map((bp, idx) => (
-                <div key={idx} className="bg-[#e0e5ec] p-6 rounded-2xl shadow-[inset_5px_5px_10px_#a3b1c6,inset_-5px_-5px_10px_#ffffff] border border-white/50">
-                  <Badge color={bp.lang === 'en' ? 'bg-surgical-500 text-white shadow-md' : 'bg-slate-200 text-slate-600'}>
-                    {bp.lang.toUpperCase()}
-                  </Badge>
+              {enPoints.map((bp, idx) => (
+                <div key={`en-${idx}`} className="bg-[#e0e5ec] p-6 rounded-2xl shadow-[inset_5px_5px_10px_#a3b1c6,inset_-5px_-5px_10px_#ffffff] border border-white/50">
+                  <Badge color='bg-surgical-500 text-white shadow-md'>EN</Badge>
+                  <span className="ml-3 font-bold text-slate-500 uppercase text-sm tracking-wider">{bp.label}</span>
+                  <p className="mt-3 text-lg text-slate-800 font-medium">{renderMarkdown(bp.text)}</p>
+                </div>
+              ))}
+              
+              {showUz && uzPoints.map((bp, idx) => (
+                <div key={`uz-${idx}`} className="bg-emerald-50/50 p-6 rounded-2xl shadow-[inset_5px_5px_10px_#a3b1c6,inset_-5px_-5px_10px_#ffffff] border border-white/50 animate-fade-in">
+                  <Badge color='bg-emerald-500 text-white shadow-md'>UZ</Badge>
+                  <span className="ml-3 font-bold text-slate-500 uppercase text-sm tracking-wider">{bp.label}</span>
+                  <p className="mt-3 text-lg text-slate-800 font-medium">{renderMarkdown(bp.text)}</p>
+                </div>
+              ))}
+
+              {showRu && ruPoints.map((bp, idx) => (
+                <div key={`ru-${idx}`} className="bg-indigo-50/50 p-6 rounded-2xl shadow-[inset_5px_5px_10px_#a3b1c6,inset_-5px_-5px_10px_#ffffff] border border-white/50 animate-fade-in">
+                  <Badge color='bg-indigo-500 text-white shadow-md'>RU</Badge>
                   <span className="ml-3 font-bold text-slate-500 uppercase text-sm tracking-wider">{bp.label}</span>
                   <p className="mt-3 text-lg text-slate-800 font-medium">{renderMarkdown(bp.text)}</p>
                 </div>
               ))}
             </div>
+
             {slide.question && <p className="text-surgical-700 font-bold italic mt-4 text-lg bg-surgical-100/50 p-4 rounded-xl border border-surgical-200">{renderMarkdown(slide.question)}</p>}
           </div>
         );
@@ -163,12 +219,37 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({ slide, onNext, isL
                 <Timeline3D points={slide.visualData} context={slide.visualContext} />
               </div>
             )}
-            <div className="grid gap-4 mt-8">
-               {slide.bulletPoints?.map((bp, idx) => (
-                 <div key={idx} className="flex items-start gap-4 p-4 bg-white/40 rounded-xl border border-white">
+            
+            <LanguageToggles className="justify-center mt-8 mb-4" />
+
+            <div className="grid gap-4">
+               {enPoints.map((bp, idx) => (
+                 <div key={`en-${idx}`} className="flex items-start gap-4 p-4 bg-white/40 rounded-xl border border-white">
                     <div className="w-2 h-2 rounded-full bg-surgical-500 mt-2.5 shrink-0" />
                     <div>
                       <span className="font-bold text-surgical-700 uppercase text-xs tracking-wider block mb-1">{bp.label}</span>
+                      <p className="text-slate-700">{renderMarkdown(bp.text)}</p>
+                    </div>
+                 </div>
+               ))}
+               
+               {showUz && uzPoints.map((bp, idx) => (
+                 <div key={`uz-${idx}`} className="flex items-start gap-4 p-4 bg-emerald-50/50 rounded-xl border border-white animate-fade-in">
+                    <div className="w-2 h-2 rounded-full bg-emerald-500 mt-2.5 shrink-0" />
+                    <div>
+                      <Badge color="bg-emerald-100 text-emerald-700 mb-1 border-emerald-200 border text-[10px] py-0 px-2">UZ</Badge>
+                      <span className="font-bold text-emerald-700 uppercase text-xs tracking-wider block mb-1">{bp.label}</span>
+                      <p className="text-slate-700">{renderMarkdown(bp.text)}</p>
+                    </div>
+                 </div>
+               ))}
+
+               {showRu && ruPoints.map((bp, idx) => (
+                 <div key={`ru-${idx}`} className="flex items-start gap-4 p-4 bg-indigo-50/50 rounded-xl border border-white animate-fade-in">
+                    <div className="w-2 h-2 rounded-full bg-indigo-500 mt-2.5 shrink-0" />
+                    <div>
+                      <Badge color="bg-indigo-100 text-indigo-700 mb-1 border-indigo-200 border text-[10px] py-0 px-2">RU</Badge>
+                      <span className="font-bold text-indigo-700 uppercase text-xs tracking-wider block mb-1">{bp.label}</span>
                       <p className="text-slate-700">{renderMarkdown(bp.text)}</p>
                     </div>
                  </div>
