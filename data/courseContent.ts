@@ -1427,5 +1427,535 @@ export const TOPICS: Topic[] = [
         ]
       }
     ]
+  },
+  {
+    id: 'topic-9',
+    title: '11.2 Should/Shouldn\'t have',
+    slides: [
+      {
+        id: '9-1',
+        type: 'intro',
+        title: 'Lead-in',
+        leadText: 'Look at the scenario.',
+        bulletPoints: [
+          { lang: 'en', label: 'Fact', text: 'He PLAYED video games all night. He DIDN\'T study.' },
+          { lang: 'en', label: 'Regret', text: '"I SHOULD HAVE STUDIED. I SHOULDN\'T HAVE PLAYED."' }
+        ],
+        question: 'Can he change the grade now? No.'
+      },
+      {
+        id: '9-2',
+        type: 'concept',
+        title: 'Meaning & Definition',
+        bulletPoints: [
+          { lang: 'en', label: 'Use', text: 'Criticize past actions or express regret.' },
+          { lang: 'en', label: 'Formula', text: 'Should have + Past Participle (V3).' },
+          { lang: 'uz', label: 'Ma’nosi', text: 'O‘tmishdagi afsuslanish. "Qilishim kerak edi".' },
+          { lang: 'ru', label: 'Значение', text: 'Сожаление о прошлом. "Следовало бы..."' }
+        ]
+      },
+      {
+        id: '9-3',
+        type: 'quiz',
+        title: 'Concept Check 1',
+        question: '"You should have called me." Did you call me?',
+        options: ['Yes', 'No'],
+        correctAnswer: 1,
+        explanation: 'Correct! I am criticizing you because you didn\'t call.'
+      },
+      {
+        id: '9-4',
+        type: 'quiz',
+        title: 'Concept Check 2',
+        question: '"I shouldn\'t have eaten that cake." How do I feel now?',
+        options: ['Happy and full.', 'Sick or guilty.'],
+        correctAnswer: 1,
+        explanation: 'Correct! I regret eating it.'
+      },
+      {
+        id: '9-5',
+        type: 'quiz',
+        title: 'Concept Check 3',
+        question: 'Is "He should have been more careful" about Future or Past?',
+        options: ['Future', 'Past'],
+        correctAnswer: 1,
+        explanation: '"Have + V3" signals we are looking back.'
+      },
+      {
+        id: '9-6',
+        type: 'concept',
+        title: 'Timeline',
+        bulletPoints: [
+            { lang: 'en', label: 'Past Point', text: 'Mistake happens here.' },
+            { lang: 'en', label: 'Present Point', text: 'Looking back with regret.' },
+            { lang: 'en', label: 'Analysis', text: 'Did I do it? Yes. Was it good? No.' }
+        ]
+      },
+      {
+        id: '9-7',
+        type: 'concept',
+        title: '3 Examples',
+        bulletPoints: [
+            { lang: 'en', label: 'Self-Regret', text: '"I SHOULD HAVE GONE to bed earlier."' },
+            { lang: 'en', label: 'Criticism', text: '"You SHOULDN\'T HAVE LAUGHED at him."' },
+            { lang: 'en', label: 'Polite Advice', text: '"You SHOULD HAVE TOLD me you were coming!"' }
+        ]
+      },
+      {
+        id: '9-8',
+        type: 'test',
+        title: 'Test 1',
+        question: 'The movie was terrible. We ____ gone to see it.',
+        options: ['should have', 'shouldn\'t have', 'must have'],
+        correctAnswer: 1,
+        explanation: 'Regret: It was a mistake to go.'
+      },
+      {
+        id: '9-9',
+        type: 'test',
+        title: 'Test 2',
+        question: 'You ____ invited Tom. He is really fun!',
+        options: ['should have', 'shouldn\'t have', 'would have'],
+        correctAnswer: 0,
+        explanation: 'Criticism: You didn\'t invite him, but it was a good idea.'
+      },
+      {
+        id: '9-10',
+        type: 'test',
+        title: 'Test 3',
+        question: 'I ____ left my phone in the car. It got stolen.',
+        options: ['shouldn\'t have', 'should have', 'didn\'t have'],
+        correctAnswer: 0,
+        explanation: 'Regret about a bad action.'
+      },
+      {
+        id: '9-11',
+        type: 'quiz',
+        title: 'True/False',
+        question: '"Should have" is used to give advice for the future.',
+        options: ['True', 'False'],
+        correctAnswer: 1,
+        explanation: 'False. It is for the past.'
+      },
+      {
+        id: '9-12',
+        type: 'quiz',
+        title: 'Spot the Mistake',
+        question: 'Is "You should have go to the doctor" correct?',
+        options: ['Yes', 'No, "gone"'],
+        correctAnswer: 1,
+        explanation: 'V3 required.'
+      },
+      {
+        id: '9-13',
+        type: 'quiz',
+        title: 'Context Match',
+        question: 'You are wet because you forgot your umbrella.',
+        options: ['I should have brought my umbrella.', 'I shouldn\'t have brought my umbrella.'],
+        correctAnswer: 0
+      },
+      {
+        id: '9-14',
+        type: 'test',
+        title: 'Rapid Fire',
+        question: '"He ____ worn sunscreen."',
+        options: ['should have', 'shouldn\'t have'],
+        correctAnswer: 0
+      },
+      {
+        id: '9-15',
+        type: 'gap-fill',
+        title: 'Gap Fill 1',
+        leadText: '"I didn\'t study for the test. I __________ (study) more."',
+        correctAnswer: 'should have studied'
+      },
+      {
+        id: '9-16',
+        type: 'gap-fill',
+        title: 'Gap Fill 2',
+        leadText: '"We got lost. We __________ (take) a map."',
+        correctAnswer: 'should have taken'
+      },
+      {
+        id: '9-17',
+        type: 'gap-fill',
+        title: 'Gap Fill 3',
+        leadText: '"My stomach hurts. I __________ (eat) so much chocolate."',
+        correctAnswer: 'shouldn\'t have eaten'
+      },
+      {
+        id: '9-18',
+        type: 'reading',
+        title: 'Reading Comprehension',
+        passage: 'The \'Love Bug\' virus was a disaster. Millions of people received an email with the subject \'I Love You\'. They opened it, and it destroyed their files. Security experts said people **should have been** more suspicious. They **shouldn\'t have opened** emails from strangers. Companies **should have warned** their employees sooner.',
+        question: 'Did people open the email?',
+        options: ['Yes.', 'No.'],
+        correctAnswer: 0
+      },
+      {
+        id: '9-19',
+        type: 'speaking',
+        title: 'Speaking Task',
+        leadText: 'Record your opinion.',
+        speakingPrompts: [
+          'A girl posted a photo of her friend sleeping. Comment on it.',
+          'You stayed up all night watching TikToks and failed. Regret it.',
+          'Your friend bought expensive shoes but has no money. Criticize gently.'
+        ]
+      }
+    ]
+  },
+  {
+    id: 'topic-10',
+    title: '12.1 Reported Speech',
+    slides: [
+      {
+        id: '10-1',
+        type: 'intro',
+        title: 'Lead-in',
+        leadText: 'Tom says "I like pizza." -> Sarah says "Tom said he LIKED pizza."',
+        bulletPoints: [
+          { lang: 'en', label: 'Context', text: 'Direct: Present tense. Reported: Past tense (Backshift).' }
+        ],
+        question: 'Why does "like" become "liked"?'
+      },
+      {
+        id: '10-2',
+        type: 'concept',
+        title: 'Meaning & Definition',
+        bulletPoints: [
+          { lang: 'en', label: 'Use', text: 'To tell someone what another person said.' },
+          { lang: 'en', label: 'Backshift', text: 'Present -> Past. Past -> Past Perfect. Will -> Would.' },
+          { lang: 'en', label: 'Say vs Tell', text: '"He SAID..." vs "He TOLD ME..."' },
+          { lang: 'uz', label: 'Ma’nosi', text: 'Ko‘chirma gap. Zamon bir qadam ortga suriladi.' },
+          { lang: 'ru', label: 'Значение', text: 'Косвенная речь. Сдвиг времен назад.' }
+        ]
+      },
+      {
+        id: '10-3',
+        type: 'quiz',
+        title: 'Concept Check 1',
+        question: 'Direct: "I am happy." -> Reported: He said he ____ happy.',
+        options: ['is', 'was'],
+        correctAnswer: 1,
+        explanation: 'Present (am) becomes Past (was).'
+      },
+      {
+        id: '10-4',
+        type: 'quiz',
+        title: 'Concept Check 2',
+        question: 'Direct: "I will call you." -> Reported: She said she ____ call me.',
+        options: ['will', 'would'],
+        correctAnswer: 1,
+        explanation: 'Will changes to Would.'
+      },
+      {
+        id: '10-5',
+        type: 'quiz',
+        title: 'Concept Check 3',
+        question: 'He ____ US the news.',
+        options: ['said', 'told'],
+        correctAnswer: 1,
+        explanation: 'We have an object "us", so we must use "told".'
+      },
+      {
+        id: '10-6',
+        type: 'concept',
+        title: 'Visual Shifter',
+        bulletPoints: [
+            { lang: 'en', label: 'Present Simple', text: '-> Past Simple ("I play" -> "He played")' },
+            { lang: 'en', label: 'Past Simple', text: '-> Past Perfect ("I arrived" -> "He had arrived")' },
+            { lang: 'en', label: 'Will', text: '-> Would ("I will go" -> "He would go")' }
+        ]
+      },
+      {
+        id: '10-7',
+        type: 'concept',
+        title: '3 Examples',
+        bulletPoints: [
+            { lang: 'en', label: 'Present to Past', text: '"I WORK here." -> "He said he WORKED there."' },
+            { lang: 'en', label: 'Past to Past Perfect', text: '"I ARRIVED." -> "He said he HAD ARRIVED."' },
+            { lang: 'en', label: 'Modal Change', text: '"I CAN help." -> "He said he COULD help."' }
+        ]
+      },
+      {
+        id: '10-8',
+        type: 'test',
+        title: 'Test 1',
+        question: '"I am leaving." -> She said she ____.',
+        options: ['is leaving', 'was leaving', 'had left'],
+        correctAnswer: 1,
+        explanation: 'Present Cont. -> Past Cont.'
+      },
+      {
+        id: '10-9',
+        type: 'test',
+        title: 'Test 2',
+        question: '"We have finished." -> They told me they ____.',
+        options: ['have finished', 'had finished', 'finished'],
+        correctAnswer: 1,
+        explanation: 'Present Perfect -> Past Perfect.'
+      },
+      {
+        id: '10-10',
+        type: 'test',
+        title: 'Test 3',
+        question: 'He ____ that he was tired.',
+        options: ['said', 'told', 'told to'],
+        correctAnswer: 0,
+        explanation: 'No person object -> Said.'
+      },
+      {
+        id: '10-11',
+        type: 'quiz',
+        title: 'Word Transformation',
+        question: 'Reported form of "here":',
+        options: ['here', 'there'],
+        correctAnswer: 1
+      },
+      {
+        id: '10-12',
+        type: 'quiz',
+        title: 'Word Transformation',
+        question: 'Reported form of "tomorrow":',
+        options: ['yesterday', 'the next day'],
+        correctAnswer: 1
+      },
+      {
+        id: '10-13',
+        type: 'quiz',
+        title: 'Spot the Mistake',
+        question: 'Is "She said me that she was hungry" correct?',
+        options: ['Yes', 'No, "She told me..."'],
+        correctAnswer: 1
+      },
+      {
+        id: '10-14',
+        type: 'test',
+        title: 'Rapid Fire',
+        question: '"I must go." -> He said he ____ go.',
+        options: ['must', 'had to'],
+        correctAnswer: 1
+      },
+      {
+        id: '10-15',
+        type: 'gap-fill',
+        title: 'Gap Fill 1',
+        leadText: '"I like ice cream." -> "Tom said he __________ (like) ice cream."',
+        correctAnswer: 'liked'
+      },
+      {
+        id: '10-16',
+        type: 'gap-fill',
+        title: 'Gap Fill 2',
+        leadText: '"I\'ll help you." -> "She told me she __________ (help) me."',
+        correctAnswer: 'would help'
+      },
+      {
+        id: '10-17',
+        type: 'gap-fill',
+        title: 'Gap Fill 3',
+        leadText: '"I\'ve never been to Paris." -> "He said he __________ (never / be) to Paris."',
+        correctAnswer: 'had never been'
+      },
+      {
+        id: '10-18',
+        type: 'reading',
+        title: 'Reading Comprehension',
+        passage: 'He told me that he **loved** acting but he **hated** the paparazzi. He said that he **was working** on a new movie then. He mentioned that he **had seen** the script the week before. He promised that he **would give** me an exclusive interview.',
+        question: 'What does "He loved acting" mean?',
+        options: ['He used to love it.', 'He said, "I love acting."'],
+        correctAnswer: 1
+      },
+      {
+        id: '10-19',
+        type: 'speaking',
+        title: 'Speaking Task',
+        leadText: 'Report the gossip.',
+        speakingPrompts: [
+          'Ben said: "I am moving to a new school."',
+          'Ms. Smith said: "The exam will be difficult."',
+          'Rumor: "Sarah cheated on the test."'
+        ]
+      }
+    ]
+  },
+  {
+    id: 'topic-11',
+    title: '12.2 Reported Questions',
+    slides: [
+      {
+        id: '11-1',
+        type: 'intro',
+        title: 'Lead-in',
+        leadText: 'Compare Word Orders.',
+        bulletPoints: [
+          { lang: 'en', label: 'Direct', text: '"Where DO you live?" (V before S)' },
+          { lang: 'en', label: 'Reported', text: '"He asked where I LIVED." (S before V)' }
+        ],
+        question: 'Note: Auxiliary "do" disappears.'
+      },
+      {
+        id: '11-2',
+        type: 'concept',
+        title: 'Meaning & Definition',
+        bulletPoints: [
+          { lang: 'en', label: 'Word Order', text: 'Change to Statement order (S-V). No do/does/did.' },
+          { lang: 'en', label: 'Yes/No Questions', text: 'Use IF or WHETHER.' },
+          { lang: 'en', label: 'Wh- Questions', text: 'Keep question word (Where, What).' },
+          { lang: 'uz', label: 'So‘z tartibi', text: 'Darak gap tartibi. Do/did tushib qoladi.' },
+          { lang: 'ru', label: 'Порядок слов', text: 'Прямой порядок. Do/did исчезают.' }
+        ]
+      },
+      {
+        id: '11-3',
+        type: 'quiz',
+        title: 'Concept Check 1',
+        question: 'He asked me where ____.',
+        options: ['was I', 'I was'],
+        correctAnswer: 1,
+        explanation: 'Statement order (Subject first).'
+      },
+      {
+        id: '11-4',
+        type: 'quiz',
+        title: 'Concept Check 2',
+        question: '"Where DO you work?" -> He asked where I ____.',
+        options: ['did work', 'worked'],
+        correctAnswer: 1,
+        explanation: 'Remove "do". Change main verb to past.'
+      },
+      {
+        id: '11-5',
+        type: 'quiz',
+        title: 'Concept Check 3',
+        question: '"Are you happy?" -> He asked ____ I was happy.',
+        options: ['that', 'if'],
+        correctAnswer: 1,
+        explanation: 'Use "if" for Yes/No questions.'
+      },
+      {
+        id: '11-6',
+        type: 'concept',
+        title: 'Logic Tree',
+        bulletPoints: [
+            { lang: 'en', label: 'Wh- Question?', text: 'YES -> Keep word. NO -> Add If/Whether.' },
+            { lang: 'en', label: 'Action', text: 'Swap Subject/Verb. Backshift Tense. Remove do/did.' }
+        ]
+      },
+      {
+        id: '11-7',
+        type: 'concept',
+        title: '3 Examples',
+        bulletPoints: [
+            { lang: 'en', label: 'Wh- Question', text: '"What IS your name?" -> "Asked what my name WAS."' },
+            { lang: 'en', label: 'Yes/No Question', text: '"DO you like coffee?" -> "Asked IF I LIKED coffee."' },
+            { lang: 'en', label: 'Modal', text: '"WILL you help?" -> "Asked IF I WOULD help."' }
+        ]
+      },
+      {
+        id: '11-8',
+        type: 'test',
+        title: 'Test 1',
+        question: '"Where are you going?" -> He asked where ____.',
+        options: ['was I going', 'I was going', 'I am going'],
+        correctAnswer: 1,
+        explanation: 'Word order change + Tense change.'
+      },
+      {
+        id: '11-9',
+        type: 'test',
+        title: 'Test 2',
+        question: '"Did you see Tom?" -> She asked if I ____ Tom.',
+        options: ['saw', 'had seen', 'did see'],
+        correctAnswer: 1,
+        explanation: 'Past Simple "did see" -> Past Perfect "had seen".'
+      },
+      {
+        id: '11-10',
+        type: 'test',
+        title: 'Test 3',
+        question: '"Can you swim?" -> He asked ____ I could swim.',
+        options: ['whether', 'what', 'that'],
+        correctAnswer: 0,
+        explanation: 'Yes/No question.'
+      },
+      {
+        id: '11-11',
+        type: 'quiz',
+        title: 'True/False',
+        question: 'We use a question mark (?) at the end of a reported question.',
+        options: ['True', 'False'],
+        correctAnswer: 1,
+        explanation: 'False. It ends with a full stop.'
+      },
+      {
+        id: '11-12',
+        type: 'quiz',
+        title: 'Spot the Mistake',
+        question: 'Is "She asked me where did I buy my bag" correct?',
+        options: ['Yes', 'No, "where I bought"'],
+        correctAnswer: 1,
+        explanation: 'Delete "did".'
+      },
+      {
+        id: '11-13',
+        type: 'quiz',
+        title: 'Odd One Out',
+        question: 'Select the odd one.',
+        options: ['When', 'Why', 'If', 'Who'],
+        correctAnswer: 2,
+        explanation: 'If is for Yes/No questions, others are Wh- words.'
+      },
+      {
+        id: '11-14',
+        type: 'test',
+        title: 'Rapid Fire',
+        question: '"Have you finished?" -> He asked if I ____.',
+        options: ['finished', 'had finished'],
+        correctAnswer: 1
+      },
+      {
+        id: '11-15',
+        type: 'gap-fill',
+        title: 'Gap Fill 1',
+        leadText: '"Where do you work?" -> "He asked where I __________ (work)."',
+        correctAnswer: 'worked'
+      },
+      {
+        id: '11-16',
+        type: 'gap-fill',
+        title: 'Gap Fill 2',
+        leadText: '"Is it raining?" -> "She asked __________ (if/what) it was raining."',
+        correctAnswer: 'if'
+      },
+      {
+        id: '11-17',
+        type: 'gap-fill',
+        title: 'Gap Fill 3',
+        leadText: '"When will you arrive?" -> "They asked when I __________ (arrive)."',
+        correctAnswer: 'would arrive'
+      },
+      {
+        id: '11-18',
+        type: 'reading',
+        title: 'Reading Comprehension',
+        passage: 'I went for a job interview. First, **he asked me what my name was**. Then, **he asked if I had experience**. He wanted to know **why I had left my last job**. Finally, **he asked whether I could start on Monday**.',
+        question: 'The direct question for "what my name was" is:',
+        options: ['What was your name?', 'What is your name?'],
+        correctAnswer: 1
+      },
+      {
+        id: '11-19',
+        type: 'speaking',
+        title: 'Speaking Task',
+        leadText: 'Report your parents\' questions.',
+        speakingPrompts: [
+          'Mom asked: "Where have you been?"',
+          'Dad asked: "Are you okay?"',
+          'They asked: "Who were you with?"'
+        ]
+      }
+    ]
   }
 ];
