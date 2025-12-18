@@ -712,5 +712,720 @@ export const TOPICS: Topic[] = [
         ]
       }
     ]
+  },
+  {
+    id: 'topic-5',
+    title: '9.1 Comparatives and Superlatives',
+    slides: [
+      {
+        id: '5-1',
+        type: 'intro',
+        title: 'Lead-in',
+        leadText: 'Compare the sizes.',
+        bulletPoints: [
+          { lang: 'en', label: 'Context', text: 'House: Small. Apartment: Taller than house. Burj Khalifa: The tallest.' },
+        ],
+        question: 'How do we change the word "tall" to compare two things vs one thing to everything?'
+      },
+      {
+        id: '5-2',
+        type: 'concept',
+        title: 'Meaning & Definition',
+        bulletPoints: [
+          { lang: 'en', label: 'Comparatives', text: 'Compare two things. Keyword: THAN. (e.g., taller, more expensive)' },
+          { lang: 'en', label: 'Superlatives', text: 'Compare one vs group. Keyword: THE. (e.g., the tallest)' },
+          { lang: 'en', label: 'Modifiers', text: 'Small diff: a bit, slightly. Big diff: much, far, a lot.' },
+          { lang: 'uz', label: 'Comparatives', text: 'Ikki narsani solishtirish. Kalit: than.' },
+          { lang: 'uz', label: 'Superlatives', text: 'Eng katta/kichik. Kalit: the.' },
+          { lang: 'ru', label: 'Comparatives', text: 'Сравнительная степень. Ключ: than.' },
+          { lang: 'ru', label: 'Superlatives', text: 'Превосходная степень. Ключ: the.' }
+        ]
+      },
+      {
+        id: '5-3',
+        type: 'quiz',
+        title: 'Concept Check 1',
+        question: '"Ferrari is faster than Ford." How many cars are we talking about?',
+        options: ['Two', 'All cars in the world'],
+        correctAnswer: 0,
+        explanation: 'Correct! Comparatives compare two specific things.'
+      },
+      {
+        id: '5-4',
+        type: 'quiz',
+        title: 'Concept Check 2',
+        question: '"Mount Everest is the highest mountain."',
+        options: ['Comparing it to one other mountain.', 'Comparing it to all mountains.'],
+        correctAnswer: 1,
+        explanation: 'Correct! Superlatives pick one out of a group.'
+      },
+      {
+        id: '5-5',
+        type: 'quiz',
+        title: 'Concept Check 3',
+        question: '"She is MUCH older than him." Is the age difference small or big?',
+        options: ['Small', 'Big'],
+        correctAnswer: 1,
+        explanation: '"Much" indicates a large difference.'
+      },
+      {
+        id: '5-6',
+        type: 'concept',
+        title: 'Visual Rules',
+        bulletPoints: [
+            { lang: 'en', label: '1 Syllable', text: 'add -er / -est (Fast -> Faster -> The Fastest)' },
+            { lang: 'en', label: 'Ending in -y', text: 'remove -y, add -ier / -iest (Happy -> Happier)' },
+            { lang: 'en', label: '2+ Syllables', text: 'add more / the most (Modern -> More modern)' },
+            { lang: 'en', label: 'Irregular', text: 'Good -> Better -> Best | Bad -> Worse -> Worst' }
+        ]
+      },
+      {
+        id: '5-7',
+        type: 'concept',
+        title: '3 Examples',
+        bulletPoints: [
+            { lang: 'en', label: 'Equality', text: 'I am AS TALL AS my dad. (Same height)' },
+            { lang: 'en', label: 'Comparative', text: 'London is FAR MORE EXPENSIVE THAN Tashkent.' },
+            { lang: 'en', label: 'Superlative', text: 'It was THE HAPPIEST day of my life.' }
+        ]
+      },
+      {
+        id: '5-8',
+        type: 'test',
+        title: 'Test 1',
+        question: 'This exam was ____ than the last one.',
+        options: ['difficult', 'more difficult', 'most difficult'],
+        correctAnswer: 1,
+        explanation: 'Comparison + "than" requires comparative form.'
+      },
+      {
+        id: '5-9',
+        type: 'test',
+        title: 'Test 2',
+        question: 'Who is the ____ person in your family?',
+        options: ['younger', 'youngest', 'most young'],
+        correctAnswer: 1,
+        explanation: 'Superlative requires "est".'
+      },
+      {
+        id: '5-10',
+        type: 'test',
+        title: 'Test 3',
+        question: 'The weather is ____ better today.',
+        options: ['a lot', 'more', 'very'],
+        correctAnswer: 0,
+        explanation: 'Modifier for comparative: "a lot better".'
+      },
+      {
+        id: '5-11',
+        type: 'quiz',
+        title: 'Spelling Bee',
+        question: 'Make "Big" comparative.',
+        options: ['Biger', 'Bigger'],
+        correctAnswer: 1,
+        explanation: 'Double the "g": Bigger.'
+      },
+      {
+        id: '5-12',
+        type: 'quiz',
+        title: 'True/False',
+        question: 'True or False: We can say "more gooder".',
+        options: ['True', 'False'],
+        correctAnswer: 1,
+        explanation: 'False. Irregular: Better.'
+      },
+      {
+        id: '5-13',
+        type: 'quiz',
+        title: 'Transformation',
+        question: 'Rewrite: "Tom is taller than Jerry." -> "Jerry is not..."',
+        options: ['...as short as Tom.', '...as tall as Tom.'],
+        correctAnswer: 1,
+        explanation: 'Jerry is not as tall as Tom.'
+      },
+      {
+        id: '5-14',
+        type: 'test',
+        title: 'Rapid Fire',
+        question: '"This is the ____ pizza I\'ve ever eaten."',
+        options: ['best', 'better'],
+        correctAnswer: 0
+      },
+      {
+        id: '5-15',
+        type: 'gap-fill',
+        title: 'Gap Fill 1',
+        leadText: '"Calculus is __________ (complicated) than arithmetic."',
+        correctAnswer: 'more complicated'
+      },
+      {
+        id: '5-16',
+        type: 'gap-fill',
+        title: 'Gap Fill 2',
+        leadText: '"That is the __________ (bad) movie I have ever seen."',
+        correctAnswer: 'worst'
+      },
+      {
+        id: '5-17',
+        type: 'gap-fill',
+        title: 'Gap Fill 3',
+        leadText: '"She is a bit __________ (rich) than her sister."',
+        correctAnswer: 'richer'
+      },
+      {
+        id: '5-18',
+        type: 'reading',
+        title: 'Reading Comprehension',
+        passage: 'Humans are **taller** now than in the past. Nutrition is **much better**. However, our brains are actually **slightly smaller** than they were 20,000 years ago. Life today is **easier** and **less dangerous** than it was for cavemen, so we don\'t need to be **as aggressive as** our ancestors.',
+        question: 'Are humans the same height as in the past?',
+        options: ['Yes.', 'No, they are taller.'],
+        correctAnswer: 1
+      },
+      {
+        id: '5-19',
+        type: 'speaking',
+        title: 'Speaking Task',
+        leadText: 'Record your answer.',
+        speakingPrompts: [
+            'Compare iPhone and Samsung. Which is better? Which is more expensive?',
+            'Is it harder to study Math or English? Why?',
+            'Who is the most famous person in the world right now?'
+        ]
+      }
+    ]
+  },
+  {
+    id: 'topic-6',
+    title: '8.2 Unreal Conditionals',
+    slides: [
+      {
+        id: '6-1',
+        type: 'intro',
+        title: 'Lead-in',
+        leadText: 'Reality vs Dream',
+        bulletPoints: [
+            { lang: 'en', label: 'Reality', text: 'He has no money. He cannot buy a plane.' },
+            { lang: 'en', label: 'Dream', text: '"If I HAD a million dollars, I WOULD BUY a jet."' }
+        ],
+        question: 'Is this real or imaginary? Does he have the money now?'
+      },
+      {
+        id: '6-2',
+        type: 'concept',
+        title: 'Meaning & Definition',
+        bulletPoints: [
+            { lang: 'en', label: 'Use', text: 'Imaginary, impossible, or unlikely situations in PRESENT/FUTURE.' },
+            { lang: 'en', label: 'Formula', text: 'If + Past Simple, ... would + Verb.' },
+            { lang: 'en', label: 'Advice', text: 'Use "If I WERE you" (not was).' },
+            { lang: 'uz', label: 'Ma’nosi', text: 'Hozirgi hayoliy vaziyatlar.' },
+            { lang: 'ru', label: 'Значение', text: 'Воображаемые ситуации. "Если бы..."' }
+        ]
+      },
+      {
+        id: '6-3',
+        type: 'quiz',
+        title: 'Concept Check 1',
+        question: '"If I had wings, I would fly." Do I have wings?',
+        options: ['Yes', 'No'],
+        correctAnswer: 1,
+        explanation: 'Correct! This is imaginary.'
+      },
+      {
+        id: '6-4',
+        type: 'quiz',
+        title: 'Concept Check 2',
+        question: '"If I became President, I would change the law." Is this likely to happen tomorrow?',
+        options: ['Yes', 'No, unlikely.'],
+        correctAnswer: 1,
+        explanation: 'Correct! We use 2nd conditional for unlikely dreams.'
+      },
+      {
+        id: '6-5',
+        type: 'quiz',
+        title: 'Concept Check 3',
+        question: 'Which sentence is about the PRESENT/FUTURE?',
+        options: ['If I had time, I would go.', 'If I had had time, I would have gone.'],
+        correctAnswer: 0,
+        explanation: 'Even though we use "had" (past tense), the meaning is NOW.'
+      },
+      {
+        id: '6-6',
+        type: 'concept',
+        title: 'Visual Structure',
+        bulletPoints: [
+            { lang: 'en', label: 'Condition', text: 'IF + Past Simple ("If I LIVED in Italy")' },
+            { lang: 'en', label: 'Result', text: 'WOULD + Infinitive ("I WOULD EAT pizza")' },
+            { lang: 'en', label: 'Inversion', text: 'No comma if "If" is in the middle.' }
+        ]
+      },
+      {
+        id: '6-7',
+        type: 'concept',
+        title: '3 Examples',
+        bulletPoints: [
+            { lang: 'en', label: 'Imaginary', text: 'If I WON the lottery, I WOULD TRAVEL the world.' },
+            { lang: 'en', label: 'Advice', text: 'If I WERE you, I WOULDN\'T DO that.' },
+            { lang: 'en', label: 'Question', text: 'What WOULD you DO if you SAW a ghost?' }
+        ]
+      },
+      {
+        id: '6-8',
+        type: 'test',
+        title: 'Test 1',
+        question: 'If I ____ his number, I would call him.',
+        options: ['know', 'knew', 'would know'],
+        correctAnswer: 1,
+        explanation: 'If + Past Simple.'
+      },
+      {
+        id: '6-9',
+        type: 'test',
+        title: 'Test 2',
+        question: 'If she ____ rich, she wouldn\'t work.',
+        options: ['is', 'were', 'would be'],
+        correctAnswer: 1,
+        explanation: 'Subjunctive "were" is preferred.'
+      },
+      {
+        id: '6-10',
+        type: 'test',
+        title: 'Test 3',
+        question: 'We ____ go to the beach if it wasn\'t raining.',
+        options: ['will', 'can', 'could'],
+        correctAnswer: 2,
+        explanation: '"Could" means "would be able to".'
+      },
+      {
+        id: '6-11',
+        type: 'quiz',
+        title: 'Matching',
+        question: 'Complete: "If I were invisible..."',
+        options: ['...I would rob a bank.', '...I would help you.'],
+        correctAnswer: 0
+      },
+      {
+        id: '6-12',
+        type: 'quiz',
+        title: 'Spot the Mistake',
+        question: 'Is "If I would have money, I would buy a car" correct?',
+        options: ['Yes', 'No'],
+        correctAnswer: 1,
+        explanation: 'Never put "would" in the If-clause.'
+      },
+      {
+        id: '6-13',
+        type: 'quiz',
+        title: 'Translation Check',
+        question: 'Translate: "Agar mening vaqtim bo‘lsa (hozir), yordam berardim."',
+        options: ['If I had time, I would help.', 'If I have time, I will help.'],
+        correctAnswer: 0,
+        explanation: 'Real conditional uses "will", Unreal (hypothetical) uses "would".'
+      },
+      {
+        id: '6-14',
+        type: 'test',
+        title: 'Rapid Fire',
+        question: '"If I ____ a superhero, I would fly."',
+        options: ['were', 'am'],
+        correctAnswer: 0
+      },
+      {
+        id: '6-15',
+        type: 'gap-fill',
+        title: 'Gap Fill 1',
+        leadText: '"If I __________ (be) you, I would study harder."',
+        correctAnswer: 'were'
+      },
+      {
+        id: '6-16',
+        type: 'gap-fill',
+        title: 'Gap Fill 2',
+        leadText: '"He __________ (not / be) so tired if he went to bed earlier."',
+        correctAnswer: 'wouldn\'t be'
+      },
+      {
+        id: '6-17',
+        type: 'gap-fill',
+        title: 'Gap Fill 3',
+        leadText: '"If we __________ (live) in London, we would speak better English."',
+        correctAnswer: 'lived'
+      },
+      {
+        id: '6-18',
+        type: 'reading',
+        title: 'Reading Comprehension',
+        passage: 'Life would be very different if we **didn\'t have** electricity. If the internet **disappeared** tomorrow, most businesses **would stop** working. We **would have** to write letters! If I **had** to live without a phone, I **would feel** lonely. Maybe people **would talk** more if they **weren\'t** looking at screens.',
+        question: 'Do we have electricity now?',
+        options: ['Yes.', 'No.'],
+        correctAnswer: 0
+      },
+      {
+        id: '6-19',
+        type: 'speaking',
+        title: 'Speaking Task',
+        leadText: 'Record your answer.',
+        speakingPrompts: [
+          'If you could have any superpower, what would it be?',
+          'If you met your favorite celebrity, what would you say?',
+          'If you were the Principal of your school for one day, what changes would you make?'
+        ]
+      }
+    ]
+  },
+  {
+    id: 'topic-7',
+    title: '7.2 Questions (Subject/Object & Indirect)',
+    slides: [
+      {
+        id: '7-1',
+        type: 'intro',
+        title: 'Lead-in',
+        leadText: 'Look at the scenarios.',
+        bulletPoints: [
+          { lang: 'en', label: 'Scene A (Subject)', text: '"Who SAW the crime?" (Asking about the witness).' },
+          { lang: 'en', label: 'Scene B (Object)', text: '"Who DID you SEE?" (Asking about the suspect).' },
+          { lang: 'en', label: 'Scene C (Indirect)', text: '"Could you tell me what time it is?"' }
+        ],
+        question: 'Note the word order differences.'
+      },
+      {
+        id: '7-2',
+        type: 'concept',
+        title: 'Meaning & Definition',
+        bulletPoints: [
+          { lang: 'en', label: 'Object Questions', text: 'Ask about object. Use do/does/did. "What DID you buy?"' },
+          { lang: 'en', label: 'Subject Questions', text: 'Ask about subject. NO auxiliary. "Who BOUGHT the milk?"' },
+          { lang: 'en', label: 'Indirect Questions', text: 'Polite. Statement word order. "Where the bank IS."' },
+          { lang: 'uz', label: 'Subject', text: 'Ega haqida. Yordamchi fe’l yo‘q.' },
+          { lang: 'uz', label: 'Indirect', text: 'Muloyim savollar. So‘z tartibi darak gapdek.' }
+        ]
+      },
+      {
+        id: '7-3',
+        type: 'quiz',
+        title: 'Concept Check 1',
+        question: '"Who called you?"',
+        options: ['Asking about the receiver.', 'Asking about the caller.'],
+        correctAnswer: 1,
+        explanation: 'Correct! "Who" is the subject (the caller).'
+      },
+      {
+        id: '7-4',
+        type: 'quiz',
+        title: 'Concept Check 2',
+        question: '"Who did you call?"',
+        options: ['Asking about the receiver.', 'Asking about the caller.'],
+        correctAnswer: 0,
+        explanation: 'Correct! "You" made the call. We want to know the receiver.'
+      },
+      {
+        id: '7-5',
+        type: 'quiz',
+        title: 'Concept Check 3',
+        question: '"Can you tell me where ____?"',
+        options: ['is the station', 'the station is'],
+        correctAnswer: 1,
+        explanation: 'Indirect questions use statement word order.'
+      },
+      {
+        id: '7-6',
+        type: 'concept',
+        title: 'Visual Structure',
+        bulletPoints: [
+            { lang: 'en', label: 'Object', text: 'Q-Word + Auxiliary + Subject + Verb? (Where DID you go?)' },
+            { lang: 'en', label: 'Subject', text: 'Who/What + Verb? (Who WENT home?)' },
+            { lang: 'en', label: 'Indirect', text: 'Phrase + Q-Word + Subject + Verb? (Do you know where HE WENT?)' }
+        ]
+      },
+      {
+        id: '7-7',
+        type: 'concept',
+        title: '3 Examples',
+        bulletPoints: [
+            { lang: 'en', label: 'Subject', text: '"Who broke the window?" (John broke it).' },
+            { lang: 'en', label: 'Object', text: '"What did John break?" (The window).' },
+            { lang: 'en', label: 'Indirect', text: '"I wonder why she LEFT." (Not did she leave).' }
+        ]
+      },
+      {
+        id: '7-8',
+        type: 'test',
+        title: 'Test 1',
+        question: 'Who ____ that book?',
+        options: ['did write', 'wrote', 'did wrote'],
+        correctAnswer: 1,
+        explanation: 'Subject question.'
+      },
+      {
+        id: '7-9',
+        type: 'test',
+        title: 'Test 2',
+        question: 'Where ____ live?',
+        options: ['do you', 'you', 'you do'],
+        correctAnswer: 0,
+        explanation: 'Object question needs auxiliary.'
+      },
+      {
+        id: '7-10',
+        type: 'test',
+        title: 'Test 3',
+        question: 'Do you know what time ____?',
+        options: ['does the film start', 'the film starts', 'starts the film'],
+        correctAnswer: 1,
+        explanation: 'Indirect question = statement order.'
+      },
+      {
+        id: '7-11',
+        type: 'quiz',
+        title: 'Matching',
+        question: 'Match meaning: "Who loves Jane?"',
+        options: ['Jane loves Tom.', 'Tom loves Jane.'],
+        correctAnswer: 1,
+        explanation: 'Subject question: Who is the lover?'
+      },
+      {
+        id: '7-12',
+        type: 'quiz',
+        title: 'Transformation',
+        question: 'Indirect form of "Is he married?"',
+        options: ['Can you tell me if he is married?', 'Can you tell me if is he married?'],
+        correctAnswer: 0
+      },
+      {
+        id: '7-13',
+        type: 'quiz',
+        title: 'Spot the Mistake',
+        question: 'Is "Do you know where does he work?" correct?',
+        options: ['Yes', 'No, "where he works"'],
+        correctAnswer: 1,
+        explanation: 'Indirect questions do not use "does".'
+      },
+      {
+        id: '7-14',
+        type: 'test',
+        title: 'Rapid Fire',
+        question: '"Who ____ the race?"',
+        options: ['won', 'did win'],
+        correctAnswer: 0
+      },
+      {
+        id: '7-15',
+        type: 'gap-fill',
+        title: 'Gap Fill 1',
+        leadText: '"What __________ (happen) yesterday?"',
+        correctAnswer: 'happened'
+      },
+      {
+        id: '7-16',
+        type: 'gap-fill',
+        title: 'Gap Fill 2',
+        leadText: '"Could you tell me how much __________ (cost / this ticket)?"',
+        correctAnswer: 'this ticket costs'
+      },
+      {
+        id: '7-17',
+        type: 'gap-fill',
+        title: 'Gap Fill 3',
+        leadText: '"Who __________ (you / invite) to the party?"',
+        correctAnswer: 'did you invite'
+      },
+      {
+        id: '7-18',
+        type: 'reading',
+        title: 'Reading Comprehension',
+        passage: 'William James Sidis was a genius. **Who inspired him?** His parents. **What did he study?** Math at Harvard. Later, journalists asked, "**Could you tell us why you left academic life?**" Sidis wanted privacy. He wondered **why people were so interested** in him.',
+        question: '"Could you tell us why you left..." is:',
+        options: ['Direct question.', 'Indirect question.'],
+        correctAnswer: 1
+      },
+      {
+        id: '7-19',
+        type: 'speaking',
+        title: 'Speaking Task',
+        leadText: 'Record polite questions for a stranger.',
+        speakingPrompts: [
+          'Ask them where they live, but politely.',
+          'Ask them what their hobbies are politely.',
+          'Ask "Who is your favorite singer?" directly.'
+        ]
+      }
+    ]
+  },
+  {
+    id: 'topic-8',
+    title: '8.1 Real Conditionals (Zero & First)',
+    slides: [
+      {
+        id: '8-1',
+        type: 'intro',
+        title: 'Lead-in',
+        leadText: 'Fact vs Prediction',
+        bulletPoints: [
+            { lang: 'en', label: 'Fact (Zero)', text: '"If it rains, plants grow." (Always true).' },
+            { lang: 'en', label: 'Prediction (First)', text: '"If you study hard, you will pass." (Future result).' }
+        ]
+      },
+      {
+        id: '8-2',
+        type: 'concept',
+        title: 'Meaning & Definition',
+        bulletPoints: [
+            { lang: 'en', label: 'Zero Conditional', text: 'General truths, habits. (If + Present, ... Present).' },
+            { lang: 'en', label: 'First Conditional', text: 'Possible future. (If + Present, ... Will).' },
+            { lang: 'en', label: 'Unless', text: 'Means "If not".' },
+            { lang: 'uz', label: 'Zero', text: 'Doimiy haqiqatlar.' },
+            { lang: 'uz', label: 'First', text: 'Kelajakdagi aniq vaziyatlar.' },
+            { lang: 'ru', label: 'Unless', text: 'Если не...' }
+        ]
+      },
+      {
+        id: '8-3',
+        type: 'quiz',
+        title: 'Concept Check 1',
+        question: '"If I miss the bus, I am late for work." (Every day)',
+        options: ['Zero Conditional', 'First Conditional'],
+        correctAnswer: 0,
+        explanation: 'Correct! Routine/Fact = Zero.'
+      },
+      {
+        id: '8-4',
+        type: 'quiz',
+        title: 'Concept Check 2',
+        question: '"If it rains tomorrow, we will stay home."',
+        options: ['Zero Conditional', 'First Conditional'],
+        correctAnswer: 1,
+        explanation: 'Correct! Specific future event = First.'
+      },
+      {
+        id: '8-5',
+        type: 'quiz',
+        title: 'Concept Check 3',
+        question: '"I won\'t go unless he calls."',
+        options: ['I will go if he calls.', 'I will go if he doesn\'t call.'],
+        correctAnswer: 0,
+        explanation: 'Unless = If not. "I won\'t go if he doesn\'t call" means I need him to call.'
+      },
+      {
+        id: '8-6',
+        type: 'concept',
+        title: 'Flowchart',
+        bulletPoints: [
+            { lang: 'en', label: 'General Fact?', text: 'YES -> Present + Present (Zero)' },
+            { lang: 'en', label: 'Future Possibility?', text: 'YES -> Present + Will (First)' }
+        ]
+      },
+      {
+        id: '8-7',
+        type: 'concept',
+        title: '3 Examples',
+        bulletPoints: [
+            { lang: 'en', label: 'Zero', text: '"If you mix red and blue, you get purple."' },
+            { lang: 'en', label: 'First', text: '"If you don\'t leave now, you will miss the train."' },
+            { lang: 'en', label: 'Unless', text: '"You can\'t enter unless you are 18."' }
+        ]
+      },
+      {
+        id: '8-8',
+        type: 'test',
+        title: 'Test 1',
+        question: 'If people eat too much, they ____ fat.',
+        options: ['get', 'will get', 'got'],
+        correctAnswer: 0,
+        explanation: 'General fact -> Zero conditional.'
+      },
+      {
+        id: '8-9',
+        type: 'test',
+        title: 'Test 2',
+        question: 'If I ____ her, I\'ll tell her.',
+        options: ['see', 'will see', 'saw'],
+        correctAnswer: 0,
+        explanation: 'Never use "will" in the If-clause.'
+      },
+      {
+        id: '8-10',
+        type: 'test',
+        title: 'Test 3',
+        question: 'We won\'t win ____ we practice.',
+        options: ['if', 'unless', 'when'],
+        correctAnswer: 1,
+        explanation: '"We won\'t win if we don\'t practice".'
+      },
+      {
+        id: '8-11',
+        type: 'quiz',
+        title: 'True/False',
+        question: 'In First Conditional, we use Future Tense in both parts?',
+        options: ['True', 'False'],
+        correctAnswer: 1,
+        explanation: 'False. If + Present, ... Will.'
+      },
+      {
+        id: '8-12',
+        type: 'quiz',
+        title: 'Transformation',
+        question: '"If you don\'t run, you won\'t catch it." -> Unless...',
+        options: ['Unless you run, you won\'t catch it.', 'Unless you don\'t run...'],
+        correctAnswer: 0
+      },
+      {
+        id: '8-13',
+        type: 'quiz',
+        title: 'Matching',
+        question: 'Match: "If water reaches 100°C..."',
+        options: ['...it boils.', '...it will boil.'],
+        correctAnswer: 0,
+        explanation: 'Scientific fact = Zero conditional.'
+      },
+      {
+        id: '8-14',
+        type: 'test',
+        title: 'Rapid Fire',
+        question: '"If you ____ (drop) glass, it breaks."',
+        options: ['drop', 'will drop'],
+        correctAnswer: 0
+      },
+      {
+        id: '8-15',
+        type: 'gap-fill',
+        title: 'Gap Fill 1',
+        leadText: '"If you __________ (need) help, call me."',
+        correctAnswer: 'need'
+      },
+      {
+        id: '8-16',
+        type: 'gap-fill',
+        title: 'Gap Fill 2',
+        leadText: '"Unless we leave now, we __________ (be) late."',
+        correctAnswer: 'will be'
+      },
+      {
+        id: '8-17',
+        type: 'gap-fill',
+        title: 'Gap Fill 3',
+        leadText: '"If he __________ (not / come) soon, we will leave without him."',
+        correctAnswer: 'doesn\'t come'
+      },
+      {
+        id: '8-18',
+        type: 'reading',
+        title: 'Reading Comprehension',
+        passage: 'Happiness is simple. **If people enjoy their job, they are happier** (Zero). However, **if you change your routine, you will feel** strange (First). Experts say that **unless you sleep enough, you won\'t focus** well.',
+        question: '"If you change your routine, you will feel strange." This is:',
+        options: ['A likely result in the future.', 'A fact that always happens instantly.'],
+        correctAnswer: 0
+      },
+      {
+        id: '8-19',
+        type: 'speaking',
+        title: 'Speaking Task',
+        leadText: 'Record your answer.',
+        speakingPrompts: [
+          'What will you do if it rains this weekend?',
+          'What happens if you don\'t charge your phone?',
+          'Complete: "If I get good grades this year, I will..."'
+        ]
+      }
+    ]
   }
 ];
