@@ -42,6 +42,6 @@ export interface SlideContent {
 export interface Topic {
   id: string;
   title: string;
-  theme?: 'default' | 'gta' | 'wukong' | 'cyber' | 'kpop' | 'retro' | 'auto' | 'startup' | 'social' | 'exam' | 'sport';
+  theme?: 'hp-gryffindor' | 'hp-slytherin' | 'hp-ravenclaw' | 'hp-hufflepuff' | 'hp-winter' | 'hp-dark';
   slides: SlideContent[];
 }
