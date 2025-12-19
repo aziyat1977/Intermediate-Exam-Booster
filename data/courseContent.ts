@@ -20,295 +20,175 @@ const IMG_OWL = svg(`${HP_DEFS}<circle cx="400" cy="300" r="100" fill="#e2e8f0"/
 export const TOPICS: Topic[] = [
   {
     id: 'topic-1',
-    title: '6.2 Present Perfect: The Battle of Hogwarts',
+    title: '6.2 Present Perfect: The Battle',
     theme: 'hp-gryffindor',
     slides: [
       {
-        id: '1-1-a',
-        type: 'intro',
-        title: 'Lead-in: The Aftermath',
-        imageUrl: IMG_CASTLE, 
-        leadText: 'Look at the heroes.',
-        bulletPoints: [
-           { lang: 'en', label: 'Observe', text: 'Harry is holding the Elder Wand. Neville is covered in dust and soot.' }
-        ]
+        id: '1-1', type: 'intro', title: 'Context', imageUrl: IMG_CASTLE, leadText: 'The Battle of Hogwarts is over.',
+        bulletPoints: [ { lang: 'en', label: 'Harry', text: 'Harry is standing still. He holds the broken Elder Wand.' }, { lang: 'en', label: 'Neville', text: 'Neville is wiping sweat and dust from his face.' } ]
       },
-      // QUIZ BLOCK 1
-      { id: 'q-1-1', type: 'quiz', title: 'Quick Check 1', question: 'Harry is holding the wand. The battle...', options: ['is happening', 'is finished'], correctAnswer: 1 },
-      { id: 'q-1-2', type: 'quiz', title: 'Quick Check 2', question: 'Neville is dirty because he...', options: ['has been fighting', 'has fought'], correctAnswer: 0, explanation: 'Evidence (dirt) suggests recent continuous activity.' },
-      { id: 'q-1-3', type: 'quiz', title: 'Quick Check 3', question: 'Is the castle safe now?', options: ['Yes', 'No'], correctAnswer: 0 },
-
       {
-        id: '1-1-b',
-        type: 'concept',
-        title: 'Scenario A: Harry',
-        imageUrl: IMG_WAND,
-        leadText: 'Harry has **defeated** Voldemort.',
+        id: '1-2', type: 'concept', title: 'Meaning (MFP)', imageUrl: IMG_WAND, leadText: 'Simple vs Continuous',
         bulletPoints: [
-          { lang: 'en', label: 'Context', text: 'The Dark Lord is gone.' },
-          { lang: 'en', label: 'Result', text: 'The war is over. Result achieved.' }
+          { lang: 'en', label: 'Simple', text: '**Result**. The action is finished. We care about the achievement.' },
+          { lang: 'en', label: 'Continuous', text: '**Activity**. The action has side effects (dirty, tired). We care about the process.' }
         ]
       },
-      // QUIZ BLOCK 2
-      { id: 'q-2-1', type: 'quiz', title: 'Concept Check', question: 'Harry has defeated him. Focus is on:', options: ['The duration of the duel', 'The result (Victory)'], correctAnswer: 1 },
-      { id: 'q-2-2', type: 'quiz', title: 'Form Check', question: 'He ____ Voldemort.', options: ['has defeated', 'have defeated'], correctAnswer: 0 },
-      { id: 'q-2-3', type: 'quiz', title: 'Context Check', question: 'Can Voldemort come back?', options: ['No, he is defeated.', 'Maybe.'], correctAnswer: 0 },
-
       {
-        id: '1-1-c',
-        type: 'concept',
-        title: 'Scenario B: Neville',
-        imageUrl: IMG_CASTLE, 
-        leadText: 'Neville has **been fighting** Death Eaters.',
-        bulletPoints: [
-          { lang: 'en', label: 'Context', text: 'He is out of breath and dirty.' },
-          { lang: 'en', label: 'Activity', text: 'We see the evidence of the long fight.' }
-        ]
+        id: '1-3', type: 'timeline', title: 'Timeline', leadText: 'Visualizing the Difference', visualContext: 'The Spell Casting',
+        visualData: [ { label: 'Start', percentage: 10, type: 'start', color: 'blue' }, { label: 'Been Fighting', subLabel: 'Process', percentage: 50, type: 'range', color: 'gold' }, { label: 'Has Won', subLabel: 'Result', percentage: 90, type: 'end', color: 'red' } ]
       },
-      // QUIZ BLOCK 3
-      { id: 'q-3-1', type: 'quiz', title: 'Concept Check', question: 'Why is Neville dirty?', options: ['He has been fighting.', 'He has fought.'], correctAnswer: 0 },
-      { id: 'q-3-2', type: 'quiz', title: 'Grammar Check', question: 'Select the Continuous form.', options: ['Has fought', 'Has been fighting'], correctAnswer: 1 },
-      { id: 'q-3-3', type: 'quiz', title: 'Situation', question: 'Neville is still holding his sword. The action feels...', options: ['Recent/Vivid', 'Old/Distant'], correctAnswer: 0 },
-
       {
-        id: '1-6-a',
-        type: 'timeline',
-        title: 'Timeline: Continuous Spell Casting',
-        leadText: 'Present Perfect **Continuous**',
-        visualContext: 'The Duel',
-        visualData: [
-            { label: 'Expelliarmus!', subLabel: 'Start', percentage: 10, type: 'start', color: 'red' },
-            { label: 'Clashing', subLabel: 'Sparks Flying', percentage: 50, type: 'range', color: 'gold' },
-            { label: 'NOW', subLabel: 'Exhausted', percentage: 90, type: 'end', color: 'green' }
-        ]
-      },
-       // QUIZ BLOCK 4
-       { id: 'q-4-1', type: 'quiz', title: 'Timeline Check', question: 'Does the timeline emphasize the END or the PROCESS?', options: ['End', 'Process'], correctAnswer: 1 },
-       { id: 'q-4-2', type: 'quiz', title: 'Usage', question: 'Use this for:', options: ['I have broken my wand.', 'I have been practicing spells.'], correctAnswer: 1 },
-       { id: 'q-4-3', type: 'quiz', title: 'Gap Fill', question: 'She ____ potions all morning.', options: ['has brewed', 'has been brewing'], correctAnswer: 1 },
-
-       {
-        id: '1-7-c',
-        type: 'concept',
-        title: 'Example: Quidditch',
-        imageUrl: IMG_SNITCH,
+        id: '1-4', type: 'concept', title: 'Form (MFP)', imageUrl: IMG_SCROLL, leadText: 'Grammar Formulas',
         bulletPoints: [
-          { lang: 'en', label: 'Continuous', text: 'Harry has **been chasing** the Snitch for 20 minutes. (Still flying/Just stopped)' },
-          { lang: 'en', label: 'Simple', text: 'Harry has **caught** the Snitch. (Game Over)' }
+          { lang: 'en', label: 'Simple', text: '`S + have/has + V3` (Harry **has won**).' },
+          { lang: 'en', label: 'Continuous', text: '`S + have/has + been + V-ing` (Neville **has been fighting**).' }
         ]
       },
-      // QUIZ BLOCK 5
-      { id: 'q-5-1', type: 'quiz', title: 'Quidditch Test', question: 'The game is finished. Harry...', options: ['has caught it', 'has been catching it'], correctAnswer: 0 },
-      { id: 'q-5-2', type: 'quiz', title: 'Quidditch Test', question: 'Harry is sweating. He...', options: ['has flown', 'has been flying'], correctAnswer: 1 },
-      { id: 'q-5-3', type: 'quiz', title: 'Quantity', question: 'Harry ____ 150 points.', options: ['has scored', 'has been scoring'], correctAnswer: 0, explanation: 'Simple for quantities.' }
+      { id: '1-q1', type: 'quiz', title: 'Kahoot: Form', question: 'She ____ the potion.', options: ['has drunk', 'has drank', 'have drunk', 'has been drunk'], correctAnswer: 0, explanation: 'Drink - Drank - Drunk (V3).' },
+      { id: '1-q2', type: 'quiz', title: 'Kahoot: Usage', question: 'Look at his hands! He ____ in the garden.', options: ['worked', 'has worked', 'has been working', 'works'], correctAnswer: 2, explanation: 'Dirty hands = Visible side effect of recent activity.' },
+      {
+        id: '1-5', type: 'reading', title: 'Reading Practice', 
+        passage: "Harry looked around the Great Hall. He has defeated the Dark Lord at last. The war has ended, but many friends have fallen. Hermione has been crying for an hour, her eyes red and puffy. Ron has been comforting her.",
+        question: "Why are Hermione's eyes red?"
+      },
+      { id: '1-t1', type: 'test', title: 'Final Test', question: 'Harry ____ 3 horcruxes.', options: ['has destroyed', 'has been destroying'], correctAnswer: 0, explanation: 'Quantity (3) requires Simple.' }
     ]
   },
   {
     id: 'topic-2',
-    title: '9.2 Modals of Deduction: Potions Class',
+    title: '9.2 Deduction: Potions',
     theme: 'hp-slytherin',
     slides: [
       {
-        id: '2-1',
-        type: 'intro',
-        title: 'Lead-in: Snape\'s Dungeon',
-        imageUrl: IMG_POTION,
-        leadText: 'Analyze the cauldron.',
-        bulletPoints: [
-          { lang: 'en', label: 'Context', text: 'The potion is bright gold and smells like lucky socks.' },
-          { lang: 'en', label: 'Deduction', text: 'It MUST be Felix Felicis. It CAN\'T be Polyjuice Potion.' }
-        ]
+        id: '2-1', type: 'intro', title: 'Context', imageUrl: IMG_POTION, leadText: 'Snape finds a mysterious cauldron.',
+        bulletPoints: [ { lang: 'en', label: 'Evidence', text: 'It is pink. It bubbles. It smells like obsession.' } ]
       },
-      // QUIZ BLOCK 1
-      { id: 'q-2-1-1', type: 'quiz', title: 'Deduction 1', question: 'We are 100% sure it is Felix Felicis. We use:', options: ['Must', 'Might'], correctAnswer: 0 },
-      { id: 'q-2-1-2', type: 'quiz', title: 'Deduction 2', question: 'Polyjuice looks like mud. This is gold. It ____ be Polyjuice.', options: ["can't", "mustn't"], correctAnswer: 0 },
-      { id: 'q-2-1-3', type: 'quiz', title: 'Certainty', question: 'How sure is Snape?', options: ['Very sure', 'Guessing'], correctAnswer: 0 },
-
       {
-        id: '2-2',
-        type: 'concept',
-        title: 'Meaning & Definition',
-        imageUrl: IMG_POTION,
+        id: '2-2', type: 'concept', title: 'Meaning (MFP)', imageUrl: IMG_SCROLL, leadText: 'Levels of Certainty',
         bulletPoints: [
-          { lang: 'en', label: 'MUST', text: '90-100% Sure. "It MUST be magic."' },
-          { lang: 'en', label: 'CAN\'T', text: '90-100% Impossible. "He CAN\'T be a Muggle."' },
-          { lang: 'en', label: 'MIGHT/COULD', text: '50% Possible. "It MIGHT explode."' }
+          { lang: 'en', label: 'Must', text: '**90-100% Sure**. We have strong evidence.' },
+          { lang: 'en', label: 'Can\'t', text: '**90-100% Impossible**. We are sure it is NOT true.' },
+          { lang: 'en', label: 'Might/Could', text: '**50% Possible**. Maybe yes, maybe no.' }
         ]
       },
-      // QUIZ BLOCK 2
-      { id: 'q-2-2-1', type: 'quiz', title: 'Logic Check', question: 'Draco is flying a broom. He ____ be a wizard.', options: ['must', 'might'], correctAnswer: 0 },
-      { id: 'q-2-2-2', type: 'quiz', title: 'Logic Check', question: 'Ron is eating slugs. The spell ____ backfired.', options: ['must have', "can't have"], correctAnswer: 0 },
-      { id: 'q-2-2-3', type: 'quiz', title: 'Logic Check', question: 'Where is Hermione? She ____ be in the library.', options: ['might', 'can'], correctAnswer: 0 },
-
       {
-        id: '2-6-a',
-        type: 'timeline',
-        title: 'Certainty Scale',
-        leadText: 'Probability of Truth',
-        visualContext: 'Veritaserum Level',
-        visualData: [
-            { label: "CAN'T", subLabel: 'Impossible', percentage: 10, type: 'point', color: 'red' },
-            { label: "MIGHT", subLabel: 'Perhaps', percentage: 50, type: 'point', color: 'purple' },
-            { label: "MUST", subLabel: 'Certain', percentage: 90, type: 'point', color: 'green' }
-        ]
+        id: '2-3', type: 'timeline', title: 'Certainty Scale', leadText: 'Probability Meter', visualContext: 'Truth Serum',
+        visualData: [ { label: "CAN'T", subLabel: 'Impossible', percentage: 10, type: 'point', color: 'red' }, { label: "MIGHT", subLabel: 'Maybe', percentage: 50, type: 'point', color: 'purple' }, { label: "MUST", subLabel: 'Certain', percentage: 90, type: 'point', color: 'green' } ]
       },
-      // QUIZ BLOCK 3
-      { id: 'q-2-3-1', type: 'quiz', title: 'Scale Test', question: 'Which is stronger?', options: ['Must', 'Might'], correctAnswer: 0 },
-      { id: 'q-2-3-2', type: 'quiz', title: 'Scale Test', question: 'Which means impossible?', options: ["Don't have to", "Can't"], correctAnswer: 1 },
-      { id: 'q-2-3-3', type: 'quiz', title: 'Application', question: 'Harry has a scar. He ____ be the Chosen One.', options: ['must', 'could'], correctAnswer: 0 }
+      { id: '2-q1', type: 'quiz', title: 'Kahoot: Logic', question: 'He is wearing a Slytherin robe. He ____ be a Gryffindor.', options: ['must', 'might', "can't", "mustn't"], correctAnswer: 2, explanation: 'It is impossible.' },
+      { id: '2-q2', type: 'quiz', title: 'Kahoot: Deduction', question: 'The broom is very fast. It ____ be a Firebolt.', options: ['must', 'can', 'should', 'need'], correctAnswer: 0, explanation: 'Strong evidence.' },
+      {
+        id: '2-4', type: 'reading', title: 'Reading: The Mystery',
+        passage: "Draco is walking down the hall. He looks nervous. He keeps checking his pocket. He might be hiding something. It could be a cursed necklace. It can't be a book, because the object is too small.",
+        question: "Why can't it be a book?"
+      }
     ]
   },
   {
     id: 'topic-3',
-    title: '10.2 Articles: Magical Objects',
+    title: '10.2 Articles: Diagon Alley',
     theme: 'hp-ravenclaw',
     slides: [
       {
-        id: '3-1',
-        type: 'intro',
-        title: 'Lead-in: Diagon Alley',
-        imageUrl: IMG_WAND,
-        leadText: 'Shopping for school.',
-        bulletPoints: [
-          { lang: 'en', label: 'General', text: '"I need A wand." (Any wand will do... at first.)' },
-          { lang: 'en', label: 'Specific', text: '"The wand chooses the wizard." (THAT specific wand.)' }
-        ]
+        id: '3-1', type: 'intro', title: 'Context', imageUrl: IMG_OWL, leadText: 'Shopping for school supplies.',
+        bulletPoints: [ { lang: 'en', label: 'Harry', text: 'He needs a wand, an owl, and books.' } ]
       },
-      // QUIZ BLOCK 1
-      { id: 'q-3-1-1', type: 'quiz', title: 'Article Check', question: '"I want to buy ____ owl."', options: ['an', 'the'], correctAnswer: 0 },
-      { id: 'q-3-1-2', type: 'quiz', title: 'Article Check', question: '"Look at ____ moon!" (Only one moon)', options: ['a', 'the'], correctAnswer: 1 },
-      { id: 'q-3-1-3', type: 'quiz', title: 'Concept', question: 'Do we say "The Hogwarts"?', options: ['Yes', 'No'], correctAnswer: 1 },
-
       {
-        id: '3-6-b',
-        type: 'concept',
-        title: 'Magical Rules',
-        imageUrl: IMG_OWL,
+        id: '3-2', type: 'concept', title: 'Meaning (MFP)', imageUrl: IMG_WAND, leadText: 'A/An vs The',
         bulletPoints: [
-            { lang: 'en', label: 'First Mention', text: 'I saw A troll. THE troll was ugly.' },
-            { lang: 'en', label: 'Unique', text: 'THE Daily Prophet. THE Minister of Magic.' },
-            { lang: 'en', label: 'No Article', text: '(-) Dumbledore, (-) Quidditch, (-) Potions.' }
+          { lang: 'en', label: 'A/An', text: 'New information. One of many. "I saw **a** goblin."' },
+          { lang: 'en', label: 'The', text: 'Specific information. We know which one. "**The** goblin was grumpy."' },
+          { lang: 'en', label: 'Zero (-)', text: 'General plurals. "(-) Goblins love gold."' }
         ]
       },
-      // QUIZ BLOCK 2
-      { id: 'q-3-2-1', type: 'quiz', title: 'Grammar', question: 'Harry plays ____ Quidditch.', options: ['the', '(-)'], correctAnswer: 1 },
-      { id: 'q-3-2-2', type: 'quiz', title: 'Grammar', question: 'She reads ____ Daily Prophet.', options: ['the', 'a'], correctAnswer: 0 },
-      { id: 'q-3-2-3', type: 'quiz', title: 'Grammar', question: 'He is ____ wizard.', options: ['a', 'the'], correctAnswer: 0 }
+      { id: '3-q1', type: 'quiz', title: 'Kahoot: A or The', question: 'Look at ____ moon!', options: ['a', 'an', 'the', '-'], correctAnswer: 2, explanation: 'Unique object (only one moon).' },
+      { id: '3-q2', type: 'quiz', title: 'Kahoot: General', question: '____ Owls are useful pets.', options: ['The', 'A', 'An', '(-)'], correctAnswer: 3, explanation: 'General plural statement.' },
+      {
+        id: '3-3', type: 'reading', title: 'Reading: The Shop',
+        passage: "Harry entered a shop. A bell rang. The shopkeeper appeared. He was holding a wand. 'The wand is holly and phoenix feather,' he said. Harry paid the man and left.",
+        question: "Why 'The' wand in the second mention?"
+      }
     ]
   },
   {
     id: 'topic-4',
-    title: '7.1 Used to/Would: History of Magic',
+    title: '7.1 Used to/Would: History',
     theme: 'hp-hufflepuff',
     slides: [
       {
-        id: '4-1',
-        type: 'intro',
-        title: 'Lead-in: The Founders',
-        imageUrl: IMG_CASTLE,
-        leadText: 'Past vs Present Hogwarts.',
-        bulletPoints: [
-            { lang: 'en', label: 'Habit', text: '"Godric Gryffindor USED TO duel Muggles."' },
-            { lang: 'en', label: 'Routine', text: '"The founders WOULD eat together in the Great Hall."' }
-        ]
+        id: '4-1', type: 'intro', title: 'Context', imageUrl: IMG_SCROLL, leadText: 'The Founders of Hogwarts.',
+        bulletPoints: [ { lang: 'en', label: 'Past', text: 'Things were different 1000 years ago.' } ]
       },
-      // QUIZ BLOCK 1
-      { id: 'q-4-1-1', type: 'quiz', title: 'History Check', question: 'Does Gryffindor duel Muggles now?', options: ['Yes', 'No'], correctAnswer: 1 },
-      { id: 'q-4-1-2', type: 'quiz', title: 'Form', question: 'Use "Would" for...', options: ['States', 'Repeated Actions'], correctAnswer: 1 },
-      { id: 'q-4-1-3', type: 'quiz', title: 'Form', question: 'Use "Used to" for...', options: ['Everything past', 'Habits & States'], correctAnswer: 1 },
-
       {
-        id: '4-2',
-        type: 'concept',
-        title: 'States vs Actions',
-        imageUrl: IMG_SCROLL,
+        id: '4-2', type: 'concept', title: 'Meaning (MFP)', imageUrl: IMG_CASTLE, leadText: 'Habits vs States',
         bulletPoints: [
-          { lang: 'en', label: 'Used to (States)', text: 'Hogwarts USED TO BE smaller. (NOT would be)' },
-          { lang: 'en', label: 'Used to (Possession)', text: 'Harry USED TO HAVE a cupboard. (NOT would have)' },
-          { lang: 'en', label: 'Would (Actions)', text: 'Dobby WOULD BANG his head on the wall.' }
+          { lang: 'en', label: 'Used to', text: 'Past states OR habits. "Hogwarts **used to be** smaller."' },
+          { lang: 'en', label: 'Would', text: 'Past habits ONLY. Action verbs. "Helga **would cook** feasts."' },
+          { lang: 'en', label: 'Rule', text: 'Never use WOULD for states (be, have, live, love).' }
         ]
       },
-      // QUIZ BLOCK 2
-      { id: 'q-4-2-1', type: 'quiz', title: 'Select Correct', question: '"Salazar ____ be a founder."', options: ['used to', 'would'], correctAnswer: 0, explanation: '"Be" is a state.' },
-      { id: 'q-4-2-2', type: 'quiz', title: 'Select Correct', question: '"They ____ fly every day."', options: ['used to / would', 'only used to'], correctAnswer: 0 },
-      { id: 'q-4-2-3', type: 'quiz', title: 'Transformation', question: '"I didn\'t use to like Snape."', options: ['Correct', 'Incorrect'], correctAnswer: 0 }
+      {
+        id: '4-3', type: 'timeline', title: 'Timeline', leadText: 'Past vs Present', visualContext: 'Time Magic',
+        visualData: [ { label: 'Past', percentage: 10, type: 'start', color: 'blue' }, { label: 'Used to Be', subLabel: 'State', percentage: 40, type: 'point', color: 'green' }, { label: 'Would Cook', subLabel: 'Action', percentage: 60, type: 'point', color: 'red' }, { label: 'Now', percentage: 90, type: 'end', color: 'gold' } ]
+      },
+      { id: '4-q1', type: 'quiz', title: 'Kahoot: Selection', question: 'Salazar ____ have a basilisk.', options: ['would', 'used to', 'use to', 'was'], correctAnswer: 1, explanation: 'Have = State verb. Must use "Used to".' },
+      { id: '4-q2', type: 'quiz', title: 'Kahoot: Negative', question: 'I ____ like Potions.', options: ['didn\'t used to', 'didn\'t use to', 'wouldn\'t', 'not used to'], correctAnswer: 1, explanation: 'Did... use to (drop the d).' }
     ]
   },
   {
     id: 'topic-5',
-    title: '9.1 Comparatives: Broomsticks',
+    title: '9.1 Comparatives: Brooms',
     theme: 'hp-winter',
     slides: [
       {
-        id: '5-1',
-        type: 'intro',
-        title: 'Lead-in: Quality Quidditch Supplies',
-        imageUrl: IMG_BROOM,
-        leadText: 'Nimbus vs Firebolt',
-        bulletPoints: [
-          { lang: 'en', label: 'Comparison', text: 'The Firebolt is FASTER THAN the Nimbus 2000.' },
-          { lang: 'en', label: 'Superlative', text: 'The Firebolt is THE FASTEST broom in the world.' }
-        ]
+        id: '5-1', type: 'intro', title: 'Context', imageUrl: IMG_BROOM, leadText: 'Quality Quidditch Supplies.',
+        bulletPoints: [ { lang: 'en', label: 'Nimbus', text: 'Fast.' }, { lang: 'en', label: 'Firebolt', text: 'Very Fast.' } ]
       },
-      // QUIZ BLOCK 1
-      { id: 'q-5-1-1', type: 'quiz', title: 'Speed Check', question: 'Comparing two brooms. Use:', options: ['Fastest', 'Faster'], correctAnswer: 1 },
-      { id: 'q-5-1-2', type: 'quiz', title: 'Best Check', question: 'Comparing one to all. Use:', options: ['Superlative', 'Comparative'], correctAnswer: 0 },
-      { id: 'q-5-1-3', type: 'quiz', title: 'Grammar', question: 'The Firebolt is ____ expensive.', options: ['more', 'most'], correctAnswer: 0 },
-
       {
-        id: '5-6-a',
-        type: 'timeline',
-        title: 'Speed Velocity',
-        leadText: 'Broom Performance',
-        visualContext: 'Acceleration',
-        visualData: [
-            { label: 'Cleansweep', subLabel: 'Slow', percentage: 20, type: 'start', color: 'blue' },
-            { label: 'Nimbus', subLabel: 'Faster', percentage: 50, type: 'point', color: 'orange' },
-            { label: 'Firebolt', subLabel: 'The Fastest', percentage: 80, type: 'end', color: 'gold' }
+        id: '5-2', type: 'concept', title: 'Form (MFP)', imageUrl: IMG_SNITCH, leadText: 'Making Comparisons',
+        bulletPoints: [
+          { lang: 'en', label: 'Short', text: 'Adj + er + than. "Fast -> **Faster than**".' },
+          { lang: 'en', label: 'Long', text: 'More + Adj + than. "Dangerous -> **More dangerous than**".' },
+          { lang: 'en', label: 'Exceptions', text: 'Good -> Better. Bad -> Worse. Far -> Further.' }
         ]
       },
-      // QUIZ BLOCK 2
-      { id: 'q-5-2-1', type: 'quiz', title: 'Modifying', question: 'The Firebolt is ____ faster than the Cleansweep.', options: ['much', 'many'], correctAnswer: 0 },
-      { id: 'q-5-2-2', type: 'quiz', title: 'Structure', question: 'Ron is not ____ good as Harry.', options: ['as', 'than'], correctAnswer: 0 },
-      { id: 'q-5-2-3', type: 'quiz', title: 'Irregular', question: 'The team played ____ than last year.', options: ['worse', 'badder'], correctAnswer: 0 }
+      {
+        id: '5-3', type: 'concept', title: 'Meaning (MFP)', imageUrl: IMG_WAND, leadText: 'Modifiers',
+        bulletPoints: [
+          { lang: 'en', label: 'Big Difference', text: 'Use **MUCH, FAR, A LOT**. "Much faster".' },
+          { lang: 'en', label: 'Small Difference', text: 'Use **A BIT, SLIGHTLY**. "Slightly older".' }
+        ]
+      },
+      { id: '5-q1', type: 'quiz', title: 'Kahoot: Modifiers', question: 'The Firebolt is ____ expensive than the Comet.', options: ['very', 'much', 'many', 'lot'], correctAnswer: 1, explanation: 'Use "much" with comparatives.' },
+      { id: '5-q2', type: 'quiz', title: 'Kahoot: Irregular', question: 'My flying is ____ than yours.', options: ['badder', 'worse', 'baddest', 'worst'], correctAnswer: 1 }
     ]
   },
   {
     id: 'topic-6',
-    title: '8.2 Unreal Conditionals: Ministry Dreams',
+    title: '8.2 Unreal: Ministry',
     theme: 'hp-gryffindor',
     slides: [
       {
-        id: '6-1',
-        type: 'intro',
-        title: 'Lead-in: The Mirror of Erised',
-        imageUrl: IMG_CASTLE,
-        leadText: 'Desires of the heart.',
-        bulletPoints: [
-            { lang: 'en', label: 'Ron\'s Dream', text: '"If I WERE wealthy, I WOULD BUY a new wand."' },
-            { lang: 'en', label: 'Reality', text: 'Ron is poor. He has a broken wand.' }
-        ]
+        id: '6-1', type: 'intro', title: 'Context', imageUrl: IMG_CASTLE, leadText: 'The Mirror of Erised.',
+        bulletPoints: [ { lang: 'en', label: 'Ron', text: 'He sees himself as Head Boy. But he is not Head Boy.' } ]
       },
-      // QUIZ BLOCK 1
-      { id: 'q-6-1-1', type: 'quiz', title: 'Reality Check', question: 'Is Ron wealthy?', options: ['Yes', 'No'], correctAnswer: 1 },
-      { id: 'q-6-1-2', type: 'quiz', title: 'Grammar', question: 'If I ____ wealthy...', options: ['was', 'were'], correctAnswer: 1, explanation: 'Subjunctive "were" is formal/correct.' },
-      { id: 'q-6-1-3', type: 'quiz', title: 'Result', question: '...I ____ buy a wand.', options: ['will', 'would'], correctAnswer: 1 },
-
       {
-        id: '6-2',
-        type: 'concept',
-        title: 'Structure',
-        imageUrl: IMG_SCROLL,
+        id: '6-2', type: 'concept', title: 'Form (MFP)', imageUrl: IMG_SCROLL, leadText: 'Second Conditional',
         bulletPoints: [
-            { lang: 'en', label: 'Condition', text: 'IF + Past Simple (If I KNEW magic...)' },
-            { lang: 'en', label: 'Result', text: 'WOULD + Infinitive (...I WOULD FLY.)' },
-            { lang: 'en', label: 'Note', text: 'We use PAST tense to show distance from reality, not past time.' }
+          { lang: 'en', label: 'Structure', text: '`If + Past Simple, ... would + V1`' },
+          { lang: 'en', label: 'To Be', text: 'Use **WERE** for everyone. "If I **were** you..."' }
         ]
       },
-      // QUIZ BLOCK 2
-      { id: 'q-6-2-1', type: 'quiz', title: 'Translation', question: '"If I had a dragon..." -> Do I have one?', options: ['Yes', 'No'], correctAnswer: 1 },
-      { id: 'q-6-2-2', type: 'quiz', title: 'Gap Fill', question: 'If Hermione ____ here, she would help.', options: ['were', 'is'], correctAnswer: 0 },
-      { id: 'q-6-2-3', type: 'quiz', title: 'Advice', question: 'If I were you, I ____ enter the forest.', options: ["wouldn't", "won't"], correctAnswer: 0 }
+      {
+        id: '6-3', type: 'concept', title: 'Meaning (MFP)', imageUrl: IMG_WAND, leadText: 'Imaginary Present',
+        bulletPoints: [
+          { lang: 'en', label: 'Usage', text: 'Impossible or unlikely situations NOW.' },
+          { lang: 'en', label: 'Example', text: '"If I **had** a dragon, I **would fly** to school." (I don\'t have a dragon).' }
+        ]
+      },
+      { id: '6-q1', type: 'quiz', title: 'Kahoot: Tense', question: 'If I ____ magic, I would stop time.', options: ['know', 'knew', 'would know', 'have known'], correctAnswer: 1, explanation: 'If + Past Simple.' },
+      { id: '6-q2', type: 'quiz', title: 'Kahoot: Result', question: 'If she were here, she ____ help us.', options: ['will', 'can', 'would', 'did'], correctAnswer: 2 }
     ]
   },
   {
@@ -317,185 +197,112 @@ export const TOPICS: Topic[] = [
     theme: 'hp-slytherin',
     slides: [
       {
-        id: '7-1',
-        type: 'intro',
-        title: 'Lead-in: The Interview',
-        imageUrl: IMG_SCROLL,
-        leadText: 'Rita Skeeter asks questions.',
-        bulletPoints: [
-          { lang: 'en', label: 'Object', text: '"Who DID you defeat?" (Voldemort).' },
-          { lang: 'en', label: 'Subject', text: '"Who DEFEATED Voldemort?" (Harry).' }
-        ]
+        id: '7-1', type: 'intro', title: 'Context', imageUrl: IMG_SCROLL, leadText: 'The Interview.',
+        bulletPoints: [ { lang: 'en', label: 'Rita', text: 'She asks prying questions to Harry.' } ]
       },
-      // QUIZ BLOCK 1
-      { id: 'q-7-1-1', type: 'quiz', title: 'Identify', question: '"Who saw you?" -> Asking about:', options: ['Subject', 'Object'], correctAnswer: 0 },
-      { id: 'q-7-1-2', type: 'quiz', title: 'Identify', question: '"Who did you see?" -> Asking about:', options: ['Subject', 'Object'], correctAnswer: 1 },
-      { id: 'q-7-1-3', type: 'quiz', title: 'Grammar', question: 'Who ____ the Triwizard Cup?', options: ['won', 'did win'], correctAnswer: 0 },
-
       {
-        id: '7-2',
-        type: 'concept',
-        title: 'Indirect Questions',
-        imageUrl: IMG_OWL,
+        id: '7-2', type: 'concept', title: 'Concept (MFP)', imageUrl: IMG_OWL, leadText: 'Subject vs Object',
         bulletPoints: [
-          { lang: 'en', label: 'Polite', text: '"Could you tell me where Dumbledore IS?"' },
-          { lang: 'en', label: 'Rule', text: 'No auxiliary (do/did). Word order is S+V.' }
+          { lang: 'en', label: 'Object Q', text: 'Ask about receiver. Needs DO/DID. "Who **did** you see?"' },
+          { lang: 'en', label: 'Subject Q', text: 'Ask about doer. NO do/did. "Who **saw** you?"' }
         ]
       },
-      // QUIZ BLOCK 2
-      { id: 'q-7-2-1', type: 'quiz', title: 'Transformation', question: '"Where is Harry?" -> Do you know where...', options: ['Harry is', 'is Harry'], correctAnswer: 0 },
-      { id: 'q-7-2-2', type: 'quiz', title: 'Transformation', question: '"Does he fly?" -> Can you tell me if...', options: ['he flies', 'does he fly'], correctAnswer: 0 },
-      { id: 'q-7-2-3', type: 'quiz', title: 'Error Spot', question: 'Do you know who did do it?', options: ['Correct', 'Incorrect'], correctAnswer: 1 }
+      { id: '7-q1', type: 'quiz', title: 'Kahoot: Identify', question: 'Who ____ the window?', options: ['did break', 'broke', 'does break', 'broken'], correctAnswer: 1, explanation: 'Subject Question (Who did it?).' },
+      {
+        id: '7-3', type: 'concept', title: 'Form (MFP)', imageUrl: IMG_POTION, leadText: 'Indirect Questions',
+        bulletPoints: [
+          { lang: 'en', label: 'Intro', text: '"Can you tell me..." / "Do you know..."' },
+          { lang: 'en', label: 'Rule', text: 'Normal word order (S+V). No auxiliary do/did.' },
+          { lang: 'en', label: 'Example', text: '"Where **is he**?" -> "Do you know where **he is**?"' }
+        ]
+      },
+      { id: '7-q2', type: 'quiz', title: 'Kahoot: Indirect', question: 'Tell me where ____.', options: ['does he live', 'he lives', 'lives he', 'he live'], correctAnswer: 1 }
     ]
   },
   {
     id: 'topic-8',
-    title: '8.1 Real Conditionals: O.W.L.s',
+    title: '8.1 Real Conditionals: Exams',
     theme: 'hp-ravenclaw',
     slides: [
       {
-        id: '8-1',
-        type: 'intro',
-        title: 'Lead-in: Exam Rules',
-        imageUrl: IMG_SCROLL,
-        leadText: 'Facts vs Future.',
-        bulletPoints: [
-            { lang: 'en', label: 'Zero (Fact)', text: '"If you CAST Lumos, the wand LIGHTS up."' },
-            { lang: 'en', label: 'First (Future)', text: '"If I STUDY hard, I WILL PASS the O.W.L.s."' }
-        ]
+        id: '8-1', type: 'intro', title: 'Context', imageUrl: IMG_SCROLL, leadText: 'O.W.L. Exam Rules.',
+        bulletPoints: [ { lang: 'en', label: 'Zero', text: 'Facts. "If you heat water, it boils."' }, { lang: 'en', label: 'First', text: 'Future. "If I study, I will pass."' } ]
       },
-      // QUIZ BLOCK 1
-      { id: 'q-8-1-1', type: 'quiz', title: 'Identify', question: '"If I drop the glass, it breaks."', options: ['Zero', 'First'], correctAnswer: 0 },
-      { id: 'q-8-1-2', type: 'quiz', title: 'Identify', question: '"If he comes, I will go."', options: ['Zero', 'First'], correctAnswer: 1 },
-      { id: 'q-8-1-3', type: 'quiz', title: 'Grammar', question: 'If it rains, we ____ wet.', options: ['get', 'will get'], correctAnswer: 0, explanation: 'Fact = Present.' },
-
       {
-        id: '8-6-b',
-        type: 'concept',
-        title: 'Unless',
-        imageUrl: IMG_POTION,
+        id: '8-2', type: 'concept', title: 'Form (MFP)', imageUrl: IMG_WAND, leadText: 'Unless',
         bulletPoints: [
-            { lang: 'en', label: 'Meaning', text: 'Unless = If not.' },
-            { lang: 'en', label: 'Example', text: '"You won\'t pass UNLESS you study." (You won\'t pass if you don\'t study.)' }
+          { lang: 'en', label: 'Meaning', text: 'Unless = If Not.' },
+          { lang: 'en', label: 'Example', text: '"You will fail **unless** you study." = "You will fail **if** you **do not** study."' }
         ]
       },
-      // QUIZ BLOCK 2
-      { id: 'q-8-2-1', type: 'quiz', title: 'Rewrite', question: '"If you don\'t run, you are late."', options: ['Unless you run...', 'Unless you don\'t run...'], correctAnswer: 0 },
-      { id: 'q-8-2-2', type: 'quiz', title: 'Logic', question: '"Unless he uses magic, he will lose." ->', options: ['He must use magic to win.', 'He must not use magic.'], correctAnswer: 0 },
-      { id: 'q-8-2-3', type: 'quiz', title: 'Gap Fill', question: 'I will stay ____ you need me.', options: ['if', 'unless'], correctAnswer: 0 }
+      { id: '8-q1', type: 'quiz', title: 'Kahoot: Logic', question: 'I won\'t go ____ you come with me.', options: ['if', 'unless', 'when', 'as'], correctAnswer: 1 },
+      { id: '8-q2', type: 'quiz', title: 'Kahoot: Tense', question: 'If it rains, we ____ wet.', options: ['get', 'will get', 'got', 'getting'], correctAnswer: 1, explanation: 'Specific future event (First Conditional).' }
     ]
   },
   {
     id: 'topic-9',
-    title: '11.2 Should/Shouldn\'t have: Quidditch Fail',
+    title: '11.2 Regret: Quidditch',
     theme: 'hp-winter',
     slides: [
       {
-        id: '9-1',
-        type: 'intro',
-        title: 'Lead-in: The Lost Match',
-        imageUrl: IMG_SNITCH,
-        leadText: 'Wood is angry.',
-        bulletPoints: [
-          { lang: 'en', label: 'Fact', text: 'Harry missed the Snitch. Gryffindor lost.' },
-          { lang: 'en', label: 'Regret', text: '"You SHOULD HAVE CAUGHT it, Potter!"' }
-        ]
+        id: '9-1', type: 'intro', title: 'Context', imageUrl: IMG_SNITCH, leadText: 'The lost match.',
+        bulletPoints: [ { lang: 'en', label: 'Oliver Wood', text: 'He is yelling at Harry. "You missed the Snitch!"' } ]
       },
-      // QUIZ BLOCK 1
-      { id: 'q-9-1-1', type: 'quiz', title: 'Fact Check', question: 'Did Harry catch it?', options: ['Yes', 'No'], correctAnswer: 1 },
-      { id: 'q-9-1-2', type: 'quiz', title: 'Grammar', question: 'You ____ have stopped.', options: ['should', 'must'], correctAnswer: 0 },
-      { id: 'q-9-1-3', type: 'quiz', title: 'Meaning', question: 'Is Wood giving advice for the future?', options: ['Yes', 'No (Past Criticism)'], correctAnswer: 1 },
-
       {
-        id: '9-2',
-        type: 'concept',
-        title: 'Structure',
-        imageUrl: IMG_BROOM,
+        id: '9-2', type: 'concept', title: 'Meaning (MFP)', imageUrl: IMG_BROOM, leadText: 'Past Criticism',
         bulletPoints: [
-          { lang: 'en', label: 'Formula', text: 'Subject + SHOULD HAVE + V3 (Past Participle).' },
-          { lang: 'en', label: 'Negative', text: 'Subject + SHOULDN\'T HAVE + V3.' }
+          { lang: 'en', label: 'Should have', text: 'It was a good idea, but you didn\'t do it.' },
+          { lang: 'en', label: 'Shouldn\'t have', text: 'It was a bad idea, but you did it.' }
         ]
       },
-      // QUIZ BLOCK 2
-      { id: 'q-9-2-1', type: 'quiz', title: 'Gap Fill', question: 'I shouldn\'t ____ eaten that candy.', options: ['have', 'had'], correctAnswer: 0 },
-      { id: 'q-9-2-2', type: 'quiz', title: 'Gap Fill', question: 'We should have ____ harder.', options: ['try', 'tried'], correctAnswer: 1 },
-      { id: 'q-9-2-3', type: 'quiz', title: 'Situation', question: 'Ron is sick. He ate a slug.', options: ['He shouldn\'t have eaten it.', 'He shouldn\'t eat it.'], correctAnswer: 0 }
+      {
+        id: '9-3', type: 'timeline', title: 'Timeline', leadText: 'Too Late', visualContext: 'Time Turner',
+        visualData: [ { label: 'Mistake', percentage: 20, type: 'start', color: 'red' }, { label: 'Should Have', subLabel: 'Ideal', percentage: 20, type: 'start', color: 'green' }, { label: 'Now', subLabel: 'Regret', percentage: 80, type: 'end', color: 'blue' } ]
+      },
+      { id: '9-q1', type: 'quiz', title: 'Kahoot: Form', question: 'You should have ____.', options: ['listen', 'listened', 'listening', 'listens'], correctAnswer: 1, explanation: 'Should have + V3.' },
+      { id: '9-q2', type: 'quiz', title: 'Kahoot: Meaning', question: 'I feel sick. I shouldn\'t have eaten that frog.', options: ['I ate it.', 'I didn\'t eat it.'], correctAnswer: 0 }
     ]
   },
   {
     id: 'topic-10',
-    title: '12.1 Reported Speech: The Pensieve',
+    title: '12.1 Reported: Pensieve',
     theme: 'hp-dark',
     slides: [
       {
-        id: '10-1',
-        type: 'intro',
-        title: 'Lead-in: Dumbledore\'s Memory',
-        imageUrl: IMG_WAND,
-        leadText: 'Stepping into the past.',
-        bulletPoints: [
-          { lang: 'en', label: 'Direct', text: 'Voldemort: "I AM the greatest sorcerer."' },
-          { lang: 'en', label: 'Reported', text: 'Harry: "He said HE WAS the greatest sorcerer."' }
-        ]
+        id: '10-1', type: 'intro', title: 'Context', imageUrl: IMG_WAND, leadText: 'Dumbledore\'s Memories.',
+        bulletPoints: [ { lang: 'en', label: 'Direct', text: 'Voldemort: "I am great."' }, { lang: 'en', label: 'Reported', text: 'Harry: "He said he was great."' } ]
       },
-      // QUIZ BLOCK 1
-      { id: 'q-10-1-1', type: 'quiz', title: 'Pronoun Shift', question: '"I" became...', options: ['He', 'She'], correctAnswer: 0 },
-      { id: 'q-10-1-2', type: 'quiz', title: 'Tense Shift', question: '"Am" became...', options: ['Was', 'Were'], correctAnswer: 0 },
-      { id: 'q-10-1-3', type: 'quiz', title: 'Concept', question: 'Are we talking about now or then?', options: ['Then (Past)', 'Now'], correctAnswer: 0 },
-
       {
-        id: '10-3-a',
-        type: 'timeline',
-        title: 'The Time Shift',
-        leadText: 'Backshift Logic',
-        visualContext: 'Memory Thread',
-        visualData: [
-            { label: 'Present', subLabel: '"I am"', percentage: 20, type: 'start', color: 'blue' },
-            { label: 'Past', subLabel: 'He was', percentage: 50, type: 'point', color: 'purple' },
-            { label: 'Past Perfect', subLabel: 'He had been', percentage: 80, type: 'end', color: 'gold' }
+        id: '10-2', type: 'concept', title: 'Form (MFP)', imageUrl: IMG_SCROLL, leadText: 'The Backshift',
+        bulletPoints: [
+          { lang: 'en', label: 'Present', text: 'Becomes **Past**. (am -> was)' },
+          { lang: 'en', label: 'Past', text: 'Becomes **Past Perfect**. (did -> had done)' },
+          { lang: 'en', label: 'Will', text: 'Becomes **Would**.' }
         ]
       },
-      // QUIZ BLOCK 2
-      { id: 'q-10-2-1', type: 'quiz', title: 'Shift Check', question: '"I have a wand." -> He said he ____ a wand.', options: ['has', 'had'], correctAnswer: 1 },
-      { id: 'q-10-2-2', type: 'quiz', title: 'Shift Check', question: '"I played Quidditch." -> He said he ____ Quidditch.', options: ['played', 'had played'], correctAnswer: 1 },
-      { id: 'q-10-2-3', type: 'quiz', title: 'Modal Check', question: '"I will kill him." -> He said he ____ kill him.', options: ['will', 'would'], correctAnswer: 1 }
+      { id: '10-q1', type: 'quiz', title: 'Kahoot: Shift', question: '"I have a plan." -> He said he ____ a plan.', options: ['has', 'had', 'have', 'having'], correctAnswer: 1 },
+      { id: '10-q2', type: 'quiz', title: 'Kahoot: Shift', question: '"I saw him." -> He said he ____ him.', options: ['saw', 'had seen', 'has seen', 'sees'], correctAnswer: 1 }
     ]
   },
   {
     id: 'topic-11',
-    title: '12.2 Reported Questions: The Sorting Hat',
+    title: '12.2 Reported Q: Sorting',
     theme: 'hp-dark',
     slides: [
       {
-        id: '11-1',
-        type: 'intro',
-        title: 'Lead-in: The Sorting',
-        imageUrl: IMG_CASTLE,
-        leadText: 'The Hat whispers.',
-        bulletPoints: [
-          { lang: 'en', label: 'Direct', text: 'Hat: "Are you brave?"' },
-          { lang: 'en', label: 'Reported', text: 'Harry: "It asked IF I WAS brave."' }
-        ]
+        id: '11-1', type: 'intro', title: 'Context', imageUrl: IMG_CASTLE, leadText: 'The Sorting Hat.',
+        bulletPoints: [ { lang: 'en', label: 'Hat', text: '"Are you brave?"' } ]
       },
-      // QUIZ BLOCK 1
-      { id: 'q-11-1-1', type: 'quiz', title: 'Connector', question: 'For Yes/No questions use:', options: ['If/Whether', 'That'], correctAnswer: 0 },
-      { id: 'q-11-1-2', type: 'quiz', title: 'Word Order', question: 'It asked if ____ brave.', options: ['was I', 'I was'], correctAnswer: 1 },
-      { id: 'q-11-1-3', type: 'quiz', title: 'Tense', question: '"Are" changed to:', options: ['Was', 'Is'], correctAnswer: 0 },
-
       {
-        id: '11-6-b',
-        type: 'concept',
-        title: 'Rules of the Hat',
-        imageUrl: IMG_SCROLL,
+        id: '11-2', type: 'concept', title: 'Form (MFP)', imageUrl: IMG_SCROLL, leadText: 'Reporting Questions',
         bulletPoints: [
-            { lang: 'en', label: 'Wh- Questions', text: 'Keep the word. "Where ARE you?" -> "Where I WAS."' },
-            { lang: 'en', label: 'Yes/No', text: 'Use IF. "DO you like Slytherin?" -> "If I LIKED Slytherin."' }
+          { lang: 'en', label: 'Yes/No', text: 'Use **IF** or **WHETHER**. "It asked **if** I was brave."' },
+          { lang: 'en', label: 'Wh- Q', text: 'Keep the word. "Where are you?" -> "Asked **where** I was."' },
+          { lang: 'en', label: 'Order', text: 'Change to Statement Order (Subject + Verb).' }
         ]
       },
-      // QUIZ BLOCK 2
-      { id: 'q-11-2-1', type: 'quiz', title: 'Practice', question: '"Where do you live?" -> He asked where I ____.', options: ['live', 'lived'], correctAnswer: 1 },
-      { id: 'q-11-2-2', type: 'quiz', title: 'Practice', question: '"Can you fly?" -> He asked if I ____ fly.', options: ['can', 'could'], correctAnswer: 1 },
-      { id: 'q-11-2-3', type: 'quiz', title: 'Error', question: 'He asked where did I go.', options: ['Correct', 'Incorrect (Delete did)'], correctAnswer: 1 }
+      { id: '11-q1', type: 'quiz', title: 'Kahoot: Connector', question: 'He asked ____ I liked magic.', options: ['that', 'if', 'what', 'did'], correctAnswer: 1 },
+      { id: '11-q2', type: 'quiz', title: 'Kahoot: Word Order', question: 'She asked what ____.', options: ['time is it', 'time it was', 'time was it', 'is it time'], correctAnswer: 1 }
     ]
   }
 ];
