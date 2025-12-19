@@ -1,8 +1,8 @@
-import { GoogleGenAI } from "@google/genai";
+import { GoogleGenAI, GenerateContentResponse } from "@google/genai";
 
 const getAIClient = () => {
   if (!process.env.API_KEY) {
-    console.warn("API_KEY not found in environment variables.");
+    console.error("API_KEY not found in environment variables. Please check your configuration.");
     return null;
   }
   return new GoogleGenAI({ apiKey: process.env.API_KEY });
@@ -10,7 +10,7 @@ const getAIClient = () => {
 
 export const checkAudio = async (audioBlob: Blob, prompt: string): Promise<string> => {
   const ai = getAIClient();
-  if (!ai) return "AI services unavailable.";
+  if (!ai) return "AI services unavailable. Missing API Key.";
 
   try {
     // Convert blob to base64
@@ -18,6 +18,7 @@ export const checkAudio = async (audioBlob: Blob, prompt: string): Promise<strin
     const base64Promise = new Promise<string>((resolve, reject) => {
       reader.onloadend = () => {
         if (typeof reader.result === 'string') {
+           // Data URL format: "data:audio/webm;base64,SGVsbG8..."
            const base64String = reader.result.split(',')[1];
            resolve(base64String);
         } else {
@@ -29,13 +30,13 @@ export const checkAudio = async (audioBlob: Blob, prompt: string): Promise<strin
     reader.readAsDataURL(audioBlob);
     const base64Audio = await base64Promise;
 
-    const response = await ai.models.generateContent({
+    const response: GenerateContentResponse = await ai.models.generateContent({
         model: 'gemini-3-flash-preview',
         contents: {
             parts: [
                 {
                     inlineData: {
-                        mimeType: audioBlob.type || 'audio/webm', // Use the actual mime type of the recording
+                        mimeType: audioBlob.type || 'audio/webm',
                         data: base64Audio
                     }
                 },
@@ -49,7 +50,7 @@ export const checkAudio = async (audioBlob: Blob, prompt: string): Promise<strin
         }
     });
 
-    return response.text || "Analysis failed.";
+    return response.text || "Analysis failed to generate text.";
 
   } catch (error) {
     console.error("Audio Analysis Error:", error);
