@@ -7,7 +7,7 @@ import { checkAudio } from '../services/geminiService';
 
 interface SlideRendererProps {
   slide: SlideContent;
-  theme?: 'default' | 'gta' | 'wukong';
+  theme?: string;
   onScore: (correct: boolean) => void;
 }
 
@@ -45,8 +45,10 @@ const AudioVisualizer: React.FC<{ stream: MediaStream | null; recording: boolean
         barHeight = (dataArray[i] / 255) * canvas.height;
         
         let color = `rgba(14, 165, 233, ${dataArray[i]/255})`; // Blue
-        if (theme === 'gta') color = `rgba(34, 197, 94, ${dataArray[i]/255})`; // Green
-        if (theme === 'wukong') color = `rgba(245, 158, 11, ${dataArray[i]/255})`; // Gold
+        if (theme === 'gta' || theme === 'cyber') color = `rgba(0, 240, 255, ${dataArray[i]/255})`; // Cyan
+        if (theme === 'wukong' || theme === 'retro') color = `rgba(245, 158, 11, ${dataArray[i]/255})`; // Gold
+        if (theme === 'kpop' || theme === 'social') color = `rgba(236, 72, 153, ${dataArray[i]/255})`; // Pink
+        if (theme === 'auto' || theme === 'sport') color = `rgba(239, 68, 68, ${dataArray[i]/255})`; // Red
 
         canvasCtx.fillStyle = color;
         canvasCtx.fillRect(x, canvas.height - barHeight, barWidth - 2, barHeight);
@@ -71,7 +73,6 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({ slide, theme, onSc
   const [gapText, setGapText] = useState('');
   const [revealedItems, setRevealedItems] = useState<number[]>([]);
   
-  // Audio State
   const [isRecording, setIsRecording] = useState(false);
   const [audioBlob, setAudioBlob] = useState<Blob | null>(null);
   const [audioUrl, setAudioUrl] = useState<string | null>(null);
@@ -79,7 +80,6 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({ slide, theme, onSc
   const [analyzing, setAnalyzing] = useState(false);
   const [micError, setMicError] = useState<string | null>(null);
   
-  // Language Toggle State
   const [showRu, setShowRu] = useState(false);
   const [showUz, setShowUz] = useState(false);
 
@@ -87,26 +87,21 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({ slide, theme, onSc
   const streamRef = useRef<MediaStream | null>(null);
   const isMounted = useRef(true);
 
-  // Theme Helpers
-  const isGTA = theme === 'gta';
-  const isWukong = theme === 'wukong';
-
-  // Styles based on theme
+  // Dynamic Theme Colors
   const getThemeColors = () => {
-    if (isGTA) return { 
-        text: 'text-green-50', subtext: 'text-green-300', bg: 'bg-slate-900', border: 'border-green-500/30', 
-        highlight: 'text-green-400', accent: 'bg-green-600', cardBg: 'bg-slate-800/80' 
-    };
-    if (isWukong) return { 
-        text: 'text-amber-50', subtext: 'text-amber-200', bg: 'bg-[#450a0a]', border: 'border-amber-500/30', 
-        highlight: 'text-amber-400', accent: 'bg-amber-600', cardBg: 'bg-[#2a0a0a]/80' 
-    };
-    return { 
-        text: 'text-slate-900 dark:text-white', subtext: 'text-slate-600 dark:text-slate-300', 
-        bg: 'bg-[#e0e5ec] dark:bg-slate-900', border: 'border-white/50 dark:border-slate-700', 
-        highlight: 'text-surgical-600 dark:text-surgical-400', accent: 'bg-surgical-500', 
-        cardBg: 'bg-white/50 dark:bg-slate-800/50' 
-    };
+    switch (theme) {
+      case 'gta': return { text: 'text-green-50', subtext: 'text-green-300', cardBg: 'bg-slate-800/80', border: 'border-green-500/30', accent: 'bg-green-600', highlight: 'text-green-400' };
+      case 'cyber': return { text: 'text-cyan-50 font-cyber', subtext: 'text-cyan-300', cardBg: 'bg-black/80', border: 'border-cyan-500', accent: 'bg-cyan-600', highlight: 'text-cyan-400' };
+      case 'kpop': return { text: 'text-pink-900', subtext: 'text-pink-600', cardBg: 'bg-pink-50/90', border: 'border-pink-300', accent: 'bg-pink-500', highlight: 'text-pink-600' };
+      case 'retro': return { text: 'text-amber-900 font-serif', subtext: 'text-amber-700', cardBg: 'bg-amber-50/90', border: 'border-amber-700', accent: 'bg-amber-600', highlight: 'text-amber-800' };
+      case 'auto': return { text: 'text-red-50 italic', subtext: 'text-red-300', cardBg: 'bg-neutral-900/90', border: 'border-red-600', accent: 'bg-red-600', highlight: 'text-red-500' };
+      case 'startup': return { text: 'text-blue-900', subtext: 'text-blue-600', cardBg: 'bg-white/90', border: 'border-blue-400', accent: 'bg-blue-600', highlight: 'text-blue-700' };
+      case 'social': return { text: 'text-slate-900', subtext: 'text-slate-600', cardBg: 'bg-white/95', border: 'border-pink-500', accent: 'bg-gradient-to-r from-purple-500 to-pink-500', highlight: 'text-pink-600' };
+      case 'exam': return { text: 'text-emerald-900 font-serif', subtext: 'text-emerald-700', cardBg: 'bg-emerald-50/90', border: 'border-emerald-600', accent: 'bg-emerald-600', highlight: 'text-emerald-700' };
+      case 'sport': return { text: 'text-green-900 font-marker', subtext: 'text-green-700', cardBg: 'bg-white/90', border: 'border-green-600', accent: 'bg-green-600', highlight: 'text-green-600' };
+      case 'wukong': return { text: 'text-amber-50 font-mythical', subtext: 'text-amber-200', cardBg: 'bg-[#2a0a0a]/80', border: 'border-amber-500/30', accent: 'bg-amber-600', highlight: 'text-amber-400' };
+      default: return { text: 'text-slate-900 dark:text-white', subtext: 'text-slate-600 dark:text-slate-300', cardBg: 'bg-white/50 dark:bg-slate-800/50', border: 'border-white/50 dark:border-slate-700', accent: 'bg-surgical-500', highlight: 'text-surgical-600 dark:text-surgical-400' };
+    }
   };
 
   const tc = getThemeColors();
@@ -209,6 +204,10 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({ slide, theme, onSc
   // Decoration Logic
   const renderBackgroundIcon = () => {
     const commonClasses = "absolute -right-10 -bottom-10 w-96 h-96 opacity-5 pointer-events-none transform rotate-12 transition-all duration-1000";
+    if (theme === 'kpop') return <Sparkles className={commonClasses + " text-pink-300"} />;
+    if (theme === 'auto') return <Target className={commonClasses + " text-red-900"} />;
+    if (theme === 'cyber') return <Zap className={commonClasses + " text-cyan-900"} />;
+    
     switch (slide.type) {
         case 'speaking': return <Mic className={commonClasses} />;
         case 'quiz': 
@@ -229,18 +228,16 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({ slide, theme, onSc
       case 'concept':
         return (
           <div className="flex flex-col h-full gap-4 relative z-10">
-             <div className={`flex gap-6 items-start ${isGTA || isWukong ? 'flex-col md:flex-row' : ''}`}>
+             <div className={`flex gap-6 items-start flex-col md:flex-row`}>
                 {slide.imageUrl && (
-                  <div className={`rounded-2xl overflow-hidden shadow-2xl border-4 ${tc.border} transition-all duration-500 hover:scale-[1.02] ${isGTA || isWukong ? 'w-full md:w-1/2 max-h-[250px]' : 'w-1/3 max-w-[200px] hidden md:block'}`}>
+                  <div className={`rounded-2xl overflow-hidden shadow-2xl border-4 ${tc.border} transition-all duration-500 hover:scale-[1.02] w-full md:w-1/2 max-h-[250px]`}>
                     <img src={slide.imageUrl} alt="Visual" className="w-full h-full object-cover" />
-                    {/* Image Overlay Glitch for GTA */}
-                    {isGTA && <div className="absolute inset-0 bg-green-500/10 mix-blend-overlay animate-pulse"></div>}
+                    {(theme === 'gta' || theme === 'cyber') && <div className="absolute inset-0 bg-green-500/10 mix-blend-overlay animate-pulse"></div>}
                   </div>
                 )}
                 <div className="flex-1 w-full space-y-4">
                    {slide.leadText && <p className={`text-2xl font-bold leading-relaxed ${tc.text} animate-fade-in`}>{renderMarkdown(slide.leadText)}</p>}
                    
-                   {/* Language Toggles */}
                    {(uzPoints.length > 0 || ruPoints.length > 0) && (
                      <div className="flex gap-2">
                        {uzPoints.length > 0 && <button onClick={() => setShowUz(!showUz)} className={`px-4 py-2 rounded-xl font-bold text-xs flex items-center gap-2 border transition-all ${showUz ? `${tc.accent} text-white` : `${tc.cardBg} ${tc.subtext} ${tc.border}`}`}><Globe className="w-4 h-4"/> UZ</button>}
@@ -269,12 +266,12 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({ slide, theme, onSc
                 })}
                 {showUz && uzPoints.map((bp, idx) => (
                   <div key={idx} className="bg-emerald-500/10 p-4 rounded-xl border border-emerald-500/30 animate-fade-in-up">
-                    <p className={`text-base font-medium ${isGTA ? 'text-green-300' : 'text-emerald-700 dark:text-emerald-300'}`}>{renderMarkdown(bp.text)}</p>
+                    <p className={`text-base font-medium ${tc.text}`}>{renderMarkdown(bp.text)}</p>
                   </div>
                 ))}
                 {showRu && ruPoints.map((bp, idx) => (
                    <div key={idx} className="bg-indigo-500/10 p-4 rounded-xl border border-indigo-500/30 animate-fade-in-up">
-                    <p className={`text-base font-medium ${isGTA ? 'text-indigo-300' : 'text-indigo-700 dark:text-indigo-300'}`}>{renderMarkdown(bp.text)}</p>
+                    <p className={`text-base font-medium ${tc.text}`}>{renderMarkdown(bp.text)}</p>
                   </div>
                 ))}
              </div>
@@ -288,8 +285,7 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({ slide, theme, onSc
                <p className={`text-2xl font-bold ${tc.text}`}>{renderMarkdown(slide.leadText)}</p>
             </div>
             <div className="h-64 md:h-80 w-full shrink-0 relative">
-               {/* 3D Timeline Visual */}
-               {slide.visualData && <Timeline3D points={slide.visualData} context={slide.visualContext} />}
+               <Timeline3D points={slide.visualData || []} context={slide.visualContext} />
             </div>
             
             <div className="flex-1 overflow-y-auto mt-4 space-y-3 px-2">
@@ -324,8 +320,8 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({ slide, theme, onSc
                 let btnStyle = `${tc.cardBg} ${tc.border} ${tc.text} hover:bg-opacity-80`;
                 if (isSelected) {
                    btnStyle = isCorrect 
-                     ? 'bg-green-500/20 border-green-500 text-green-600 dark:text-green-400 shadow-[0_0_20px_rgba(34,197,94,0.3)]' 
-                     : 'bg-red-500/20 border-red-500 text-red-600 dark:text-red-400 shadow-[0_0_20px_rgba(239,68,68,0.3)]';
+                     ? 'bg-green-500/20 border-green-500 text-green-600 shadow-[0_0_20px_rgba(34,197,94,0.3)]' 
+                     : 'bg-red-500/20 border-red-500 text-red-600 shadow-[0_0_20px_rgba(239,68,68,0.3)]';
                 }
 
                 return (
@@ -360,7 +356,7 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({ slide, theme, onSc
                     {part}
                     {i < arr.length - 1 && (
                       <input type="text" value={gapText} onChange={(e) => setGapText(e.target.value)}
-                        className={`mx-3 w-56 art-3d-input text-center font-bold text-2xl focus:scale-110 transition-transform ${isGTA ? 'text-green-400' : 'text-surgical-600 dark:text-surgical-400'}`}
+                        className={`mx-3 w-56 art-3d-input text-center font-bold text-2xl focus:scale-110 transition-transform ${tc.highlight}`}
                         placeholder="?" autoComplete="off" autoFocus />
                     )}
                   </React.Fragment>
@@ -432,25 +428,24 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({ slide, theme, onSc
     }
   };
 
+  const currentThemeMode = theme ? `${theme}-mode` : 'surgical-mode';
+
   return (
-    <Card className="h-full flex flex-col p-0 overflow-hidden !bg-transparent !shadow-none !border-none perspective-1000">
+    <Card className={`h-full flex flex-col p-0 overflow-hidden !bg-transparent !shadow-none !border-none perspective-1000 ${currentThemeMode}`}>
       <div className="flex items-center gap-4 mb-4 shrink-0 px-2 relative z-20">
-        <Badge color={isGTA ? "bg-green-900 text-green-400 border border-green-500" : isWukong ? "bg-amber-900 text-amber-400 border border-amber-500" : "bg-white text-slate-800 border border-slate-200 shadow-sm dark:bg-slate-700 dark:text-white dark:border-slate-600"}>{slide.type.toUpperCase()}</Badge>
+        <Badge color={`${tc.accent} text-white border ${tc.border}`}>{slide.type.toUpperCase()}</Badge>
         <h2 className={`text-4xl font-black tracking-tight leading-none drop-shadow-md ${tc.text}`}>{renderMarkdown(slide.title)}</h2>
       </div>
       
-      <div className={`flex-1 rounded-[2.5rem] p-6 md:p-10 overflow-hidden relative border transition-all duration-500 flex flex-col
-        ${isGTA ? 'bg-slate-950 border-green-500/50 shadow-[0_0_50px_rgba(34,197,94,0.2)]' : 
-          isWukong ? 'bg-[#2a0a0a] border-amber-500/50 shadow-[0_0_50px_rgba(217,119,6,0.2)]' : 
-          'bg-white/60 dark:bg-slate-900/80 backdrop-blur-xl border-white/60 dark:border-slate-700 shadow-2xl dark:shadow-3d-dark'}`}>
+      <div className={`flex-1 rounded-[2.5rem] p-6 md:p-10 overflow-hidden relative border-2 transition-all duration-500 flex flex-col ${tc.cardBg} ${tc.border} shadow-2xl`}>
          
-         {/* Decorative Background Elements (200% visuals) */}
+         {/* Decorative Background Elements */}
          {renderBackgroundIcon()}
-         {isGTA && <div className="absolute inset-0 scanline-overlay opacity-30 pointer-events-none"></div>}
+         {(theme === 'gta' || theme === 'cyber') && <div className="absolute inset-0 scanline-overlay opacity-30 pointer-events-none"></div>}
          
          {/* Corner Accents */}
-         <div className={`absolute top-4 left-4 w-4 h-4 border-t-2 border-l-2 ${isGTA ? 'border-green-500' : isWukong ? 'border-amber-500' : 'border-slate-400 opacity-50'}`}></div>
-         <div className={`absolute bottom-4 right-4 w-4 h-4 border-b-2 border-r-2 ${isGTA ? 'border-green-500' : isWukong ? 'border-amber-500' : 'border-slate-400 opacity-50'}`}></div>
+         <div className={`absolute top-4 left-4 w-4 h-4 border-t-2 border-l-2 ${tc.border} opacity-70`}></div>
+         <div className={`absolute bottom-4 right-4 w-4 h-4 border-b-2 border-r-2 ${tc.border} opacity-70`}></div>
 
          {renderContent()}
       </div>

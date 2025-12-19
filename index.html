@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>LinguVerse Surgical 3D</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Cinzel:wght@400;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Cinzel:wght@400;700;900&family=Orbitron:wght@400;700;900&family=Permanent+Marker&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
     <script>
       tailwind.config = {
         darkMode: 'class',
@@ -14,6 +14,9 @@
             fontFamily: {
               sans: ['Inter', 'sans-serif'],
               mythical: ['Cinzel', 'serif'],
+              cyber: ['Orbitron', 'sans-serif'],
+              marker: ['Permanent Marker', 'cursive'],
+              serif: ['Playfair Display', 'serif'],
             },
             colors: {
               surgical: {
@@ -48,6 +51,8 @@
               'neon-blue': '0 0 10px #0ea5e9, 0 0 20px #0ea5e9',
               'neon-green': '0 0 10px #22c55e, 0 0 20px #22c55e',
               'neon-red': '0 0 10px #ef4444, 0 0 20px #ef4444',
+              'neon-purple': '0 0 10px #a855f7, 0 0 20px #a855f7',
+              'neon-pink': '0 0 10px #ec4899, 0 0 20px #ec4899',
             },
             keyframes: {
               fadeIn: { '0%': { opacity: '0' }, '100%': { opacity: '1' } },
@@ -147,6 +152,49 @@
         box-shadow: inset 4px 4px 8px #050911, inset -4px -4px 8px #192543;
         color: white;
       }
+
+      /* --- NEW THEME OVERRIDES --- */
+      
+      /* Cyber/Gaming */
+      .cyber-mode { background: #050510; color: #00f0ff; }
+      .cyber-mode .art-3d-card { background: #0a0a1f; border: 1px solid #00f0ff; box-shadow: 0 0 20px rgba(0,240,255,0.2); }
+      .cyber-mode .art-3d-btn-primary { background: #00f0ff; color: #000; box-shadow: 0 0 15px #00f0ff; }
+      .cyber-mode header { border-bottom: 1px solid #00f0ff; }
+
+      /* K-Pop */
+      .kpop-mode { background: #fdf2f8; color: #db2777; background-image: radial-gradient(#fbcfe8 2px, transparent 2px); background-size: 30px 30px; }
+      .kpop-mode .art-3d-card { background: #fff; border: 2px solid #f9a8d4; box-shadow: 10px 10px 0 #fbcfe8; border-radius: 40px; }
+      .kpop-mode .art-3d-btn-primary { background: #ec4899; border-radius: 50px; }
+
+      /* Retro Tashkent */
+      .retro-mode { background: #fef3c7; color: #78350f; background-image: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1h2v2H1V1zm4 0h2v2H5V1zm4 0h2v2H9V1z' fill='%23d97706' fill-opacity='0.1' fill-rule='evenodd'/%3E%3C/svg%3E"); }
+      .retro-mode .art-3d-card { background: #fffbeb; border: 4px double #b45309; box-shadow: 5px 5px 15px rgba(120,53,15,0.2); }
+      .retro-mode .art-3d-btn-primary { background: #b45309; color: #fffbeb; border: 2px solid #78350f; }
+
+      /* Auto Tuning */
+      .auto-mode { background: #171717; color: #ef4444; }
+      .auto-mode .art-3d-card { background: #262626; border-left: 4px solid #ef4444; box-shadow: 10px 10px 30px #000; transform: skewX(-5deg); }
+      .auto-mode .art-3d-btn-primary { background: linear-gradient(45deg, #b91c1c, #ef4444); transform: skewX(-10deg); }
+
+      /* Startup */
+      .startup-mode { background: #eff6ff; color: #1e3a8a; }
+      .startup-mode .art-3d-card { background: #ffffff; border: 1px solid #bfdbfe; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); border-radius: 8px; }
+      .startup-mode .art-3d-btn-primary { background: #2563eb; border-radius: 6px; }
+
+      /* Social Media */
+      .social-mode { background: #fafafa; color: #262626; }
+      .social-mode .art-3d-card { background: #fff; border: 1px solid #dbdbdb; box-shadow: none; border-radius: 8px; }
+      .social-mode .art-3d-btn-primary { background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); border-radius: 8px; }
+
+      /* Exam/IELTS */
+      .exam-mode { background: #ecfdf5; color: #064e3b; }
+      .exam-mode .art-3d-card { background: #fff; border-top: 4px solid #059669; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); }
+      .exam-mode .art-3d-btn-primary { background: #059669; }
+
+      /* Sport */
+      .sport-mode { background: #f0fdf4; color: #14532d; background-image: repeating-linear-gradient(0deg, transparent, transparent 49px, #dcfce7 50px); }
+      .sport-mode .art-3d-card { background: #fff; border: 2px solid #16a34a; box-shadow: 8px 8px 0 #16a34a; }
+      .sport-mode .art-3d-btn-primary { background: #16a34a; color: white; border: 2px solid #14532d; }
 
       /* Visual Utilities */
       .bg-grid-pattern {

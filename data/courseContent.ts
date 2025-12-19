@@ -1,67 +1,86 @@
 import { Topic } from '../types';
 
 // --- SVG ASSET GENERATOR ---
-// We use Data URIs to ensure images are pre-loaded with the bundle (No placeholders)
-
 const svg = (content: string, bg: string) => 
   `data:image/svg+xml;utf8,${encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" preserveAspectRatio="xMidYMid slice" style="background:${bg};width:100%;height:100%;">${content}</svg>`)}`;
 
-// 1. SURGICAL THEME (Blue/White, Clean, Geometric)
+// 1. SURGICAL THEME (Base)
 const SURGICAL_BG = '#f0f9ff';
-const SURGICAL_DEFS = `
-  <defs>
-    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
-      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#e0f2fe" stroke-width="1"/>
-    </pattern>
-    <linearGradient id="blueGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#38bdf8;stop-opacity:0.6" />
-      <stop offset="100%" style="stop-color:#0ea5e9;stop-opacity:0.1" />
-    </linearGradient>
-  </defs>
-  <rect width="100%" height="100%" fill="url(#grid)" />
-`;
-const IMG_SURGICAL_INTRO = svg(`${SURGICAL_DEFS}<circle cx="400" cy="300" r="150" fill="url(#blueGrad)"/><path d="M300 300 L500 300 L400 450 Z" fill="#0284c7" opacity="0.5"/><text x="400" y="300" font-family="sans-serif" font-weight="900" font-size="40" fill="#0369a1" text-anchor="middle" dominant-baseline="middle">MODULE INTRO</text>`, SURGICAL_BG);
-const IMG_SURGICAL_CONCEPT = svg(`${SURGICAL_DEFS}<rect x="200" y="150" width="400" height="300" rx="20" fill="url(#blueGrad)"/><circle cx="600" cy="150" r="50" fill="#0ea5e9"/><text x="400" y="300" font-family="sans-serif" font-weight="900" font-size="40" fill="#0369a1" text-anchor="middle">CONCEPT DATA</text>`, SURGICAL_BG);
-const IMG_SURGICAL_TEST = svg(`${SURGICAL_DEFS}<path d="M200 200 L600 200 L400 500 Z" fill="url(#blueGrad)" stroke="#0ea5e9" stroke-width="4"/><circle cx="400" cy="200" r="20" fill="#0284c7"/><text x="400" y="350" font-family="sans-serif" font-weight="900" font-size="40" fill="#ffffff" text-anchor="middle">ASSESSMENT</text>`, SURGICAL_BG);
+const SURGICAL_DEFS = `<defs><pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M 40 0 L 0 0 0 40" fill="none" stroke="#e0f2fe" stroke-width="1"/></pattern></defs><rect width="100%" height="100%" fill="url(#grid)" />`;
 
-// 2. GTA THEME (Dark, Neon Green, Scanlines, Wireframe)
+// 2. GTA THEME (Module 1)
 const GTA_BG = '#020617';
-const GTA_DEFS = `
-  <defs>
-    <pattern id="gtaGrid" width="50" height="50" patternUnits="userSpaceOnUse">
-      <rect width="50" height="50" fill="none" stroke="#22c55e" stroke-width="0.5" opacity="0.3"/>
-    </pattern>
-    <filter id="glow">
-      <feGaussianBlur stdDeviation="2.5" result="coloredBlur"/>
-      <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
-    </filter>
-  </defs>
-  <rect width="100%" height="100%" fill="#0f172a" />
-  <rect width="100%" height="100%" fill="url(#gtaGrid)" />
-`;
-const IMG_GTA_HEIST = svg(`${GTA_DEFS}<rect x="100" y="100" width="600" height="400" fill="none" stroke="#22c55e" stroke-width="4" filter="url(#glow)"/><text x="400" y="300" font-family="monospace" font-weight="bold" font-size="60" fill="#22c55e" text-anchor="middle" filter="url(#glow)">MISSION: HEIST</text><path d="M100 100 L200 200" stroke="#22c55e" stroke-width="2"/><path d="M700 100 L600 200" stroke="#22c55e" stroke-width="2"/>`, GTA_BG);
-const IMG_GTA_MONEY = svg(`${GTA_DEFS}<text x="400" y="300" font-family="monospace" font-weight="bold" font-size="120" fill="#22c55e" text-anchor="middle" opacity="0.2">$ $ $</text><path d="M200 300 L300 150 L400 300 L500 150 L600 300" fill="none" stroke="#4ade80" stroke-width="5" filter="url(#glow)"/><text x="400" y="500" font-family="monospace" font-size="40" fill="#4ade80" text-anchor="middle">LAUNDERED</text>`, GTA_BG);
+const GTA_DEFS = `<defs><pattern id="gtaGrid" width="50" height="50" patternUnits="userSpaceOnUse"><rect width="50" height="50" fill="none" stroke="#22c55e" stroke-width="0.5" opacity="0.3"/></pattern><filter id="glow"><feGaussianBlur stdDeviation="2.5" result="coloredBlur"/><feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs><rect width="100%" height="100%" fill="#0f172a" /><rect width="100%" height="100%" fill="url(#gtaGrid)" />`;
+const IMG_GTA_HEIST = svg(`${GTA_DEFS}<rect x="100" y="100" width="600" height="400" fill="none" stroke="#22c55e" stroke-width="4" filter="url(#glow)"/><text x="400" y="300" font-family="monospace" font-weight="bold" font-size="60" fill="#22c55e" text-anchor="middle" filter="url(#glow)">MISSION: HEIST</text>`, GTA_BG);
+const IMG_GTA_MONEY = svg(`${GTA_DEFS}<text x="400" y="300" font-family="monospace" font-weight="bold" font-size="120" fill="#22c55e" text-anchor="middle" opacity="0.2">$ $ $</text><path d="M200 300 L300 150 L400 300 L500 150 L600 300" fill="none" stroke="#4ade80" stroke-width="5" filter="url(#glow)"/>`, GTA_BG);
 const IMG_GTA_ACTION = svg(`${GTA_DEFS}<circle cx="400" cy="300" r="150" fill="none" stroke="#ef4444" stroke-width="4" stroke-dasharray="20,10" filter="url(#glow)"/><text x="400" y="300" font-family="monospace" font-weight="bold" font-size="50" fill="#ef4444" text-anchor="middle">WANTED *****</text>`, GTA_BG);
-const IMG_GTA_MAP = svg(`${GTA_DEFS}<rect x="150" y="100" width="500" height="400" rx="20" fill="#1e293b" stroke="#22c55e" stroke-width="2"/><path d="M200 400 L300 200 L500 250 L600 150" fill="none" stroke="#22c55e" stroke-width="3" stroke-dasharray="10,5"/><circle cx="600" cy="150" r="10" fill="#ef4444" filter="url(#glow)"/><text x="400" y="80" font-family="monospace" font-size="30" fill="#22c55e" text-anchor="middle">GPS TRACKING</text>`, GTA_BG);
+const IMG_GTA_MAP = svg(`${GTA_DEFS}<rect x="150" y="100" width="500" height="400" rx="20" fill="#1e293b" stroke="#22c55e" stroke-width="2"/><text x="400" y="80" font-family="monospace" font-size="30" fill="#22c55e" text-anchor="middle">GPS TRACKING</text>`, GTA_BG);
 
-// 3. WUKONG THEME (Red/Gold, Clouds, Ancient, Ink)
+// 3. WUKONG THEME (Modules 10-11)
 const WUKONG_BG = '#450a0a';
-const WUKONG_DEFS = `
-  <defs>
-    <radialGradient id="goldGrad" cx="50%" cy="50%" r="50%">
-      <stop offset="0%" style="stop-color:#fcd34d;stop-opacity:1" />
-      <stop offset="100%" style="stop-color:#b45309;stop-opacity:0.2" />
-    </radialGradient>
-    <pattern id="clouds" width="100" height="100" patternUnits="userSpaceOnUse">
-       <path d="M10 50 Q 30 20 50 50 T 90 50" fill="none" stroke="#d97706" stroke-width="2" opacity="0.3"/>
-    </pattern>
-  </defs>
-  <rect width="100%" height="100%" fill="#2a0a0a" />
-  <rect width="100%" height="100%" fill="url(#clouds)" />
-`;
-const IMG_WUKONG_SAGE = svg(`${WUKONG_DEFS}<circle cx="400" cy="300" r="120" fill="url(#goldGrad)" opacity="0.6"/><text x="400" y="300" font-family="serif" font-weight="bold" font-size="80" fill="#fef3c7" text-anchor="middle" dominant-baseline="middle">SAGE</text><path d="M200 500 Q 400 400 600 500" fill="none" stroke="#f59e0b" stroke-width="5"/>`, WUKONG_BG);
-const IMG_WUKONG_SCROLL = svg(`${WUKONG_DEFS}<rect x="200" y="100" width="400" height="400" fill="#fffbeb" rx="5"/><text x="400" y="300" font-family="serif" font-size="40" fill="#450a0a" text-anchor="middle" writing-mode="tb">ANCIENT WISDOM</text><rect x="180" y="80" width="40" height="440" fill="#78350f"/><rect x="580" y="80" width="40" height="440" fill="#78350f"/>`, WUKONG_BG);
-const IMG_WUKONG_CLOUD = svg(`${WUKONG_DEFS}<path d="M200 300 Q 300 200 400 300 T 600 300" fill="none" stroke="#fcd34d" stroke-width="8" filter="url(#glow)"/><circle cx="400" cy="200" r="60" fill="#fcd34d" opacity="0.5"/><text x="400" y="450" font-family="serif" font-size="40" fill="#fcd34d" text-anchor="middle">NIMBUS</text>`, WUKONG_BG);
+const WUKONG_DEFS = `<defs><radialGradient id="goldGrad" cx="50%" cy="50%" r="50%"><stop offset="0%" style="stop-color:#fcd34d;stop-opacity:1" /><stop offset="100%" style="stop-color:#b45309;stop-opacity:0.2" /></radialGradient><pattern id="clouds" width="100" height="100" patternUnits="userSpaceOnUse"><path d="M10 50 Q 30 20 50 50 T 90 50" fill="none" stroke="#d97706" stroke-width="2" opacity="0.3"/></pattern></defs><rect width="100%" height="100%" fill="#2a0a0a" /><rect width="100%" height="100%" fill="url(#clouds)" />`;
+const IMG_WUKONG_SAGE = svg(`${WUKONG_DEFS}<circle cx="400" cy="300" r="120" fill="url(#goldGrad)" opacity="0.6"/><text x="400" y="300" font-family="serif" font-weight="bold" font-size="80" fill="#fef3c7" text-anchor="middle" dominant-baseline="middle">SAGE</text>`, WUKONG_BG);
+const IMG_WUKONG_SCROLL = svg(`${WUKONG_DEFS}<rect x="200" y="100" width="400" height="400" fill="#fffbeb" rx="5"/><text x="400" y="300" font-family="serif" font-size="40" fill="#450a0a" text-anchor="middle" writing-mode="tb">ANCIENT WISDOM</text>`, WUKONG_BG);
+const IMG_WUKONG_CLOUD = svg(`${WUKONG_DEFS}<path d="M200 300 Q 300 200 400 300 T 600 300" fill="none" stroke="#fcd34d" stroke-width="8"/><text x="400" y="450" font-family="serif" font-size="40" fill="#fcd34d" text-anchor="middle">NIMBUS</text>`, WUKONG_BG);
+
+// --- NEW THEME ASSETS (Modules 2-9) ---
+
+// Module 2: CYBER GAMING (PUBG/CS)
+const CYBER_BG = '#000000';
+const CYBER_DEFS = `<defs><pattern id="cyberGrid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M 40 0 L 0 0 0 40" fill="none" stroke="#00f0ff" stroke-width="0.5" opacity="0.4"/></pattern></defs><rect width="100%" height="100%" fill="#050510"/><rect width="100%" height="100%" fill="url(#cyberGrid)"/>`;
+const IMG_CYBER_SCOPE = svg(`${CYBER_DEFS}<circle cx="400" cy="300" r="150" fill="none" stroke="#00f0ff" stroke-width="2"/><line x1="400" y1="150" x2="400" y2="450" stroke="#00f0ff"/><line x1="250" y1="300" x2="550" y2="300" stroke="#00f0ff"/><text x="400" y="550" font-family="monospace" fill="#00f0ff" text-anchor="middle" font-size="30">TARGET ACQUIRED</text>`, CYBER_BG);
+const IMG_CYBER_RANK = svg(`${CYBER_DEFS}<path d="M400 100 L550 200 L550 400 L400 500 L250 400 L250 200 Z" fill="none" stroke="#f0f" stroke-width="5"/><text x="400" y="320" font-family="sans-serif" font-weight="900" font-size="80" fill="#f0f" text-anchor="middle">ACE</text>`, CYBER_BG);
+const IMG_CYBER_LOOT = svg(`${CYBER_DEFS}<rect x="300" y="200" width="200" height="200" fill="none" stroke="#0f0" stroke-width="4"/><text x="400" y="310" font-family="monospace" font-size="40" fill="#0f0" text-anchor="middle">AIR DROP</text>`, CYBER_BG);
+
+// Module 3: K-POP FANDOM
+const KPOP_BG = '#fff0f5';
+const KPOP_DEFS = `<defs><pattern id="hearts" width="60" height="60" patternUnits="userSpaceOnUse"><text x="10" y="40" font-size="30" fill="#fbcfe8">♥</text></pattern></defs><rect width="100%" height="100%" fill="#fff0f5"/><rect width="100%" height="100%" fill="url(#hearts)"/>`;
+const IMG_KPOP_LIGHT = svg(`${KPOP_DEFS}<circle cx="400" cy="250" r="100" fill="#ec4899" opacity="0.8"/><rect x="380" y="350" width="40" height="150" fill="#333"/><text x="400" y="260" font-family="sans-serif" font-weight="bold" font-size="40" fill="white" text-anchor="middle">ARMY</text>`, KPOP_BG);
+const IMG_KPOP_STAGE = svg(`${KPOP_DEFS}<path d="M100 500 L200 200 L600 200 L700 500 Z" fill="#fce7f3" stroke="#db2777" stroke-width="3"/><circle cx="200" cy="100" r="10" fill="#db2777"/><circle cx="600" cy="100" r="10" fill="#db2777"/><text x="400" y="400" font-family="sans-serif" font-weight="900" font-size="60" fill="#db2777" text-anchor="middle">DEBUT</text>`, KPOP_BG);
+const IMG_KPOP_PC = svg(`${KPOP_DEFS}<rect x="300" y="150" width="200" height="300" rx="10" fill="#fbcfe8" stroke="#be185d" stroke-width="2"/><text x="400" y="300" font-family="sans-serif" font-size="30" fill="#be185d" text-anchor="middle">BIAS CARD</text>`, KPOP_BG);
+const IMG_KPOP_HEART = svg(`${KPOP_DEFS}<path d="M400 450 L250 300 Q200 200 300 200 Q400 200 400 300 Q400 200 500 200 Q600 200 550 300 Z" fill="#ec4899" stroke="#fff" stroke-width="4"/><text x="400" y="550" font-family="sans-serif" font-size="30" fill="#be185d" text-anchor="middle">FINGER HEART</text>`, KPOP_BG);
+
+// Module 4: RETRO TASHKENT
+const RETRO_BG = '#fef3c7';
+const RETRO_DEFS = `<defs><pattern id="ikat" width="100" height="100" patternUnits="userSpaceOnUse"><path d="M0 50 L50 0 L100 50 L50 100 Z" fill="#fcd34d" opacity="0.3"/></pattern></defs><rect width="100%" height="100%" fill="#fffbeb"/><rect width="100%" height="100%" fill="url(#ikat)"/>`;
+const IMG_RETRO_TEA = svg(`${RETRO_DEFS}<circle cx="400" cy="300" r="120" fill="none" stroke="#b45309" stroke-width="4"/><path d="M400 300 Q450 350 500 300" fill="none" stroke="#b45309" stroke-width="4"/><text x="400" y="500" font-family="serif" font-size="40" fill="#92400e" text-anchor="middle">CHOYXONA</text>`, RETRO_BG);
+const IMG_RETRO_MAHALLA = svg(`${RETRO_DEFS}<rect x="200" y="200" width="400" height="200" fill="#fde68a" stroke="#78350f" stroke-width="3"/><path d="M200 200 L400 100 L600 200" fill="#fcd34d" stroke="#78350f" stroke-width="3"/><text x="400" y="350" font-family="serif" font-weight="bold" font-size="50" fill="#78350f" text-anchor="middle">ESKI SHAHAR</text>`, RETRO_BG);
+const IMG_RETRO_GAME = svg(`${RETRO_DEFS}<circle cx="300" cy="300" r="20" fill="#b45309"/><circle cx="500" cy="300" r="20" fill="#b45309"/><text x="400" y="450" font-family="serif" font-size="40" fill="#92400e" text-anchor="middle">OQ TERAK</text>`, RETRO_BG);
+
+// Module 5: AUTO TUNING (Gentra/Chevrolet)
+const AUTO_BG = '#171717';
+const AUTO_DEFS = `<defs><linearGradient id="metal" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#444"/><stop offset="1" stop-color="#111"/></linearGradient></defs><rect width="100%" height="100%" fill="#171717"/><path d="M0 0 L800 600" stroke="#333" stroke-width="2"/>`;
+const IMG_AUTO_SPEED = svg(`${AUTO_DEFS}<circle cx="400" cy="300" r="150" fill="none" stroke="#ef4444" stroke-width="5" stroke-dasharray="200"/><text x="400" y="300" font-family="sans-serif" font-weight="900" font-size="80" fill="#ef4444" text-anchor="middle">220</text>`, AUTO_BG);
+const IMG_AUTO_RACE = svg(`${AUTO_DEFS}<path d="M100 400 L700 400" stroke="#fff" stroke-width="4" stroke-dasharray="50"/><rect x="200" y="300" width="150" height="80" fill="#ef4444"/><rect x="450" y="300" width="150" height="80" fill="#333" stroke="#fff"/><text x="400" y="200" font-family="sans-serif" font-weight="bold" font-size="40" fill="#fff" text-anchor="middle">DRAG RACE</text>`, AUTO_BG);
+const IMG_AUTO_WHEEL = svg(`${AUTO_DEFS}<circle cx="400" cy="300" r="100" fill="none" stroke="#fff" stroke-width="10"/><circle cx="400" cy="300" r="30" fill="#ef4444"/><text x="400" y="500" font-family="sans-serif" font-size="40" fill="#fff" text-anchor="middle">MAGICAR</text>`, AUTO_BG);
+
+// Module 6: STARTUP / IT PARK
+const STARTUP_BG = '#eff6ff';
+const STARTUP_DEFS = `<defs><pattern id="code" width="100" height="20" patternUnits="userSpaceOnUse"><text x="0" y="15" font-family="monospace" font-size="10" fill="#bfdbfe">const dream = true;</text></pattern></defs><rect width="100%" height="100%" fill="#eff6ff"/><rect width="100%" height="100%" fill="url(#code)"/>`;
+const IMG_STARTUP_ROCKET = svg(`${STARTUP_DEFS}<path d="M400 100 Q300 300 350 400 L450 400 Q500 300 400 100" fill="#2563eb"/><circle cx="400" cy="250" r="30" fill="#fff"/><text x="400" y="500" font-family="sans-serif" font-weight="bold" font-size="40" fill="#1e40af" text-anchor="middle">LAUNCH</text>`, STARTUP_BG);
+const IMG_STARTUP_UNICORN = svg(`${STARTUP_DEFS}<path d="M300 300 L400 100 L500 300 Z" fill="#f59e0b"/><text x="400" y="400" font-family="sans-serif" font-weight="900" font-size="60" fill="#2563eb" text-anchor="middle">UNICORN</text>`, STARTUP_BG);
+const IMG_STARTUP_CODE = svg(`${STARTUP_DEFS}<rect x="200" y="150" width="400" height="300" rx="20" fill="#1e3a8a"/><text x="400" y="300" font-family="monospace" font-size="60" fill="#60a5fa" text-anchor="middle">{ }</text>`, STARTUP_BG);
+
+// Module 7: INSTABLOGGERS
+const SOCIAL_BG = '#fafafa';
+const SOCIAL_DEFS = `<defs><linearGradient id="insta" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#f09433"/><stop offset="0.5" stop-color="#dc2743"/><stop offset="1" stop-color="#bc1888"/></linearGradient></defs><rect width="100%" height="100%" fill="#fafafa"/>`;
+const IMG_SOCIAL_LIVE = svg(`${SOCIAL_DEFS}<rect x="250" y="100" width="300" height="400" rx="20" fill="none" stroke="url(#insta)" stroke-width="10"/><text x="400" y="300" font-family="sans-serif" font-weight="bold" font-size="50" fill="#dc2743" text-anchor="middle">LIVE</text>`, SOCIAL_BG);
+const IMG_SOCIAL_LIKE = svg(`${SOCIAL_DEFS}<path d="M400 450 L250 300 Q200 200 300 200 Q400 200 400 300 Q400 200 500 200 Q600 200 550 300 Z" fill="#ec4899"/><text x="400" y="550" font-family="sans-serif" font-size="30" fill="#888" text-anchor="middle">1M LIKES</text>`, SOCIAL_BG);
+const IMG_SOCIAL_CAM = svg(`${SOCIAL_DEFS}<circle cx="400" cy="300" r="100" fill="none" stroke="url(#insta)" stroke-width="15"/><circle cx="400" cy="300" r="40" fill="#333"/><text x="400" y="100" font-family="sans-serif" font-weight="bold" font-size="40" fill="#bc1888" text-anchor="middle">STORY</text>`, SOCIAL_BG);
+
+// Module 8: IELTS/EXAM
+const EXAM_BG = '#ecfdf5';
+const EXAM_DEFS = `<defs><pattern id="leaves" width="50" height="50" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="5" fill="#10b981" opacity="0.2"/></pattern></defs><rect width="100%" height="100%" fill="#ecfdf5"/><rect width="100%" height="100%" fill="url(#leaves)"/>`;
+const IMG_EXAM_CERT = svg(`${EXAM_DEFS}<rect x="200" y="150" width="400" height="300" fill="#fff" stroke="#059669" stroke-width="5"/><text x="400" y="250" font-family="serif" font-weight="bold" font-size="40" fill="#064e3b" text-anchor="middle">CERTIFICATE</text><text x="400" y="350" font-family="sans-serif" font-weight="900" font-size="80" fill="#059669" text-anchor="middle">8.5</text>`, EXAM_BG);
+const IMG_EXAM_STUDY = svg(`${EXAM_DEFS}<rect x="300" y="300" width="200" height="200" fill="#34d399"/><path d="M300 300 L400 200 L500 300" fill="#fff"/><text x="400" y="550" font-family="sans-serif" font-size="30" fill="#064e3b" text-anchor="middle">WESTMINSTER</text>`, EXAM_BG);
+const IMG_EXAM_GRAD = svg(`${EXAM_DEFS}<rect x="300" y="200" width="200" height="50" fill="#064e3b"/><rect x="380" y="200" width="10" height="200" fill="#f59e0b"/><text x="400" y="500" font-family="serif" font-weight="bold" font-size="50" fill="#064e3b" text-anchor="middle">CLASS OF 2025</text>`, EXAM_BG);
+
+// Module 9: SPORT / FOOTBALL
+const SPORT_BG = '#f0fdf4';
+const SPORT_DEFS = `<defs><pattern id="grass" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M10 20 L10 0" stroke="#4ade80" stroke-width="1"/></pattern></defs><rect width="100%" height="100%" fill="#15803d"/><rect width="100%" height="100%" fill="url(#grass)"/>`;
+const IMG_SPORT_GOAL = svg(`${SPORT_DEFS}<rect x="200" y="200" width="400" height="200" fill="none" stroke="#fff" stroke-width="5"/><circle cx="400" cy="400" r="20" fill="#fff"/><text x="400" y="150" font-family="sans-serif" font-weight="900" font-size="60" fill="#fff" text-anchor="middle">GOAL!</text>`, SPORT_BG);
+const IMG_SPORT_BALL = svg(`${SPORT_DEFS}<circle cx="400" cy="300" r="100" fill="#fff"/><path d="M400 300 L450 350 L350 350 Z" fill="#000"/><text x="400" y="500" font-family="sans-serif" font-size="40" fill="#fff" text-anchor="middle">PENALTY</text>`, SPORT_BG);
+const IMG_SPORT_WHISTLE = svg(`${SPORT_DEFS}<path d="M300 300 L500 300 L500 400 L400 400 Z" fill="#fbbf24"/><circle cx="500" cy="350" r="30" fill="#d97706"/><text x="400" y="200" font-family="sans-serif" font-weight="bold" font-size="50" fill="#fff" text-anchor="middle">REFEREE</text>`, SPORT_BG);
 
 
 export const TOPICS: Topic[] = [
@@ -70,6 +89,7 @@ export const TOPICS: Topic[] = [
     title: '6.2 Present Perfect: The Big Score',
     theme: 'gta',
     slides: [
+      // ... Module 1 content kept exactly as is ...
       {
         id: '1-1-a',
         type: 'intro',
@@ -446,49 +466,49 @@ export const TOPICS: Topic[] = [
   },
   {
     id: 'topic-2',
-    title: '9.2 Modals of Deduction',
+    title: '9.2 Modals of Deduction: Cyber Arena',
+    theme: 'cyber',
     slides: [
       {
         id: '2-1',
         type: 'intro',
-        title: 'Lead-in',
-        imageUrl: IMG_SURGICAL_INTRO,
-        leadText: 'Look at the scenario.',
+        title: 'Lead-in: The Pro Gamer',
+        imageUrl: IMG_CYBER_SCOPE,
+        leadText: 'Analyze the enemy.',
         bulletPoints: [
-          { lang: 'en', label: 'Context', text: 'A Ferrari parked outside a ruined house.' },
-          { lang: 'en', label: 'Deduction', text: 'He MUST be rich to buy the car. He CAN\'T live in that house!' }
+          { lang: 'en', label: 'Context', text: 'He has the "Conqueror" frame and a Mythic skin.' },
+          { lang: 'en', label: 'Deduction', text: 'He MUST be a pro player. He CAN\'T be a bot!' }
         ],
-        question: 'How do we change the word "tall" to compare two things vs one thing to everything?'
+        question: 'How sure are we about his rank?'
       },
       {
         id: '2-2',
         type: 'concept',
         title: 'Meaning & Definition',
-        imageUrl: IMG_SURGICAL_CONCEPT,
+        imageUrl: IMG_CYBER_RANK,
         bulletPoints: [
-          { lang: 'en', label: 'MUST', text: '90-100% Sure it is TRUE.' },
-          { lang: 'en', label: 'CAN\'T', text: '90-100% Sure it is FALSE.' },
-          { lang: 'en', label: 'MIGHT/COULD', text: '50% Sure. Possible.' },
-          { lang: 'uz', label: 'Must', text: 'Aniq shunday bo‘lishi kerak.' },
-          { lang: 'uz', label: 'Can\'t', text: 'Bunday bo‘lishi mumkin emas.' },
-          { lang: 'ru', label: 'Must', text: 'Должно быть (уверенность).' }
+          { lang: 'en', label: 'MUST', text: '100% Sure (Hacker/Pro).' },
+          { lang: 'en', label: 'CAN\'T', text: '100% Impossible (Noob).' },
+          { lang: 'en', label: 'MIGHT/COULD', text: '50% Possible (Camper?).' },
+          { lang: 'uz', label: 'Must', text: 'Aniq pro o‘yinchi.' },
+          { lang: 'uz', label: 'Can\'t', text: 'Bot bo‘lishi mumkin emas.' }
         ]
       },
       {
         id: '2-3',
         type: 'quiz',
         title: 'Concept Check 1',
-        imageUrl: IMG_SURGICAL_TEST,
-        question: 'The lights are off. The car is gone. They _____ be home.',
-        options: ['must', "can't"],
-        correctAnswer: 1
+        imageUrl: IMG_CYBER_LOOT,
+        question: 'The loot box is empty. Someone _____ been here.',
+        options: ['must have', "can't have"],
+        correctAnswer: 0
       },
       {
         id: '2-4',
         type: 'quiz',
         title: 'Concept Check 2',
-        imageUrl: IMG_SURGICAL_TEST,
-        question: 'She is speaking fluent Japanese. She _____ be from Japan or studied there.',
+        imageUrl: IMG_CYBER_SCOPE,
+        question: 'He shot me through the wall! He _____ be cheating.',
         options: ['must', "can't"],
         correctAnswer: 0
       },
@@ -496,69 +516,69 @@ export const TOPICS: Topic[] = [
         id: '2-5',
         type: 'quiz',
         title: 'Concept Check 3',
-        imageUrl: IMG_SURGICAL_TEST,
-        question: 'The sky is grey. It _____ rain later.',
-        options: ['must', 'might'],
-        correctAnswer: 1
+        imageUrl: IMG_CYBER_RANK,
+        question: 'His ping is 999ms. He _____ play well.',
+        options: ["can't", 'might'],
+        correctAnswer: 0
       },
       {
         id: '2-6-a',
         type: 'timeline',
         title: 'Certainty Scale',
-        leadText: 'Degree of Certainty & Possibility',
-        visualContext: 'The Probability Cline',
+        leadText: 'Probability of Victory',
+        visualContext: 'Win Rate Analysis',
         visualData: [
             { label: "CAN'T", subLabel: 'Impossible (0%)', percentage: 10, type: 'point', color: 'red' },
-            { label: "MIGHT / COULD", subLabel: 'Possible (50%)', percentage: 50, type: 'point', color: 'orange' },
-            { label: "MUST", subLabel: 'Certain (100%)', percentage: 90, type: 'point', color: 'green' }
+            { label: "MIGHT / COULD", subLabel: 'Maybe (50%)', percentage: 50, type: 'point', color: 'purple' },
+            { label: "MUST", subLabel: 'Ace (100%)', percentage: 90, type: 'point', color: 'green' }
         ]
       },
       {
         id: '2-6-b',
         type: 'concept',
-        title: 'Key Scale Points',
-        imageUrl: IMG_SURGICAL_CONCEPT,
+        title: 'Scale Intel',
+        imageUrl: IMG_CYBER_SCOPE,
         bulletPoints: [
-          { lang: 'en', label: '0% (Impossible)', text: "CAN'T: 'It can't be true.'" },
-          { lang: 'en', label: '50% (Possible)', text: "MIGHT / COULD: 'It might be true.'" },
-          { lang: 'en', label: '100% (Certainty)', text: "MUST: 'It must be true.'" }
+          { lang: 'en', label: '0% (Impossible)', text: "CAN'T: 'He can't be online (Offline status).'" },
+          { lang: 'en', label: '50% (Possible)', text: "MIGHT: 'There might be enemies in Pochinki.'" },
+          { lang: 'en', label: '100% (Certainty)', text: "MUST: 'It must be a full squad.'" }
         ]
       },
       {
         id: '2-7',
         type: 'concept',
         title: '3 Examples',
-        imageUrl: IMG_SURGICAL_CONCEPT,
+        imageUrl: IMG_CYBER_LOOT,
         bulletPoints: [
-          { lang: 'en', label: 'True Certainty', text: 'Look at his Rolex. He MUST be wealthy.' },
-          { lang: 'en', label: 'False Certainty', text: 'He’s been under water for 10 mins. He CAN\'T be alive.' },
-          { lang: 'en', label: 'Possibility', text: 'It MIGHT be in the kitchen.' }
+          { lang: 'en', label: 'True Certainty', text: 'Look at his K/D ratio (10.0). He MUST be good.' },
+          { lang: 'en', label: 'False Certainty', text: 'He is AFK. He CAN\'T shoot back.' },
+          { lang: 'en', label: 'Possibility', text: 'The zone MIGHT shift to Military Base.' }
         ]
       },
       {
         id: '2-8',
         type: 'test',
         title: 'Test 1',
-        imageUrl: IMG_SURGICAL_TEST,
-        question: 'That woman looks exactly like Beyonce.',
-        options: ['She must be her sister.', "She can't be her sister.", "She mustn't be her sister."],
+        imageUrl: IMG_CYBER_RANK,
+        question: 'That player has the default skin but plays perfectly.',
+        options: ['He must be a smurf account.', "He can't be a smurf.", "He mustn't be playing."],
         correctAnswer: 0
       },
       {
         id: '2-9',
         type: 'test',
         title: 'Test 2',
-        imageUrl: IMG_SURGICAL_TEST,
-        question: 'You just ate a whole pizza! You _____ be hungry already.',
+        imageUrl: IMG_CYBER_SCOPE,
+        question: 'You hear footsteps. An enemy _____ be close.',
         options: ['might', 'must', "can't"],
-        correctAnswer: 2
+        correctAnswer: 1
       },
       {
         id: '2-10',
         type: 'test',
         title: 'Test 3',
-        imageUrl: IMG_SURGICAL_TEST,
-        question: '"Someone is knocking." "It _____ be the postman. He usually comes at this time."',
+        imageUrl: IMG_CYBER_LOOT,
+        question: '"Where is the AWM?" "It _____ be in the drop."',
         options: ["can't", 'could', "won't"],
         correctAnswer: 1
       },
@@ -566,8 +586,8 @@ export const TOPICS: Topic[] = [
         id: '2-11',
         type: 'quiz',
         title: 'Odd One Out',
-        imageUrl: IMG_SURGICAL_TEST,
-        question: 'Which word implies 50% possibility?',
+        imageUrl: IMG_CYBER_RANK,
+        question: 'Which word implies 50% chance of loot?',
         options: ['Must', 'Could', "Can't"],
         correctAnswer: 1
       },
@@ -575,26 +595,26 @@ export const TOPICS: Topic[] = [
         id: '2-12',
         type: 'quiz',
         title: 'Transformation',
-        imageUrl: IMG_SURGICAL_TEST,
-        question: 'Transform: "I\'m sure he is French."',
-        options: ['He might be French.', 'He must be French.'],
+        imageUrl: IMG_CYBER_SCOPE,
+        question: 'Transform: "I\'m sure he is offline."',
+        options: ['He might be offline.', 'He must be offline.'],
         correctAnswer: 1
       },
       {
         id: '2-13',
         type: 'quiz',
         title: 'Transformation',
-        imageUrl: IMG_SURGICAL_TEST,
-        question: 'Transform: "It is impossible that that is my phone."',
-        options: ["That can't be my phone.", "That mustn't be my phone."],
+        imageUrl: IMG_CYBER_LOOT,
+        question: 'Transform: "It is impossible that he saw me."',
+        options: ["He can't have seen me.", "He mustn't see me."],
         correctAnswer: 0
       },
       {
         id: '2-14',
         type: 'test',
         title: 'Rapid Fire',
-        imageUrl: IMG_SURGICAL_TEST,
-        question: '"A human ____ walk there!"',
+        imageUrl: IMG_CYBER_RANK,
+        question: '"A bot ____ aim that well!"',
         options: ['must', "can't", 'might'],
         correctAnswer: 1
       },
@@ -602,63 +622,64 @@ export const TOPICS: Topic[] = [
         id: '2-15',
         type: 'gap-fill',
         title: 'Gap Fill 1',
-        imageUrl: IMG_SURGICAL_CONCEPT,
-        leadText: '"You\'ve been travelling for 24 hours. You __________ (be) exhausted."',
+        imageUrl: IMG_CYBER_SCOPE,
+        leadText: '"You played for 10 hours straight. You __________ (be) tired."',
         correctAnswer: 'must be'
       },
       {
         id: '2-16',
         type: 'gap-fill',
         title: 'Gap Fill 2',
-        imageUrl: IMG_SURGICAL_CONCEPT,
-        leadText: '"Whose bag is this?" "I\'m not sure. It __________ (belong) to the new student."',
-        correctAnswer: 'might belong'
+        imageUrl: IMG_CYBER_LOOT,
+        leadText: '"Where is the last enemy?" "He __________ (hide) in the grass."',
+        correctAnswer: 'might be hiding'
       },
       {
         id: '2-17',
         type: 'gap-fill',
         title: 'Gap Fill 3',
-        imageUrl: IMG_SURGICAL_CONCEPT,
-        leadText: '"That answer __________ (be) right. Paris is in France, not Italy!"',
+        imageUrl: IMG_CYBER_RANK,
+        leadText: '"That score __________ (be) correct. It\'s too high!"',
         correctAnswer: "can't be"
       },
       {
         id: '2-18',
         type: 'reading',
-        title: 'Detective Reading',
-        imageUrl: IMG_SURGICAL_TEST,
-        passage: "The window was broken from the inside. 'The thief **must be** someone who works here,' said Detective Miller. 'They **can't be** a stranger, because the alarm didn't ring.'",
-        question: 'Why does Miller think the thief works there?',
-        options: ['He saw them.', 'He deduced it from the window.'],
+        title: 'Game Chat Log',
+        imageUrl: IMG_CYBER_SCOPE,
+        passage: "Player1: 'How did he headshot me?' Player2: 'He **must be** using a hack.' Player1: 'No, he **can't be**. Anti-cheat is active.' Player2: 'Then he **must have** extreme luck.'",
+        question: 'Why does Player2 think he is hacking?',
+        options: ['He saw the code.', 'He deduced it from the headshot.'],
         correctAnswer: 1
       },
       {
         id: '2-19',
         type: 'speaking',
-        title: 'Speaking Task',
-        imageUrl: IMG_SURGICAL_INTRO,
+        title: 'Squad Comms',
+        imageUrl: IMG_CYBER_RANK,
         leadText: 'Speculate on the situation.',
         speakingPrompts: [
-          'Your best friend didn\'t come to school today. Where are they?',
-          'You see a student holding a trophy and crying. Why?',
-          'There is a rumor that a new student is a famous star. Look at their clothes.'
+          'The enemy team disappeared. Where are they?',
+          'Your teammate has Level 3 gear but 0 kills. Why?',
+          'A player is running into a wall. What is happening?'
         ]
       }
     ]
   },
   {
     id: 'topic-3',
-    title: '10.2 Articles (a/an, the, zero)',
+    title: '10.2 Articles: The K-Pop Fandom',
+    theme: 'kpop',
     slides: [
       {
         id: '3-1',
         type: 'intro',
-        title: 'Lead-in',
-        imageUrl: IMG_SURGICAL_INTRO,
-        leadText: 'Compare the two scenarios.',
+        title: 'Lead-in: The Bias',
+        imageUrl: IMG_KPOP_LIGHT,
+        leadText: 'Compare the merch.',
         bulletPoints: [
-          { lang: 'en', label: 'Scenario A', text: '"I want AN apple." (Any apple from the bowl will do.)' },
-          { lang: 'en', label: 'Scenario B', text: '"I want THE apple." (The specific one on the desk.)' }
+          { lang: 'en', label: 'Scenario A', text: '"I want AN album." (Any version is fine.)' },
+          { lang: 'en', label: 'Scenario B', text: '"I want THE signed album." (The specific one by Jimin.)' }
         ],
         question: 'Why does one sentence use "an" and the other use "the"?'
       },
@@ -666,67 +687,65 @@ export const TOPICS: Topic[] = [
         id: '3-2',
         type: 'concept',
         title: 'Meaning & Definition',
-        imageUrl: IMG_SURGICAL_CONCEPT,
+        imageUrl: IMG_KPOP_HEART,
         bulletPoints: [
-          { lang: 'en', label: 'a/an (Indefinite)', text: 'One of many. First mention or professions.' },
-          { lang: 'en', label: 'the (Definite)', text: 'The only one. Specific, unique, or mentioned before.' },
-          { lang: 'en', label: 'No article (Zero)', text: 'General plurals, abstract nouns, locations like home/work.' },
-          { lang: 'uz', label: 'a/an', text: 'Bir dona, noaniq narsa. Birinchi marta aytilganda.' },
-          { lang: 'uz', label: 'the', text: 'Aniq narsa. Tinglovchi biladi.' },
-          { lang: 'ru', label: 'a/an', text: 'Один из многих. Впервые или профессия.' },
-          { lang: 'ru', label: 'the', text: 'Конкретный предмет.' }
+          { lang: 'en', label: 'a/an (Indefinite)', text: 'One of many photocards. First mention.' },
+          { lang: 'en', label: 'the (Definite)', text: 'The Ultimate Bias. Specific, unique concert.' },
+          { lang: 'en', label: 'No article (Zero)', text: 'General fans (ARMY), abstract love, locations like Seoul.' },
+          { lang: 'uz', label: 'a/an', text: 'Bitta albom (farqi yo‘q).' },
+          { lang: 'uz', label: 'the', text: 'O‘sha mashhur albom.' }
         ]
       },
       {
         id: '3-3',
         type: 'quiz',
         title: 'Concept Check 1',
-        imageUrl: IMG_SURGICAL_TEST,
-        question: '"I love ____ dogs." (Speaking generally about all dogs).',
+        imageUrl: IMG_KPOP_STAGE,
+        question: '"I love ____ K-pop idols." (Speaking generally).',
         options: ['the', '(-) no article'],
         correctAnswer: 1,
-        explanation: 'Correct! When talking about plural nouns in general, we use no article.'
+        explanation: 'Correct! When talking about idols in general, we use no article.'
       },
       {
         id: '3-4',
         type: 'quiz',
         title: 'Concept Check 2',
-        imageUrl: IMG_SURGICAL_TEST,
-        question: '"Look at ____ moon!"',
+        imageUrl: IMG_KPOP_LIGHT,
+        question: '"Look at ____ stage!"',
         options: ['a', 'the'],
         correctAnswer: 1,
-        explanation: 'Correct! There is only one moon implies uniqueness.'
+        explanation: 'Correct! There is only one stage at the concert.'
       },
       {
         id: '3-5',
         type: 'quiz',
         title: 'Concept Check 3',
-        imageUrl: IMG_SURGICAL_TEST,
-        question: '"My brother is in ____ prison (he is a prisoner)."',
+        imageUrl: IMG_KPOP_PC,
+        question: '"My sister is at ____ concert (she is attending)."',
         options: ['the', '(-) no article'],
-        correctAnswer: 1,
-        explanation: 'Correct! If referring to the purpose (punishment), use no article.'
+        correctAnswer: 0,
+        explanation: 'We usually say "at the concert".'
     },
     {
         id: '3-6-a',
         type: 'timeline',
-        title: 'Decision Flowchart',
-        leadText: 'Follow the steps to pick the right article',
-        visualContext: 'The Article Logic Path',
+        title: 'Fandom Logic Flow',
+        leadText: 'Which article to use?',
+        visualContext: 'Stan Logic',
         visualData: [
-            { label: 'Countable?', subLabel: 'Count it?', percentage: 20, type: 'start', color: 'blue' },
+            { label: 'Countable?', subLabel: 'Photocard?', percentage: 20, type: 'start', color: 'blue' },
             { label: 'Singular?', subLabel: 'Just one?', percentage: 50, type: 'point', color: 'purple' },
-            { label: 'Specific?', subLabel: 'Known?', percentage: 80, type: 'end', color: 'green' }
+            { label: 'Specific?', subLabel: 'Your Bias?', percentage: 80, type: 'end', color: 'green' }
         ]
     },
     {
         id: '3-6-b',
         type: 'concept',
         title: 'Flowchart Rules',
-        imageUrl: IMG_SURGICAL_CONCEPT,
+        imageUrl: IMG_KPOP_HEART,
         bulletPoints: [
-            { lang: 'en', label: 'Step 1: Countable?', text: 'No -> Zero Article (water) or The.' },
-            { lang: 'en', label: 'Step 2: Singular?', text: 'No (Plural) -> Zero (General) or The (Specific).' },
+            { lang: 'en', label: 'Step 1: Countable?', text: 'No -> Zero Article (music) or The.' },
+            { lang: 'en', label: 'Step 2: Singular?', text: 'No (Groups) -> Zero (General) or The (Specific).' },
             { lang: 'en', label: 'Step 3: Specific?', text: 'Yes -> THE. No -> A/AN.' }
         ]
     },
@@ -734,209 +753,208 @@ export const TOPICS: Topic[] = [
         id: '3-7',
         type: 'concept',
         title: '3 Examples',
-        imageUrl: IMG_SURGICAL_CONCEPT,
+        imageUrl: IMG_KPOP_STAGE,
         bulletPoints: [
-            { lang: 'en', label: 'First vs Second Mention', text: 'I saw A movie. THE movie was scary.' },
-            { lang: 'en', label: 'General vs Specific', text: '(-) Children learn fast. vs THE children in this class are smart.' },
-            { lang: 'en', label: 'Special Places', text: 'He goes to (-) school (to study). vs Mom went to THE school (building).' }
+            { lang: 'en', label: 'First Mention', text: 'I saw A video. THE video was viral.' },
+            { lang: 'en', label: 'General vs Specific', text: '(-) Idols work hard. vs THE idols in BTS work hard.' },
+            { lang: 'en', label: 'Places', text: 'She went to (-) Korea. vs She went to THE fan meeting.' }
         ]
     },
     {
         id: '3-8',
         type: 'test',
         title: 'Test 1',
-        imageUrl: IMG_SURGICAL_TEST,
-        question: 'Can you shut ____ door, please?',
+        imageUrl: IMG_KPOP_PC,
+        question: 'Can you pass me ____ lightstick?',
         options: ['a', 'the', '(-)'],
         correctAnswer: 1,
-        explanation: 'Both speakers know which door.'
-    },
-    {
+        explanation: 'Specific object we both see.'
+      },
+      {
         id: '3-9',
         type: 'test',
         title: 'Test 2',
-        imageUrl: IMG_SURGICAL_TEST,
-        question: 'He is ____ engineer.',
+        imageUrl: IMG_KPOP_HEART,
+        question: 'He is ____ dancer.',
         options: ['a', 'an', 'the'],
-        correctAnswer: 1,
-        explanation: 'Professions take a/an; starts with vowel sound.'
-    },
-    {
+        correctAnswer: 0,
+        explanation: 'Professions/Roles take a/an.'
+      },
+      {
         id: '3-10',
         type: 'test',
         title: 'Test 3',
-        imageUrl: IMG_SURGICAL_TEST,
-        question: 'I usually have ____ lunch at 1 PM.',
+        imageUrl: IMG_KPOP_STAGE,
+        question: 'I usually listen to ____ music at night.',
         options: ['the', 'a', '(-)'],
         correctAnswer: 2,
-        explanation: 'Meals usually take no article.'
-    },
-    {
+        explanation: 'Music is uncountable/general.'
+      },
+      {
         id: '3-11',
         type: 'quiz',
         title: 'True/False Quiz',
-        imageUrl: IMG_SURGICAL_TEST,
-        question: 'True or False: We always use "the" with names of countries (e.g., The France).',
+        imageUrl: IMG_KPOP_LIGHT,
+        question: 'True or False: We always use "the" with names of groups (e.g., The BLACKPINK).',
         options: ['True', 'False'],
         correctAnswer: 1,
-        explanation: 'False. Only plural names or "Kingdom/Republic" (The USA, The UK).'
-    },
-    {
+        explanation: 'False. Just "BLACKPINK" or "BTS". But "The Rose" (if part of name).'
+      },
+      {
         id: '3-12',
         type: 'quiz',
         title: 'Spot the Mistake',
-        imageUrl: IMG_SURGICAL_TEST,
-        question: 'Is "I want to learn the guitar" correct?',
+        imageUrl: IMG_KPOP_PC,
+        question: 'Is "I want to learn the piano" correct?',
         options: ['Yes', 'No'],
         correctAnswer: 0,
-        explanation: 'Yes. With musical instruments, we often use "the".'
-    },
-    {
+        explanation: 'Yes. Instruments use "the".'
+      },
+      {
         id: '3-13',
         type: 'quiz',
         title: 'Context Match',
-        imageUrl: IMG_SURGICAL_TEST,
-        question: 'Standing outside a hospital looking at the building: "I am looking at _____ hospital."',
+        imageUrl: IMG_KPOP_HEART,
+        question: 'Standing outside the stadium: "I am looking at _____ stadium."',
         options: ['(-)', 'the'],
         correctAnswer: 1,
-        explanation: 'You are referring to the specific building, not the medical service.'
-    },
-    {
+        explanation: 'Specific building.'
+      },
+      {
         id: '3-14',
         type: 'test',
         title: 'Rapid Fire',
-        imageUrl: IMG_SURGICAL_TEST,
-        question: '"I want to be ____ artist."',
+        imageUrl: IMG_KPOP_STAGE,
+        question: '"I want to be ____ trainee."',
         options: ['a', 'an', 'the'],
-        correctAnswer: 1
-    },
-    {
+        correctAnswer: 0
+      },
+      {
         id: '3-15',
         type: 'gap-fill',
         title: 'Gap Fill 1',
-        imageUrl: IMG_SURGICAL_CONCEPT,
-        leadText: '"I bought __________ (a/an/the) new phone yesterday."',
+        imageUrl: IMG_KPOP_LIGHT,
+        leadText: '"I bought __________ (a/an/the) new poster yesterday."',
         correctAnswer: 'a'
-    },
-    {
+      },
+      {
         id: '3-16',
         type: 'gap-fill',
         title: 'Gap Fill 2',
-        imageUrl: IMG_SURGICAL_CONCEPT,
-        leadText: '"Where is __________ (a/an/the) phone? I can\'t find it." (Referring to the one I bought).',
+        imageUrl: IMG_KPOP_PC,
+        leadText: '"Where is __________ (a/an/the) poster? I lost it." (The specific one).',
         correctAnswer: 'the'
-    },
-    {
+      },
+      {
         id: '3-17',
         type: 'gap-fill',
         title: 'Gap Fill 3',
-        imageUrl: IMG_SURGICAL_CONCEPT,
-        leadText: '"My sister goes to __________ university in London." (Type - for no article)',
+        imageUrl: IMG_KPOP_HEART,
+        leadText: '"My dream is to visit __________ Seoul." (Type - for no article)',
         correctAnswer: '-'
-    },
-    {
+      },
+      {
         id: '3-18',
         type: 'reading',
         title: 'Reading Comprehension',
-        imageUrl: IMG_SURGICAL_TEST,
-        passage: "**The** Olympic Games originated long ago in **(-)** ancient Greece. One story about **the** origin concerns **the** god Zeus. It is said that he fought his father for **(-)** control of **the** world. The games were held in **a** valley called Olympia. Today, **(-)** athletes from all over the world travel to **the** games to compete for **(-)** gold medals.",
-        question: 'Why "The Olympic Games"?',
-        options: ['It is a specific, unique event.', 'It is a general game.'],
+        imageUrl: IMG_KPOP_STAGE,
+        passage: "**The** MAMA Awards originated in **(-)** South Korea. One story about **the** origin concerns **the** industry growth. Today, **(-)** fans from all over the world travel to **the** show to see **(-)** performances.",
+        question: 'Why "The MAMA Awards"?',
+        options: ['It is a specific, unique event.', 'It is a general show.'],
         correctAnswer: 0
-    },
-    {
+      },
+      {
         id: '3-19',
         type: 'speaking',
         title: 'Speaking Task',
-        imageUrl: IMG_SURGICAL_INTRO,
+        imageUrl: IMG_KPOP_LIGHT,
         leadText: 'Record your answer.',
         speakingPrompts: [
-          'Do you prefer books or movies? Tell me about the last movie you watched.',
-          'What do you want to be in the future? (Use a/an for professions)',
-          'Describe your school. Is the library big?'
+          'Who is your favorite idol? (Use "the" for group name if needed)',
+          'Describe a concert you want to go to.',
+          'What merch do you have?'
         ]
       }
     ]
   },
   {
     id: 'topic-4',
-    title: '7.1 Used to and would',
+    title: '7.1 Used to/Would: Retro Tashkent',
+    theme: 'retro',
     slides: [
       {
         id: '4-1',
         type: 'intro',
-        title: 'Lead-in',
-        imageUrl: IMG_SURGICAL_INTRO,
-        leadText: 'Compare Past vs Present.',
+        title: 'Lead-in: The Mahalla',
+        imageUrl: IMG_RETRO_MAHALLA,
+        leadText: 'Past vs Present.',
         bulletPoints: [
-            { lang: 'en', label: 'Past', text: '"I used to be in a rock band. I would play guitar every day."' },
-            { lang: 'en', label: 'Present', text: '"Now I am an accountant."' }
+            { lang: 'en', label: 'Past', text: '"We used to play \'Oq terak, ko\'k terak\' in the street."' },
+            { lang: 'en', label: 'Present', text: '"Now we play PUBG on phones."' }
         ],
-        question: 'Did he stop playing? Do these habits exist now?'
+        question: 'Do kids still play outside like that? No.'
       },
       {
         id: '4-2',
         type: 'concept',
         title: 'Meaning & Definition',
-        imageUrl: IMG_SURGICAL_CONCEPT,
+        imageUrl: IMG_RETRO_TEA,
         bulletPoints: [
-          { lang: 'en', label: 'Used to', text: 'Past habits AND past states that are not true anymore.' },
-          { lang: 'en', label: 'Would', text: 'ONLY for past habits / repeated actions. NOT for states.' },
-          { lang: 'uz', label: 'Used to', text: 'O‘tmishdagi odatlar yoki holatlar (hozir mavjud emas).' },
-          { lang: 'uz', label: 'Would', text: 'O‘tmishdagi takrorlanuvchi harakatlar. Holatlar uchun emas.' },
-          { lang: 'ru', label: 'Used to', text: 'Прошлые привычки или состояния.' },
-          { lang: 'ru', label: 'Would', text: 'Только для повторяющихся действий. Не для состояний.' }
+          { lang: 'en', label: 'Used to', text: 'Past habits AND states (Living in Eski Shahar).' },
+          { lang: 'en', label: 'Would', text: 'ONLY for repeated actions (Drinking tea). NOT for states.' },
+          { lang: 'uz', label: 'Used to', text: 'Avvalgi odatlar (endi yo‘q).' },
+          { lang: 'uz', label: 'Would', text: 'Takrorlanuvchi harakatlar (choyxona).' }
         ]
       },
       {
         id: '4-3',
         type: 'quiz',
         title: 'Concept Check 1',
-        imageUrl: IMG_SURGICAL_TEST,
-        question: '"I _____ have a small car, but now I have a big one."',
+        imageUrl: IMG_RETRO_MAHALLA,
+        question: '"I _____ live in Chilanzar, but now I live in Sergeli."',
         options: ['used to', 'would'],
         correctAnswer: 0,
-        explanation: 'Correct! "Have" here is a state (possession), so we cannot use "would".'
+        explanation: 'Correct! "Live" is a state, so we cannot use "would".'
       },
       {
         id: '4-4',
         type: 'quiz',
         title: 'Concept Check 2',
-        imageUrl: IMG_SURGICAL_TEST,
-        question: '"Every summer, we _____ go to the beach."',
+        imageUrl: IMG_RETRO_TEA,
+        question: '"Every Navruz, we _____ cook Sumalak."',
         options: ['used to', 'would', 'Both are correct'],
         correctAnswer: 2,
-        explanation: 'Correct! "Go" is an action verb, so both are fine.'
+        explanation: 'Correct! "Cook" is an action, so both are fine.'
       },
       {
         id: '4-5',
         type: 'quiz',
         title: 'Concept Check 3',
-        imageUrl: IMG_SURGICAL_TEST,
-        question: '"I used to smoke." Does this person smoke now?',
+        imageUrl: IMG_RETRO_GAME,
+        question: '"I used to have a Nokia." Do I have it now?',
         options: ['Yes', 'No'],
         correctAnswer: 1,
-        explanation: '"Used to" implies the habit has stopped.'
+        explanation: '"Used to" implies the phone is gone.'
       },
       {
         id: '4-6-a',
         type: 'timeline',
-        title: 'Past Habits Timeline',
-        leadText: 'Action happened regularly in past, not now.',
-        visualContext: 'Broken Habits',
+        title: 'Nostalgia Timeline',
+        leadText: 'Habits of the Past',
+        visualContext: 'Memory Lane',
         visualData: [
-            { label: 'Past Habit', subLabel: 'Repeated', percentage: 20, type: 'range', color: 'blue' },
-            { label: 'STOP', subLabel: 'Change', percentage: 60, type: 'point', color: 'red' },
-            { label: 'NOW', subLabel: 'Different', percentage: 90, type: 'end', color: 'purple' }
+            { label: 'Childhood', subLabel: 'Repeated', percentage: 20, type: 'range', color: 'orange' },
+            { label: 'CHANGE', subLabel: 'Growth', percentage: 60, type: 'point', color: 'red' },
+            { label: 'NOW', subLabel: 'Modern', percentage: 90, type: 'end', color: 'blue' }
         ]
       },
       {
         id: '4-6-b',
         type: 'concept',
         title: 'Timeline Rules',
-        imageUrl: IMG_SURGICAL_CONCEPT,
+        imageUrl: IMG_RETRO_TEA,
         bulletPoints: [
-            { lang: 'en', label: 'Rule', text: 'STATE VERBS (Love, Be, Have, Know) -> Only Used To.' },
+            { lang: 'en', label: 'Rule', text: 'STATE VERBS (Be, Have, Live) -> Only Used To.' },
             { lang: 'en', label: 'Action Verbs', text: 'Can use both Used To and Would.' }
         ]
       },
@@ -944,19 +962,19 @@ export const TOPICS: Topic[] = [
         id: '4-7',
         type: 'concept',
         title: '3 Examples',
-        imageUrl: IMG_SURGICAL_CONCEPT,
+        imageUrl: IMG_RETRO_MAHALLA,
         bulletPoints: [
-            { lang: 'en', label: 'Action (Both OK)', text: 'We used to visit Grandma. / We would visit Grandma.' },
-            { lang: 'en', label: 'State (Only Used To)', text: 'I used to live in Paris. (NOT would live)' },
-            { lang: 'en', label: 'Negative', text: 'I didn\'t use to like coffee.' }
+            { lang: 'en', label: 'Action (Both OK)', text: 'We used to visit the bazaar. / We would visit the bazaar.' },
+            { lang: 'en', label: 'State (Only Used To)', text: 'I used to believe in Alpamysh. (NOT would believe)' },
+            { lang: 'en', label: 'Negative', text: 'I didn\'t use to like Plov (Impossible!).' }
         ]
       },
       {
         id: '4-8',
         type: 'test',
         title: 'Test 1',
-        imageUrl: IMG_SURGICAL_TEST,
-        question: 'My grandfather ____ tell us amazing stories.',
+        imageUrl: IMG_RETRO_GAME,
+        question: 'My grandfather ____ tell us stories about Amir Temur.',
         options: ['used to', 'would', 'Both A and B'],
         correctAnswer: 2,
         explanation: '"Tell" is an action.'
@@ -965,8 +983,8 @@ export const TOPICS: Topic[] = [
         id: '4-9',
         type: 'test',
         title: 'Test 2',
-        imageUrl: IMG_SURGICAL_TEST,
-        question: 'I ____ be afraid of the dark.',
+        imageUrl: IMG_RETRO_TEA,
+        question: 'I ____ be afraid of the dark streets.',
         options: ['used to', 'would'],
         correctAnswer: 0,
         explanation: '"Be" is a state verb.'
@@ -975,8 +993,8 @@ export const TOPICS: Topic[] = [
         id: '4-10',
         type: 'test',
         title: 'Test 3',
-        imageUrl: IMG_SURGICAL_TEST,
-        question: 'Did you _____ play football?',
+        imageUrl: IMG_RETRO_MAHALLA,
+        question: 'Did you _____ ride the old tram?',
         options: ['use to', 'used to'],
         correctAnswer: 0,
         explanation: 'In questions with "Did", we drop the "d".'
@@ -985,17 +1003,17 @@ export const TOPICS: Topic[] = [
         id: '4-11',
         type: 'quiz',
         title: 'Categorization',
-        imageUrl: IMG_SURGICAL_TEST,
-        question: 'Is "Understand" a State or Action verb?',
+        imageUrl: IMG_RETRO_TEA,
+        question: 'Is "Understand Russian" a State or Action?',
         options: ['State', 'Action'],
         correctAnswer: 0,
-        explanation: 'State. So use "used to", not "would".'
+        explanation: 'State. So use "used to".'
       },
       {
         id: '4-12',
         type: 'quiz',
         title: 'Spot the Mistake',
-        imageUrl: IMG_SURGICAL_TEST,
+        imageUrl: IMG_RETRO_MAHALLA,
         question: 'Is "I would have long hair" correct?',
         options: ['Yes', 'No'],
         correctAnswer: 1,
@@ -1005,8 +1023,8 @@ export const TOPICS: Topic[] = [
         id: '4-13',
         type: 'quiz',
         title: 'True/False',
-        imageUrl: IMG_SURGICAL_TEST,
-        question: '"Would" adds a sense of nostalgia or storytelling.',
+        imageUrl: IMG_RETRO_GAME,
+        question: '"Would" adds a sense of storytelling/nostalgia.',
         options: ['True', 'False'],
         correctAnswer: 0
       },
@@ -1014,7 +1032,7 @@ export const TOPICS: Topic[] = [
         id: '4-14',
         type: 'test',
         title: 'Rapid Fire',
-        imageUrl: IMG_SURGICAL_TEST,
+        imageUrl: IMG_RETRO_TEA,
         question: '"He ____ be a teacher."',
         options: ['used to', 'would'],
         correctAnswer: 0
@@ -1023,32 +1041,32 @@ export const TOPICS: Topic[] = [
         id: '4-15',
         type: 'gap-fill',
         title: 'Gap Fill 1',
-        imageUrl: IMG_SURGICAL_CONCEPT,
-        leadText: '"Before the internet, people __________ (send) letters."',
+        imageUrl: IMG_RETRO_MAHALLA,
+        leadText: '"Before Telegram, people __________ (send) SMS."',
         correctAnswer: 'used to send'
       },
       {
         id: '4-16',
         type: 'gap-fill',
         title: 'Gap Fill 2',
-        imageUrl: IMG_SURGICAL_CONCEPT,
-        leadText: '"This building __________ (be) a cinema."',
+        imageUrl: IMG_RETRO_TEA,
+        leadText: '"This cafe __________ (be) a Choyxona."',
         correctAnswer: 'used to be'
       },
       {
         id: '4-17',
         type: 'gap-fill',
         title: 'Gap Fill 3',
-        imageUrl: IMG_SURGICAL_CONCEPT,
-        leadText: '"I __________ (not / use to) enjoy reading, but now I do."',
+        imageUrl: IMG_RETRO_GAME,
+        leadText: '"I __________ (not / use to) like Somsa, but now I do."',
         correctAnswer: 'didn\'t use to'
       },
       {
         id: '4-18',
         type: 'reading',
         title: 'Reading Comprehension',
-        imageUrl: IMG_SURGICAL_TEST,
-        passage: 'Office life has changed. In the past, people **would spend** ages typing documents on typewriters. There **used to be** a lot more paper everywhere. Managers **would smoke** inside the office! It **used to be** very noisy. People **didn\'t use to** have emails.',
+        imageUrl: IMG_RETRO_MAHALLA,
+        passage: 'Life has changed in Tashkent. In the past, people **would spend** evenings in the courtyard. There **used to be** fewer cars. Neighbors **would share** food. It **used to be** very quiet. People **didn\'t use to** have internet.',
         question: '"Would spend" refers to:',
         options: ['A single event.', 'A repeated habit in the past.'],
         correctAnswer: 1
@@ -1057,53 +1075,52 @@ export const TOPICS: Topic[] = [
         id: '4-19',
         type: 'speaking',
         title: 'Speaking Task',
-        imageUrl: IMG_SURGICAL_INTRO,
+        imageUrl: IMG_RETRO_TEA,
         leadText: 'Record your answer about childhood.',
         speakingPrompts: [
-          'What cartoons did you use to watch? Describe your routine.',
-          'What food did you use to hate that you like now?',
-          'How has your school life changed?'
+          'What cartoons did you use to watch on TV?',
+          'What games did you play in the street?',
+          'How has your neighborhood changed?'
         ]
       }
     ]
   },
   {
     id: 'topic-5',
-    title: '9.1 Comparatives and Superlatives',
+    title: '9.1 Comparatives: Auto Tuning',
+    theme: 'auto',
     slides: [
       {
         id: '5-1',
         type: 'intro',
-        title: 'Lead-in',
-        imageUrl: IMG_SURGICAL_INTRO,
-        leadText: 'Compare the sizes.',
+        title: 'Lead-in: The Drag Race',
+        imageUrl: IMG_AUTO_RACE,
+        leadText: 'Compare the cars.',
         bulletPoints: [
-          { lang: 'en', label: 'Context', text: 'House: Small. Apartment: Taller than house. Burj Khalifa: The tallest.' },
+          { lang: 'en', label: 'Context', text: 'Stock Gentra: Fast. Tuned Gentra (Stage 2): Faster. Malibu 2 Turbo: The Fastest.' },
         ],
-        question: 'How do we change the word "tall" to compare two things vs one thing to everything?'
+        question: 'How do we compare the speed?'
       },
       {
         id: '5-2',
         type: 'concept',
         title: 'Meaning & Definition',
-        imageUrl: IMG_SURGICAL_CONCEPT,
+        imageUrl: IMG_AUTO_SPEED,
         bulletPoints: [
-          { lang: 'en', label: 'Comparatives', text: 'Compare two things. Keyword: THAN. (e.g., taller, more expensive)' },
-          { lang: 'en', label: 'Superlatives', text: 'Compare one vs group. Keyword: THE. (e.g., the tallest)' },
-          { lang: 'en', label: 'Modifiers', text: 'Small diff: a bit, slightly. Big diff: much, far, a lot.' },
-          { lang: 'uz', label: 'Comparatives', text: 'Ikki narsani solishtirish. Kalit: than.' },
-          { lang: 'uz', label: 'Superlatives', text: 'Eng katta/kichik. Kalit: the.' },
-          { lang: 'ru', label: 'Comparatives', text: 'Сравнительная степень. Ключ: than.' },
-          { lang: 'ru', label: 'Superlatives', text: 'Превосходная степень. Ключ: the.' }
+          { lang: 'en', label: 'Comparatives', text: 'Compare two cars. Keyword: THAN. (e.g., faster, more expensive)' },
+          { lang: 'en', label: 'Superlatives', text: 'Compare one vs the street. Keyword: THE. (e.g., the fastest)' },
+          { lang: 'en', label: 'Modifiers', text: 'Small diff: slightly faster. Big diff: way faster, much faster.' },
+          { lang: 'uz', label: 'Comparatives', text: 'Ikki mashinani solishtirish.' },
+          { lang: 'uz', label: 'Superlatives', text: 'Eng zo‘ri.' }
         ]
       },
       {
         id: '5-3',
         type: 'quiz',
         title: 'Concept Check 1',
-        imageUrl: IMG_SURGICAL_TEST,
-        question: '"Ferrari is faster than Ford." How many cars are we talking about?',
-        options: ['Two', 'All cars in the world'],
+        imageUrl: IMG_AUTO_WHEEL,
+        question: '"Monza is more modern than Cobalt." How many cars?',
+        options: ['Two', 'All cars'],
         correctAnswer: 0,
         explanation: 'Correct! Comparatives compare two specific things.'
       },
@@ -1111,9 +1128,9 @@ export const TOPICS: Topic[] = [
         id: '5-4',
         type: 'quiz',
         title: 'Concept Check 2',
-        imageUrl: IMG_SURGICAL_TEST,
-        question: '"Mount Everest is the highest mountain."',
-        options: ['Comparing it to one other mountain.', 'Comparing it to all mountains.'],
+        imageUrl: IMG_AUTO_RACE,
+        question: '"Bugatti is the fastest car."',
+        options: ['Comparing it to one car.', 'Comparing it to all cars.'],
         correctAnswer: 1,
         explanation: 'Correct! Superlatives pick one out of a group.'
       },
@@ -1121,8 +1138,8 @@ export const TOPICS: Topic[] = [
         id: '5-5',
         type: 'quiz',
         title: 'Concept Check 3',
-        imageUrl: IMG_SURGICAL_TEST,
-        question: '"She is MUCH older than him." Is the age difference small or big?',
+        imageUrl: IMG_AUTO_SPEED,
+        question: '"Turbo is MUCH faster than stock." Is the difference small or big?',
         options: ['Small', 'Big'],
         correctAnswer: 1,
         explanation: '"Much" indicates a large difference.'
@@ -1130,45 +1147,44 @@ export const TOPICS: Topic[] = [
       {
         id: '5-6-a',
         type: 'timeline',
-        title: 'Comparison Scale',
-        leadText: 'Degrees of Comparison',
-        visualContext: 'The Quality Scale',
+        title: 'Speed Scale',
+        leadText: 'Degrees of Horsepower',
+        visualContext: 'The Speedometer',
         visualData: [
-            { label: 'GOOD', subLabel: 'Base', percentage: 20, type: 'start', color: 'blue' },
-            { label: 'BETTER', subLabel: 'Comparative', percentage: 50, type: 'point', color: 'orange' },
-            { label: 'BEST', subLabel: 'Superlative', percentage: 80, type: 'end', color: 'green' }
+            { label: 'FAST', subLabel: 'Base', percentage: 20, type: 'start', color: 'blue' },
+            { label: 'FASTER', subLabel: 'Comparative', percentage: 50, type: 'point', color: 'orange' },
+            { label: 'FASTEST', subLabel: 'Superlative', percentage: 80, type: 'end', color: 'red' }
         ]
       },
       {
         id: '5-6-b',
         type: 'concept',
         title: 'Formation Rules',
-        imageUrl: IMG_SURGICAL_CONCEPT,
+        imageUrl: IMG_AUTO_WHEEL,
         bulletPoints: [
             { lang: 'en', label: '1 Syllable', text: 'add -er / -est (Fast -> Faster -> The Fastest)' },
-            { lang: 'en', label: 'Ending in -y', text: 'remove -y, add -ier / -iest (Happy -> Happier)' },
-            { lang: 'en', label: '2+ Syllables', text: 'add more / the most (Modern -> More modern)' },
-            { lang: 'en', label: 'Irregular', text: 'Good -> Better -> Best | Bad -> Worse -> Worst' }
+            { lang: 'en', label: 'Ending in -y', text: 'remove -y, add -ier / -iest (Heavy -> Heavier)' },
+            { lang: 'en', label: '2+ Syllables', text: 'add more / the most (Modern -> More modern)' }
         ]
       },
       {
         id: '5-7',
         type: 'concept',
         title: '3 Examples',
-        imageUrl: IMG_SURGICAL_CONCEPT,
+        imageUrl: IMG_AUTO_RACE,
         bulletPoints: [
-            { lang: 'en', label: 'Equality', text: 'I am AS TALL AS my dad. (Same height)' },
-            { lang: 'en', label: 'Comparative', text: 'London is FAR MORE EXPENSIVE THAN Tashkent.' },
-            { lang: 'en', label: 'Superlative', text: 'It was THE HAPPIEST day of my life.' }
+            { lang: 'en', label: 'Equality', text: 'Spark is AS FAST AS Matiz. (Same speed)' },
+            { lang: 'en', label: 'Comparative', text: 'Tahoe is FAR BIGGER THAN Tracker.' },
+            { lang: 'en', label: 'Superlative', text: 'It was THE MOST EXPENSIVE repair.' }
         ]
       },
       {
         id: '5-8',
         type: 'test',
         title: 'Test 1',
-        imageUrl: IMG_SURGICAL_TEST,
-        question: 'This exam was ____ than the last one.',
-        options: ['difficult', 'more difficult', 'most difficult'],
+        imageUrl: IMG_AUTO_SPEED,
+        question: 'This engine is ____ than the last one.',
+        options: ['powerful', 'more powerful', 'most powerful'],
         correctAnswer: 1,
         explanation: 'Comparison + "than" requires comparative form.'
       },
@@ -1176,18 +1192,18 @@ export const TOPICS: Topic[] = [
         id: '5-9',
         type: 'test',
         title: 'Test 2',
-        imageUrl: IMG_SURGICAL_TEST,
-        question: 'Who is the ____ person in your family?',
-        options: ['younger', 'youngest', 'most young'],
+        imageUrl: IMG_AUTO_WHEEL,
+        question: 'Who is the ____ drifter in the city?',
+        options: ['better', 'best', 'most good'],
         correctAnswer: 1,
-        explanation: 'Superlative requires "est".'
+        explanation: 'Superlative requires "est" or irregular form.'
       },
       {
         id: '5-10',
         type: 'test',
         title: 'Test 3',
-        imageUrl: IMG_SURGICAL_TEST,
-        question: 'The weather is ____ better today.',
+        imageUrl: IMG_AUTO_RACE,
+        question: 'The handling is ____ better with these tires.',
         options: ['a lot', 'more', 'very'],
         correctAnswer: 0,
         explanation: 'Modifier for comparative: "a lot better".'
@@ -1196,7 +1212,7 @@ export const TOPICS: Topic[] = [
         id: '5-11',
         type: 'quiz',
         title: 'Spelling Bee',
-        imageUrl: IMG_SURGICAL_TEST,
+        imageUrl: IMG_AUTO_SPEED,
         question: 'Make "Big" comparative.',
         options: ['Biger', 'Bigger'],
         correctAnswer: 1,
@@ -1206,28 +1222,28 @@ export const TOPICS: Topic[] = [
         id: '5-12',
         type: 'quiz',
         title: 'True/False',
-        imageUrl: IMG_SURGICAL_TEST,
-        question: 'True or False: We can say "more gooder".',
+        imageUrl: IMG_AUTO_WHEEL,
+        question: 'True or False: We can say "more faster".',
         options: ['True', 'False'],
         correctAnswer: 1,
-        explanation: 'False. Irregular: Better.'
+        explanation: 'False. Double comparative is wrong.'
       },
       {
         id: '5-13',
         type: 'quiz',
         title: 'Transformation',
-        imageUrl: IMG_SURGICAL_TEST,
-        question: 'Rewrite: "Tom is taller than Jerry." -> "Jerry is not..."',
-        options: ['...as short as Tom.', '...as tall as Tom.'],
+        imageUrl: IMG_AUTO_RACE,
+        question: 'Rewrite: "BMW is faster than Mercedes." -> "Mercedes is not..."',
+        options: ['...as slow as BMW.', '...as fast as BMW.'],
         correctAnswer: 1,
-        explanation: 'Jerry is not as tall as Tom.'
+        explanation: 'Mercedes is not as fast as BMW.'
       },
       {
         id: '5-14',
         type: 'test',
         title: 'Rapid Fire',
-        imageUrl: IMG_SURGICAL_TEST,
-        question: '"This is the ____ pizza I\'ve ever eaten."',
+        imageUrl: IMG_AUTO_SPEED,
+        question: '"This is the ____ car I\'ve ever driven."',
         options: ['best', 'better'],
         correctAnswer: 0
       },
@@ -1235,85 +1251,84 @@ export const TOPICS: Topic[] = [
         id: '5-15',
         type: 'gap-fill',
         title: 'Gap Fill 1',
-        imageUrl: IMG_SURGICAL_CONCEPT,
-        leadText: '"Calculus is __________ (complicated) than arithmetic."',
-        correctAnswer: 'more complicated'
+        imageUrl: IMG_AUTO_WHEEL,
+        leadText: '"Drifting is __________ (dangerous) than parking."',
+        correctAnswer: 'more dangerous'
       },
       {
         id: '5-16',
         type: 'gap-fill',
         title: 'Gap Fill 2',
-        imageUrl: IMG_SURGICAL_CONCEPT,
-        leadText: '"That is the __________ (bad) movie I have ever seen."',
+        imageUrl: IMG_AUTO_RACE,
+        leadText: '"That is the __________ (bad) crash I have ever seen."',
         correctAnswer: 'worst'
       },
       {
         id: '5-17',
         type: 'gap-fill',
         title: 'Gap Fill 3',
-        imageUrl: IMG_SURGICAL_CONCEPT,
-        leadText: '"She is a bit __________ (rich) than her sister."',
-        correctAnswer: 'richer'
+        imageUrl: IMG_AUTO_SPEED,
+        leadText: '"My car is a bit __________ (loud) than yours."',
+        correctAnswer: 'louder'
       },
       {
         id: '5-18',
         type: 'reading',
         title: 'Reading Comprehension',
-        imageUrl: IMG_SURGICAL_TEST,
-        passage: 'Humans are **taller** now than in the past. Nutrition is **much better**. However, our brains are actually **slightly smaller** than they were 20,000 years ago. Life today is **easier** and **less dangerous** than it was for cavemen, so we don\'t need to be **as aggressive as** our ancestors.',
-        question: 'Are humans the same height as in the past?',
-        options: ['Yes.', 'No, they are taller.'],
+        imageUrl: IMG_AUTO_RACE,
+        passage: 'Electric cars are **quieter** than gas cars. Acceleration is **much faster**. However, the range is **slightly shorter** than a full tank of gas. Maintenance is **easier** and **less expensive** than a traditional engine.',
+        question: 'Are electric cars louder?',
+        options: ['Yes.', 'No, they are quieter.'],
         correctAnswer: 1
       },
       {
         id: '5-19',
         type: 'speaking',
         title: 'Speaking Task',
-        imageUrl: IMG_SURGICAL_INTRO,
+        imageUrl: IMG_AUTO_WHEEL,
         leadText: 'Record your answer.',
         speakingPrompts: [
-            'Compare iPhone and Samsung. Which is better? Which is more expensive?',
-            'Is it harder to study Math or English? Why?',
-            'Who is the most famous person in the world right now?'
+            'Compare Gentra and Malibu. Which is better value?',
+            'Is it harder to drive manual or automatic? Why?',
+            'What is the most beautiful car in the world?'
         ]
       }
     ]
   },
   {
     id: 'topic-6',
-    title: '8.2 Unreal Conditionals',
+    title: '8.2 Unreal Conditionals: Startup Dream',
+    theme: 'startup',
     slides: [
       {
         id: '6-1',
         type: 'intro',
-        title: 'Lead-in',
-        imageUrl: IMG_SURGICAL_INTRO,
+        title: 'Lead-in: The Pitch',
+        imageUrl: IMG_STARTUP_ROCKET,
         leadText: 'Reality vs Dream',
         bulletPoints: [
-            { lang: 'en', label: 'Reality', text: 'He has no money. He cannot buy a plane.' },
-            { lang: 'en', label: 'Dream', text: '"If I HAD a million dollars, I WOULD BUY a jet."' }
+            { lang: 'en', label: 'Reality', text: 'I am a student. I have no budget.' },
+            { lang: 'en', label: 'Dream', text: '"If I HAD a million dollars, I WOULD LAUNCH my app."' }
         ],
-        question: 'Is this real or imaginary? Does he have the money now?'
+        question: 'Is this real or imaginary?'
       },
       {
         id: '6-2',
         type: 'concept',
         title: 'Meaning & Definition',
-        imageUrl: IMG_SURGICAL_CONCEPT,
+        imageUrl: IMG_STARTUP_CODE,
         bulletPoints: [
-            { lang: 'en', label: 'Use', text: 'Imaginary, impossible, or unlikely situations in PRESENT/FUTURE.' },
+            { lang: 'en', label: 'Use', text: 'Imaginary startup ideas. "If I were the CEO..."' },
             { lang: 'en', label: 'Formula', text: 'If + Past Simple, ... would + Verb.' },
-            { lang: 'en', label: 'Advice', text: 'Use "If I WERE you" (not was).' },
-            { lang: 'uz', label: 'Ma’nosi', text: 'Hozirgi hayoliy vaziyatlar.' },
-            { lang: 'ru', label: 'Значение', text: 'Воображаемые ситуации. "Если бы..."' }
+            { lang: 'en', label: 'Advice', text: 'Use "If I WERE you" (not was).' }
         ]
       },
       {
         id: '6-3',
         type: 'quiz',
         title: 'Concept Check 1',
-        imageUrl: IMG_SURGICAL_TEST,
-        question: '"If I had wings, I would fly." Do I have wings?',
+        imageUrl: IMG_STARTUP_UNICORN,
+        question: '"If I founded Facebook, I would be rich." Did I found Facebook?',
         options: ['Yes', 'No'],
         correctAnswer: 1,
         explanation: 'Correct! This is imaginary.'
@@ -1322,28 +1337,28 @@ export const TOPICS: Topic[] = [
         id: '6-4',
         type: 'quiz',
         title: 'Concept Check 2',
-        imageUrl: IMG_SURGICAL_TEST,
-        question: '"If I became President, I would change the law." Is this likely to happen tomorrow?',
+        imageUrl: IMG_STARTUP_ROCKET,
+        question: '"If I became a Unicron, I would change the world." Is this likely tomorrow?',
         options: ['Yes', 'No, unlikely.'],
         correctAnswer: 1,
-        explanation: 'Correct! We use 2nd conditional for unlikely dreams.'
+        explanation: 'Correct! 2nd conditional for big dreams.'
       },
       {
         id: '6-5',
         type: 'quiz',
         title: 'Concept Check 3',
-        imageUrl: IMG_SURGICAL_TEST,
+        imageUrl: IMG_STARTUP_CODE,
         question: 'Which sentence is about the PRESENT/FUTURE?',
-        options: ['If I had time, I would go.', 'If I had had time, I would have gone.'],
+        options: ['If I had code, I would deploy.', 'If I had had code, I would have deployed.'],
         correctAnswer: 0,
-        explanation: 'Even though we use "had" (past tense), the meaning is NOW.'
+        explanation: 'Past tense "had" refers to NOW in unreal conditionals.'
       },
       {
         id: '6-6-a',
         type: 'timeline',
         title: 'Structure Visualization',
         leadText: 'Hypothetical Situation Structure',
-        visualContext: 'The Dream Chain',
+        visualContext: 'The Code Logic',
         visualData: [
             { label: 'IF', subLabel: 'Condition', percentage: 20, type: 'start', color: 'blue' },
             { label: 'PAST SIMPLE', subLabel: 'Imaginary', percentage: 50, type: 'point', color: 'purple' },
@@ -1354,10 +1369,10 @@ export const TOPICS: Topic[] = [
         id: '6-6-b',
         type: 'concept',
         title: 'Structure Rules',
-        imageUrl: IMG_SURGICAL_CONCEPT,
+        imageUrl: IMG_STARTUP_UNICORN,
         bulletPoints: [
-            { lang: 'en', label: 'Condition', text: 'IF + Past Simple ("If I LIVED in Italy")' },
-            { lang: 'en', label: 'Result', text: 'WOULD + Infinitive ("I WOULD EAT pizza")' },
+            { lang: 'en', label: 'Condition', text: 'IF + Past Simple ("If I CODED better")' },
+            { lang: 'en', label: 'Result', text: 'WOULD + Infinitive ("I WOULD BUILD AI")' },
             { lang: 'en', label: 'Inversion', text: 'No comma if "If" is in the middle.' }
         ]
       },
@@ -1365,19 +1380,19 @@ export const TOPICS: Topic[] = [
         id: '6-7',
         type: 'concept',
         title: '3 Examples',
-        imageUrl: IMG_SURGICAL_CONCEPT,
+        imageUrl: IMG_STARTUP_ROCKET,
         bulletPoints: [
-            { lang: 'en', label: 'Imaginary', text: 'If I WON the lottery, I WOULD TRAVEL the world.' },
-            { lang: 'en', label: 'Advice', text: 'If I WERE you, I WOULDN\'T DO that.' },
-            { lang: 'en', label: 'Question', text: 'What WOULD you DO if you SAW a ghost?' }
+            { lang: 'en', label: 'Imaginary', text: 'If I MET Elon Musk, I WOULD ASK for a job.' },
+            { lang: 'en', label: 'Advice', text: 'If I WERE you, I WOULDN\'T SELL the shares.' },
+            { lang: 'en', label: 'Question', text: 'What WOULD you DO if you LOST your data?' }
         ]
       },
       {
         id: '6-8',
         type: 'test',
         title: 'Test 1',
-        imageUrl: IMG_SURGICAL_TEST,
-        question: 'If I ____ his number, I would call him.',
+        imageUrl: IMG_STARTUP_CODE,
+        question: 'If I ____ his email, I would pitch him.',
         options: ['know', 'knew', 'would know'],
         correctAnswer: 1,
         explanation: 'If + Past Simple.'
@@ -1386,8 +1401,8 @@ export const TOPICS: Topic[] = [
         id: '6-9',
         type: 'test',
         title: 'Test 2',
-        imageUrl: IMG_SURGICAL_TEST,
-        question: 'If she ____ rich, she wouldn\'t work.',
+        imageUrl: IMG_STARTUP_UNICORN,
+        question: 'If she ____ the CEO, she wouldn\'t work weekends.',
         options: ['is', 'were', 'would be'],
         correctAnswer: 1,
         explanation: 'Subjunctive "were" is preferred.'
@@ -1396,8 +1411,8 @@ export const TOPICS: Topic[] = [
         id: '6-10',
         type: 'test',
         title: 'Test 3',
-        imageUrl: IMG_SURGICAL_TEST,
-        question: 'We ____ go to the beach if it wasn\'t raining.',
+        imageUrl: IMG_STARTUP_ROCKET,
+        question: 'We ____ hire more devs if we had funding.',
         options: ['will', 'can', 'could'],
         correctAnswer: 2,
         explanation: '"Could" means "would be able to".'
@@ -1406,17 +1421,17 @@ export const TOPICS: Topic[] = [
         id: '6-11',
         type: 'quiz',
         title: 'Matching',
-        imageUrl: IMG_SURGICAL_TEST,
-        question: 'Complete: "If I were invisible..."',
-        options: ['...I would rob a bank.', '...I would help you.'],
+        imageUrl: IMG_STARTUP_CODE,
+        question: 'Complete: "If I hacked the bank..."',
+        options: ['...I would go to jail.', '...I will go to jail.'],
         correctAnswer: 0
       },
       {
         id: '6-12',
         type: 'quiz',
         title: 'Spot the Mistake',
-        imageUrl: IMG_SURGICAL_TEST,
-        question: 'Is "If I would have money, I would buy a car" correct?',
+        imageUrl: IMG_STARTUP_UNICORN,
+        question: 'Is "If I would have Bitcoin, I would buy a Tesla" correct?',
         options: ['Yes', 'No'],
         correctAnswer: 1,
         explanation: 'Never put "would" in the If-clause.'
@@ -1425,18 +1440,17 @@ export const TOPICS: Topic[] = [
         id: '6-13',
         type: 'quiz',
         title: 'Translation Check',
-        imageUrl: IMG_SURGICAL_TEST,
-        question: 'Translate: "Agar mening vaqtim bo‘lsa (hozir), yordam berardim."',
-        options: ['If I had time, I would help.', 'If I have time, I will help.'],
-        correctAnswer: 0,
-        explanation: 'Real conditional uses "will", Unreal (hypothetical) uses "would".'
+        imageUrl: IMG_STARTUP_ROCKET,
+        question: 'Translate: "Agar vaqtim bo‘lsa (hozir), startap qilardim."',
+        options: ['If I had time, I would do a startup.', 'If I have time, I will do a startup.'],
+        correctAnswer: 0
       },
       {
         id: '6-14',
         type: 'test',
         title: 'Rapid Fire',
-        imageUrl: IMG_SURGICAL_TEST,
-        question: '"If I ____ a superhero, I would fly."',
+        imageUrl: IMG_STARTUP_CODE,
+        question: '"If I ____ a genius, I would invent time travel."',
         options: ['were', 'am'],
         correctAnswer: 0
       },
@@ -1444,33 +1458,33 @@ export const TOPICS: Topic[] = [
         id: '6-15',
         type: 'gap-fill',
         title: 'Gap Fill 1',
-        imageUrl: IMG_SURGICAL_CONCEPT,
-        leadText: '"If I __________ (be) you, I would study harder."',
+        imageUrl: IMG_STARTUP_UNICORN,
+        leadText: '"If I __________ (be) you, I would learn Python."',
         correctAnswer: 'were'
       },
       {
         id: '6-16',
         type: 'gap-fill',
         title: 'Gap Fill 2',
-        imageUrl: IMG_SURGICAL_CONCEPT,
-        leadText: '"He __________ (not / be) so tired if he went to bed earlier."',
+        imageUrl: IMG_STARTUP_ROCKET,
+        leadText: '"He __________ (not / be) so stressed if he automated the task."',
         correctAnswer: 'wouldn\'t be'
       },
       {
         id: '6-17',
         type: 'gap-fill',
         title: 'Gap Fill 3',
-        imageUrl: IMG_SURGICAL_CONCEPT,
-        leadText: '"If we __________ (live) in London, we would speak better English."',
+        imageUrl: IMG_STARTUP_CODE,
+        leadText: '"If we __________ (live) in Silicon Valley, we would meet investors."',
         correctAnswer: 'lived'
       },
       {
         id: '6-18',
         type: 'reading',
         title: 'Reading Comprehension',
-        imageUrl: IMG_SURGICAL_TEST,
-        passage: 'Life would be very different if we **didn\'t have** electricity. If the internet **disappeared** tomorrow, most businesses **would stop** working. We **would have** to write letters! If I **had** to live without a phone, I **would feel** lonely. Maybe people **would talk** more if they **weren\'t** looking at screens.',
-        question: 'Do we have electricity now?',
+        imageUrl: IMG_STARTUP_ROCKET,
+        passage: 'Life would be different if we **didn\'t have** the internet. If Wi-Fi **disappeared** tomorrow, most startups **would stop** working. We **would have** to use fax machines! If I **had** to code on paper, I **would go** crazy.',
+        question: 'Do we have the internet now?',
         options: ['Yes.', 'No.'],
         correctAnswer: 0
       },
@@ -1478,30 +1492,30 @@ export const TOPICS: Topic[] = [
         id: '6-19',
         type: 'speaking',
         title: 'Speaking Task',
-        imageUrl: IMG_SURGICAL_INTRO,
+        imageUrl: IMG_STARTUP_UNICORN,
         leadText: 'Record your answer.',
         speakingPrompts: [
-          'If you could have any superpower, what would it be?',
-          'If you met your favorite celebrity, what would you say?',
-          'If you were the Principal of your school for one day, what changes would you make?'
+          'If you could invent any app, what would it do?',
+          'If you met Pavel Durov, what would you say?',
+          'If you had $10 million investment, what business would you start?'
         ]
       }
     ]
   },
   {
     id: 'topic-7',
-    title: '7.2 Questions (Subject/Object & Indirect)',
+    title: '7.2 Questions: Social Media Star',
+    theme: 'social',
     slides: [
       {
         id: '7-1',
         type: 'intro',
-        title: 'Lead-in',
-        imageUrl: IMG_SURGICAL_INTRO,
+        title: 'Lead-in: The DM',
+        imageUrl: IMG_SOCIAL_LIVE,
         leadText: 'Look at the scenarios.',
         bulletPoints: [
-          { lang: 'en', label: 'Scene A (Subject)', text: '"Who SAW the crime?" (Asking about the witness).' },
-          { lang: 'en', label: 'Scene B (Object)', text: '"Who DID you SEE?" (Asking about the suspect).' },
-          { lang: 'en', label: 'Scene C (Indirect)', text: '"Could you tell me what time it is?"' }
+          { lang: 'en', label: 'Scene A (Subject)', text: '"Who LIKED the post?" (Asking about the follower).' },
+          { lang: 'en', label: 'Scene B (Object)', text: '"Who DID you BLOCK?" (Asking about the hater).' }
         ],
         question: 'Note the word order differences.'
       },
@@ -1509,42 +1523,38 @@ export const TOPICS: Topic[] = [
         id: '7-2',
         type: 'concept',
         title: 'Meaning & Definition',
-        imageUrl: IMG_SURGICAL_CONCEPT,
+        imageUrl: IMG_SOCIAL_LIKE,
         bulletPoints: [
-          { lang: 'en', label: 'Object Questions', text: 'Ask about object. Use do/does/did. "What DID you buy?"' },
-          { lang: 'en', label: 'Subject Questions', text: 'Ask about subject. NO auxiliary. "Who BOUGHT the milk?"' },
-          { lang: 'en', label: 'Indirect Questions', text: 'Polite. Statement word order. "Where the bank IS."' },
-          { lang: 'uz', label: 'Subject', text: 'Ega haqida. Yordamchi fe’l yo‘q.' },
-          { lang: 'uz', label: 'Indirect', text: 'Muloyim savollar. So‘z tartibi darak gapdek.' }
+          { lang: 'en', label: 'Object Questions', text: 'Ask about object. Use do/does/did. "What DID you post?"' },
+          { lang: 'en', label: 'Subject Questions', text: 'Ask about subject. NO auxiliary. "Who FOLLOWED you?"' },
+          { lang: 'en', label: 'Indirect Questions', text: 'Polite. "Could you tell me why you UNFOLLOWED?"' }
         ]
       },
       {
         id: '7-3',
         type: 'quiz',
         title: 'Concept Check 1',
-        imageUrl: IMG_SURGICAL_TEST,
-        question: '"Who called you?"',
-        options: ['Asking about the receiver.', 'Asking about the caller.'],
-        correctAnswer: 1,
-        explanation: 'Correct! "Who" is the subject (the caller).'
+        imageUrl: IMG_SOCIAL_CAM,
+        question: '"Who messaged you?"',
+        options: ['Asking about the receiver.', 'Asking about the sender (Subject).'],
+        correctAnswer: 1
       },
       {
         id: '7-4',
         type: 'quiz',
         title: 'Concept Check 2',
-        imageUrl: IMG_SURGICAL_TEST,
-        question: '"Who did you call?"',
-        options: ['Asking about the receiver.', 'Asking about the caller.'],
-        correctAnswer: 0,
-        explanation: 'Correct! "You" made the call. We want to know the receiver.'
+        imageUrl: IMG_SOCIAL_LIVE,
+        question: '"Who did you message?"',
+        options: ['Asking about the receiver (Object).', 'Asking about the sender.'],
+        correctAnswer: 0
       },
       {
         id: '7-5',
         type: 'quiz',
         title: 'Concept Check 3',
-        imageUrl: IMG_SURGICAL_TEST,
+        imageUrl: IMG_SOCIAL_LIKE,
         question: '"Can you tell me where ____?"',
-        options: ['is the station', 'the station is'],
+        options: ['is the party', 'the party is'],
         correctAnswer: 1,
         explanation: 'Indirect questions use statement word order.'
       },
@@ -1565,7 +1575,7 @@ export const TOPICS: Topic[] = [
         id: '7-6-b',
         type: 'concept',
         title: 'Structure Rules',
-        imageUrl: IMG_SURGICAL_CONCEPT,
+        imageUrl: IMG_SOCIAL_CAM,
         bulletPoints: [
             { lang: 'en', label: 'Object', text: 'Q-Word + Auxiliary + Subject + Verb? (Where DID you go?)' },
             { lang: 'en', label: 'Subject', text: 'Who/What + Verb? (Who WENT home?)' },
@@ -1576,19 +1586,19 @@ export const TOPICS: Topic[] = [
         id: '7-7',
         type: 'concept',
         title: '3 Examples',
-        imageUrl: IMG_SURGICAL_CONCEPT,
+        imageUrl: IMG_SOCIAL_LIVE,
         bulletPoints: [
-            { lang: 'en', label: 'Subject', text: '"Who broke the window?" (John broke it).' },
-            { lang: 'en', label: 'Object', text: '"What did John break?" (The window).' },
-            { lang: 'en', label: 'Indirect', text: '"I wonder why she LEFT." (Not did she leave).' }
+            { lang: 'en', label: 'Subject', text: '"Who broke the camera?" (John broke it).' },
+            { lang: 'en', label: 'Object', text: '"What did John break?" (The camera).' },
+            { lang: 'en', label: 'Indirect', text: '"I wonder why she LEFT the live stream."' }
         ]
       },
       {
         id: '7-8',
         type: 'test',
         title: 'Test 1',
-        imageUrl: IMG_SURGICAL_TEST,
-        question: 'Who ____ that book?',
+        imageUrl: IMG_SOCIAL_LIKE,
+        question: 'Who ____ that comment?',
         options: ['did write', 'wrote', 'did wrote'],
         correctAnswer: 1,
         explanation: 'Subject question.'
@@ -1597,7 +1607,7 @@ export const TOPICS: Topic[] = [
         id: '7-9',
         type: 'test',
         title: 'Test 2',
-        imageUrl: IMG_SURGICAL_TEST,
+        imageUrl: IMG_SOCIAL_CAM,
         question: 'Where ____ live?',
         options: ['do you', 'you', 'you do'],
         correctAnswer: 0,
@@ -1607,9 +1617,9 @@ export const TOPICS: Topic[] = [
         id: '7-10',
         type: 'test',
         title: 'Test 3',
-        imageUrl: IMG_SURGICAL_TEST,
+        imageUrl: IMG_SOCIAL_LIVE,
         question: 'Do you know what time ____?',
-        options: ['does the film start', 'the film starts', 'starts the film'],
+        options: ['does the stream start', 'the stream starts'],
         correctAnswer: 1,
         explanation: 'Indirect question = statement order.'
       },
@@ -1617,7 +1627,7 @@ export const TOPICS: Topic[] = [
         id: '7-11',
         type: 'quiz',
         title: 'Matching',
-        imageUrl: IMG_SURGICAL_TEST,
+        imageUrl: IMG_SOCIAL_LIKE,
         question: 'Match meaning: "Who loves Jane?"',
         options: ['Jane loves Tom.', 'Tom loves Jane.'],
         correctAnswer: 1,
@@ -1627,27 +1637,26 @@ export const TOPICS: Topic[] = [
         id: '7-12',
         type: 'quiz',
         title: 'Transformation',
-        imageUrl: IMG_SURGICAL_TEST,
-        question: 'Indirect form of "Is he married?"',
-        options: ['Can you tell me if he is married?', 'Can you tell me if is he married?'],
+        imageUrl: IMG_SOCIAL_CAM,
+        question: 'Indirect form of "Is he famous?"',
+        options: ['Can you tell me if he is famous?', 'Can you tell me if is he famous?'],
         correctAnswer: 0
       },
       {
         id: '7-13',
         type: 'quiz',
         title: 'Spot the Mistake',
-        imageUrl: IMG_SURGICAL_TEST,
+        imageUrl: IMG_SOCIAL_LIVE,
         question: 'Is "Do you know where does he work?" correct?',
         options: ['Yes', 'No, "where he works"'],
-        correctAnswer: 1,
-        explanation: 'Indirect questions do not use "does".'
+        correctAnswer: 1
       },
       {
         id: '7-14',
         type: 'test',
         title: 'Rapid Fire',
-        imageUrl: IMG_SURGICAL_TEST,
-        question: '"Who ____ the race?"',
+        imageUrl: IMG_SOCIAL_LIKE,
+        question: '"Who ____ the giveaway?"',
         options: ['won', 'did win'],
         correctAnswer: 0
       },
@@ -1655,33 +1664,33 @@ export const TOPICS: Topic[] = [
         id: '7-15',
         type: 'gap-fill',
         title: 'Gap Fill 1',
-        imageUrl: IMG_SURGICAL_CONCEPT,
-        leadText: '"What __________ (happen) yesterday?"',
+        imageUrl: IMG_SOCIAL_CAM,
+        leadText: '"What __________ (happen) on the stream yesterday?"',
         correctAnswer: 'happened'
       },
       {
         id: '7-16',
         type: 'gap-fill',
         title: 'Gap Fill 2',
-        imageUrl: IMG_SURGICAL_CONCEPT,
-        leadText: '"Could you tell me how much __________ (cost / this ticket)?"',
-        correctAnswer: 'this ticket costs'
+        imageUrl: IMG_SOCIAL_LIVE,
+        leadText: '"Could you tell me how much __________ (cost / this ads)?"',
+        correctAnswer: 'this ads costs'
       },
       {
         id: '7-17',
         type: 'gap-fill',
         title: 'Gap Fill 3',
-        imageUrl: IMG_SURGICAL_CONCEPT,
-        leadText: '"Who __________ (you / invite) to the party?"',
+        imageUrl: IMG_SOCIAL_LIKE,
+        leadText: '"Who __________ (you / invite) to the collab?"',
         correctAnswer: 'did you invite'
       },
       {
         id: '7-18',
         type: 'reading',
         title: 'Reading Comprehension',
-        imageUrl: IMG_SURGICAL_TEST,
-        passage: 'William James Sidis was a genius. **Who inspired him?** His parents. **What did he study?** Math at Harvard. Later, journalists asked, "**Could you tell us why you left academic life?**" Sidis wanted privacy. He wondered **why people were so interested** in him.',
-        question: '"Could you tell us why you left..." is:',
+        imageUrl: IMG_SOCIAL_CAM,
+        passage: 'The blogger was confused. **Who reported him?** His rivals. **What did he post?** A controversial opinion. Later, journalists asked, "**Could you tell us why you deleted the video?**" He wondered **why people were so angry**.',
+        question: '"Could you tell us why you deleted..." is:',
         options: ['Direct question.', 'Indirect question.'],
         correctAnswer: 1
       },
@@ -1689,74 +1698,69 @@ export const TOPICS: Topic[] = [
         id: '7-19',
         type: 'speaking',
         title: 'Speaking Task',
-        imageUrl: IMG_SURGICAL_INTRO,
+        imageUrl: IMG_SOCIAL_LIVE,
         leadText: 'Record polite questions for a stranger.',
         speakingPrompts: [
-          'Ask them where they live, but politely.',
-          'Ask them what their hobbies are politely.',
-          'Ask "Who is your favorite singer?" directly.'
+          'Ask them what their Instagram is, politely.',
+          'Ask them who their favorite TikToker is directly.',
+          'Ask them where they took that photo, politely.'
         ]
       }
     ]
   },
   {
     id: 'topic-8',
-    title: '8.1 Real Conditionals (Zero & First)',
+    title: '8.1 Real Conditionals: The Abituriyent',
+    theme: 'exam',
     slides: [
       {
         id: '8-1',
         type: 'intro',
-        title: 'Lead-in',
-        imageUrl: IMG_SURGICAL_INTRO,
+        title: 'Lead-in: The Exam',
+        imageUrl: IMG_EXAM_CERT,
         leadText: 'Fact vs Prediction',
         bulletPoints: [
-            { lang: 'en', label: 'Fact (Zero)', text: '"If it rains, plants grow." (Always true).' },
-            { lang: 'en', label: 'Prediction (First)', text: '"If you study hard, you will pass." (Future result).' }
+            { lang: 'en', label: 'Fact (Zero)', text: '"If you study, you learn." (Always true).' },
+            { lang: 'en', label: 'Prediction (First)', text: '"If I get 7.0 IELTS, I will apply to Westminster."' }
         ]
       },
       {
         id: '8-2',
         type: 'concept',
         title: 'Meaning & Definition',
-        imageUrl: IMG_SURGICAL_CONCEPT,
+        imageUrl: IMG_EXAM_STUDY,
         bulletPoints: [
-            { lang: 'en', label: 'Zero Conditional', text: 'General truths, habits. (If + Present, ... Present).' },
+            { lang: 'en', label: 'Zero Conditional', text: 'General truths. (If + Present, ... Present).' },
             { lang: 'en', label: 'First Conditional', text: 'Possible future. (If + Present, ... Will).' },
-            { lang: 'en', label: 'Unless', text: 'Means "If not".' },
-            { lang: 'uz', label: 'Zero', text: 'Doimiy haqiqatlar.' },
-            { lang: 'uz', label: 'First', text: 'Kelajakdagi aniq vaziyatlar.' },
-            { lang: 'ru', label: 'Unless', text: 'Если не...' }
+            { lang: 'en', label: 'Unless', text: 'Means "If not".' }
         ]
       },
       {
         id: '8-3',
         type: 'quiz',
         title: 'Concept Check 1',
-        imageUrl: IMG_SURGICAL_TEST,
-        question: '"If I miss the bus, I am late for work." (Every day)',
+        imageUrl: IMG_EXAM_GRAD,
+        question: '"If I skip class, the teacher marks me absent." (Routine)',
         options: ['Zero Conditional', 'First Conditional'],
-        correctAnswer: 0,
-        explanation: 'Correct! Routine/Fact = Zero.'
+        correctAnswer: 0
       },
       {
         id: '8-4',
         type: 'quiz',
         title: 'Concept Check 2',
-        imageUrl: IMG_SURGICAL_TEST,
-        question: '"If it rains tomorrow, we will stay home."',
+        imageUrl: IMG_EXAM_CERT,
+        question: '"If I pass the exam tomorrow, I will celebrate."',
         options: ['Zero Conditional', 'First Conditional'],
-        correctAnswer: 1,
-        explanation: 'Correct! Specific future event = First.'
+        correctAnswer: 1
       },
       {
         id: '8-5',
         type: 'quiz',
         title: 'Concept Check 3',
-        imageUrl: IMG_SURGICAL_TEST,
-        question: '"I won\'t go unless he calls."',
-        options: ['I will go if he calls.', 'I will go if he doesn\'t call.'],
-        correctAnswer: 0,
-        explanation: 'Unless = If not. "I won\'t go if he doesn\'t call" means I need him to call.'
+        imageUrl: IMG_EXAM_STUDY,
+        question: '"I won\'t get the grant unless I study."',
+        options: ['I will get it if I study.', 'I will get it if I don\'t study.'],
+        correctAnswer: 0
       },
       {
         id: '8-6-a',
@@ -1774,7 +1778,7 @@ export const TOPICS: Topic[] = [
         id: '8-6-b',
         type: 'concept',
         title: 'Conditional Rules',
-        imageUrl: IMG_SURGICAL_CONCEPT,
+        imageUrl: IMG_EXAM_GRAD,
         bulletPoints: [
             { lang: 'en', label: 'General Fact?', text: 'YES -> Present + Present (Zero)' },
             { lang: 'en', label: 'Future Possibility?', text: 'YES -> Present + Will (First)' }
@@ -1784,30 +1788,30 @@ export const TOPICS: Topic[] = [
         id: '8-7',
         type: 'concept',
         title: '3 Examples',
-        imageUrl: IMG_SURGICAL_CONCEPT,
+        imageUrl: IMG_EXAM_CERT,
         bulletPoints: [
-            { lang: 'en', label: 'Zero', text: '"If you mix red and blue, you get purple."' },
-            { lang: 'en', label: 'First', text: '"If you don\'t leave now, you will miss the train."' },
-            { lang: 'en', label: 'Unless', text: '"You can\'t enter unless you are 18."' }
+            { lang: 'en', label: 'Zero', text: '"If you fail, you retake."' },
+            { lang: 'en', label: 'First', text: '"If the test is hard, I will panic."' },
+            { lang: 'en', label: 'Unless', text: '"You can\'t graduate unless you pass Math."' }
         ]
       },
       {
         id: '8-8',
         type: 'test',
         title: 'Test 1',
-        imageUrl: IMG_SURGICAL_TEST,
-        question: 'If people eat too much, they ____ fat.',
+        imageUrl: IMG_EXAM_STUDY,
+        question: 'If students cheat, they ____ disqualified.',
         options: ['get', 'will get', 'got'],
         correctAnswer: 0,
-        explanation: 'General fact -> Zero conditional.'
+        explanation: 'General rule -> Zero conditional.'
       },
       {
         id: '8-9',
         type: 'test',
         title: 'Test 2',
-        imageUrl: IMG_SURGICAL_TEST,
-        question: 'If I ____ her, I\'ll tell her.',
-        options: ['see', 'will see', 'saw'],
+        imageUrl: IMG_EXAM_GRAD,
+        question: 'If I ____ the certificate, I\'ll show you.',
+        options: ['receive', 'will receive'],
         correctAnswer: 0,
         explanation: 'Never use "will" in the If-clause.'
       },
@@ -1815,17 +1819,16 @@ export const TOPICS: Topic[] = [
         id: '8-10',
         type: 'test',
         title: 'Test 3',
-        imageUrl: IMG_SURGICAL_TEST,
-        question: 'We won\'t win ____ we practice.',
-        options: ['if', 'unless', 'when'],
-        correctAnswer: 1,
-        explanation: '"We won\'t win if we don\'t practice".'
+        imageUrl: IMG_EXAM_CERT,
+        question: 'We won\'t enter ____ we have ID.',
+        options: ['if', 'unless'],
+        correctAnswer: 1
       },
       {
         id: '8-11',
         type: 'quiz',
         title: 'True/False',
-        imageUrl: IMG_SURGICAL_TEST,
+        imageUrl: IMG_EXAM_STUDY,
         question: 'In First Conditional, we use Future Tense in both parts?',
         options: ['True', 'False'],
         correctAnswer: 1,
@@ -1835,61 +1838,60 @@ export const TOPICS: Topic[] = [
         id: '8-12',
         type: 'quiz',
         title: 'Transformation',
-        imageUrl: IMG_SURGICAL_TEST,
-        question: '"If you don\'t run, you won\'t catch it." -> Unless...',
-        options: ['Unless you run, you won\'t catch it.', 'Unless you don\'t run...'],
+        imageUrl: IMG_EXAM_GRAD,
+        question: '"If you don\'t pay, you won\'t study." -> Unless...',
+        options: ['Unless you pay, you won\'t study.', 'Unless you don\'t pay...'],
         correctAnswer: 0
       },
       {
         id: '8-13',
         type: 'quiz',
         title: 'Matching',
-        imageUrl: IMG_SURGICAL_TEST,
-        question: 'Match: "If water reaches 100°C..."',
-        options: ['...it boils.', '...it will boil.'],
-        correctAnswer: 0,
-        explanation: 'Scientific fact = Zero conditional.'
+        imageUrl: IMG_EXAM_CERT,
+        question: 'Match: "If you mix blue and yellow..."',
+        options: ['...you get green.', '...you will get green.'],
+        correctAnswer: 0
       },
       {
         id: '8-14',
         type: 'test',
         title: 'Rapid Fire',
-        imageUrl: IMG_SURGICAL_TEST,
-        question: '"If you ____ (drop) glass, it breaks."',
-        options: ['drop', 'will drop'],
+        imageUrl: IMG_EXAM_STUDY,
+        question: '"If the bell ____ (ring), the lesson ends."',
+        options: ['rings', 'will ring'],
         correctAnswer: 0
       },
       {
         id: '8-15',
         type: 'gap-fill',
         title: 'Gap Fill 1',
-        imageUrl: IMG_SURGICAL_CONCEPT,
-        leadText: '"If you __________ (need) help, call me."',
+        imageUrl: IMG_EXAM_GRAD,
+        leadText: '"If you __________ (need) help, ask the tutor."',
         correctAnswer: 'need'
       },
       {
         id: '8-16',
         type: 'gap-fill',
         title: 'Gap Fill 2',
-        imageUrl: IMG_SURGICAL_CONCEPT,
-        leadText: '"Unless we leave now, we __________ (be) late."',
-        correctAnswer: 'will be'
+        imageUrl: IMG_EXAM_CERT,
+        leadText: '"Unless we study now, we __________ (fail)."',
+        correctAnswer: 'will fail'
       },
       {
         id: '8-17',
         type: 'gap-fill',
         title: 'Gap Fill 3',
-        imageUrl: IMG_SURGICAL_CONCEPT,
-        leadText: '"If he __________ (not / come) soon, we will leave without him."',
+        imageUrl: IMG_EXAM_STUDY,
+        leadText: '"If he __________ (not / come) to the exam, he gets 0."',
         correctAnswer: 'doesn\'t come'
       },
       {
         id: '8-18',
         type: 'reading',
         title: 'Reading Comprehension',
-        imageUrl: IMG_SURGICAL_TEST,
-        passage: 'Happiness is simple. **If people enjoy their job, they are happier** (Zero). However, **if you change your routine, you will feel** strange (First). Experts say that **unless you sleep enough, you won\'t focus** well.',
-        question: '"If you change your routine, you will feel strange." This is:',
+        imageUrl: IMG_EXAM_CERT,
+        passage: 'Entrance exams are stressful. **If students prepare well, they feel confident** (Zero). However, **if the questions are unexpected, they will be nervous** (First). Experts say that **unless you sleep enough, you won\'t remember** anything.',
+        question: '"If the questions are unexpected, they will be nervous." This is:',
         options: ['A likely result in the future.', 'A fact that always happens instantly.'],
         correctAnswer: 0
       },
@@ -1897,80 +1899,78 @@ export const TOPICS: Topic[] = [
         id: '8-19',
         type: 'speaking',
         title: 'Speaking Task',
-        imageUrl: IMG_SURGICAL_INTRO,
+        imageUrl: IMG_EXAM_GRAD,
         leadText: 'Record your answer.',
         speakingPrompts: [
-          'What will you do if it rains this weekend?',
-          'What happens if you don\'t charge your phone?',
-          'Complete: "If I get good grades this year, I will..."'
+          'What will you do if you get a low score?',
+          'What happens if you are late to the exam?',
+          'Complete: "If I finish university, I will..."'
         ]
       }
     ]
   },
   {
     id: 'topic-9',
-    title: '11.2 Should/Shouldn\'t have',
+    title: '11.2 Should/Shouldn\'t have: Football Regrets',
+    theme: 'sport',
     slides: [
       {
         id: '9-1',
         type: 'intro',
-        title: 'Lead-in',
-        imageUrl: IMG_SURGICAL_INTRO,
+        title: 'Lead-in: The Penalty',
+        imageUrl: IMG_SPORT_BALL,
         leadText: 'Look at the scenario.',
         bulletPoints: [
-          { lang: 'en', label: 'Fact', text: 'He PLAYED video games all night. He DIDN\'T study.' },
-          { lang: 'en', label: 'Regret', text: '"I SHOULD HAVE STUDIED. I SHOULDN\'T HAVE PLAYED."' }
+          { lang: 'en', label: 'Fact', text: 'He MISSED the penalty. We LOST the game.' },
+          { lang: 'en', label: 'Regret', text: '"I SHOULD HAVE SCORED. I SHOULDN\'T HAVE MISSED."' }
         ],
-        question: 'Can he change the grade now? No.'
+        question: 'Can he change the score now? No.'
       },
       {
         id: '9-2',
         type: 'concept',
         title: 'Meaning & Definition',
-        imageUrl: IMG_SURGICAL_CONCEPT,
+        imageUrl: IMG_SPORT_GOAL,
         bulletPoints: [
           { lang: 'en', label: 'Use', text: 'Criticize past actions or express regret.' },
           { lang: 'en', label: 'Formula', text: 'Should have + Past Participle (V3).' },
-          { lang: 'uz', label: 'Ma’nosi', text: 'O‘tmishdagi afsuslanish. "Qilishim kerak edi".' },
-          { lang: 'ru', label: 'Значение', text: 'Сожаление о прошлом. "Следовало бы..."' }
+          { lang: 'uz', label: 'Ma’nosi', text: 'Afsuslanish.' }
         ]
       },
       {
         id: '9-3',
         type: 'quiz',
         title: 'Concept Check 1',
-        imageUrl: IMG_SURGICAL_TEST,
-        question: '"You should have called me." Did you call me?',
+        imageUrl: IMG_SPORT_WHISTLE,
+        question: '"You should have passed the ball." Did you pass it?',
         options: ['Yes', 'No'],
         correctAnswer: 1,
-        explanation: 'Correct! I am criticizing you because you didn\'t call.'
+        explanation: 'Correct! I am criticizing you because you didn\'t pass.'
       },
       {
         id: '9-4',
         type: 'quiz',
         title: 'Concept Check 2',
-        imageUrl: IMG_SURGICAL_TEST,
-        question: '"I shouldn\'t have eaten that cake." How do I feel now?',
-        options: ['Happy and full.', 'Sick or guilty.'],
-        correctAnswer: 1,
-        explanation: 'Correct! I regret eating it.'
+        imageUrl: IMG_SPORT_BALL,
+        question: '"I shouldn\'t have fouled him." How do I feel?',
+        options: ['Happy.', 'Regretful.'],
+        correctAnswer: 1
       },
       {
         id: '9-5',
         type: 'quiz',
         title: 'Concept Check 3',
-        imageUrl: IMG_SURGICAL_TEST,
-        question: 'Is "He should have been more careful" about Future or Past?',
+        imageUrl: IMG_SPORT_GOAL,
+        question: 'Is "He should have been faster" about Future or Past?',
         options: ['Future', 'Past'],
-        correctAnswer: 1,
-        explanation: '"Have + V3" signals we are looking back.'
+        correctAnswer: 1
       },
       {
         id: '9-6-a',
         type: 'timeline',
         title: 'Timeline of Regret',
         leadText: 'Looking back at a past mistake',
-        visualContext: 'Retrospective View',
+        visualContext: 'The Final Whistle',
         visualData: [
             { label: 'MISTAKE', subLabel: 'Past Action', percentage: 20, type: 'range', color: 'red' },
             { label: 'TIME', subLabel: 'Passes', percentage: 50, type: 'range', color: 'orange' },
@@ -1981,60 +1981,56 @@ export const TOPICS: Topic[] = [
         id: '9-6-b',
         type: 'concept',
         title: 'Analysis',
-        imageUrl: IMG_SURGICAL_CONCEPT,
+        imageUrl: IMG_SPORT_WHISTLE,
         bulletPoints: [
-            { lang: 'en', label: 'Past Point', text: 'Mistake happens here.' },
-            { lang: 'en', label: 'Present Point', text: 'Looking back with regret.' },
-            { lang: 'en', label: 'Check', text: 'Did I do it? Yes. Was it good? No.' }
+            { lang: 'en', label: 'Past Point', text: 'The foul happened here.' },
+            { lang: 'en', label: 'Present Point', text: 'Looking back at the red card.' }
         ]
       },
       {
         id: '9-7',
         type: 'concept',
         title: '3 Examples',
-        imageUrl: IMG_SURGICAL_CONCEPT,
+        imageUrl: IMG_SPORT_GOAL,
         bulletPoints: [
-            { lang: 'en', label: 'Self-Regret', text: '"I SHOULD HAVE GONE to bed earlier."' },
-            { lang: 'en', label: 'Criticism', text: '"You SHOULDN\'T HAVE LAUGHED at him."' },
-            { lang: 'en', label: 'Polite Advice', text: '"You SHOULD HAVE TOLD me you were coming!"' }
+            { lang: 'en', label: 'Self-Regret', text: '"I SHOULD HAVE TRAINED harder."' },
+            { lang: 'en', label: 'Criticism', text: '"The ref SHOULDN\'T HAVE GIVEN a red card."' },
+            { lang: 'en', label: 'Advice (Too late)', text: '"You SHOULD HAVE WORN boots!"' }
         ]
       },
       {
         id: '9-8',
         type: 'test',
         title: 'Test 1',
-        imageUrl: IMG_SURGICAL_TEST,
-        question: 'The movie was terrible. We ____ gone to see it.',
-        options: ['should have', 'shouldn\'t have', 'must have'],
-        correctAnswer: 1,
-        explanation: 'Regret: It was a mistake to go.'
+        imageUrl: IMG_SPORT_BALL,
+        question: 'The game was terrible. We ____ played better.',
+        options: ['should have', 'shouldn\'t have'],
+        correctAnswer: 0
       },
       {
         id: '9-9',
         type: 'test',
         title: 'Test 2',
-        imageUrl: IMG_SURGICAL_TEST,
-        question: 'You ____ invited Tom. He is really fun!',
-        options: ['should have', 'shouldn\'t have', 'would have'],
-        correctAnswer: 0,
-        explanation: 'Criticism: You didn\'t invite him, but it was a good idea.'
+        imageUrl: IMG_SPORT_WHISTLE,
+        question: 'You ____ argued with the referee. He kicked you out!',
+        options: ['should have', 'shouldn\'t have'],
+        correctAnswer: 1
       },
       {
         id: '9-10',
         type: 'test',
         title: 'Test 3',
-        imageUrl: IMG_SURGICAL_TEST,
-        question: 'I ____ left my phone in the car. It got stolen.',
-        options: ['shouldn\'t have', 'should have', 'didn\'t have'],
-        correctAnswer: 0,
-        explanation: 'Regret about a bad action.'
+        imageUrl: IMG_SPORT_GOAL,
+        question: 'I ____ brought my jersey. I forgot it.',
+        options: ['shouldn\'t have', 'should have'],
+        correctAnswer: 1
       },
       {
         id: '9-11',
         type: 'quiz',
         title: 'True/False',
-        imageUrl: IMG_SURGICAL_TEST,
-        question: '"Should have" is used to give advice for the future.',
+        imageUrl: IMG_SPORT_BALL,
+        question: '"Should have" is used to give advice for the next game.',
         options: ['True', 'False'],
         correctAnswer: 1,
         explanation: 'False. It is for the past.'
@@ -2043,9 +2039,9 @@ export const TOPICS: Topic[] = [
         id: '9-12',
         type: 'quiz',
         title: 'Spot the Mistake',
-        imageUrl: IMG_SURGICAL_TEST,
-        question: 'Is "You should have go to the doctor" correct?',
-        options: ['Yes', 'No, "gone"'],
+        imageUrl: IMG_SPORT_WHISTLE,
+        question: 'Is "You should have catch the ball" correct?',
+        options: ['Yes', 'No, "caught"'],
         correctAnswer: 1,
         explanation: 'V3 required.'
       },
@@ -2053,17 +2049,17 @@ export const TOPICS: Topic[] = [
         id: '9-13',
         type: 'quiz',
         title: 'Context Match',
-        imageUrl: IMG_SURGICAL_TEST,
-        question: 'You are wet because you forgot your umbrella.',
-        options: ['I should have brought my umbrella.', 'I shouldn\'t have brought my umbrella.'],
+        imageUrl: IMG_SPORT_GOAL,
+        question: 'You are injured because you didn\'t stretch.',
+        options: ['I should have stretched.', 'I shouldn\'t have stretched.'],
         correctAnswer: 0
       },
       {
         id: '9-14',
         type: 'test',
         title: 'Rapid Fire',
-        imageUrl: IMG_SURGICAL_TEST,
-        question: '"He ____ worn sunscreen."',
+        imageUrl: IMG_SPORT_BALL,
+        question: '"He ____ drunk water."',
         options: ['should have', 'shouldn\'t have'],
         correctAnswer: 0
       },
@@ -2071,50 +2067,51 @@ export const TOPICS: Topic[] = [
         id: '9-15',
         type: 'gap-fill',
         title: 'Gap Fill 1',
-        imageUrl: IMG_SURGICAL_CONCEPT,
-        leadText: '"I didn\'t study for the test. I __________ (study) more."',
-        correctAnswer: 'should have studied'
+        imageUrl: IMG_SPORT_WHISTLE,
+        leadText: '"I didn\'t defend well. I __________ (defend) better."',
+        correctAnswer: 'should have defended'
       },
       {
         id: '9-16',
         type: 'gap-fill',
         title: 'Gap Fill 2',
-        imageUrl: IMG_SURGICAL_CONCEPT,
-        leadText: '"We got lost. We __________ (take) a map."',
-        correctAnswer: 'should have taken'
+        imageUrl: IMG_SPORT_GOAL,
+        leadText: '"We lost. We __________ (score) more goals."',
+        correctAnswer: 'should have scored'
       },
       {
         id: '9-17',
         type: 'gap-fill',
         title: 'Gap Fill 3',
-        imageUrl: IMG_SURGICAL_CONCEPT,
-        leadText: '"My stomach hurts. I __________ (eat) so much chocolate."',
-        correctAnswer: 'shouldn\'t have eaten'
+        imageUrl: IMG_SPORT_BALL,
+        leadText: '"My leg hurts. I __________ (kick) so hard."',
+        correctAnswer: 'shouldn\'t have kicked'
       },
       {
         id: '9-18',
         type: 'reading',
-        title: 'Reading Comprehension',
-        imageUrl: IMG_SURGICAL_TEST,
-        passage: 'The \'Love Bug\' virus was a disaster. Millions of people received an email with the subject \'I Love You\'. They opened it, and it destroyed their files. Security experts said people **should have been** more suspicious. They **shouldn\'t have opened** emails from strangers. Companies **should have warned** their employees sooner.',
-        question: 'Did people open the email?',
+        title: 'Match Report',
+        imageUrl: IMG_SPORT_GOAL,
+        passage: 'Real Madrid lost the classic. The manager said they **should have been** more aggressive. The defenders **shouldn\'t have left** Messi open. The goalkeeper **should have saved** the last shot.',
+        question: 'Did the goalkeeper save the shot?',
         options: ['Yes.', 'No.'],
-        correctAnswer: 0
+        correctAnswer: 1
       },
       {
         id: '9-19',
         type: 'speaking',
         title: 'Speaking Task',
-        imageUrl: IMG_SURGICAL_INTRO,
+        imageUrl: IMG_SPORT_WHISTLE,
         leadText: 'Record your opinion.',
         speakingPrompts: [
-          'A girl posted a photo of her friend sleeping. Comment on it.',
-          'You stayed up all night watching TikToks and failed. Regret it.',
-          'Your friend bought expensive shoes but has no money. Criticize gently.'
+          'Uzbekistan lost the match. Criticize the coach using "should have".',
+          'You bought expensive boots but they hurt. Regret it.',
+          'Your friend stopped playing football. Tell him it was a mistake.'
         ]
       }
     ]
   },
+  // ... Modules 10 and 11 kept exactly as is ...
   {
     id: 'topic-10',
     title: '12.1 Reported Speech: Wukong\'s Wisdom',
@@ -2508,7 +2505,7 @@ export const TOPICS: Topic[] = [
         title: 'Meaning & Definition',
         imageUrl: IMG_WUKONG_SCROLL,
         bulletPoints: [
-          { lang: 'en', label: 'Word Order', text: 'Change to Statement order (S-V). No do/does/did.' },
+          { lang: 'en', label: 'Word Order', text: 'Change to Statement order (S-V). No do/does/did. "What DID you post?"' },
           { lang: 'en', label: 'Yes/No Questions', text: 'Use IF or WHETHER.' },
           { lang: 'en', label: 'Wh- Questions', text: 'Keep question word (Where, What).' },
           { lang: 'uz', label: 'So‘z tartibi', text: 'Darak gap tartibi. Do/did tushib qoladi.' },
