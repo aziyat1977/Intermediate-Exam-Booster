@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { SlideContent } from '../types';
 import { Card, Button, Badge } from './UI';
 import { Timeline3D } from './Timeline3D';
-import { Mic, CheckCircle, XCircle, Volume2, Globe, Sparkles, Feather, Scroll, Wand2, BookOpen } from 'lucide-react';
+import { Mic, CheckCircle, XCircle, Globe, Sparkles, Feather, Scroll, Wand2, BookOpen } from 'lucide-react';
 import { checkAudio } from '../services/geminiService';
 
 interface SlideRendererProps {
@@ -32,7 +32,10 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({ slide, theme, dark
   const [selectedOption, setSelectedOption] = useState<number | null>(null);
   const [feedback, setFeedback] = useState<string | null>(null);
   const [gapText, setGapText] = useState('');
-  const [revealedItems, setRevealedItems] = useState<number[]>([]);
+  
+  // Speaking state
+  const [isRecording, setIsRecording] = useState(false);
+  const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   
   const [showRu, setShowRu] = useState(false);
   const [showUz, setShowUz] = useState(false);
@@ -72,17 +75,18 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({ slide, theme, dark
   useEffect(() => { isMounted.current = true; return () => { isMounted.current = false; }; }, []);
 
   useEffect(() => {
+    // Reset state on slide change
     setSelectedOption(null);
     setFeedback(null);
     setGapText('');
     setShowRu(false);
     setShowUz(false);
-    setRevealedItems([0, 1, 2, 3]); // Reveal all by default for visibility
+    setIsRecording(false);
+    if (mediaRecorderRef.current) {
+        mediaRecorderRef.current.stop();
+        mediaRecorderRef.current = null;
+    }
   }, [slide.id]);
-
-  const handleReveal = (idx: number) => {
-    if (!revealedItems.includes(idx)) setRevealedItems([...revealedItems, idx]);
-  };
 
   const handleQuizSubmit = (index: number) => {
     if (selectedOption !== null) return;
@@ -90,6 +94,39 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({ slide, theme, dark
     const isCorrect = index === slide.correctAnswer;
     onScore(isCorrect);
     setFeedback(isCorrect ? (slide.explanation || 'Excellent!') : 'Try again, wizard.');
+  };
+
+  const handleStartRecording = async () => {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      const recorder = new MediaRecorder(stream);
+      const chunks: BlobPart[] = [];
+      
+      recorder.ondataavailable = (e) => chunks.push(e.data);
+      recorder.onstop = async () => {
+        const blob = new Blob(chunks, { type: 'audio/webm' });
+        setFeedback("Analyzing spell pronunciation...");
+        const result = await checkAudio(blob, slide.speakingPrompts?.[0] || "Speaking practice");
+        if (isMounted.current) setFeedback(result);
+        stream.getTracks().forEach(track => track.stop());
+      };
+      
+      recorder.start();
+      mediaRecorderRef.current = recorder;
+      setIsRecording(true);
+      setFeedback("Listening...");
+    } catch (err) {
+      console.error("Mic Error", err);
+      setFeedback("Microphone access denied. Please allow microphone permissions.");
+    }
+  };
+
+  const handleStopRecording = () => {
+    if (mediaRecorderRef.current) {
+      mediaRecorderRef.current.stop();
+      setIsRecording(false);
+      mediaRecorderRef.current = null;
+    }
   };
 
   const renderMarkdown = (text?: string) => {
@@ -194,7 +231,74 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({ slide, theme, dark
            </div>
         );
 
-      case 'quiz': // Kahoot Style
+      case 'speaking':
+        return (
+          <div className="flex flex-col h-full items-center justify-center gap-8 relative z-10">
+            <div className={`p-6 rounded-full border-4 ${tc.border} ${isRecording ? 'animate-pulse bg-red-500/20' : 'bg-black/20'}`}>
+               <Mic className={`w-16 h-16 ${isRecording ? 'text-red-500' : tc.highlight}`} />
+            </div>
+            <h3 className={`text-3xl font-magic text-center ${tc.text}`}>{slide.speakingPrompts?.[0] || "Tap to Speak"}</h3>
+            
+            <Button onClick={isRecording ? handleStopRecording : handleStartRecording} 
+              className={isRecording ? "bg-red-600 border-red-400 hover:bg-red-700" : ""}
+            >
+              {isRecording ? "Stop Recording" : "Start Answer"}
+            </Button>
+
+            {feedback && (
+               <div className={`mt-4 p-6 rounded-xl text-center font-serif text-lg animate-pop border-2 max-h-[200px] overflow-y-auto bg-black/40 ${tc.border} ${tc.text}`}>
+                 {feedback}
+               </div>
+            )}
+          </div>
+        );
+
+      case 'gap-fill':
+        return (
+          <div className="flex flex-col h-full items-center justify-center gap-8 relative z-10 max-w-4xl mx-auto w-full">
+            <h3 className={`text-3xl md:text-5xl font-magic font-bold leading-tight ${tc.text} drop-shadow-lg text-center`}>
+              {renderMarkdown(slide.question?.replace('____', '_______'))}
+            </h3>
+            
+            <div className="flex gap-4 w-full max-w-lg">
+               <input 
+                 type="text" 
+                 value={gapText}
+                 onChange={(e) => setGapText(e.target.value)}
+                 className={`flex-1 p-4 text-xl rounded-xl border-2 bg-transparent outline-none transition-all ${tc.border} ${tc.text} placeholder-white/30 focus:shadow-[0_0_15px_rgba(255,255,255,0.3)]`}
+                 placeholder="Type answer..."
+                 disabled={selectedOption !== null}
+                 onKeyDown={(e) => {
+                    if (e.key === 'Enter' && gapText.trim() && selectedOption === null) {
+                       const isCorrect = slide.correctAnswer?.toString().toLowerCase() === gapText.trim().toLowerCase();
+                       setSelectedOption(isCorrect ? 1 : 0);
+                       onScore(isCorrect);
+                       setFeedback(isCorrect ? (slide.explanation || 'Perfect!') : `Correct answer: ${slide.correctAnswer}`);
+                    }
+                 }}
+               />
+               <Button onClick={() => {
+                  if(!gapText.trim()) return;
+                  const isCorrect = slide.correctAnswer?.toString().toLowerCase() === gapText.trim().toLowerCase();
+                  setSelectedOption(isCorrect ? 1 : 0);
+                  onScore(isCorrect);
+                  setFeedback(isCorrect ? (slide.explanation || 'Perfect!') : `Correct answer: ${slide.correctAnswer}`);
+               }} disabled={selectedOption !== null}>
+                 Check
+               </Button>
+            </div>
+             
+            {feedback && (
+              <div className={`mt-4 p-6 rounded-xl text-center font-black text-2xl animate-pop border-4 ${
+                feedback.includes('Correct') ? 'bg-red-100 border-red-500 text-red-800' : 'bg-green-100 border-green-500 text-green-800'
+              }`}>
+                {feedback}
+              </div>
+            )}
+          </div>
+        );
+
+      case 'quiz': 
       case 'test':
         return (
           <div className="flex flex-col h-full gap-4 md:gap-8 relative z-10 justify-center max-w-5xl mx-auto w-full">

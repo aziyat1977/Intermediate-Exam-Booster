@@ -15,14 +15,14 @@ export const Timeline3D: React.FC<Timeline3DProps> = ({ points, context }) => {
     return () => clearTimeout(timer);
   }, []);
 
-  const getSpellColor = (color?: string) => {
+  const getSpellTheme = (color?: string) => {
     switch (color) {
-      case 'green': return 'text-emerald-400 border-emerald-500 shadow-emerald-500/50 bg-emerald-500'; // Avada/Slytherin
-      case 'red': return 'text-red-400 border-red-500 shadow-red-500/50 bg-red-500'; // Expelliarmus
-      case 'purple': return 'text-purple-400 border-purple-500 shadow-purple-500/50 bg-purple-500'; // Sleeping
-      case 'orange': return 'text-orange-400 border-orange-500 shadow-orange-500/50 bg-orange-500'; // Fire
-      case 'gold': return 'text-yellow-400 border-yellow-500 shadow-yellow-500/50 bg-yellow-500'; // Light
-      default: return 'text-blue-400 border-blue-500 shadow-blue-500/50 bg-blue-500'; // Patronus
+      case 'green': return { text: 'text-emerald-400', border: 'border-emerald-500', shadow: 'shadow-emerald-500/50', bg: 'bg-emerald-500' };
+      case 'red': return { text: 'text-red-400', border: 'border-red-500', shadow: 'shadow-red-500/50', bg: 'bg-red-500' };
+      case 'purple': return { text: 'text-purple-400', border: 'border-purple-500', shadow: 'shadow-purple-500/50', bg: 'bg-purple-500' };
+      case 'orange': return { text: 'text-orange-400', border: 'border-orange-500', shadow: 'shadow-orange-500/50', bg: 'bg-orange-500' };
+      case 'gold': return { text: 'text-yellow-400', border: 'border-yellow-500', shadow: 'shadow-yellow-500/50', bg: 'bg-yellow-500' };
+      default: return { text: 'text-blue-400', border: 'border-blue-500', shadow: 'shadow-blue-500/50', bg: 'bg-blue-500' };
     }
   };
 
@@ -51,7 +51,7 @@ export const Timeline3D: React.FC<Timeline3DProps> = ({ points, context }) => {
         </div>
 
         {points.map((point, index) => {
-          const colorClass = getSpellColor(point.color);
+          const theme = getSpellTheme(point.color);
           const leftPos = getPosition(point.percentage);
           const delay = index * 300;
 
@@ -64,7 +64,7 @@ export const Timeline3D: React.FC<Timeline3DProps> = ({ points, context }) => {
               
               {/* Spell Impact Burst */}
               <div 
-                className={`absolute w-8 h-8 rounded-full border-2 bg-black ${colorClass.replace('bg-', 'border-')} shadow-[0_0_30px_currentColor] z-30 transition-all duration-500`}
+                className={`absolute w-8 h-8 rounded-full border-2 bg-black ${theme.border} ${theme.shadow.replace('shadow-', 'shadow-[0_0_30px_')} z-30 transition-all duration-500`}
                 style={{
                     transform: isVisible ? 'scale(1)' : 'scale(0)',
                     transitionDelay: `${delay}ms`
@@ -85,7 +85,7 @@ export const Timeline3D: React.FC<Timeline3DProps> = ({ points, context }) => {
 
               {/* Label Card - Floating Parchment */}
               <div 
-                className={`absolute -top-32 min-w-[140px] p-3 rounded bg-[#0c1220]/90 border ${colorClass.replace('bg-', 'border-')} backdrop-blur-md text-center transform-gpu transition-all duration-700`}
+                className={`absolute -top-32 min-w-[140px] p-3 rounded bg-[#0c1220]/90 border ${theme.border} backdrop-blur-md text-center transform-gpu transition-all duration-700 shadow-lg`}
                 style={{ 
                   opacity: isVisible ? 1 : 0,
                   transform: isVisible ? 'translateY(0) rotateX(0)' : 'translateY(20px) rotateX(90deg)',
@@ -93,10 +93,10 @@ export const Timeline3D: React.FC<Timeline3DProps> = ({ points, context }) => {
                 }}
               >
                 <div className={`text-xl font-magic font-bold text-white mb-1 drop-shadow-md`}>{point.label}</div>
-                {point.subLabel && <div className={`text-xs font-serif uppercase tracking-widest ${colorClass.split(' ')[0]}`}>{point.subLabel}</div>}
+                {point.subLabel && <div className={`text-xs font-serif uppercase tracking-widest ${theme.text}`}>{point.subLabel}</div>}
                 
                 {/* Floating Particles around card */}
-                <Sparkles className={`absolute -top-4 -right-4 w-6 h-6 ${colorClass.split(' ')[0]} animate-spin-slow`} />
+                <Sparkles className={`absolute -top-4 -right-4 w-6 h-6 ${theme.text} animate-spin-slow`} />
               </div>
 
             </div>

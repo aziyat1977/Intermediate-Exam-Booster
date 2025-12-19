@@ -17,42 +17,110 @@ const IMG_BROOM = svg(`${HP_DEFS}<path d="M100 300 L600 250" stroke="#92400e" st
 const IMG_SCROLL = svg(`${HP_DEFS}<rect x="150" y="100" width="500" height="400" fill="#fef3c7"/><text x="400" y="200" font-family="serif" font-size="30" fill="#78350f" text-anchor="middle">THE DAILY PROPHET</text><rect x="200" y="250" width="400" height="200" fill="none" stroke="#78350f"/>`, HP_BG);
 const IMG_OWL = svg(`${HP_DEFS}<circle cx="400" cy="300" r="100" fill="#e2e8f0"/><circle cx="360" cy="280" r="20" fill="#0f172a"/><circle cx="440" cy="280" r="20" fill="#0f172a"/><path d="M400 320 L380 350 L420 350 Z" fill="#fbbf24"/><text x="400" y="500" font-family="serif" font-size="40" fill="#fff" text-anchor="middle">HEDWIG</text>`, HP_BG);
 
+// NEW SPECIFIC ASSETS FOR YEAR 6
+const IMG_VICTORY = svg(`${HP_DEFS}<path d="M300 500 L300 300 L400 200 L500 300 L500 500 Z" fill="#740001" opacity="0.8"/><circle cx="400" cy="180" r="40" fill="#fcd34d" filter="url(#glow)"/><path d="M400 500 L400 220" stroke="#d4af37" stroke-width="5"/><text x="400" y="550" font-family="serif" font-size="40" fill="#d4af37" text-anchor="middle">VICTORY</text>`, HP_BG);
+const IMG_NEVILLE = svg(`${HP_DEFS}<path d="M200 500 L250 350 L350 350 L400 500 Z" fill="#334155"/><circle cx="300" cy="300" r="40" fill="#e2e8f0"/><path d="M280 290 L290 310 L310 290" fill="none" stroke="#000" stroke-width="2"/><path d="M300 250 L300 280" stroke="#94a3b8" stroke-width="2"/><text x="600" y="100" font-family="serif" font-size="100" fill="#fff" opacity="0.2">SWEAT</text><rect x="0" y="0" width="800" height="600" fill="#78350f" opacity="0.2"/>`, HP_BG);
+const IMG_CLOCK = svg(`${HP_DEFS}<circle cx="400" cy="300" r="150" fill="#0f172a" stroke="#d4af37" stroke-width="10"/><path d="M400 300 L400 180" stroke="#d4af37" stroke-width="5"/><path d="M400 300 L500 300" stroke="#d4af37" stroke-width="5"/><circle cx="400" cy="300" r="10" fill="#d4af37"/><text x="400" y="550" font-family="serif" font-size="40" fill="#fff" text-anchor="middle">HOW LONG?</text>`, HP_BG);
+const IMG_THOUGHT = svg(`${HP_DEFS}<path d="M200 400 Q100 200 300 100 Q500 0 600 200 Q700 400 400 500 Q300 550 200 400" fill="#e2e8f0" opacity="0.9"/><text x="400" y="300" font-family="serif" font-size="60" fill="#0f172a" text-anchor="middle">KNOW</text><text x="400" y="380" font-family="serif" font-size="60" fill="#0f172a" text-anchor="middle">BELIEVE</text>`, HP_BG);
+
+
 export const TOPICS: Topic[] = [
   {
     id: 'topic-1',
     title: '6.2 Present Perfect: The Battle',
     theme: 'hp-gryffindor',
     slides: [
+      // 1. IMMERSIVE INTRO
       {
-        id: '1-1', type: 'intro', title: 'Context', imageUrl: IMG_CASTLE, leadText: 'The Battle of Hogwarts is over.',
-        bulletPoints: [ { lang: 'en', label: 'Harry', text: 'Harry is standing still. He holds the broken Elder Wand.' }, { lang: 'en', label: 'Neville', text: 'Neville is wiping sweat and dust from his face.' } ]
-      },
-      {
-        id: '1-2', type: 'concept', title: 'Meaning (MFP)', imageUrl: IMG_WAND, leadText: 'Simple vs Continuous',
-        bulletPoints: [
-          { lang: 'en', label: 'Simple', text: '**Result**. The action is finished. We care about the achievement.' },
-          { lang: 'en', label: 'Continuous', text: '**Activity**. The action has side effects (dirty, tired). We care about the process.' }
+        id: '1-1', type: 'intro', title: 'The Aftermath', imageUrl: IMG_CASTLE, leadText: 'The Battle of Hogwarts is over.',
+        bulletPoints: [ 
+          { lang: 'en', label: 'Scene', text: 'The sun is rising over the ruined castle. The air is still.' },
+          { lang: 'en', label: 'Harry', text: 'He is standing silently. The war is finished.' },
+          { lang: 'en', label: 'Neville', text: 'He is sitting on a rock, breathing hard, covered in dust.' } 
         ]
       },
+      
+      // 2. MEANING: SIMPLE (RESULT)
       {
-        id: '1-3', type: 'timeline', title: 'Timeline', leadText: 'Visualizing the Difference', visualContext: 'The Spell Casting',
-        visualData: [ { label: 'Start', percentage: 10, type: 'start', color: 'blue' }, { label: 'Been Fighting', subLabel: 'Process', percentage: 50, type: 'range', color: 'gold' }, { label: 'Has Won', subLabel: 'Result', percentage: 90, type: 'end', color: 'red' } ]
-      },
-      {
-        id: '1-4', type: 'concept', title: 'Form (MFP)', imageUrl: IMG_SCROLL, leadText: 'Grammar Formulas',
+        id: '1-2', type: 'concept', title: 'Meaning 1: Simple', imageUrl: IMG_VICTORY, leadText: 'Focus on RESULT',
         bulletPoints: [
-          { lang: 'en', label: 'Simple', text: '`S + have/has + V3` (Harry **has won**).' },
-          { lang: 'en', label: 'Continuous', text: '`S + have/has + been + V-ing` (Neville **has been fighting**).' }
+          { lang: 'en', label: 'Concept', text: 'We use **Present Perfect Simple** when the action is finished and the RESULT is important.' },
+          { lang: 'en', label: 'Example', text: 'Harry **has defeated** Voldemort.' },
+          { lang: 'ru', label: 'RU', text: 'Гарри победил Волан-де-Морта. (Результат: он мертв)' },
+          { lang: 'uz', label: 'UZ', text: 'Garri Voldemortni mag‘lub etdi. (Natija)' }
         ]
       },
-      { id: '1-q1', type: 'quiz', title: 'Kahoot: Form', question: 'She ____ the potion.', options: ['has drunk', 'has drank', 'have drunk', 'has been drunk'], correctAnswer: 0, explanation: 'Drink - Drank - Drunk (V3).' },
-      { id: '1-q2', type: 'quiz', title: 'Kahoot: Usage', question: 'Look at his hands! He ____ in the garden.', options: ['worked', 'has worked', 'has been working', 'works'], correctAnswer: 2, explanation: 'Dirty hands = Visible side effect of recent activity.' },
+
+      // 3. MEANING: CONTINUOUS (PROCESS)
       {
-        id: '1-5', type: 'reading', title: 'Reading Practice', 
-        passage: "Harry looked around the Great Hall. He has defeated the Dark Lord at last. The war has ended, but many friends have fallen. Hermione has been crying for an hour, her eyes red and puffy. Ron has been comforting her.",
-        question: "Why are Hermione's eyes red?"
+        id: '1-3', type: 'concept', title: 'Meaning 2: Continuous', imageUrl: IMG_NEVILLE, leadText: 'Focus on ACTIVITY',
+        bulletPoints: [
+          { lang: 'en', label: 'Concept', text: 'We use **Present Perfect Continuous** when the activity was long, recent, and has visible SIDE EFFECTS.' },
+          { lang: 'en', label: 'Example', text: 'Neville **has been fighting** all night.' },
+          { lang: 'ru', label: 'RU', text: 'Невилл сражался всю ночь. (Процесс, он грязный)' },
+          { lang: 'uz', label: 'UZ', text: 'Nevill tuni bilan jang qildi. (Jarayon)' }
+        ]
       },
-      { id: '1-t1', type: 'test', title: 'Final Test', question: 'Harry ____ 3 horcruxes.', options: ['has destroyed', 'has been destroying'], correctAnswer: 0, explanation: 'Quantity (3) requires Simple.' }
+
+      // 4. TIMELINE VISUALIZATION
+      {
+        id: '1-4', type: 'timeline', title: 'Timeline Comparison', leadText: 'Result vs Process', visualContext: 'The Spell',
+        visualData: [ 
+          { label: 'Start', percentage: 10, type: 'start', color: 'blue' }, 
+          { label: 'Been Fighting', subLabel: 'The Process (Sweat)', percentage: 50, type: 'range', color: 'orange' }, 
+          { label: 'Has Won', subLabel: 'The Result (Victory)', percentage: 90, type: 'end', color: 'gold' } 
+        ]
+      },
+
+      // 5. FORM & PRONUNCIATION
+      {
+        id: '1-5', type: 'concept', title: 'Form & Pronunciation', imageUrl: IMG_SCROLL, leadText: 'The Grammar Spell',
+        bulletPoints: [
+          { lang: 'en', label: 'Simple', text: '`S + have/has + V3` -> "I **have eaten**."' },
+          { lang: 'en', label: 'Continuous', text: '`S + have/has + been + V-ing` -> "I **have been eating**."' },
+          { lang: 'en', label: 'Sound', text: 'We use contractions: "I\'ve been", "She\'s been".' }
+        ]
+      },
+
+      // 6. KAHOOT CHECK 1
+      { id: '1-q1', type: 'quiz', title: 'Kahoot: Form', question: 'Harry ____ the Snitch.', options: ['has caught', 'has been catching', 'have caught', 'catching'], correctAnswer: 0, explanation: 'Result: He has it in his hand now.' },
+
+      // 7. SURGICAL RULE: STATE VERBS
+      {
+        id: '1-6', type: 'concept', title: 'Surgical Rule: State Verbs', imageUrl: IMG_THOUGHT, leadText: 'Mental Magic',
+        bulletPoints: [
+          { lang: 'en', label: 'Rule', text: 'Verbs of the mind, feeling, or possession CANNOT be Continuous.' },
+          { lang: 'en', label: 'List', text: 'Know, Believe, Like, Love, Have (possession), Understand.' },
+          { lang: 'en', label: 'Example', text: '"I **have known** Ron for years." (NOT have been knowing).' },
+          { lang: 'ru', label: 'RU', text: 'Глаголы состояния не используются в Continuous.' },
+          { lang: 'uz', label: 'UZ', text: 'Holat fe’llari Continuous zamonida ishlatilmaydi.' }
+        ]
+      },
+      
+      // 8. KAHOOT CHECK 2
+      { id: '1-q2', type: 'quiz', title: 'Kahoot: State Verbs', question: 'I ____ my wand for 7 years.', options: ['have had', 'have been having', 'had', 'having'], correctAnswer: 0, explanation: 'Have (possession) is a state verb.' },
+
+      // 9. SURGICAL RULE: QUANTITY VS DURATION
+      {
+        id: '1-7', type: 'concept', title: 'Rule: Quantity vs Duration', imageUrl: IMG_CLOCK, leadText: 'Counting vs Timing',
+        bulletPoints: [
+          { lang: 'en', label: 'How Many (Simple)', text: 'If you count the number of times/things -> **Simple**. "He has drunk **3** potions."' },
+          { lang: 'en', label: 'How Long (Continuous)', text: 'If you focus on the time -> **Continuous**. "He has been flying **for 2 hours**."' }
+        ]
+      },
+
+      // 10. KAHOOT CHECK 3
+      { id: '1-q3', type: 'quiz', title: 'Kahoot: Quantity', question: 'Hermione ____ ten books today.', options: ['has read', 'has been reading', 'reading', 'read'], correctAnswer: 0, explanation: 'Quantity (10 books) = Simple.' },
+
+      // 11. READING PASSAGE
+      {
+        id: '1-8', type: 'reading', title: 'Reading: The Letter', 
+        passage: "Dear Mum, I hope you are well. I have been studying for my O.W.L.s all week. I am exhausted! I have read five textbooks and I have written three essays. Ron has been helping me, but he has fallen asleep.",
+        question: "Why is the writer exhausted?"
+      },
+
+      // 12. FINAL TEST
+      { id: '1-t1', type: 'test', title: 'Gap Fill Challenge', question: 'Look at the ground! It ____ (rain).', options: ['has rained', 'has been raining'], correctAnswer: 1, explanation: 'Visible side effect (wet ground) = Continuous.' }
     ]
   },
   {
@@ -60,29 +128,95 @@ export const TOPICS: Topic[] = [
     title: '9.2 Deduction: Potions',
     theme: 'hp-slytherin',
     slides: [
+      // 1. INTRO
       {
-        id: '2-1', type: 'intro', title: 'Context', imageUrl: IMG_POTION, leadText: 'Snape finds a mysterious cauldron.',
-        bulletPoints: [ { lang: 'en', label: 'Evidence', text: 'It is pink. It bubbles. It smells like obsession.' } ]
-      },
-      {
-        id: '2-2', type: 'concept', title: 'Meaning (MFP)', imageUrl: IMG_SCROLL, leadText: 'Levels of Certainty',
-        bulletPoints: [
-          { lang: 'en', label: 'Must', text: '**90-100% Sure**. We have strong evidence.' },
-          { lang: 'en', label: 'Can\'t', text: '**90-100% Impossible**. We are sure it is NOT true.' },
-          { lang: 'en', label: 'Might/Could', text: '**50% Possible**. Maybe yes, maybe no.' }
+        id: '2-1', type: 'intro', title: 'The Pink Cauldron', imageUrl: IMG_POTION, leadText: 'Snape finds a mysterious cauldron.',
+        bulletPoints: [ 
+            { lang: 'en', label: 'Scene', text: 'The dungeon is cold. A lonely cauldron bubbles in the corner.' },
+            { lang: 'en', label: 'Evidence', text: 'It is bright pink. It smells like strawberries and obsession.' } 
         ]
       },
+      
+      // 2. CONCEPT: MUST
       {
-        id: '2-3', type: 'timeline', title: 'Certainty Scale', leadText: 'Probability Meter', visualContext: 'Truth Serum',
-        visualData: [ { label: "CAN'T", subLabel: 'Impossible', percentage: 10, type: 'point', color: 'red' }, { label: "MIGHT", subLabel: 'Maybe', percentage: 50, type: 'point', color: 'purple' }, { label: "MUST", subLabel: 'Certain', percentage: 90, type: 'point', color: 'green' } ]
+        id: '2-2', type: 'concept', title: 'Meaning 1: MUST', imageUrl: IMG_VICTORY, leadText: 'The Logic of Certainty',
+        bulletPoints: [
+          { lang: 'en', label: 'Certainty', text: '**95-100% Sure**. The evidence is overwhelming.' },
+          { lang: 'en', label: 'Example', text: '"It smells like Amortentia. It **must be** a love potion."' },
+          { lang: 'ru', label: 'RU', text: 'Это, должно быть, любовное зелье.' },
+          { lang: 'uz', label: 'UZ', text: 'Bu sevgi damlamasi bo‘lsa kerak.' }
+        ]
       },
-      { id: '2-q1', type: 'quiz', title: 'Kahoot: Logic', question: 'He is wearing a Slytherin robe. He ____ be a Gryffindor.', options: ['must', 'might', "can't", "mustn't"], correctAnswer: 2, explanation: 'It is impossible.' },
-      { id: '2-q2', type: 'quiz', title: 'Kahoot: Deduction', question: 'The broom is very fast. It ____ be a Firebolt.', options: ['must', 'can', 'should', 'need'], correctAnswer: 0, explanation: 'Strong evidence.' },
+
+      // 3. CONCEPT: CAN'T
       {
-        id: '2-4', type: 'reading', title: 'Reading: The Mystery',
+        id: '2-3', type: 'concept', title: 'Meaning 2: CAN\'T', imageUrl: IMG_CASTLE, leadText: 'The Logic of Impossibility',
+        bulletPoints: [
+          { lang: 'en', label: 'Impossibility', text: '**95-100% Impossible**. The evidence proves it is NOT true.' },
+          { lang: 'en', label: 'Example', text: '"It is clear like water. It **can\'t be** Polyjuice." (Polyjuice is mud-colored).' },
+          { lang: 'en', label: 'Note', text: 'We do NOT use "mustn\'t" for deduction.' }
+        ]
+      },
+
+      // 4. CONCEPT: MIGHT/COULD
+      {
+        id: '2-4', type: 'concept', title: 'Meaning 3: MIGHT/COULD', imageUrl: IMG_THOUGHT, leadText: 'The Fog of Uncertainty',
+        bulletPoints: [
+          { lang: 'en', label: 'Possibility', text: '**50% Possible**. It is possible, but not certain.' },
+          { lang: 'en', label: 'Example', text: '"It is gold. It **might be** Felix Felicis. Or it **could be** fake."' },
+          { lang: 'ru', label: 'RU', text: 'Возможно, это Феликс Фелицис.' },
+          { lang: 'uz', label: 'UZ', text: 'Balki bu Feliks Felicisdir.' }
+        ]
+      },
+
+      // 5. TIMELINE
+      {
+        id: '2-5', type: 'timeline', title: 'Certainty Scale', leadText: 'Probability Meter', visualContext: 'Truth Serum',
+        visualData: [ { label: "CAN'T", subLabel: 'Impossible (0%)', percentage: 10, type: 'start', color: 'red' }, { label: "MIGHT", subLabel: 'Maybe (50%)', percentage: 50, type: 'point', color: 'purple' }, { label: "MUST", subLabel: 'Certain (100%)', percentage: 90, type: 'end', color: 'green' } ]
+      },
+
+      // 6. SURGICAL RULE: MUSTN'T vs CAN'T
+      {
+        id: '2-6', type: 'concept', title: 'Surgical Rule: The Trap', imageUrl: IMG_SCROLL, leadText: 'Prohibition vs Logic',
+        bulletPoints: [
+          { lang: 'en', label: 'Mustn\'t', text: 'Rules & Laws. "You **mustn\'t** drink this!" (It is forbidden).' },
+          { lang: 'en', label: 'Can\'t', text: 'Logic & Deduction. "It **can\'t** be poison." (It smells too sweet).' },
+          { lang: 'en', label: 'Trap', text: 'Never say "He mustn\'t be home" to mean "He isn\'t home". Say "He **can\'t** be home".' }
+        ]
+      },
+
+      // 7. KAHOOT CHECK 1
+      { id: '2-q1', type: 'quiz', title: 'Kahoot: The Trap', question: 'Harry isn\'t in his bed. He ____ be in the dormitory.', options: ['mustn\'t', 'can\'t', 'shouldn\'t', 'not'], correctAnswer: 1, explanation: 'Logical impossibility = Can\'t.' },
+
+      // 8. CONCEPT: CONTINUOUS
+      {
+        id: '2-7', type: 'concept', title: 'Advanced: Continuous', imageUrl: IMG_NEVILLE, leadText: 'Action in Progress',
+        bulletPoints: [
+          { lang: 'en', label: 'Form', text: '`Modal + be + V-ing`.' },
+          { lang: 'en', label: 'Usage', text: 'When we deduce an action happening NOW.' },
+          { lang: 'en', label: 'Example', text: '"Snape is looking at Harry. He **must be reading** his mind."' }
+        ]
+      },
+
+      // 9. KAHOOT CHECK 2
+      { id: '2-q2', type: 'quiz', title: 'Kahoot: Continuous', question: 'Listen to that boom! Seamus ____ pyrotechnics again.', options: ['must do', 'must be doing', 'can do', 'might do'], correctAnswer: 1, explanation: 'Action happening right now (Listen!) = Must be doing.' },
+
+      // 10. READING PASSAGE
+      {
+        id: '2-8', type: 'reading', title: 'Reading: The Mystery',
         passage: "Draco is walking down the hall. He looks nervous. He keeps checking his pocket. He might be hiding something. It could be a cursed necklace. It can't be a book, because the object is too small.",
         question: "Why can't it be a book?"
-      }
+      },
+      
+      // 11. SPEAKING
+      {
+        id: '2-9', type: 'speaking', title: 'Speaking: Deduction', speakingPrompts: ['Look at the evidence: The floor is wet. Deduce why.'],
+        leadText: 'Be the Detective',
+        bulletPoints: [ { lang: 'en', label: 'Tip', text: 'Use "must be + ing" or "might be".' } ]
+      },
+
+      // 12. FINAL TEST
+      { id: '2-t1', type: 'test', title: 'Final Deduction', question: 'The potion turns him into a cat. It ____ be Polyjuice!', options: ['must', 'can\'t'], correctAnswer: 1, explanation: 'Polyjuice only changes you into humans. It is impossible.' }
     ]
   },
   {
@@ -269,19 +403,112 @@ export const TOPICS: Topic[] = [
     theme: 'hp-dark',
     slides: [
       {
-        id: '10-1', type: 'intro', title: 'Context', imageUrl: IMG_WAND, leadText: 'Dumbledore\'s Memories.',
-        bulletPoints: [ { lang: 'en', label: 'Direct', text: 'Voldemort: "I am great."' }, { lang: 'en', label: 'Reported', text: 'Harry: "He said he was great."' } ]
+        id: '10-1', type: 'intro', title: 'The Pensieve', imageUrl: IMG_WAND, leadText: 'Dumbledore\'s Memories',
+        bulletPoints: [ { lang: 'en', label: 'Context', text: 'We are stepping into a memory. We are reporting what people said in the past.' } ]
       },
+      
+      // --- SECTION 1: PRESENT -> PAST ---
       {
-        id: '10-2', type: 'concept', title: 'Form (MFP)', imageUrl: IMG_SCROLL, leadText: 'The Backshift',
+        id: '10-p1-1', type: 'concept', title: '1. Present -> Past', imageUrl: IMG_SCROLL, leadText: 'The Backshift Rule',
         bulletPoints: [
-          { lang: 'en', label: 'Present', text: 'Becomes **Past**. (am -> was)' },
-          { lang: 'en', label: 'Past', text: 'Becomes **Past Perfect**. (did -> had done)' },
-          { lang: 'en', label: 'Will', text: 'Becomes **Would**.' }
+          { lang: 'en', label: 'Meaning', text: 'When we report past speech, we shift the tense BACK one step into the past.' },
+          { lang: 'en', label: 'Form', text: 'Direct: Present Simple (`V1`) -> Reported: Past Simple (`V2`).' },
+          { lang: 'en', label: 'Pronouns', text: 'I -> He/She.' }
         ]
       },
-      { id: '10-q1', type: 'quiz', title: 'Kahoot: Shift', question: '"I have a plan." -> He said he ____ a plan.', options: ['has', 'had', 'have', 'having'], correctAnswer: 1 },
-      { id: '10-q2', type: 'quiz', title: 'Kahoot: Shift', question: '"I saw him." -> He said he ____ him.', options: ['saw', 'had seen', 'has seen', 'sees'], correctAnswer: 1 }
+      {
+        id: '10-p1-2', type: 'concept', title: 'Examples: Present -> Past', imageUrl: IMG_CASTLE, leadText: 'Listen and Report',
+        bulletPoints: [
+          { lang: 'en', label: 'Ex 1', text: 'Direct: "I **am** Lord Voldemort."' },
+          { lang: 'en', label: 'Reported', text: 'He said he **was** Lord Voldemort.' },
+          { lang: 'ru', label: 'RU', text: 'Он сказал, что он Лорд Волан-де-Морт.' },
+          { lang: 'uz', label: 'UZ', text: 'U Lord Voldemort ekanligini aytdi.' },
+          
+          { lang: 'en', label: 'Ex 2', text: 'Direct: "I **study** at Hogwarts."' },
+          { lang: 'en', label: 'Reported', text: 'He said he **studied** at Hogwarts.' },
+          { lang: 'ru', label: 'RU', text: 'Он сказал, что учился в Хогвартсе.' },
+          { lang: 'uz', label: 'UZ', text: 'U Xogvartsda o‘qishini aytdi.' },
+
+          { lang: 'en', label: 'Ex 3', text: 'Direct: "I **want** power."' },
+          { lang: 'en', label: 'Reported', text: 'He said he **wanted** power.' },
+          { lang: 'ru', label: 'RU', text: 'Он сказал, что хочет власти.' },
+          { lang: 'uz', label: 'UZ', text: 'U hokimiyatni xohlashini aytdi.' }
+        ]
+      },
+      {
+        id: '10-p1-3', type: 'timeline', title: 'Time Shift', leadText: 'Shifting Back', visualContext: 'Memory',
+        visualData: [ { label: 'Direct Speech', subLabel: 'Present', percentage: 20, type: 'start', color: 'blue' }, { label: 'Reported Speech', subLabel: 'Past', percentage: 60, type: 'point', color: 'purple' }, { label: 'Now', percentage: 90, type: 'end', color: 'gold' } ]
+      },
+      { id: '10-p1-k', type: 'quiz', title: 'Kahoot: Present -> Past', question: '"I like snakes." -> He said he ____ snakes.', options: ['likes', 'liked', 'has liked', 'liking'], correctAnswer: 1 },
+      { id: '10-p1-t', type: 'test', title: 'Gap Fill', question: '"I am busy." -> Tom said he ____ busy.', options: ['is', 'was'], correctAnswer: 1 },
+
+      // --- SECTION 2: PAST -> PAST PERFECT ---
+      {
+        id: '10-p2-1', type: 'concept', title: '2. Past -> Past Perfect', imageUrl: IMG_POTION, leadText: 'Double Past',
+        bulletPoints: [
+          { lang: 'en', label: 'Meaning', text: 'If the direct speech is ALREADY in the past, it moves to the "Past of the Past".' },
+          { lang: 'en', label: 'Form', text: 'Direct: Past Simple (`V2`) -> Reported: Past Perfect (`had + V3`).' }
+        ]
+      },
+      {
+        id: '10-p2-2', type: 'concept', title: 'Examples: Past -> Past Perfect', imageUrl: IMG_SNITCH, leadText: 'Deep Memories',
+        bulletPoints: [
+          { lang: 'en', label: 'Ex 1', text: 'Direct: "I **opened** the Chamber."' },
+          { lang: 'en', label: 'Reported', text: 'He said he **had opened** the Chamber.' },
+          { lang: 'ru', label: 'RU', text: 'Он сказал, что открыл Тайную комнату.' },
+          { lang: 'uz', label: 'UZ', text: 'U Sirli xonani ochganini aytdi.' },
+          
+          { lang: 'en', label: 'Ex 2', text: 'Direct: "We **won** the Cup."' },
+          { lang: 'en', label: 'Reported', text: 'They said they **had won** the Cup.' },
+          { lang: 'ru', label: 'RU', text: 'Они сказали, что выиграли Кубок.' },
+          { lang: 'uz', label: 'UZ', text: 'Ular Kubokni yutganliklarini aytishdi.' },
+
+          { lang: 'en', label: 'Ex 3', text: 'Direct: "I **found** the diadem."' },
+          { lang: 'en', label: 'Reported', text: 'He said he **had found** the diadem.' },
+          { lang: 'ru', label: 'RU', text: 'Он сказал, что нашел диадему.' },
+          { lang: 'uz', label: 'UZ', text: 'U diademani topganini aytdi.' }
+        ]
+      },
+      {
+        id: '10-p2-3', type: 'timeline', title: 'Double Shift', leadText: 'Past to Pre-Past', visualContext: 'Ancient History',
+        visualData: [ { label: 'Direct', subLabel: 'Past', percentage: 40, type: 'start', color: 'blue' }, { label: 'Reported', subLabel: 'Past Perfect', percentage: 20, type: 'point', color: 'purple' }, { label: 'Now', percentage: 90, type: 'end', color: 'gold' } ]
+      },
+      { id: '10-p2-k', type: 'quiz', title: 'Kahoot: Past -> P.Perfect', question: '"I saw him." -> She said she ____ him.', options: ['saw', 'sees', 'had seen', 'has seen'], correctAnswer: 2 },
+      { id: '10-p2-t', type: 'test', title: 'Gap Fill', question: '"I lost my wand." -> He said he ____ his wand.', options: ['lost', 'had lost'], correctAnswer: 1 },
+
+      // --- SECTION 3: WILL -> WOULD ---
+      {
+        id: '10-p3-1', type: 'concept', title: '3. Will -> Would', imageUrl: IMG_BROOM, leadText: 'Future in the Past',
+        bulletPoints: [
+          { lang: 'en', label: 'Meaning', text: 'Promises or predictions made in the past.' },
+          { lang: 'en', label: 'Form', text: 'Direct: `Will + V1` -> Reported: `Would + V1`.' }
+        ]
+      },
+      {
+        id: '10-p3-2', type: 'concept', title: 'Examples: Will -> Would', imageUrl: IMG_OWL, leadText: 'Past Promises',
+        bulletPoints: [
+          { lang: 'en', label: 'Ex 1', text: 'Direct: "I **will** return."' },
+          { lang: 'en', label: 'Reported', text: 'He said he **would** return.' },
+          { lang: 'ru', label: 'RU', text: 'Он сказал, что вернется.' },
+          { lang: 'uz', label: 'UZ', text: 'U qaytishini aytdi.' },
+          
+          { lang: 'en', label: 'Ex 2', text: 'Direct: "It **will** be easy."' },
+          { lang: 'en', label: 'Reported', text: 'He said it **would** be easy.' },
+          { lang: 'ru', label: 'RU', text: 'Он сказал, что это будет легко.' },
+          { lang: 'uz', label: 'UZ', text: 'U bu oson bo‘lishini aytdi.' },
+
+          { lang: 'en', label: 'Ex 3', text: 'Direct: "We **will** fight."' },
+          { lang: 'en', label: 'Reported', text: 'They said they **would** fight.' },
+          { lang: 'ru', label: 'RU', text: 'Они сказали, что будут сражаться.' },
+          { lang: 'uz', label: 'UZ', text: 'Ular kurashishlarini aytishdi.' }
+        ]
+      },
+      {
+        id: '10-p3-3', type: 'timeline', title: 'Future Shift', leadText: 'Will becomes Would', visualContext: 'Prophecy',
+        visualData: [ { label: 'Said', subLabel: 'Past', percentage: 20, type: 'start', color: 'blue' }, { label: '"Will"', subLabel: 'Future from Past', percentage: 50, type: 'range', color: 'purple' }, { label: 'Now', percentage: 80, type: 'end', color: 'gold' } ]
+      },
+      { id: '10-p3-k', type: 'quiz', title: 'Kahoot: Will -> Would', question: '"I will help." -> He said he ____ help.', options: ['will', 'would', 'can', 'should'], correctAnswer: 1 },
+      { id: '10-p3-t', type: 'test', title: 'Gap Fill', question: '"The train will leave." -> He said the train ____ leave.', options: ['will', 'would'], correctAnswer: 1 }
     ]
   },
   {
@@ -301,7 +528,7 @@ export const TOPICS: Topic[] = [
           { lang: 'en', label: 'Order', text: 'Change to Statement Order (Subject + Verb).' }
         ]
       },
-      { id: '11-q1', type: 'quiz', title: 'Kahoot: Connector', question: 'He asked ____ I liked magic.', options: ['that', 'if', 'what', 'did'], correctAnswer: 1 },
+      { id: '11-q1', type: 'quiz', title: 'Kahoot: Connector', question: 'He asked ____ I liked magic.', options: ['that', 'if', 'what', 'did'], correctAnswer: 1, explanation: 'Should have + V3.' },
       { id: '11-q2', type: 'quiz', title: 'Kahoot: Word Order', question: 'She asked what ____.', options: ['time is it', 'time it was', 'time was it', 'is it time'], correctAnswer: 1 }
     ]
   }
