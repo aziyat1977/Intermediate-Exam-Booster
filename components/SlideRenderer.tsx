@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { SlideContent } from '../types';
 import { Card, Button, Badge } from './UI';
 import { Timeline3D } from './Timeline3D';
-import { Mic, CheckCircle, XCircle, Volume2, Globe, AlertCircle, Eye, EyeOff } from 'lucide-react';
+import { Mic, CheckCircle, XCircle, Volume2, Globe, AlertCircle, Eye, EyeOff, Brain, Target, MessageSquare, Zap, Layers, Sparkles } from 'lucide-react';
 import { checkAudio } from '../services/geminiService';
 
 interface SlideRendererProps {
@@ -15,8 +15,6 @@ interface SlideRendererProps {
 const AudioVisualizer: React.FC<{ stream: MediaStream | null; recording: boolean; theme?: string }> = ({ stream, recording, theme }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const animationRef = useRef<number>();
-  const analyserRef = useRef<AnalyserNode | null>(null);
-  const dataArrayRef = useRef<Uint8Array | null>(null);
 
   useEffect(() => {
     if (!stream || !recording || !canvasRef.current) return;
@@ -26,13 +24,10 @@ const AudioVisualizer: React.FC<{ stream: MediaStream | null; recording: boolean
     const source = audioCtx.createMediaStreamSource(stream);
     
     source.connect(analyser);
-    analyser.fftSize = 256;
+    analyser.fftSize = 64; // Low res for chunky retro look
     const bufferLength = analyser.frequencyBinCount;
     const dataArray = new Uint8Array(bufferLength);
     
-    analyserRef.current = analyser;
-    dataArrayRef.current = dataArray;
-
     const canvas = canvasRef.current;
     const canvasCtx = canvas.getContext('2d');
     if (!canvasCtx) return;
@@ -42,20 +37,20 @@ const AudioVisualizer: React.FC<{ stream: MediaStream | null; recording: boolean
       analyser.getByteFrequencyData(dataArray);
 
       canvasCtx.clearRect(0, 0, canvas.width, canvas.height);
-      const barWidth = (canvas.width / bufferLength) * 2.5;
+      const barWidth = (canvas.width / bufferLength) * 1.5;
       let barHeight;
       let x = 0;
 
       for (let i = 0; i < bufferLength; i++) {
-        barHeight = dataArray[i] / 2;
+        barHeight = (dataArray[i] / 255) * canvas.height;
         
-        let color = `rgb(${barHeight + 100}, 50, 200)`; // Default purple/blue
-        if (theme === 'gta') color = `rgb(50, ${barHeight + 150}, 50)`;
-        if (theme === 'wukong') color = `rgb(${barHeight + 150}, ${barHeight + 100}, 50)`;
+        let color = `rgba(14, 165, 233, ${dataArray[i]/255})`; // Blue
+        if (theme === 'gta') color = `rgba(34, 197, 94, ${dataArray[i]/255})`; // Green
+        if (theme === 'wukong') color = `rgba(245, 158, 11, ${dataArray[i]/255})`; // Gold
 
         canvasCtx.fillStyle = color;
-        canvasCtx.fillRect(x, canvas.height - barHeight, barWidth, barHeight);
-        x += barWidth + 1;
+        canvasCtx.fillRect(x, canvas.height - barHeight, barWidth - 2, barHeight);
+        x += barWidth;
       }
     };
 
@@ -67,15 +62,13 @@ const AudioVisualizer: React.FC<{ stream: MediaStream | null; recording: boolean
     };
   }, [stream, recording, theme]);
 
-  return <canvas ref={canvasRef} width={300} height={100} className="w-full h-24 rounded-xl opacity-80" />;
+  return <canvas ref={canvasRef} width={300} height={100} className="w-full h-32 rounded-xl mix-blend-screen" />;
 };
 
 export const SlideRenderer: React.FC<SlideRendererProps> = ({ slide, theme, onScore }) => {
   const [selectedOption, setSelectedOption] = useState<number | null>(null);
   const [feedback, setFeedback] = useState<string | null>(null);
   const [gapText, setGapText] = useState('');
-  
-  // Interactive Reveal State
   const [revealedItems, setRevealedItems] = useState<number[]>([]);
   
   // Audio State
@@ -94,13 +87,32 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({ slide, theme, onSc
   const streamRef = useRef<MediaStream | null>(null);
   const isMounted = useRef(true);
 
-  // Theme check
+  // Theme Helpers
   const isGTA = theme === 'gta';
   const isWukong = theme === 'wukong';
 
+  // Styles based on theme
+  const getThemeColors = () => {
+    if (isGTA) return { 
+        text: 'text-green-50', subtext: 'text-green-300', bg: 'bg-slate-900', border: 'border-green-500/30', 
+        highlight: 'text-green-400', accent: 'bg-green-600', cardBg: 'bg-slate-800/80' 
+    };
+    if (isWukong) return { 
+        text: 'text-amber-50', subtext: 'text-amber-200', bg: 'bg-[#450a0a]', border: 'border-amber-500/30', 
+        highlight: 'text-amber-400', accent: 'bg-amber-600', cardBg: 'bg-[#2a0a0a]/80' 
+    };
+    return { 
+        text: 'text-slate-900 dark:text-white', subtext: 'text-slate-600 dark:text-slate-300', 
+        bg: 'bg-[#e0e5ec] dark:bg-slate-900', border: 'border-white/50 dark:border-slate-700', 
+        highlight: 'text-surgical-600 dark:text-surgical-400', accent: 'bg-surgical-500', 
+        cardBg: 'bg-white/50 dark:bg-slate-800/50' 
+    };
+  };
+
+  const tc = getThemeColors();
+
   useEffect(() => { isMounted.current = true; return () => { isMounted.current = false; }; }, []);
 
-  // Reset state on slide change
   useEffect(() => {
     setSelectedOption(null);
     setFeedback(null);
@@ -110,15 +122,8 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({ slide, theme, onSc
     setShowRu(false);
     setShowUz(false);
     setMicError(null);
-    setRevealedItems([0]); // Always reveal first item
+    setRevealedItems([0]);
   }, [slide.id]);
-
-  useEffect(() => {
-    return () => {
-      if (audioUrl) URL.revokeObjectURL(audioUrl);
-      if (streamRef.current) streamRef.current.getTracks().forEach(track => track.stop());
-    };
-  }, [audioUrl]);
 
   useEffect(() => {
     if (audioBlob) {
@@ -131,58 +136,39 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({ slide, theme, onSc
   }, [audioBlob]);
 
   const handleReveal = (idx: number) => {
-    if (!revealedItems.includes(idx)) {
-      setRevealedItems([...revealedItems, idx]);
-    }
+    if (!revealedItems.includes(idx)) setRevealedItems([...revealedItems, idx]);
   };
 
   const handleQuizSubmit = (index: number) => {
-    if (selectedOption !== null) return; // Lock after selection
+    if (selectedOption !== null) return;
     setSelectedOption(index);
     const isCorrect = index === slide.correctAnswer;
     onScore(isCorrect);
-    
-    if (isCorrect) {
-      setFeedback(slide.explanation || 'Correct!');
-    } else {
-      setFeedback('Incorrect. Try again.');
-    }
+    setFeedback(isCorrect ? (slide.explanation || 'Correct!') : 'Incorrect. Try again.');
   };
 
   const handleGapSubmit = () => {
     if (feedback === 'Correct!') return;
     const isCorrect = gapText.toLowerCase().trim() === String(slide.correctAnswer).toLowerCase();
     onScore(isCorrect);
-    
-    if (isCorrect) {
-      setFeedback('Correct!');
-    } else {
-      setFeedback(`Answer: ${slide.correctAnswer}`);
-    }
+    setFeedback(isCorrect ? 'Correct!' : `Answer: ${slide.correctAnswer}`);
   };
 
   const startRecording = async () => {
     setMicError(null);
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-      if (!isMounted.current) {
-        stream.getTracks().forEach(track => track.stop());
-        return;
-      }
-      
+      if (!isMounted.current) { stream.getTracks().forEach(track => track.stop()); return; }
       streamRef.current = stream;
       const recorder = new MediaRecorder(stream);
       const chunks: BlobPart[] = [];
-      
       recorder.ondataavailable = (e) => chunks.push(e.data);
       recorder.onstop = () => {
         const blob = new Blob(chunks, { type: recorder.mimeType || 'audio/webm' });
         if (isMounted.current) setAudioBlob(blob);
-        // Don't stop tracks here if we want visualizer to persist, but for this logic we stop them
         stream.getTracks().forEach(track => track.stop());
         streamRef.current = null;
       };
-      
       recorder.start();
       if (isMounted.current) setIsRecording(true);
       mediaRecorderRef.current = recorder;
@@ -193,21 +179,19 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({ slide, theme, onSc
   };
 
   const stopRecording = () => {
-    if (mediaRecorderRef.current && mediaRecorderRef.current.state !== 'inactive') {
-        mediaRecorderRef.current.stop();
-    }
+    if (mediaRecorderRef.current && mediaRecorderRef.current.state !== 'inactive') mediaRecorderRef.current.stop();
     if (isMounted.current) setIsRecording(false);
   };
 
   const analyzeAudio = async () => {
     if (!audioBlob) return;
     setAnalyzing(true);
-    const prompt = slide.speakingPrompts && slide.speakingPrompts.length > 0 ? slide.speakingPrompts[0] : slide.title;
+    const prompt = slide.speakingPrompts?.[0] || slide.title;
     const response = await checkAudio(audioBlob, prompt);
     if (isMounted.current) {
       setAiAnalysis(response);
       setAnalyzing(false);
-      onScore(true); // Award points for completing speaking task
+      onScore(true);
     }
   };
 
@@ -216,100 +200,103 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({ slide, theme, onSc
     const parts = text.split(/(\*\*.*?\*\*)/g);
     return parts.map((part, index) => {
       if (part.startsWith('**') && part.endsWith('**')) {
-        return <strong key={index} className={`font-extrabold drop-shadow-sm ${isGTA ? 'text-green-400' : isWukong ? 'text-amber-600' : 'text-surgical-600'}`}>{part.slice(2, -2)}</strong>;
+        return <strong key={index} className={`font-extrabold ${tc.highlight}`}>{part.slice(2, -2)}</strong>;
       }
       return part;
     });
   };
 
-  const enPoints = slide.bulletPoints?.filter(bp => bp.lang === 'en') || [];
-  const uzPoints = slide.bulletPoints?.filter(bp => bp.lang === 'uz') || [];
-  const ruPoints = slide.bulletPoints?.filter(bp => bp.lang === 'ru') || [];
-
-  const LanguageToggles = ({ className = "" }: { className?: string }) => {
-    if ((!uzPoints.length && !ruPoints.length)) return null;
-    return (
-      <div className={`flex gap-2 ${className}`}>
-        {uzPoints.length > 0 && (
-          <button onClick={() => setShowUz(!showUz)} className={`px-3 py-1.5 rounded-lg font-bold text-xs transition-all active:scale-95 flex items-center gap-1.5 border border-white/50 ${showUz ? 'bg-surgical-500 text-white shadow-neon-blue' : 'bg-slate-200 text-slate-500'}`}>
-            <Globe className="w-3 h-3" /> UZ
-          </button>
-        )}
-        {ruPoints.length > 0 && (
-          <button onClick={() => setShowRu(!showRu)} className={`px-3 py-1.5 rounded-lg font-bold text-xs transition-all active:scale-95 flex items-center gap-1.5 border border-white/50 ${showRu ? 'bg-surgical-500 text-white shadow-neon-blue' : 'bg-slate-200 text-slate-500'}`}>
-            <Globe className="w-3 h-3" /> RU
-          </button>
-        )}
-      </div>
-    );
-  };
-
-  const InteractiveListItem = ({ bp, idx, revealed, onReveal }: any) => {
-    const isRevealed = revealedItems.includes(idx);
-    return (
-      <div 
-        onClick={() => { if(!isRevealed) handleReveal(idx); }}
-        className={`relative p-4 rounded-xl border transition-all duration-300 ${isRevealed ? 'translate-x-0 opacity-100' : 'cursor-pointer hover:bg-slate-100/50 translate-x-2 opacity-60'} ${isGTA ? 'bg-slate-800 border-slate-700' : isWukong ? 'bg-[#fffbeb] border-amber-200' : 'bg-[#e0e5ec] border-white/50'} shadow-sm mb-3`}
-      >
-        {!isRevealed && (
-          <div className="absolute inset-0 flex items-center justify-center bg-gray-200/50 backdrop-blur-sm rounded-xl z-10 font-bold text-xs uppercase tracking-widest text-slate-500 animate-pulse">
-            Click to Reveal Data
-          </div>
-        )}
-        <div className={`transition-filter duration-500 ${isRevealed ? '' : 'blur-sm'}`}>
-          <div className="flex items-center gap-2 mb-1">
-            <Badge color={isWukong ? 'bg-amber-600 text-white' : 'bg-surgical-500 text-white shadow-sm'}>EN</Badge>
-            <span className={`font-bold uppercase text-[10px] tracking-widest ${isWukong ? 'text-amber-800/60' : 'text-slate-400'}`}>{bp.label}</span>
-          </div>
-          <p className={`text-lg font-medium leading-snug ${isGTA ? 'text-slate-200' : isWukong ? 'text-[#451a03]' : 'text-slate-800'}`}>{renderMarkdown(bp.text)}</p>
-        </div>
-      </div>
-    );
+  // Decoration Logic
+  const renderBackgroundIcon = () => {
+    const commonClasses = "absolute -right-10 -bottom-10 w-96 h-96 opacity-5 pointer-events-none transform rotate-12 transition-all duration-1000";
+    switch (slide.type) {
+        case 'speaking': return <Mic className={commonClasses} />;
+        case 'quiz': 
+        case 'test': return <Brain className={commonClasses} />;
+        case 'gap-fill': return <Target className={commonClasses} />;
+        case 'timeline': return <Layers className={commonClasses} />;
+        default: return <Sparkles className={commonClasses} />;
+    }
   };
 
   const renderContent = () => {
+    const enPoints = slide.bulletPoints?.filter(bp => bp.lang === 'en') || [];
+    const uzPoints = slide.bulletPoints?.filter(bp => bp.lang === 'uz') || [];
+    const ruPoints = slide.bulletPoints?.filter(bp => bp.lang === 'ru') || [];
+
     switch (slide.type) {
       case 'intro':
       case 'concept':
         return (
-          <div className="flex flex-col h-full gap-4">
-             <div className={`flex-shrink-0 flex gap-4 items-start ${isGTA || isWukong ? 'flex-col md:flex-row' : ''}`}>
+          <div className="flex flex-col h-full gap-4 relative z-10">
+             <div className={`flex gap-6 items-start ${isGTA || isWukong ? 'flex-col md:flex-row' : ''}`}>
                 {slide.imageUrl && (
-                  <div className={`rounded-xl overflow-hidden shadow-lg border-2 border-[#e0e5ec] transition-transform hover:scale-105 duration-500 ${isGTA || isWukong ? 'w-full md:w-1/2 max-h-[250px]' : 'w-1/3 max-w-[180px] hidden md:block'}`}>
+                  <div className={`rounded-2xl overflow-hidden shadow-2xl border-4 ${tc.border} transition-all duration-500 hover:scale-[1.02] ${isGTA || isWukong ? 'w-full md:w-1/2 max-h-[250px]' : 'w-1/3 max-w-[200px] hidden md:block'}`}>
                     <img src={slide.imageUrl} alt="Visual" className="w-full h-full object-cover" />
+                    {/* Image Overlay Glitch for GTA */}
+                    {isGTA && <div className="absolute inset-0 bg-green-500/10 mix-blend-overlay animate-pulse"></div>}
                   </div>
                 )}
-                <div className="flex-1 w-full">
-                   {slide.leadText && <p className={`text-xl font-medium leading-relaxed animate-fade-in ${isGTA ? 'text-2xl text-slate-200' : isWukong ? 'text-2xl text-[#451a03] font-mythical' : 'md:text-2xl text-slate-700'}`}>{renderMarkdown(slide.leadText)}</p>}
-                   <LanguageToggles className="mt-3" />
+                <div className="flex-1 w-full space-y-4">
+                   {slide.leadText && <p className={`text-2xl font-bold leading-relaxed ${tc.text} animate-fade-in`}>{renderMarkdown(slide.leadText)}</p>}
+                   
+                   {/* Language Toggles */}
+                   {(uzPoints.length > 0 || ruPoints.length > 0) && (
+                     <div className="flex gap-2">
+                       {uzPoints.length > 0 && <button onClick={() => setShowUz(!showUz)} className={`px-4 py-2 rounded-xl font-bold text-xs flex items-center gap-2 border transition-all ${showUz ? `${tc.accent} text-white` : `${tc.cardBg} ${tc.subtext} ${tc.border}`}`}><Globe className="w-4 h-4"/> UZ</button>}
+                       {ruPoints.length > 0 && <button onClick={() => setShowRu(!showRu)} className={`px-4 py-2 rounded-xl font-bold text-xs flex items-center gap-2 border transition-all ${showRu ? `${tc.accent} text-white` : `${tc.cardBg} ${tc.subtext} ${tc.border}`}`}><Globe className="w-4 h-4"/> RU</button>}
+                     </div>
+                   )}
                 </div>
              </div>
 
-             <div className="flex-1 overflow-y-auto min-h-0 pr-2 space-y-3">
-                {enPoints.map((bp, idx) => (
-                  <InteractiveListItem key={`en-${idx}`} bp={bp} idx={idx} />
+             <div className="flex-1 overflow-y-auto min-h-0 pr-2 space-y-3 mt-4">
+                {enPoints.map((bp, idx) => {
+                  const isRevealed = revealedItems.includes(idx);
+                  return (
+                    <div key={idx} onClick={() => !isRevealed && handleReveal(idx)} 
+                         className={`relative p-5 rounded-2xl border transition-all duration-500 ${isRevealed ? `${tc.cardBg} ${tc.border} translate-x-0 opacity-100` : `cursor-pointer hover:bg-white/10 translate-x-4 opacity-50 border-transparent bg-black/5`}`}>
+                      {!isRevealed && <div className="absolute inset-0 flex items-center justify-center font-black uppercase tracking-widest text-xs opacity-50 animate-pulse">Click to Reveal</div>}
+                      <div className={isRevealed ? '' : 'blur-sm grayscale'}>
+                         <div className="flex items-center gap-2 mb-1">
+                            <Badge color={tc.accent + ' text-white'}>EN</Badge>
+                            <span className={`text-[10px] font-bold uppercase tracking-widest ${tc.subtext}`}>{bp.label}</span>
+                         </div>
+                         <p className={`text-lg font-medium ${tc.text}`}>{renderMarkdown(bp.text)}</p>
+                      </div>
+                    </div>
+                  );
+                })}
+                {showUz && uzPoints.map((bp, idx) => (
+                  <div key={idx} className="bg-emerald-500/10 p-4 rounded-xl border border-emerald-500/30 animate-fade-in-up">
+                    <p className={`text-base font-medium ${isGTA ? 'text-green-300' : 'text-emerald-700 dark:text-emerald-300'}`}>{renderMarkdown(bp.text)}</p>
+                  </div>
                 ))}
-                {showUz && uzPoints.map((bp, idx) => <div key={`uz-${idx}`} className="bg-emerald-50/50 p-3 rounded-xl border border-emerald-100 animate-pop"><p className="text-base text-slate-700 font-medium">{renderMarkdown(bp.text)}</p></div>)}
-                {showRu && ruPoints.map((bp, idx) => <div key={`ru-${idx}`} className="bg-indigo-50/50 p-3 rounded-xl border border-indigo-100 animate-pop"><p className="text-base text-slate-700 font-medium">{renderMarkdown(bp.text)}</p></div>)}
+                {showRu && ruPoints.map((bp, idx) => (
+                   <div key={idx} className="bg-indigo-500/10 p-4 rounded-xl border border-indigo-500/30 animate-fade-in-up">
+                    <p className={`text-base font-medium ${isGTA ? 'text-indigo-300' : 'text-indigo-700 dark:text-indigo-300'}`}>{renderMarkdown(bp.text)}</p>
+                  </div>
+                ))}
              </div>
           </div>
         );
 
       case 'timeline':
         return (
-          <div className="flex flex-col h-full">
-            <div className="text-center mb-2 shrink-0">
-               <p className={`text-xl font-medium ${isGTA ? 'text-slate-300' : isWukong ? 'text-[#451a03] font-mythical' : 'text-slate-700'}`}>{renderMarkdown(slide.leadText)}</p>
+          <div className="flex flex-col h-full relative z-10">
+            <div className="text-center mb-4">
+               <p className={`text-2xl font-bold ${tc.text}`}>{renderMarkdown(slide.leadText)}</p>
             </div>
-            <div className="h-64 md:h-72 w-full shrink-0">
+            <div className="h-64 md:h-80 w-full shrink-0 relative">
+               {/* 3D Timeline Visual */}
                {slide.visualData && <Timeline3D points={slide.visualData} context={slide.visualContext} />}
             </div>
-            <div className="flex justify-center my-2 shrink-0"><LanguageToggles /></div>
-            <div className="flex-1 overflow-y-auto min-h-0 space-y-2 pr-2">
+            
+            <div className="flex-1 overflow-y-auto mt-4 space-y-3 px-2">
                {enPoints.map((bp, idx) => (
-                 <div key={`en-${idx}`} className={`flex items-start gap-3 p-3 rounded-xl border shadow-sm cursor-help hover:scale-[1.02] transition-transform ${isGTA ? 'bg-slate-800 border-slate-600' : isWukong ? 'bg-[#fffbeb] border-amber-200' : 'bg-white/40 border-white'}`}>
-                    <div className={`w-1.5 h-1.5 rounded-full mt-2 shrink-0 ${isWukong ? 'bg-amber-600' : 'bg-surgical-500'}`} />
-                    <div><p className={`font-medium ${isGTA ? 'text-slate-300' : isWukong ? 'text-[#451a03]' : 'text-slate-800'}`}>{renderMarkdown(bp.text)}</p></div>
+                 <div key={idx} className={`flex items-start gap-4 p-4 rounded-2xl border transition-transform hover:scale-[1.01] ${tc.cardBg} ${tc.border}`}>
+                    <div className={`w-2 h-2 rounded-full mt-2.5 shrink-0 ${tc.accent} shadow-neon-blue`} />
+                    <p className={`text-lg font-medium ${tc.text}`}>{renderMarkdown(bp.text)}</p>
                  </div>
                ))}
             </div>
@@ -320,117 +307,92 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({ slide, theme, onSc
       case 'test':
       case 'reading':
         return (
-          <div className="flex flex-col h-full gap-4">
-            {isGTA && slide.imageUrl && (
-                <div className="w-full h-32 rounded-xl overflow-hidden shrink-0 border border-green-500/30">
-                    <img src={slide.imageUrl} className="w-full h-full object-cover opacity-80 hover:opacity-100 transition-opacity"/>
-                </div>
-            )}
+          <div className="flex flex-col h-full gap-6 relative z-10 justify-center">
             {slide.passage && (
-              <div className={`${isGTA ? 'bg-slate-800 border-slate-600 text-slate-300' : isWukong ? 'bg-[#fffbeb] border-amber-300 text-[#451a03]' : 'bg-[#e0e5ec] border-white/50 text-slate-700'} p-5 rounded-2xl shadow-inner border shrink-0 max-h-[25vh] overflow-y-auto`}>
-                 <p className="italic leading-relaxed text-lg font-serif">{renderMarkdown(slide.passage)}</p>
+              <div className={`${tc.cardBg} ${tc.border} p-6 rounded-2xl border shadow-inner max-h-[30vh] overflow-y-auto`}>
+                 <p className={`text-lg italic leading-relaxed font-serif ${tc.text}`}>{renderMarkdown(slide.passage)}</p>
               </div>
             )}
             
-            <h3 className={`text-2xl font-bold leading-tight shrink-0 ${isGTA ? 'text-slate-100' : isWukong ? 'text-[#451a03] font-mythical' : 'text-slate-800'}`}>{renderMarkdown(slide.question)}</h3>
+            <h3 className={`text-3xl font-black leading-tight ${tc.text} drop-shadow-sm`}>{renderMarkdown(slide.question)}</h3>
             
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-3 flex-shrink-0">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {slide.options?.map((opt, idx) => {
                 const isSelected = selectedOption === idx;
                 const isCorrect = idx === slide.correctAnswer;
-                let statusClass = isGTA ? "bg-slate-800 text-slate-300 border-slate-600 hover:bg-slate-700" : isWukong ? "bg-[#fffbeb] text-[#451a03] border-amber-200 hover:bg-amber-50" : "art-3d-btn-secondary bg-[#e0e5ec]";
                 
+                let btnStyle = `${tc.cardBg} ${tc.border} ${tc.text} hover:bg-opacity-80`;
                 if (isSelected) {
-                  statusClass = isCorrect 
-                    ? "bg-green-100 text-green-800 border-green-300 shadow-[inset_2px_2px_5px_#bbf7d0,inset_-2px_-2px_5px_#ffffff] scale-105" 
-                    : "bg-red-100 text-red-800 border-red-300 shadow-[inset_2px_2px_5px_#fecaca,inset_-2px_-2px_5px_#ffffff] animate-shake";
+                   btnStyle = isCorrect 
+                     ? 'bg-green-500/20 border-green-500 text-green-600 dark:text-green-400 shadow-[0_0_20px_rgba(34,197,94,0.3)]' 
+                     : 'bg-red-500/20 border-red-500 text-red-600 dark:text-red-400 shadow-[0_0_20px_rgba(239,68,68,0.3)]';
                 }
-                
+
                 return (
-                  <button
-                    key={idx}
-                    onClick={() => handleQuizSubmit(idx)}
-                    disabled={selectedOption !== null}
-                    className={`p-4 text-left font-bold text-lg transition-all ${statusClass} rounded-xl flex items-center justify-between group active:scale-95 border relative overflow-hidden`}
-                  >
-                    <span className="z-10">{opt}</span>
-                    {isSelected && (
-                      isCorrect 
-                        ? <CheckCircle className="w-5 h-5 text-green-600 animate-pop z-10" /> 
-                        : <XCircle className="w-5 h-5 text-red-500 animate-pop z-10" />
-                    )}
-                    {/* Hover Glow */}
-                    <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                  <button key={idx} onClick={() => handleQuizSubmit(idx)} disabled={selectedOption !== null}
+                    className={`p-6 text-left font-bold text-xl rounded-2xl border-2 transition-all duration-300 transform active:scale-95 flex justify-between items-center ${btnStyle}`}>
+                    <span>{opt}</span>
+                    {isSelected && (isCorrect ? <CheckCircle className="w-6 h-6" /> : <XCircle className="w-6 h-6" />)}
                   </button>
                 );
               })}
             </div>
             
-            <div className="flex-1 min-h-[60px]">
-              {feedback && (
-                <div className={`h-full p-4 rounded-xl animate-fade-in font-medium text-lg flex items-center justify-center text-center shadow-md ${
-                  selectedOption === slide.correctAnswer 
-                  ? 'bg-green-50 text-green-900 border border-green-200' 
-                  : 'bg-red-50 text-red-900 border border-red-200'
-                }`}>
-                  {renderMarkdown(feedback)}
-                </div>
-              )}
-            </div>
+            {feedback && (
+              <div className={`mt-auto p-4 rounded-xl text-center font-bold text-xl animate-pop ${
+                selectedOption === slide.correctAnswer ? 'bg-green-500 text-white shadow-neon-green' : 'bg-red-500 text-white shadow-neon-red'
+              }`}>
+                {feedback}
+              </div>
+            )}
           </div>
         );
 
       case 'gap-fill':
         return (
-          <div className="flex flex-col h-full justify-center gap-8">
-            <div className={`${isGTA ? 'bg-slate-800 border-slate-600' : isWukong ? 'bg-[#fffbeb] border-amber-300' : 'bg-[#e0e5ec] border-white/50'} p-8 rounded-3xl shadow-lg border relative overflow-hidden`}>
-              {/* Decorative Scan Line */}
-              <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-white to-transparent opacity-50 animate-shimmer"></div>
+          <div className="flex flex-col h-full justify-center gap-10 relative z-10">
+            <div className={`${tc.cardBg} ${tc.border} p-10 rounded-[2rem] border-2 shadow-2xl relative overflow-hidden group`}>
+              <div className={`absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-white to-transparent opacity-50 animate-shimmer`}></div>
               
-              <p className={`text-2xl leading-loose font-medium text-center ${isGTA ? 'text-slate-200' : isWukong ? 'text-[#451a03]' : 'text-slate-800'}`}>
+              <p className={`text-3xl leading-loose font-medium text-center ${tc.text}`}>
                 {slide.leadText?.split('__________').map((part, i, arr) => (
                   <React.Fragment key={i}>
                     {part}
                     {i < arr.length - 1 && (
-                      <input
-                        type="text"
-                        value={gapText}
-                        onChange={(e) => setGapText(e.target.value)}
-                        className={`mx-2 w-48 art-3d-input text-center font-bold text-xl focus:scale-110 transition-transform ${isGTA ? 'text-green-400 bg-slate-900 shadow-inner' : isWukong ? 'text-amber-800 bg-amber-50 border-amber-200' : 'text-surgical-600'}`}
-                        placeholder="?"
-                        autoComplete="off"
-                        autoFocus
-                      />
+                      <input type="text" value={gapText} onChange={(e) => setGapText(e.target.value)}
+                        className={`mx-3 w-56 art-3d-input text-center font-bold text-2xl focus:scale-110 transition-transform ${isGTA ? 'text-green-400' : 'text-surgical-600 dark:text-surgical-400'}`}
+                        placeholder="?" autoComplete="off" autoFocus />
                     )}
                   </React.Fragment>
                 ))}
               </p>
             </div>
             
-            <div className="flex flex-col items-center gap-4">
-              <Button onClick={handleGapSubmit} disabled={!gapText} className="min-w-[200px] !text-lg !py-4 shadow-3d-floating">Check Answer</Button>
-              {feedback && (
-                <div className={`mt-2 px-6 py-3 rounded-xl font-bold text-lg animate-pop ${
-                  feedback === 'Correct!' ? 'bg-green-100 text-green-700 shadow-neon-green' : 'bg-red-100 text-red-700 animate-shake'
-                }`}>
-                  {feedback}
-                </div>
-              )}
+            <div className="flex flex-col items-center gap-6">
+              <Button onClick={handleGapSubmit} disabled={!gapText} className="min-w-[200px] !text-xl !py-4 shadow-3d-light dark:shadow-3d-dark">Check Answer</Button>
+              {feedback && <div className={`px-8 py-4 rounded-2xl font-black text-xl animate-pop bg-white text-slate-900 shadow-xl`}>{feedback}</div>}
             </div>
           </div>
         );
 
       case 'speaking':
         return (
-          <div className="flex flex-col h-full justify-between">
-            <div className="art-glass-panel p-6 flex-1 flex flex-col">
-               <div className="shrink-0 mb-4">
-                 <p className={`text-xl font-bold mb-4 ${isGTA ? 'text-slate-200' : isWukong ? 'text-[#451a03] font-mythical' : 'text-slate-700'}`}>{slide.leadText}</p>
-                 <div className={`${isGTA ? 'bg-slate-800 border-slate-600' : isWukong ? 'bg-[#fffbeb] border-amber-300' : 'bg-white/50 border-white/60'} p-4 rounded-xl border`}>
-                    <ul className="space-y-3">
+          <div className="flex flex-col h-full justify-between relative z-10">
+            <div className={`${tc.cardBg} ${tc.border} p-6 rounded-3xl border flex-1 flex flex-col shadow-inner relative overflow-hidden`}>
+               {/* Visualizer BG */}
+               {isRecording && streamRef.current && (
+                 <div className="absolute inset-0 z-0 opacity-20 pointer-events-none">
+                    <AudioVisualizer stream={streamRef.current} recording={isRecording} theme={theme} />
+                 </div>
+               )}
+               
+               <div className="relative z-10 shrink-0 mb-6">
+                 <p className={`text-2xl font-bold mb-4 ${tc.text}`}>{slide.leadText}</p>
+                 <div className={`p-5 rounded-2xl border bg-black/5 ${tc.border}`}>
+                    <ul className="space-y-4">
                       {slide.speakingPrompts?.map((prompt, i) => (
-                        <li key={i} className={`flex items-start gap-3 font-medium text-lg ${isGTA ? 'text-slate-300' : isWukong ? 'text-[#451a03]' : 'text-slate-800'}`}>
-                          <span className={`${isWukong ? 'bg-amber-600' : 'bg-surgical-500'} text-white w-6 h-6 rounded-full flex items-center justify-center text-xs flex-shrink-0 mt-0.5`}>{i + 1}</span>
+                        <li key={i} className={`flex items-start gap-4 font-medium text-xl ${tc.text}`}>
+                          <span className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-black text-white ${tc.accent}`}>{i + 1}</span>
                           {renderMarkdown(prompt)}
                         </li>
                       ))}
@@ -438,42 +400,26 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({ slide, theme, onSc
                  </div>
                </div>
                
-               <div className="flex-1 flex flex-col items-center justify-center gap-6 min-h-0 relative">
-                 {/* VISUALIZER BACKGROUND */}
-                 {isRecording && streamRef.current && (
-                   <div className="absolute inset-0 flex items-center justify-center z-0 opacity-30 pointer-events-none">
-                     <AudioVisualizer stream={streamRef.current} recording={isRecording} theme={theme} />
-                   </div>
-                 )}
-
-                 {/* Mic Button */}
-                 <button
-                   onClick={isRecording ? stopRecording : startRecording}
-                   className={`w-32 h-32 art-3d-sphere shrink-0 z-10 ${isRecording ? 'recording scale-110 shadow-neon-red' : 'hover:scale-105'} transition-all duration-300`}
-                 >
-                   <Mic className={`w-14 h-14 text-white drop-shadow-md ${isRecording ? 'animate-pulse' : ''}`} />
+               <div className="flex-1 flex flex-col items-center justify-center gap-8 min-h-0 relative z-10">
+                 <button onClick={isRecording ? stopRecording : startRecording}
+                   className={`w-40 h-40 art-3d-sphere shrink-0 ${isRecording ? 'recording scale-110 shadow-neon-red' : 'hover:scale-105'} transition-all duration-300`}>
+                   <Mic className={`w-20 h-20 text-white drop-shadow-md ${isRecording ? 'animate-pulse' : ''}`} />
                  </button>
                  
-                 {micError && (
-                   <div className="bg-red-100 text-red-700 p-3 rounded-xl flex items-center gap-2 animate-shake z-10">
-                     <AlertCircle className="w-5 h-5" />
-                     <span className="text-sm font-bold">{micError}</span>
-                   </div>
-                 )}
+                 {micError && <div className="bg-red-500 text-white px-4 py-2 rounded-lg font-bold animate-shake">{micError}</div>}
                  
-                 <div className="w-full max-w-md space-y-3 z-10">
+                 <div className="w-full max-w-lg space-y-4">
                    {audioUrl && (
-                     <div className={`${isGTA ? 'bg-slate-800 border-slate-600' : isWukong ? 'bg-[#fffbeb] border-amber-300' : 'bg-white/50 border-white'} animate-fade-in p-3 rounded-xl border flex items-center gap-3 shadow-sm`}>
-                       <audio controls src={audioUrl} className="flex-1 h-8" />
-                       <Button onClick={analyzeAudio} disabled={analyzing} className="!py-1.5 !px-3 !text-xs whitespace-nowrap" variant="secondary">
+                     <div className={`p-4 rounded-xl border flex items-center gap-4 shadow-lg ${tc.cardBg} ${tc.border}`}>
+                       <audio controls src={audioUrl} className="flex-1 h-10 accent-surgical-500" />
+                       <Button onClick={analyzeAudio} disabled={analyzing} className="!py-2 !px-4 !text-sm whitespace-nowrap" variant="secondary">
                           {analyzing ? 'Thinking...' : 'Analyze'}
                        </Button>
                      </div>
                    )}
-
                    {aiAnalysis && (
-                     <div className={`${isGTA ? 'bg-slate-800 border-slate-600 text-slate-300' : isWukong ? 'bg-[#fffbeb] border-amber-300 text-[#451a03]' : 'bg-[#e0e5ec] border-white/50 text-slate-700'} p-4 rounded-xl shadow-inner max-h-[150px] overflow-y-auto border animate-pop`}>
-                       <p className="text-sm font-medium whitespace-pre-wrap">{renderMarkdown(aiAnalysis)}</p>
+                     <div className={`p-6 rounded-2xl shadow-inner max-h-[200px] overflow-y-auto border bg-black/5 ${tc.border} ${tc.text}`}>
+                       <p className="text-base font-medium whitespace-pre-wrap">{renderMarkdown(aiAnalysis)}</p>
                      </div>
                    )}
                  </div>
@@ -482,21 +428,30 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({ slide, theme, onSc
           </div>
         );
         
-      default:
-        return <div>Unknown Slide Type</div>;
+      default: return <div>Unknown Slide Type</div>;
     }
   };
 
   return (
-    <Card className="h-full flex flex-col p-0 overflow-hidden !bg-transparent !shadow-none !border-none perspective-500">
-      <div className="flex items-center gap-3 mb-2 shrink-0 px-1">
-        <Badge color={isGTA ? "bg-green-900 text-green-400 border border-green-500" : isWukong ? "bg-amber-100 text-amber-800 border border-amber-400" : "bg-slate-200 text-slate-600 border border-slate-300 shadow-sm"}>{slide.type.toUpperCase()}</Badge>
-        <h2 className={`text-3xl font-black tracking-tight leading-none ${isGTA ? 'text-slate-100' : isWukong ? 'text-[#451a03] font-mythical' : 'text-slate-800 shiny-text'}`}>{renderMarkdown(slide.title)}</h2>
+    <Card className="h-full flex flex-col p-0 overflow-hidden !bg-transparent !shadow-none !border-none perspective-1000">
+      <div className="flex items-center gap-4 mb-4 shrink-0 px-2 relative z-20">
+        <Badge color={isGTA ? "bg-green-900 text-green-400 border border-green-500" : isWukong ? "bg-amber-900 text-amber-400 border border-amber-500" : "bg-white text-slate-800 border border-slate-200 shadow-sm dark:bg-slate-700 dark:text-white dark:border-slate-600"}>{slide.type.toUpperCase()}</Badge>
+        <h2 className={`text-4xl font-black tracking-tight leading-none drop-shadow-md ${tc.text}`}>{renderMarkdown(slide.title)}</h2>
       </div>
       
-      <div className={`flex-1 rounded-3xl p-5 md:p-8 overflow-hidden relative border transition-all duration-500 transform hover:scale-[1.005] hover:shadow-2xl ${isGTA ? 'bg-slate-900 border-green-500/20 shadow-[0_0_50px_rgba(0,0,0,0.5)]' : isWukong ? 'bg-[#fffbeb] border-amber-500/30 shadow-[0_10px_40px_rgba(69,10,10,0.4)]' : 'bg-[#e0e5ec] shadow-[20px_20px_60px_#bec3c9,-20px_-20px_60px_#ffffff] border-white/60'}`}>
-         {/* Background glow for depth */}
-         <div className={`absolute top-0 right-0 w-64 h-64 opacity-20 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none ${isWukong ? 'bg-amber-400' : 'bg-white'}`}></div>
+      <div className={`flex-1 rounded-[2.5rem] p-6 md:p-10 overflow-hidden relative border transition-all duration-500 flex flex-col
+        ${isGTA ? 'bg-slate-950 border-green-500/50 shadow-[0_0_50px_rgba(34,197,94,0.2)]' : 
+          isWukong ? 'bg-[#2a0a0a] border-amber-500/50 shadow-[0_0_50px_rgba(217,119,6,0.2)]' : 
+          'bg-white/60 dark:bg-slate-900/80 backdrop-blur-xl border-white/60 dark:border-slate-700 shadow-2xl dark:shadow-3d-dark'}`}>
+         
+         {/* Decorative Background Elements (200% visuals) */}
+         {renderBackgroundIcon()}
+         {isGTA && <div className="absolute inset-0 scanline-overlay opacity-30 pointer-events-none"></div>}
+         
+         {/* Corner Accents */}
+         <div className={`absolute top-4 left-4 w-4 h-4 border-t-2 border-l-2 ${isGTA ? 'border-green-500' : isWukong ? 'border-amber-500' : 'border-slate-400 opacity-50'}`}></div>
+         <div className={`absolute bottom-4 right-4 w-4 h-4 border-b-2 border-r-2 ${isGTA ? 'border-green-500' : isWukong ? 'border-amber-500' : 'border-slate-400 opacity-50'}`}></div>
+
          {renderContent()}
       </div>
     </Card>

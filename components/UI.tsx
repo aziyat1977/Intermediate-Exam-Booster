@@ -12,10 +12,10 @@ export const Button: React.FC<React.ButtonHTMLAttributes<HTMLButtonElement> & { 
   className = '', 
   ...props 
 }) => {
-  const baseStyle = "px-6 py-3 font-bold text-base tracking-wide flex items-center justify-center gap-2 transform active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200";
+  const baseStyle = "px-6 py-3 font-bold text-base tracking-wide flex items-center justify-center gap-2 transform active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 relative overflow-hidden group";
   const variants = {
-    primary: "art-3d-btn-primary",
-    secondary: "art-3d-btn-secondary hover:text-surgical-600 hover:shadow-lg"
+    primary: "art-3d-btn-primary hover:brightness-110",
+    secondary: "art-3d-btn-secondary hover:text-surgical-600 dark:hover:text-surgical-400 hover:shadow-lg hover:-translate-y-0.5"
   };
 
   return (
@@ -23,7 +23,9 @@ export const Button: React.FC<React.ButtonHTMLAttributes<HTMLButtonElement> & { 
       className={`${baseStyle} ${variants[variant]} ${className}`} 
       {...props}
     >
-      {children}
+      <span className="relative z-10 flex items-center gap-2">{children}</span>
+      {/* Glow Effect on Hover */}
+      <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300 pointer-events-none"></div>
     </button>
   );
 };
@@ -31,9 +33,9 @@ export const Button: React.FC<React.ButtonHTMLAttributes<HTMLButtonElement> & { 
 export const ProgressBar: React.FC<{ current: number; total: number }> = ({ current, total }) => {
   const progress = ((current + 1) / total) * 100;
   return (
-    <div className="w-full h-2 art-3d-tube mt-2 relative p-[1px]">
+    <div className="w-full h-3 bg-slate-200 dark:bg-slate-800 rounded-full mt-2 relative overflow-hidden shadow-inner-light dark:shadow-inner-dark">
       <div 
-        className="h-full art-3d-tube-fill transition-all duration-700 ease-out"
+        className="h-full bg-gradient-to-r from-surgical-400 to-surgical-600 shadow-[0_0_10px_rgba(14,165,233,0.5)] transition-all duration-700 ease-out rounded-full"
         style={{ width: `${progress}%` }}
       />
     </div>
@@ -41,7 +43,7 @@ export const ProgressBar: React.FC<{ current: number; total: number }> = ({ curr
 };
 
 export const Badge: React.FC<{ children: React.ReactNode; color?: string }> = ({ children, color = 'bg-surgical-100 text-surgical-700' }) => (
-  <span className={`px-2 py-1 rounded-md text-[10px] font-black uppercase tracking-widest ${color}`}>
+  <span className={`px-3 py-1 rounded-lg text-[10px] font-black uppercase tracking-widest shadow-sm ${color}`}>
     {children}
   </span>
 );
