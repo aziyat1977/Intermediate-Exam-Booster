@@ -1,5 +1,69 @@
 import { Topic } from '../types';
 
+// --- SVG ASSET GENERATOR ---
+// We use Data URIs to ensure images are pre-loaded with the bundle (No placeholders)
+
+const svg = (content: string, bg: string) => 
+  `data:image/svg+xml;utf8,${encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" preserveAspectRatio="xMidYMid slice" style="background:${bg};width:100%;height:100%;">${content}</svg>`)}`;
+
+// 1. SURGICAL THEME (Blue/White, Clean, Geometric)
+const SURGICAL_BG = '#f0f9ff';
+const SURGICAL_DEFS = `
+  <defs>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#e0f2fe" stroke-width="1"/>
+    </pattern>
+    <linearGradient id="blueGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#38bdf8;stop-opacity:0.6" />
+      <stop offset="100%" style="stop-color:#0ea5e9;stop-opacity:0.1" />
+    </linearGradient>
+  </defs>
+  <rect width="100%" height="100%" fill="url(#grid)" />
+`;
+const IMG_SURGICAL_INTRO = svg(`${SURGICAL_DEFS}<circle cx="400" cy="300" r="150" fill="url(#blueGrad)"/><path d="M300 300 L500 300 L400 450 Z" fill="#0284c7" opacity="0.5"/><text x="400" y="300" font-family="sans-serif" font-weight="900" font-size="40" fill="#0369a1" text-anchor="middle" dominant-baseline="middle">MODULE INTRO</text>`, SURGICAL_BG);
+const IMG_SURGICAL_CONCEPT = svg(`${SURGICAL_DEFS}<rect x="200" y="150" width="400" height="300" rx="20" fill="url(#blueGrad)"/><circle cx="600" cy="150" r="50" fill="#0ea5e9"/><text x="400" y="300" font-family="sans-serif" font-weight="900" font-size="40" fill="#0369a1" text-anchor="middle">CONCEPT DATA</text>`, SURGICAL_BG);
+const IMG_SURGICAL_TEST = svg(`${SURGICAL_DEFS}<path d="M200 200 L600 200 L400 500 Z" fill="url(#blueGrad)" stroke="#0ea5e9" stroke-width="4"/><circle cx="400" cy="200" r="20" fill="#0284c7"/><text x="400" y="350" font-family="sans-serif" font-weight="900" font-size="40" fill="#ffffff" text-anchor="middle">ASSESSMENT</text>`, SURGICAL_BG);
+
+// 2. GTA THEME (Dark, Neon Green, Scanlines, Wireframe)
+const GTA_BG = '#020617';
+const GTA_DEFS = `
+  <defs>
+    <pattern id="gtaGrid" width="50" height="50" patternUnits="userSpaceOnUse">
+      <rect width="50" height="50" fill="none" stroke="#22c55e" stroke-width="0.5" opacity="0.3"/>
+    </pattern>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="2.5" result="coloredBlur"/>
+      <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <rect width="100%" height="100%" fill="#0f172a" />
+  <rect width="100%" height="100%" fill="url(#gtaGrid)" />
+`;
+const IMG_GTA_HEIST = svg(`${GTA_DEFS}<rect x="100" y="100" width="600" height="400" fill="none" stroke="#22c55e" stroke-width="4" filter="url(#glow)"/><text x="400" y="300" font-family="monospace" font-weight="bold" font-size="60" fill="#22c55e" text-anchor="middle" filter="url(#glow)">MISSION: HEIST</text><path d="M100 100 L200 200" stroke="#22c55e" stroke-width="2"/><path d="M700 100 L600 200" stroke="#22c55e" stroke-width="2"/>`, GTA_BG);
+const IMG_GTA_MONEY = svg(`${GTA_DEFS}<text x="400" y="300" font-family="monospace" font-weight="bold" font-size="120" fill="#22c55e" text-anchor="middle" opacity="0.2">$ $ $</text><path d="M200 300 L300 150 L400 300 L500 150 L600 300" fill="none" stroke="#4ade80" stroke-width="5" filter="url(#glow)"/><text x="400" y="500" font-family="monospace" font-size="40" fill="#4ade80" text-anchor="middle">LAUNDERED</text>`, GTA_BG);
+const IMG_GTA_ACTION = svg(`${GTA_DEFS}<circle cx="400" cy="300" r="150" fill="none" stroke="#ef4444" stroke-width="4" stroke-dasharray="20,10" filter="url(#glow)"/><text x="400" y="300" font-family="monospace" font-weight="bold" font-size="50" fill="#ef4444" text-anchor="middle">WANTED *****</text>`, GTA_BG);
+const IMG_GTA_MAP = svg(`${GTA_DEFS}<rect x="150" y="100" width="500" height="400" rx="20" fill="#1e293b" stroke="#22c55e" stroke-width="2"/><path d="M200 400 L300 200 L500 250 L600 150" fill="none" stroke="#22c55e" stroke-width="3" stroke-dasharray="10,5"/><circle cx="600" cy="150" r="10" fill="#ef4444" filter="url(#glow)"/><text x="400" y="80" font-family="monospace" font-size="30" fill="#22c55e" text-anchor="middle">GPS TRACKING</text>`, GTA_BG);
+
+// 3. WUKONG THEME (Red/Gold, Clouds, Ancient, Ink)
+const WUKONG_BG = '#450a0a';
+const WUKONG_DEFS = `
+  <defs>
+    <radialGradient id="goldGrad" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" style="stop-color:#fcd34d;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#b45309;stop-opacity:0.2" />
+    </radialGradient>
+    <pattern id="clouds" width="100" height="100" patternUnits="userSpaceOnUse">
+       <path d="M10 50 Q 30 20 50 50 T 90 50" fill="none" stroke="#d97706" stroke-width="2" opacity="0.3"/>
+    </pattern>
+  </defs>
+  <rect width="100%" height="100%" fill="#2a0a0a" />
+  <rect width="100%" height="100%" fill="url(#clouds)" />
+`;
+const IMG_WUKONG_SAGE = svg(`${WUKONG_DEFS}<circle cx="400" cy="300" r="120" fill="url(#goldGrad)" opacity="0.6"/><text x="400" y="300" font-family="serif" font-weight="bold" font-size="80" fill="#fef3c7" text-anchor="middle" dominant-baseline="middle">SAGE</text><path d="M200 500 Q 400 400 600 500" fill="none" stroke="#f59e0b" stroke-width="5"/>`, WUKONG_BG);
+const IMG_WUKONG_SCROLL = svg(`${WUKONG_DEFS}<rect x="200" y="100" width="400" height="400" fill="#fffbeb" rx="5"/><text x="400" y="300" font-family="serif" font-size="40" fill="#450a0a" text-anchor="middle" writing-mode="tb">ANCIENT WISDOM</text><rect x="180" y="80" width="40" height="440" fill="#78350f"/><rect x="580" y="80" width="40" height="440" fill="#78350f"/>`, WUKONG_BG);
+const IMG_WUKONG_CLOUD = svg(`${WUKONG_DEFS}<path d="M200 300 Q 300 200 400 300 T 600 300" fill="none" stroke="#fcd34d" stroke-width="8" filter="url(#glow)"/><circle cx="400" cy="200" r="60" fill="#fcd34d" opacity="0.5"/><text x="400" y="450" font-family="serif" font-size="40" fill="#fcd34d" text-anchor="middle">NIMBUS</text>`, WUKONG_BG);
+
+
 export const TOPICS: Topic[] = [
   {
     id: 'topic-1',
@@ -10,7 +74,7 @@ export const TOPICS: Topic[] = [
         id: '1-1-a',
         type: 'intro',
         title: 'Lead-in: The Safehouse',
-        imageUrl: 'https://images.unsplash.com/photo-1572331165267-854da2b00ca1?q=80&w=1000&auto=format&fit=crop', // Luxury pool
+        imageUrl: IMG_GTA_HEIST, 
         leadText: 'Look at the crew.',
         bulletPoints: [
            { lang: 'en', label: 'Observe', text: 'Michael is drinking by the pool. Trevor is covered in mud.' }
@@ -20,7 +84,7 @@ export const TOPICS: Topic[] = [
         id: '1-1-b',
         type: 'concept',
         title: 'Scenario A: Michael',
-        imageUrl: 'https://images.unsplash.com/photo-1580519542036-c47de6196ba5?q=80&w=1000&auto=format&fit=crop', // Money stacks
+        imageUrl: IMG_GTA_MONEY,
         leadText: 'Michael has **laundered** the money.',
         bulletPoints: [
           { lang: 'en', label: 'Context', text: 'The job is done.' },
@@ -31,7 +95,7 @@ export const TOPICS: Topic[] = [
         id: '1-1-c',
         type: 'concept',
         title: 'Scenario B: Trevor',
-        imageUrl: 'https://images.unsplash.com/photo-1541414779316-956a5084c0d4?q=80&w=1000&auto=format&fit=crop', // Dirty hands / Mud
+        imageUrl: IMG_GTA_ACTION, 
         leadText: 'Trevor has **been burying** the gold.',
         bulletPoints: [
           { lang: 'en', label: 'Context', text: 'He is still dirty from the desert.' },
@@ -42,7 +106,7 @@ export const TOPICS: Topic[] = [
         id: '1-1-d',
         type: 'intro',
         title: 'Critical Choice',
-        imageUrl: 'https://images.unsplash.com/photo-1531297461136-82lw8z9a?q=80&w=1000&auto=format&fit=crop', // Strategy/Heist planning
+        imageUrl: IMG_GTA_MAP,
         leadText: 'Analyze the Heist.',
         question: 'Which sentence focuses on the PAYOUT (Result)? Which one focuses on the GRIND (Activity)?'
       },
@@ -50,7 +114,7 @@ export const TOPICS: Topic[] = [
         id: '1-2-a',
         type: 'concept',
         title: 'Continuous: The Grind',
-        imageUrl: 'https://images.unsplash.com/photo-1594736797933-d0501ba2fe65?q=80&w=1000&auto=format&fit=crop', // Sports car action
+        imageUrl: IMG_GTA_ACTION,
         leadText: 'Present Perfect **Continuous**',
         bulletPoints: [
           { lang: 'en', label: 'Focus', text: 'Focuses on the **ACTIVITY** (The Heist/Chase).' },
@@ -61,7 +125,7 @@ export const TOPICS: Topic[] = [
         id: '1-2-b',
         type: 'concept',
         title: 'Simple: Mission Passed',
-        imageUrl: 'https://images.unsplash.com/photo-1518183214770-9cffbec72538?q=80&w=1000&auto=format&fit=crop', // Success / Money
+        imageUrl: IMG_GTA_MONEY,
         leadText: 'Present Perfect **Simple**',
         bulletPoints: [
           { lang: 'en', label: 'Focus', text: 'Focuses on the **RESULT** (Mission Passed).' },
@@ -72,7 +136,7 @@ export const TOPICS: Topic[] = [
         id: '1-2-c',
         type: 'concept',
         title: 'Translations',
-        imageUrl: 'https://images.unsplash.com/photo-1532012197267-da84d127e765?q=80&w=1000&auto=format&fit=crop', // Book / Translate
+        imageUrl: IMG_GTA_MAP,
         bulletPoints: [
           { lang: 'uz', label: 'Continuous', text: 'Harakatning o‘ziga urg‘u (Jarayon). Ish tugamagan bo‘lishi mumkin.' },
           { lang: 'uz', label: 'Simple', text: 'Natijaga urg‘u (Mission Passed).' },
@@ -84,7 +148,7 @@ export const TOPICS: Topic[] = [
         id: '1-3-a',
         type: 'intro',
         title: 'Concept Check 1',
-        imageUrl: 'https://images.unsplash.com/photo-1552674605-5d226a58b357?q=80&w=1000&auto=format&fit=crop', // Runner sweating
+        imageUrl: IMG_GTA_ACTION,
         leadText: 'Franklin is out of breath.',
         bulletPoints: [
             { lang: 'en', label: 'Situation', text: 'Franklin is sweating and panting behind a wall.' }
@@ -94,7 +158,7 @@ export const TOPICS: Topic[] = [
         id: '1-3-b',
         type: 'quiz',
         title: 'Concept Check 1: Question',
-        imageUrl: 'https://images.unsplash.com/photo-1563720223185-11003d516935?q=80&w=1000&auto=format&fit=crop', // Police lights abstract
+        imageUrl: IMG_GTA_ACTION,
         question: 'What do you say?',
         options: ['You have escaped.', 'You have been running from the cops.'],
         correctAnswer: 1,
@@ -104,7 +168,7 @@ export const TOPICS: Topic[] = [
         id: '1-4-a',
         type: 'intro',
         title: 'Concept Check 2',
-        imageUrl: 'https://images.unsplash.com/photo-1589829085413-56de8ae18c73?q=80&w=1000&auto=format&fit=crop', // Bank Vault
+        imageUrl: IMG_GTA_MONEY,
         leadText: 'The Union Depository Vault.',
         bulletPoints: [
             { lang: 'en', label: 'Situation', text: 'The vault door is open. The gold bars are GONE.' }
@@ -114,7 +178,7 @@ export const TOPICS: Topic[] = [
         id: '1-4-b',
         type: 'quiz',
         title: 'Concept Check 2: Question',
-        imageUrl: 'https://images.unsplash.com/photo-1577416412292-747c6607f055?q=80&w=1000&auto=format&fit=crop', // Empty warehouse
+        imageUrl: IMG_GTA_MONEY,
         question: 'What happened?',
         options: ['Someone has stolen the gold.', 'Someone has been stealing the gold.'],
         correctAnswer: 0,
@@ -124,7 +188,7 @@ export const TOPICS: Topic[] = [
         id: '1-5-a',
         type: 'intro',
         title: 'Concept Check 3',
-        imageUrl: 'https://images.unsplash.com/photo-1510915228340-29c85a43dcfe?q=80&w=1000&auto=format&fit=crop', // Hacker setup
+        imageUrl: IMG_GTA_MAP,
         leadText: 'Lester Crest at his computer.',
         bulletPoints: [
             { lang: 'en', label: 'Situation', text: 'Lester started hacking the FIB server an hour ago. He is still typing.' }
@@ -134,7 +198,7 @@ export const TOPICS: Topic[] = [
         id: '1-5-b',
         type: 'quiz',
         title: 'Concept Check 3: Question',
-        imageUrl: 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?q=80&w=1000&auto=format&fit=crop', // Matrix code / Hacking
+        imageUrl: IMG_GTA_MAP,
         question: 'Which is correct?',
         options: ['I have hacked the server.', 'I have been hacking the server.'],
         correctAnswer: 1,
@@ -168,7 +232,7 @@ export const TOPICS: Topic[] = [
         id: '1-6-c',
         type: 'concept',
         title: 'Timeline Intel',
-        imageUrl: 'https://images.unsplash.com/photo-1577083552431-6e5fd01aa342?q=80&w=1000&auto=format&fit=crop', // Strategy Map
+        imageUrl: IMG_GTA_MAP,
         bulletPoints: [
           { lang: 'en', label: 'Continuous', text: '"I\'ve been driving for hours." (Focus on the getaway duration.)' },
           { lang: 'en', label: 'Simple', text: '"I\'ve lost the cops." (Focus on safety.)' },
@@ -179,7 +243,7 @@ export const TOPICS: Topic[] = [
         id: '1-7-a',
         type: 'concept',
         title: 'Example 1: Planning vs Ready',
-        imageUrl: 'https://images.unsplash.com/photo-1584742680602-536735a28169?q=80&w=1000&auto=format&fit=crop', // Heist planning
+        imageUrl: IMG_GTA_HEIST,
         bulletPoints: [
           { lang: 'en', label: 'Continuous', text: 'Lester has **been planning** the heist all week. (He is busy.)' },
           { lang: 'en', label: 'Simple', text: 'Lester has **planned** the heist. (We are ready to go.)' }
@@ -189,7 +253,7 @@ export const TOPICS: Topic[] = [
         id: '1-7-b',
         type: 'concept',
         title: 'Example 2: Damage',
-        imageUrl: 'https://images.unsplash.com/photo-1599933339840-b397b966b9a9?q=80&w=1000&auto=format&fit=crop', // Car crash/Smoke
+        imageUrl: IMG_GTA_ACTION,
         bulletPoints: [
           { lang: 'en', label: 'Continuous', text: 'Why is the car smoking? I\'ve **been drifting**. (Explanation of state).' },
           { lang: 'en', label: 'Simple', text: 'I have **crashed** the car. (It is destroyed).' }
@@ -199,7 +263,7 @@ export const TOPICS: Topic[] = [
         id: '1-7-c',
         type: 'concept',
         title: 'Example 3: Duration vs Count',
-        imageUrl: 'https://images.unsplash.com/photo-1617788138017-80ad40651399?q=80&w=1000&auto=format&fit=crop', // Car mod shop
+        imageUrl: IMG_GTA_MONEY,
         bulletPoints: [
           { lang: 'en', label: 'Continuous', text: 'How long **have you been modding** this car?' },
           { lang: 'en', label: 'Simple', text: 'How many cars **have you stolen** today?' }
@@ -209,7 +273,7 @@ export const TOPICS: Topic[] = [
         id: '1-8',
         type: 'test',
         title: 'Job Test 1',
-        imageUrl: 'https://images.unsplash.com/photo-1517594422361-5eeb8ae275a9?q=80&w=1000&auto=format&fit=crop', // Muddy tires
+        imageUrl: IMG_GTA_ACTION,
         question: 'Look at Trevor\'s truck! It\'s covered in mud. He ______ off-road.',
         options: ['has driven', 'has been driving', 'drove'],
         correctAnswer: 1,
@@ -219,7 +283,7 @@ export const TOPICS: Topic[] = [
         id: '1-9',
         type: 'test',
         title: 'Job Test 2',
-        imageUrl: 'https://images.unsplash.com/photo-1501167786227-4cba60f6d58f?q=80&w=1000&auto=format&fit=crop', // Bank exterior
+        imageUrl: IMG_GTA_MONEY,
         question: 'I ______ three banks this month.',
         options: ['have been robbing', 'have robbed', 'rob'],
         correctAnswer: 1,
@@ -229,7 +293,7 @@ export const TOPICS: Topic[] = [
         id: '1-10',
         type: 'test',
         title: 'Job Test 3',
-        imageUrl: 'https://images.unsplash.com/photo-1533073526757-2c8ca1df9f1c?q=80&w=1000&auto=format&fit=crop', // Watch / Time
+        imageUrl: IMG_GTA_MAP,
         question: 'Lester is angry. "Where are you? I ______ for 20 minutes!"',
         options: ['have waited', 'did wait', 'have been waiting'],
         correctAnswer: 2,
@@ -239,7 +303,7 @@ export const TOPICS: Topic[] = [
         id: '1-11',
         type: 'quiz',
         title: 'True/False Quiz',
-        imageUrl: 'https://images.unsplash.com/photo-1555445054-d83391295325?q=80&w=1000&auto=format&fit=crop', // Security Guard
+        imageUrl: IMG_GTA_ACTION,
         question: 'True or False: We use Continuous to say how many guards we have knocked out.',
         options: ['True', 'False'],
         correctAnswer: 1,
@@ -249,7 +313,7 @@ export const TOPICS: Topic[] = [
         id: '1-12',
         type: 'quiz',
         title: 'Spot the Snitch',
-        imageUrl: 'https://images.unsplash.com/photo-1531384441138-2736e62e0919?q=80&w=1000&auto=format&fit=crop', // Handshake / Knowing
+        imageUrl: IMG_GTA_HEIST,
         question: 'Is this correct? "I have been knowing Michael for 10 years."',
         options: ['Yes', 'No, "know" is a state verb.'],
         correctAnswer: 1,
@@ -259,7 +323,7 @@ export const TOPICS: Topic[] = [
         id: '1-13',
         type: 'quiz',
         title: 'Context Match',
-        imageUrl: 'https://images.unsplash.com/photo-1581092921461-eab62e97a782?q=80&w=1000&auto=format&fit=crop', // Dirty mechanic hands
+        imageUrl: IMG_GTA_ACTION,
         question: 'Your hands are covered in grease. Why?',
         options: ["I've fixed the engine.", "I've been fixing the engine."],
         correctAnswer: 1,
@@ -270,7 +334,7 @@ export const TOPICS: Topic[] = [
         type: 'test',
         title: 'Rapid Fire',
         question: 'Select the one that implies UNFINISHED action.',
-        imageUrl: 'https://images.unsplash.com/photo-1557002665-c552e1832483?q=80&w=1000&auto=format&fit=crop', // Action in progress
+        imageUrl: IMG_GTA_HEIST,
         options: ['He has escaped prison.', 'She has bought a weapon.', 'I\'ve been scoping out the bank.'],
         correctAnswer: 2
       },
@@ -278,7 +342,7 @@ export const TOPICS: Topic[] = [
         id: '1-15',
         type: 'gap-fill',
         title: 'Heist Prep 1',
-        imageUrl: 'https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?q=80&w=1000&auto=format&fit=crop', // Garage work
+        imageUrl: IMG_GTA_ACTION,
         leadText: '"You look exhausted, Franklin!" "Yes, I __________ (work) on the car all night."',
         correctAnswer: 'have been working'
       },
@@ -286,7 +350,7 @@ export const TOPICS: Topic[] = [
         id: '1-16',
         type: 'gap-fill',
         title: 'Heist Prep 2',
-        imageUrl: 'https://images.unsplash.com/photo-1511512578047-dfb367046420?q=80&w=1000&auto=format&fit=crop', // Winning / Checkered Flag
+        imageUrl: IMG_GTA_MONEY,
         leadText: '"Mission Passed! You __________ (win) the race!"',
         correctAnswer: 'have won'
       },
@@ -294,7 +358,7 @@ export const TOPICS: Topic[] = [
         id: '1-17',
         type: 'gap-fill',
         title: 'Heist Prep 3',
-        imageUrl: 'https://images.unsplash.com/photo-1516259762381-22954d7d3ad2?q=80&w=1000&auto=format&fit=crop', // Phone call
+        imageUrl: IMG_GTA_MAP,
         leadText: '"Lester, pick up! What __________ (you / do) all morning?"',
         correctAnswer: 'have you been doing'
       },
@@ -302,7 +366,7 @@ export const TOPICS: Topic[] = [
         id: '1-18-a',
         type: 'reading',
         title: 'Intel: The Union Depository',
-        imageUrl: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=1000&auto=format&fit=crop', // Skyscraper / Bank
+        imageUrl: IMG_GTA_HEIST,
         passage: '"The crew **has been planning** the Union Depository job for months. They **have found** a weakness in the security. The guards **have been patrolling** the same route every day. Recently, Trevor **has stolen** a helicopter for the getaway. The FIB **has been watching** them closely."',
         question: 'Q1: Why "have been planning"?',
         options: ['Because the plan is finished.', 'Because it is a long process continuing up to now.'],
@@ -312,7 +376,7 @@ export const TOPICS: Topic[] = [
         id: '1-18-b',
         type: 'reading',
         title: 'Intel: The Union Depository',
-        imageUrl: 'https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?q=80&w=1000&auto=format&fit=crop', // Security System
+        imageUrl: IMG_GTA_MAP,
         passage: '"...They **have found** a weakness in the security..."',
         question: 'Q2: "They have found..." implies:',
         options: ['A completed result / discovery.', 'An ongoing search.'],
@@ -322,7 +386,7 @@ export const TOPICS: Topic[] = [
         id: '1-18-c',
         type: 'reading',
         title: 'Intel: The Union Depository',
-        imageUrl: 'https://images.unsplash.com/photo-1582139329536-e7284fece509?q=80&w=1000&auto=format&fit=crop', // Patrol / Guard
+        imageUrl: IMG_GTA_ACTION,
         passage: '"...The guards **have been patrolling** the same route every day..."',
         question: 'Q3: "Have been patrolling" focuses on:',
         options: ['The total number of patrols.', 'The repeated continuous activity.'],
@@ -332,7 +396,7 @@ export const TOPICS: Topic[] = [
         id: '1-18-d',
         type: 'reading',
         title: 'Intel: The Union Depository',
-        imageUrl: 'https://images.unsplash.com/photo-1542281286-9e0a16bb7366?q=80&w=1000&auto=format&fit=crop', // Helicopter
+        imageUrl: IMG_GTA_ACTION,
         passage: '"...Recently, Trevor **has stolen** a helicopter for the getaway..."',
         question: 'Q4: Why "has stolen"?',
         options: ['The helicopter is now in his possession (Result).', 'He is still stealing it.'],
@@ -342,7 +406,7 @@ export const TOPICS: Topic[] = [
         id: '1-18-e',
         type: 'reading',
         title: 'Intel: The Union Depository',
-        imageUrl: 'https://images.unsplash.com/photo-1535378437321-29e64d30630d?q=80&w=1000&auto=format&fit=crop', // Surveillance
+        imageUrl: IMG_GTA_MAP,
         passage: '"...The FIB **has been watching** them closely."',
         question: 'Q5: "Has been watching" means:',
         options: ['They watched once.', 'They have done this repeatedly recently and might continue.'],
@@ -352,7 +416,7 @@ export const TOPICS: Topic[] = [
         id: '1-19-a',
         type: 'speaking',
         title: 'Interrogation 1',
-        imageUrl: 'https://images.unsplash.com/photo-1589578527966-fdac0f44566c?q=80&w=1000&auto=format&fit=crop', // Interrogation room
+        imageUrl: IMG_GTA_HEIST,
         leadText: 'Record your answer for the FIB.',
         speakingPrompts: [
           'Why are your clothes dirty? What have you been doing in the desert?'
@@ -362,7 +426,7 @@ export const TOPICS: Topic[] = [
         id: '1-19-b',
         type: 'speaking',
         title: 'Interrogation 2',
-        imageUrl: 'https://images.unsplash.com/photo-1556742049-0cfed4f7a07d?q=80&w=1000&auto=format&fit=crop', // Money Bag
+        imageUrl: IMG_GTA_MONEY,
         leadText: 'Record your answer for the FIB.',
         speakingPrompts: [
           'How much money have you stolen from the bank? (Use Simple)'
@@ -372,7 +436,7 @@ export const TOPICS: Topic[] = [
         id: '1-19-c',
         type: 'speaking',
         title: 'Interrogation 3',
-        imageUrl: 'https://images.unsplash.com/photo-1628155930542-3c7a64e2c833?q=80&w=1000&auto=format&fit=crop', // Police lights
+        imageUrl: IMG_GTA_ACTION,
         leadText: 'Record your answer for the FIB.',
         speakingPrompts: [
           'You look tired. Have you been running from the police?'
@@ -388,16 +452,19 @@ export const TOPICS: Topic[] = [
         id: '2-1',
         type: 'intro',
         title: 'Lead-in',
+        imageUrl: IMG_SURGICAL_INTRO,
         leadText: 'Look at the scenario.',
         bulletPoints: [
           { lang: 'en', label: 'Context', text: 'A Ferrari parked outside a ruined house.' },
           { lang: 'en', label: 'Deduction', text: 'He MUST be rich to buy the car. He CAN\'T live in that house!' }
-        ]
+        ],
+        question: 'How do we change the word "tall" to compare two things vs one thing to everything?'
       },
       {
         id: '2-2',
         type: 'concept',
         title: 'Meaning & Definition',
+        imageUrl: IMG_SURGICAL_CONCEPT,
         bulletPoints: [
           { lang: 'en', label: 'MUST', text: '90-100% Sure it is TRUE.' },
           { lang: 'en', label: 'CAN\'T', text: '90-100% Sure it is FALSE.' },
@@ -411,6 +478,7 @@ export const TOPICS: Topic[] = [
         id: '2-3',
         type: 'quiz',
         title: 'Concept Check 1',
+        imageUrl: IMG_SURGICAL_TEST,
         question: 'The lights are off. The car is gone. They _____ be home.',
         options: ['must', "can't"],
         correctAnswer: 1
@@ -419,6 +487,7 @@ export const TOPICS: Topic[] = [
         id: '2-4',
         type: 'quiz',
         title: 'Concept Check 2',
+        imageUrl: IMG_SURGICAL_TEST,
         question: 'She is speaking fluent Japanese. She _____ be from Japan or studied there.',
         options: ['must', "can't"],
         correctAnswer: 0
@@ -427,6 +496,7 @@ export const TOPICS: Topic[] = [
         id: '2-5',
         type: 'quiz',
         title: 'Concept Check 3',
+        imageUrl: IMG_SURGICAL_TEST,
         question: 'The sky is grey. It _____ rain later.',
         options: ['must', 'might'],
         correctAnswer: 1
@@ -447,6 +517,7 @@ export const TOPICS: Topic[] = [
         id: '2-6-b',
         type: 'concept',
         title: 'Key Scale Points',
+        imageUrl: IMG_SURGICAL_CONCEPT,
         bulletPoints: [
           { lang: 'en', label: '0% (Impossible)', text: "CAN'T: 'It can't be true.'" },
           { lang: 'en', label: '50% (Possible)', text: "MIGHT / COULD: 'It might be true.'" },
@@ -457,6 +528,7 @@ export const TOPICS: Topic[] = [
         id: '2-7',
         type: 'concept',
         title: '3 Examples',
+        imageUrl: IMG_SURGICAL_CONCEPT,
         bulletPoints: [
           { lang: 'en', label: 'True Certainty', text: 'Look at his Rolex. He MUST be wealthy.' },
           { lang: 'en', label: 'False Certainty', text: 'He’s been under water for 10 mins. He CAN\'T be alive.' },
@@ -467,6 +539,7 @@ export const TOPICS: Topic[] = [
         id: '2-8',
         type: 'test',
         title: 'Test 1',
+        imageUrl: IMG_SURGICAL_TEST,
         question: 'That woman looks exactly like Beyonce.',
         options: ['She must be her sister.', "She can't be her sister.", "She mustn't be her sister."],
         correctAnswer: 0
@@ -475,6 +548,7 @@ export const TOPICS: Topic[] = [
         id: '2-9',
         type: 'test',
         title: 'Test 2',
+        imageUrl: IMG_SURGICAL_TEST,
         question: 'You just ate a whole pizza! You _____ be hungry already.',
         options: ['might', 'must', "can't"],
         correctAnswer: 2
@@ -483,6 +557,7 @@ export const TOPICS: Topic[] = [
         id: '2-10',
         type: 'test',
         title: 'Test 3',
+        imageUrl: IMG_SURGICAL_TEST,
         question: '"Someone is knocking." "It _____ be the postman. He usually comes at this time."',
         options: ["can't", 'could', "won't"],
         correctAnswer: 1
@@ -491,6 +566,7 @@ export const TOPICS: Topic[] = [
         id: '2-11',
         type: 'quiz',
         title: 'Odd One Out',
+        imageUrl: IMG_SURGICAL_TEST,
         question: 'Which word implies 50% possibility?',
         options: ['Must', 'Could', "Can't"],
         correctAnswer: 1
@@ -499,6 +575,7 @@ export const TOPICS: Topic[] = [
         id: '2-12',
         type: 'quiz',
         title: 'Transformation',
+        imageUrl: IMG_SURGICAL_TEST,
         question: 'Transform: "I\'m sure he is French."',
         options: ['He might be French.', 'He must be French.'],
         correctAnswer: 1
@@ -507,6 +584,7 @@ export const TOPICS: Topic[] = [
         id: '2-13',
         type: 'quiz',
         title: 'Transformation',
+        imageUrl: IMG_SURGICAL_TEST,
         question: 'Transform: "It is impossible that that is my phone."',
         options: ["That can't be my phone.", "That mustn't be my phone."],
         correctAnswer: 0
@@ -515,6 +593,7 @@ export const TOPICS: Topic[] = [
         id: '2-14',
         type: 'test',
         title: 'Rapid Fire',
+        imageUrl: IMG_SURGICAL_TEST,
         question: '"A human ____ walk there!"',
         options: ['must', "can't", 'might'],
         correctAnswer: 1
@@ -523,6 +602,7 @@ export const TOPICS: Topic[] = [
         id: '2-15',
         type: 'gap-fill',
         title: 'Gap Fill 1',
+        imageUrl: IMG_SURGICAL_CONCEPT,
         leadText: '"You\'ve been travelling for 24 hours. You __________ (be) exhausted."',
         correctAnswer: 'must be'
       },
@@ -530,6 +610,7 @@ export const TOPICS: Topic[] = [
         id: '2-16',
         type: 'gap-fill',
         title: 'Gap Fill 2',
+        imageUrl: IMG_SURGICAL_CONCEPT,
         leadText: '"Whose bag is this?" "I\'m not sure. It __________ (belong) to the new student."',
         correctAnswer: 'might belong'
       },
@@ -537,6 +618,7 @@ export const TOPICS: Topic[] = [
         id: '2-17',
         type: 'gap-fill',
         title: 'Gap Fill 3',
+        imageUrl: IMG_SURGICAL_CONCEPT,
         leadText: '"That answer __________ (be) right. Paris is in France, not Italy!"',
         correctAnswer: "can't be"
       },
@@ -544,6 +626,7 @@ export const TOPICS: Topic[] = [
         id: '2-18',
         type: 'reading',
         title: 'Detective Reading',
+        imageUrl: IMG_SURGICAL_TEST,
         passage: "The window was broken from the inside. 'The thief **must be** someone who works here,' said Detective Miller. 'They **can't be** a stranger, because the alarm didn't ring.'",
         question: 'Why does Miller think the thief works there?',
         options: ['He saw them.', 'He deduced it from the window.'],
@@ -553,6 +636,7 @@ export const TOPICS: Topic[] = [
         id: '2-19',
         type: 'speaking',
         title: 'Speaking Task',
+        imageUrl: IMG_SURGICAL_INTRO,
         leadText: 'Speculate on the situation.',
         speakingPrompts: [
           'Your best friend didn\'t come to school today. Where are they?',
@@ -570,6 +654,7 @@ export const TOPICS: Topic[] = [
         id: '3-1',
         type: 'intro',
         title: 'Lead-in',
+        imageUrl: IMG_SURGICAL_INTRO,
         leadText: 'Compare the two scenarios.',
         bulletPoints: [
           { lang: 'en', label: 'Scenario A', text: '"I want AN apple." (Any apple from the bowl will do.)' },
@@ -581,6 +666,7 @@ export const TOPICS: Topic[] = [
         id: '3-2',
         type: 'concept',
         title: 'Meaning & Definition',
+        imageUrl: IMG_SURGICAL_CONCEPT,
         bulletPoints: [
           { lang: 'en', label: 'a/an (Indefinite)', text: 'One of many. First mention or professions.' },
           { lang: 'en', label: 'the (Definite)', text: 'The only one. Specific, unique, or mentioned before.' },
@@ -595,6 +681,7 @@ export const TOPICS: Topic[] = [
         id: '3-3',
         type: 'quiz',
         title: 'Concept Check 1',
+        imageUrl: IMG_SURGICAL_TEST,
         question: '"I love ____ dogs." (Speaking generally about all dogs).',
         options: ['the', '(-) no article'],
         correctAnswer: 1,
@@ -604,6 +691,7 @@ export const TOPICS: Topic[] = [
         id: '3-4',
         type: 'quiz',
         title: 'Concept Check 2',
+        imageUrl: IMG_SURGICAL_TEST,
         question: '"Look at ____ moon!"',
         options: ['a', 'the'],
         correctAnswer: 1,
@@ -613,6 +701,7 @@ export const TOPICS: Topic[] = [
         id: '3-5',
         type: 'quiz',
         title: 'Concept Check 3',
+        imageUrl: IMG_SURGICAL_TEST,
         question: '"My brother is in ____ prison (he is a prisoner)."',
         options: ['the', '(-) no article'],
         correctAnswer: 1,
@@ -634,6 +723,7 @@ export const TOPICS: Topic[] = [
         id: '3-6-b',
         type: 'concept',
         title: 'Flowchart Rules',
+        imageUrl: IMG_SURGICAL_CONCEPT,
         bulletPoints: [
             { lang: 'en', label: 'Step 1: Countable?', text: 'No -> Zero Article (water) or The.' },
             { lang: 'en', label: 'Step 2: Singular?', text: 'No (Plural) -> Zero (General) or The (Specific).' },
@@ -644,6 +734,7 @@ export const TOPICS: Topic[] = [
         id: '3-7',
         type: 'concept',
         title: '3 Examples',
+        imageUrl: IMG_SURGICAL_CONCEPT,
         bulletPoints: [
             { lang: 'en', label: 'First vs Second Mention', text: 'I saw A movie. THE movie was scary.' },
             { lang: 'en', label: 'General vs Specific', text: '(-) Children learn fast. vs THE children in this class are smart.' },
@@ -654,6 +745,7 @@ export const TOPICS: Topic[] = [
         id: '3-8',
         type: 'test',
         title: 'Test 1',
+        imageUrl: IMG_SURGICAL_TEST,
         question: 'Can you shut ____ door, please?',
         options: ['a', 'the', '(-)'],
         correctAnswer: 1,
@@ -663,6 +755,7 @@ export const TOPICS: Topic[] = [
         id: '3-9',
         type: 'test',
         title: 'Test 2',
+        imageUrl: IMG_SURGICAL_TEST,
         question: 'He is ____ engineer.',
         options: ['a', 'an', 'the'],
         correctAnswer: 1,
@@ -672,6 +765,7 @@ export const TOPICS: Topic[] = [
         id: '3-10',
         type: 'test',
         title: 'Test 3',
+        imageUrl: IMG_SURGICAL_TEST,
         question: 'I usually have ____ lunch at 1 PM.',
         options: ['the', 'a', '(-)'],
         correctAnswer: 2,
@@ -681,6 +775,7 @@ export const TOPICS: Topic[] = [
         id: '3-11',
         type: 'quiz',
         title: 'True/False Quiz',
+        imageUrl: IMG_SURGICAL_TEST,
         question: 'True or False: We always use "the" with names of countries (e.g., The France).',
         options: ['True', 'False'],
         correctAnswer: 1,
@@ -690,6 +785,7 @@ export const TOPICS: Topic[] = [
         id: '3-12',
         type: 'quiz',
         title: 'Spot the Mistake',
+        imageUrl: IMG_SURGICAL_TEST,
         question: 'Is "I want to learn the guitar" correct?',
         options: ['Yes', 'No'],
         correctAnswer: 0,
@@ -699,6 +795,7 @@ export const TOPICS: Topic[] = [
         id: '3-13',
         type: 'quiz',
         title: 'Context Match',
+        imageUrl: IMG_SURGICAL_TEST,
         question: 'Standing outside a hospital looking at the building: "I am looking at _____ hospital."',
         options: ['(-)', 'the'],
         correctAnswer: 1,
@@ -708,6 +805,7 @@ export const TOPICS: Topic[] = [
         id: '3-14',
         type: 'test',
         title: 'Rapid Fire',
+        imageUrl: IMG_SURGICAL_TEST,
         question: '"I want to be ____ artist."',
         options: ['a', 'an', 'the'],
         correctAnswer: 1
@@ -716,6 +814,7 @@ export const TOPICS: Topic[] = [
         id: '3-15',
         type: 'gap-fill',
         title: 'Gap Fill 1',
+        imageUrl: IMG_SURGICAL_CONCEPT,
         leadText: '"I bought __________ (a/an/the) new phone yesterday."',
         correctAnswer: 'a'
     },
@@ -723,6 +822,7 @@ export const TOPICS: Topic[] = [
         id: '3-16',
         type: 'gap-fill',
         title: 'Gap Fill 2',
+        imageUrl: IMG_SURGICAL_CONCEPT,
         leadText: '"Where is __________ (a/an/the) phone? I can\'t find it." (Referring to the one I bought).',
         correctAnswer: 'the'
     },
@@ -730,6 +830,7 @@ export const TOPICS: Topic[] = [
         id: '3-17',
         type: 'gap-fill',
         title: 'Gap Fill 3',
+        imageUrl: IMG_SURGICAL_CONCEPT,
         leadText: '"My sister goes to __________ university in London." (Type - for no article)',
         correctAnswer: '-'
     },
@@ -737,6 +838,7 @@ export const TOPICS: Topic[] = [
         id: '3-18',
         type: 'reading',
         title: 'Reading Comprehension',
+        imageUrl: IMG_SURGICAL_TEST,
         passage: "**The** Olympic Games originated long ago in **(-)** ancient Greece. One story about **the** origin concerns **the** god Zeus. It is said that he fought his father for **(-)** control of **the** world. The games were held in **a** valley called Olympia. Today, **(-)** athletes from all over the world travel to **the** games to compete for **(-)** gold medals.",
         question: 'Why "The Olympic Games"?',
         options: ['It is a specific, unique event.', 'It is a general game.'],
@@ -746,6 +848,7 @@ export const TOPICS: Topic[] = [
         id: '3-19',
         type: 'speaking',
         title: 'Speaking Task',
+        imageUrl: IMG_SURGICAL_INTRO,
         leadText: 'Record your answer.',
         speakingPrompts: [
           'Do you prefer books or movies? Tell me about the last movie you watched.',
@@ -763,6 +866,7 @@ export const TOPICS: Topic[] = [
         id: '4-1',
         type: 'intro',
         title: 'Lead-in',
+        imageUrl: IMG_SURGICAL_INTRO,
         leadText: 'Compare Past vs Present.',
         bulletPoints: [
             { lang: 'en', label: 'Past', text: '"I used to be in a rock band. I would play guitar every day."' },
@@ -774,6 +878,7 @@ export const TOPICS: Topic[] = [
         id: '4-2',
         type: 'concept',
         title: 'Meaning & Definition',
+        imageUrl: IMG_SURGICAL_CONCEPT,
         bulletPoints: [
           { lang: 'en', label: 'Used to', text: 'Past habits AND past states that are not true anymore.' },
           { lang: 'en', label: 'Would', text: 'ONLY for past habits / repeated actions. NOT for states.' },
@@ -787,6 +892,7 @@ export const TOPICS: Topic[] = [
         id: '4-3',
         type: 'quiz',
         title: 'Concept Check 1',
+        imageUrl: IMG_SURGICAL_TEST,
         question: '"I _____ have a small car, but now I have a big one."',
         options: ['used to', 'would'],
         correctAnswer: 0,
@@ -796,6 +902,7 @@ export const TOPICS: Topic[] = [
         id: '4-4',
         type: 'quiz',
         title: 'Concept Check 2',
+        imageUrl: IMG_SURGICAL_TEST,
         question: '"Every summer, we _____ go to the beach."',
         options: ['used to', 'would', 'Both are correct'],
         correctAnswer: 2,
@@ -805,6 +912,7 @@ export const TOPICS: Topic[] = [
         id: '4-5',
         type: 'quiz',
         title: 'Concept Check 3',
+        imageUrl: IMG_SURGICAL_TEST,
         question: '"I used to smoke." Does this person smoke now?',
         options: ['Yes', 'No'],
         correctAnswer: 1,
@@ -826,6 +934,7 @@ export const TOPICS: Topic[] = [
         id: '4-6-b',
         type: 'concept',
         title: 'Timeline Rules',
+        imageUrl: IMG_SURGICAL_CONCEPT,
         bulletPoints: [
             { lang: 'en', label: 'Rule', text: 'STATE VERBS (Love, Be, Have, Know) -> Only Used To.' },
             { lang: 'en', label: 'Action Verbs', text: 'Can use both Used To and Would.' }
@@ -835,6 +944,7 @@ export const TOPICS: Topic[] = [
         id: '4-7',
         type: 'concept',
         title: '3 Examples',
+        imageUrl: IMG_SURGICAL_CONCEPT,
         bulletPoints: [
             { lang: 'en', label: 'Action (Both OK)', text: 'We used to visit Grandma. / We would visit Grandma.' },
             { lang: 'en', label: 'State (Only Used To)', text: 'I used to live in Paris. (NOT would live)' },
@@ -845,6 +955,7 @@ export const TOPICS: Topic[] = [
         id: '4-8',
         type: 'test',
         title: 'Test 1',
+        imageUrl: IMG_SURGICAL_TEST,
         question: 'My grandfather ____ tell us amazing stories.',
         options: ['used to', 'would', 'Both A and B'],
         correctAnswer: 2,
@@ -854,6 +965,7 @@ export const TOPICS: Topic[] = [
         id: '4-9',
         type: 'test',
         title: 'Test 2',
+        imageUrl: IMG_SURGICAL_TEST,
         question: 'I ____ be afraid of the dark.',
         options: ['used to', 'would'],
         correctAnswer: 0,
@@ -863,6 +975,7 @@ export const TOPICS: Topic[] = [
         id: '4-10',
         type: 'test',
         title: 'Test 3',
+        imageUrl: IMG_SURGICAL_TEST,
         question: 'Did you _____ play football?',
         options: ['use to', 'used to'],
         correctAnswer: 0,
@@ -872,6 +985,7 @@ export const TOPICS: Topic[] = [
         id: '4-11',
         type: 'quiz',
         title: 'Categorization',
+        imageUrl: IMG_SURGICAL_TEST,
         question: 'Is "Understand" a State or Action verb?',
         options: ['State', 'Action'],
         correctAnswer: 0,
@@ -881,6 +995,7 @@ export const TOPICS: Topic[] = [
         id: '4-12',
         type: 'quiz',
         title: 'Spot the Mistake',
+        imageUrl: IMG_SURGICAL_TEST,
         question: 'Is "I would have long hair" correct?',
         options: ['Yes', 'No'],
         correctAnswer: 1,
@@ -890,6 +1005,7 @@ export const TOPICS: Topic[] = [
         id: '4-13',
         type: 'quiz',
         title: 'True/False',
+        imageUrl: IMG_SURGICAL_TEST,
         question: '"Would" adds a sense of nostalgia or storytelling.',
         options: ['True', 'False'],
         correctAnswer: 0
@@ -898,6 +1014,7 @@ export const TOPICS: Topic[] = [
         id: '4-14',
         type: 'test',
         title: 'Rapid Fire',
+        imageUrl: IMG_SURGICAL_TEST,
         question: '"He ____ be a teacher."',
         options: ['used to', 'would'],
         correctAnswer: 0
@@ -906,6 +1023,7 @@ export const TOPICS: Topic[] = [
         id: '4-15',
         type: 'gap-fill',
         title: 'Gap Fill 1',
+        imageUrl: IMG_SURGICAL_CONCEPT,
         leadText: '"Before the internet, people __________ (send) letters."',
         correctAnswer: 'used to send'
       },
@@ -913,6 +1031,7 @@ export const TOPICS: Topic[] = [
         id: '4-16',
         type: 'gap-fill',
         title: 'Gap Fill 2',
+        imageUrl: IMG_SURGICAL_CONCEPT,
         leadText: '"This building __________ (be) a cinema."',
         correctAnswer: 'used to be'
       },
@@ -920,6 +1039,7 @@ export const TOPICS: Topic[] = [
         id: '4-17',
         type: 'gap-fill',
         title: 'Gap Fill 3',
+        imageUrl: IMG_SURGICAL_CONCEPT,
         leadText: '"I __________ (not / use to) enjoy reading, but now I do."',
         correctAnswer: 'didn\'t use to'
       },
@@ -927,6 +1047,7 @@ export const TOPICS: Topic[] = [
         id: '4-18',
         type: 'reading',
         title: 'Reading Comprehension',
+        imageUrl: IMG_SURGICAL_TEST,
         passage: 'Office life has changed. In the past, people **would spend** ages typing documents on typewriters. There **used to be** a lot more paper everywhere. Managers **would smoke** inside the office! It **used to be** very noisy. People **didn\'t use to** have emails.',
         question: '"Would spend" refers to:',
         options: ['A single event.', 'A repeated habit in the past.'],
@@ -936,6 +1057,7 @@ export const TOPICS: Topic[] = [
         id: '4-19',
         type: 'speaking',
         title: 'Speaking Task',
+        imageUrl: IMG_SURGICAL_INTRO,
         leadText: 'Record your answer about childhood.',
         speakingPrompts: [
           'What cartoons did you use to watch? Describe your routine.',
@@ -953,6 +1075,7 @@ export const TOPICS: Topic[] = [
         id: '5-1',
         type: 'intro',
         title: 'Lead-in',
+        imageUrl: IMG_SURGICAL_INTRO,
         leadText: 'Compare the sizes.',
         bulletPoints: [
           { lang: 'en', label: 'Context', text: 'House: Small. Apartment: Taller than house. Burj Khalifa: The tallest.' },
@@ -963,6 +1086,7 @@ export const TOPICS: Topic[] = [
         id: '5-2',
         type: 'concept',
         title: 'Meaning & Definition',
+        imageUrl: IMG_SURGICAL_CONCEPT,
         bulletPoints: [
           { lang: 'en', label: 'Comparatives', text: 'Compare two things. Keyword: THAN. (e.g., taller, more expensive)' },
           { lang: 'en', label: 'Superlatives', text: 'Compare one vs group. Keyword: THE. (e.g., the tallest)' },
@@ -977,6 +1101,7 @@ export const TOPICS: Topic[] = [
         id: '5-3',
         type: 'quiz',
         title: 'Concept Check 1',
+        imageUrl: IMG_SURGICAL_TEST,
         question: '"Ferrari is faster than Ford." How many cars are we talking about?',
         options: ['Two', 'All cars in the world'],
         correctAnswer: 0,
@@ -986,6 +1111,7 @@ export const TOPICS: Topic[] = [
         id: '5-4',
         type: 'quiz',
         title: 'Concept Check 2',
+        imageUrl: IMG_SURGICAL_TEST,
         question: '"Mount Everest is the highest mountain."',
         options: ['Comparing it to one other mountain.', 'Comparing it to all mountains.'],
         correctAnswer: 1,
@@ -995,6 +1121,7 @@ export const TOPICS: Topic[] = [
         id: '5-5',
         type: 'quiz',
         title: 'Concept Check 3',
+        imageUrl: IMG_SURGICAL_TEST,
         question: '"She is MUCH older than him." Is the age difference small or big?',
         options: ['Small', 'Big'],
         correctAnswer: 1,
@@ -1016,6 +1143,7 @@ export const TOPICS: Topic[] = [
         id: '5-6-b',
         type: 'concept',
         title: 'Formation Rules',
+        imageUrl: IMG_SURGICAL_CONCEPT,
         bulletPoints: [
             { lang: 'en', label: '1 Syllable', text: 'add -er / -est (Fast -> Faster -> The Fastest)' },
             { lang: 'en', label: 'Ending in -y', text: 'remove -y, add -ier / -iest (Happy -> Happier)' },
@@ -1027,6 +1155,7 @@ export const TOPICS: Topic[] = [
         id: '5-7',
         type: 'concept',
         title: '3 Examples',
+        imageUrl: IMG_SURGICAL_CONCEPT,
         bulletPoints: [
             { lang: 'en', label: 'Equality', text: 'I am AS TALL AS my dad. (Same height)' },
             { lang: 'en', label: 'Comparative', text: 'London is FAR MORE EXPENSIVE THAN Tashkent.' },
@@ -1037,6 +1166,7 @@ export const TOPICS: Topic[] = [
         id: '5-8',
         type: 'test',
         title: 'Test 1',
+        imageUrl: IMG_SURGICAL_TEST,
         question: 'This exam was ____ than the last one.',
         options: ['difficult', 'more difficult', 'most difficult'],
         correctAnswer: 1,
@@ -1046,6 +1176,7 @@ export const TOPICS: Topic[] = [
         id: '5-9',
         type: 'test',
         title: 'Test 2',
+        imageUrl: IMG_SURGICAL_TEST,
         question: 'Who is the ____ person in your family?',
         options: ['younger', 'youngest', 'most young'],
         correctAnswer: 1,
@@ -1055,6 +1186,7 @@ export const TOPICS: Topic[] = [
         id: '5-10',
         type: 'test',
         title: 'Test 3',
+        imageUrl: IMG_SURGICAL_TEST,
         question: 'The weather is ____ better today.',
         options: ['a lot', 'more', 'very'],
         correctAnswer: 0,
@@ -1064,6 +1196,7 @@ export const TOPICS: Topic[] = [
         id: '5-11',
         type: 'quiz',
         title: 'Spelling Bee',
+        imageUrl: IMG_SURGICAL_TEST,
         question: 'Make "Big" comparative.',
         options: ['Biger', 'Bigger'],
         correctAnswer: 1,
@@ -1073,6 +1206,7 @@ export const TOPICS: Topic[] = [
         id: '5-12',
         type: 'quiz',
         title: 'True/False',
+        imageUrl: IMG_SURGICAL_TEST,
         question: 'True or False: We can say "more gooder".',
         options: ['True', 'False'],
         correctAnswer: 1,
@@ -1082,6 +1216,7 @@ export const TOPICS: Topic[] = [
         id: '5-13',
         type: 'quiz',
         title: 'Transformation',
+        imageUrl: IMG_SURGICAL_TEST,
         question: 'Rewrite: "Tom is taller than Jerry." -> "Jerry is not..."',
         options: ['...as short as Tom.', '...as tall as Tom.'],
         correctAnswer: 1,
@@ -1091,6 +1226,7 @@ export const TOPICS: Topic[] = [
         id: '5-14',
         type: 'test',
         title: 'Rapid Fire',
+        imageUrl: IMG_SURGICAL_TEST,
         question: '"This is the ____ pizza I\'ve ever eaten."',
         options: ['best', 'better'],
         correctAnswer: 0
@@ -1099,6 +1235,7 @@ export const TOPICS: Topic[] = [
         id: '5-15',
         type: 'gap-fill',
         title: 'Gap Fill 1',
+        imageUrl: IMG_SURGICAL_CONCEPT,
         leadText: '"Calculus is __________ (complicated) than arithmetic."',
         correctAnswer: 'more complicated'
       },
@@ -1106,6 +1243,7 @@ export const TOPICS: Topic[] = [
         id: '5-16',
         type: 'gap-fill',
         title: 'Gap Fill 2',
+        imageUrl: IMG_SURGICAL_CONCEPT,
         leadText: '"That is the __________ (bad) movie I have ever seen."',
         correctAnswer: 'worst'
       },
@@ -1113,6 +1251,7 @@ export const TOPICS: Topic[] = [
         id: '5-17',
         type: 'gap-fill',
         title: 'Gap Fill 3',
+        imageUrl: IMG_SURGICAL_CONCEPT,
         leadText: '"She is a bit __________ (rich) than her sister."',
         correctAnswer: 'richer'
       },
@@ -1120,6 +1259,7 @@ export const TOPICS: Topic[] = [
         id: '5-18',
         type: 'reading',
         title: 'Reading Comprehension',
+        imageUrl: IMG_SURGICAL_TEST,
         passage: 'Humans are **taller** now than in the past. Nutrition is **much better**. However, our brains are actually **slightly smaller** than they were 20,000 years ago. Life today is **easier** and **less dangerous** than it was for cavemen, so we don\'t need to be **as aggressive as** our ancestors.',
         question: 'Are humans the same height as in the past?',
         options: ['Yes.', 'No, they are taller.'],
@@ -1129,6 +1269,7 @@ export const TOPICS: Topic[] = [
         id: '5-19',
         type: 'speaking',
         title: 'Speaking Task',
+        imageUrl: IMG_SURGICAL_INTRO,
         leadText: 'Record your answer.',
         speakingPrompts: [
             'Compare iPhone and Samsung. Which is better? Which is more expensive?',
@@ -1146,6 +1287,7 @@ export const TOPICS: Topic[] = [
         id: '6-1',
         type: 'intro',
         title: 'Lead-in',
+        imageUrl: IMG_SURGICAL_INTRO,
         leadText: 'Reality vs Dream',
         bulletPoints: [
             { lang: 'en', label: 'Reality', text: 'He has no money. He cannot buy a plane.' },
@@ -1157,6 +1299,7 @@ export const TOPICS: Topic[] = [
         id: '6-2',
         type: 'concept',
         title: 'Meaning & Definition',
+        imageUrl: IMG_SURGICAL_CONCEPT,
         bulletPoints: [
             { lang: 'en', label: 'Use', text: 'Imaginary, impossible, or unlikely situations in PRESENT/FUTURE.' },
             { lang: 'en', label: 'Formula', text: 'If + Past Simple, ... would + Verb.' },
@@ -1169,6 +1312,7 @@ export const TOPICS: Topic[] = [
         id: '6-3',
         type: 'quiz',
         title: 'Concept Check 1',
+        imageUrl: IMG_SURGICAL_TEST,
         question: '"If I had wings, I would fly." Do I have wings?',
         options: ['Yes', 'No'],
         correctAnswer: 1,
@@ -1178,6 +1322,7 @@ export const TOPICS: Topic[] = [
         id: '6-4',
         type: 'quiz',
         title: 'Concept Check 2',
+        imageUrl: IMG_SURGICAL_TEST,
         question: '"If I became President, I would change the law." Is this likely to happen tomorrow?',
         options: ['Yes', 'No, unlikely.'],
         correctAnswer: 1,
@@ -1187,6 +1332,7 @@ export const TOPICS: Topic[] = [
         id: '6-5',
         type: 'quiz',
         title: 'Concept Check 3',
+        imageUrl: IMG_SURGICAL_TEST,
         question: 'Which sentence is about the PRESENT/FUTURE?',
         options: ['If I had time, I would go.', 'If I had had time, I would have gone.'],
         correctAnswer: 0,
@@ -1208,6 +1354,7 @@ export const TOPICS: Topic[] = [
         id: '6-6-b',
         type: 'concept',
         title: 'Structure Rules',
+        imageUrl: IMG_SURGICAL_CONCEPT,
         bulletPoints: [
             { lang: 'en', label: 'Condition', text: 'IF + Past Simple ("If I LIVED in Italy")' },
             { lang: 'en', label: 'Result', text: 'WOULD + Infinitive ("I WOULD EAT pizza")' },
@@ -1218,6 +1365,7 @@ export const TOPICS: Topic[] = [
         id: '6-7',
         type: 'concept',
         title: '3 Examples',
+        imageUrl: IMG_SURGICAL_CONCEPT,
         bulletPoints: [
             { lang: 'en', label: 'Imaginary', text: 'If I WON the lottery, I WOULD TRAVEL the world.' },
             { lang: 'en', label: 'Advice', text: 'If I WERE you, I WOULDN\'T DO that.' },
@@ -1228,6 +1376,7 @@ export const TOPICS: Topic[] = [
         id: '6-8',
         type: 'test',
         title: 'Test 1',
+        imageUrl: IMG_SURGICAL_TEST,
         question: 'If I ____ his number, I would call him.',
         options: ['know', 'knew', 'would know'],
         correctAnswer: 1,
@@ -1237,6 +1386,7 @@ export const TOPICS: Topic[] = [
         id: '6-9',
         type: 'test',
         title: 'Test 2',
+        imageUrl: IMG_SURGICAL_TEST,
         question: 'If she ____ rich, she wouldn\'t work.',
         options: ['is', 'were', 'would be'],
         correctAnswer: 1,
@@ -1246,6 +1396,7 @@ export const TOPICS: Topic[] = [
         id: '6-10',
         type: 'test',
         title: 'Test 3',
+        imageUrl: IMG_SURGICAL_TEST,
         question: 'We ____ go to the beach if it wasn\'t raining.',
         options: ['will', 'can', 'could'],
         correctAnswer: 2,
@@ -1255,6 +1406,7 @@ export const TOPICS: Topic[] = [
         id: '6-11',
         type: 'quiz',
         title: 'Matching',
+        imageUrl: IMG_SURGICAL_TEST,
         question: 'Complete: "If I were invisible..."',
         options: ['...I would rob a bank.', '...I would help you.'],
         correctAnswer: 0
@@ -1263,6 +1415,7 @@ export const TOPICS: Topic[] = [
         id: '6-12',
         type: 'quiz',
         title: 'Spot the Mistake',
+        imageUrl: IMG_SURGICAL_TEST,
         question: 'Is "If I would have money, I would buy a car" correct?',
         options: ['Yes', 'No'],
         correctAnswer: 1,
@@ -1272,6 +1425,7 @@ export const TOPICS: Topic[] = [
         id: '6-13',
         type: 'quiz',
         title: 'Translation Check',
+        imageUrl: IMG_SURGICAL_TEST,
         question: 'Translate: "Agar mening vaqtim bo‘lsa (hozir), yordam berardim."',
         options: ['If I had time, I would help.', 'If I have time, I will help.'],
         correctAnswer: 0,
@@ -1281,6 +1435,7 @@ export const TOPICS: Topic[] = [
         id: '6-14',
         type: 'test',
         title: 'Rapid Fire',
+        imageUrl: IMG_SURGICAL_TEST,
         question: '"If I ____ a superhero, I would fly."',
         options: ['were', 'am'],
         correctAnswer: 0
@@ -1289,6 +1444,7 @@ export const TOPICS: Topic[] = [
         id: '6-15',
         type: 'gap-fill',
         title: 'Gap Fill 1',
+        imageUrl: IMG_SURGICAL_CONCEPT,
         leadText: '"If I __________ (be) you, I would study harder."',
         correctAnswer: 'were'
       },
@@ -1296,6 +1452,7 @@ export const TOPICS: Topic[] = [
         id: '6-16',
         type: 'gap-fill',
         title: 'Gap Fill 2',
+        imageUrl: IMG_SURGICAL_CONCEPT,
         leadText: '"He __________ (not / be) so tired if he went to bed earlier."',
         correctAnswer: 'wouldn\'t be'
       },
@@ -1303,6 +1460,7 @@ export const TOPICS: Topic[] = [
         id: '6-17',
         type: 'gap-fill',
         title: 'Gap Fill 3',
+        imageUrl: IMG_SURGICAL_CONCEPT,
         leadText: '"If we __________ (live) in London, we would speak better English."',
         correctAnswer: 'lived'
       },
@@ -1310,6 +1468,7 @@ export const TOPICS: Topic[] = [
         id: '6-18',
         type: 'reading',
         title: 'Reading Comprehension',
+        imageUrl: IMG_SURGICAL_TEST,
         passage: 'Life would be very different if we **didn\'t have** electricity. If the internet **disappeared** tomorrow, most businesses **would stop** working. We **would have** to write letters! If I **had** to live without a phone, I **would feel** lonely. Maybe people **would talk** more if they **weren\'t** looking at screens.',
         question: 'Do we have electricity now?',
         options: ['Yes.', 'No.'],
@@ -1319,6 +1478,7 @@ export const TOPICS: Topic[] = [
         id: '6-19',
         type: 'speaking',
         title: 'Speaking Task',
+        imageUrl: IMG_SURGICAL_INTRO,
         leadText: 'Record your answer.',
         speakingPrompts: [
           'If you could have any superpower, what would it be?',
@@ -1336,6 +1496,7 @@ export const TOPICS: Topic[] = [
         id: '7-1',
         type: 'intro',
         title: 'Lead-in',
+        imageUrl: IMG_SURGICAL_INTRO,
         leadText: 'Look at the scenarios.',
         bulletPoints: [
           { lang: 'en', label: 'Scene A (Subject)', text: '"Who SAW the crime?" (Asking about the witness).' },
@@ -1348,6 +1509,7 @@ export const TOPICS: Topic[] = [
         id: '7-2',
         type: 'concept',
         title: 'Meaning & Definition',
+        imageUrl: IMG_SURGICAL_CONCEPT,
         bulletPoints: [
           { lang: 'en', label: 'Object Questions', text: 'Ask about object. Use do/does/did. "What DID you buy?"' },
           { lang: 'en', label: 'Subject Questions', text: 'Ask about subject. NO auxiliary. "Who BOUGHT the milk?"' },
@@ -1360,6 +1522,7 @@ export const TOPICS: Topic[] = [
         id: '7-3',
         type: 'quiz',
         title: 'Concept Check 1',
+        imageUrl: IMG_SURGICAL_TEST,
         question: '"Who called you?"',
         options: ['Asking about the receiver.', 'Asking about the caller.'],
         correctAnswer: 1,
@@ -1369,6 +1532,7 @@ export const TOPICS: Topic[] = [
         id: '7-4',
         type: 'quiz',
         title: 'Concept Check 2',
+        imageUrl: IMG_SURGICAL_TEST,
         question: '"Who did you call?"',
         options: ['Asking about the receiver.', 'Asking about the caller.'],
         correctAnswer: 0,
@@ -1378,6 +1542,7 @@ export const TOPICS: Topic[] = [
         id: '7-5',
         type: 'quiz',
         title: 'Concept Check 3',
+        imageUrl: IMG_SURGICAL_TEST,
         question: '"Can you tell me where ____?"',
         options: ['is the station', 'the station is'],
         correctAnswer: 1,
@@ -1400,6 +1565,7 @@ export const TOPICS: Topic[] = [
         id: '7-6-b',
         type: 'concept',
         title: 'Structure Rules',
+        imageUrl: IMG_SURGICAL_CONCEPT,
         bulletPoints: [
             { lang: 'en', label: 'Object', text: 'Q-Word + Auxiliary + Subject + Verb? (Where DID you go?)' },
             { lang: 'en', label: 'Subject', text: 'Who/What + Verb? (Who WENT home?)' },
@@ -1410,6 +1576,7 @@ export const TOPICS: Topic[] = [
         id: '7-7',
         type: 'concept',
         title: '3 Examples',
+        imageUrl: IMG_SURGICAL_CONCEPT,
         bulletPoints: [
             { lang: 'en', label: 'Subject', text: '"Who broke the window?" (John broke it).' },
             { lang: 'en', label: 'Object', text: '"What did John break?" (The window).' },
@@ -1420,6 +1587,7 @@ export const TOPICS: Topic[] = [
         id: '7-8',
         type: 'test',
         title: 'Test 1',
+        imageUrl: IMG_SURGICAL_TEST,
         question: 'Who ____ that book?',
         options: ['did write', 'wrote', 'did wrote'],
         correctAnswer: 1,
@@ -1429,6 +1597,7 @@ export const TOPICS: Topic[] = [
         id: '7-9',
         type: 'test',
         title: 'Test 2',
+        imageUrl: IMG_SURGICAL_TEST,
         question: 'Where ____ live?',
         options: ['do you', 'you', 'you do'],
         correctAnswer: 0,
@@ -1438,6 +1607,7 @@ export const TOPICS: Topic[] = [
         id: '7-10',
         type: 'test',
         title: 'Test 3',
+        imageUrl: IMG_SURGICAL_TEST,
         question: 'Do you know what time ____?',
         options: ['does the film start', 'the film starts', 'starts the film'],
         correctAnswer: 1,
@@ -1447,6 +1617,7 @@ export const TOPICS: Topic[] = [
         id: '7-11',
         type: 'quiz',
         title: 'Matching',
+        imageUrl: IMG_SURGICAL_TEST,
         question: 'Match meaning: "Who loves Jane?"',
         options: ['Jane loves Tom.', 'Tom loves Jane.'],
         correctAnswer: 1,
@@ -1456,6 +1627,7 @@ export const TOPICS: Topic[] = [
         id: '7-12',
         type: 'quiz',
         title: 'Transformation',
+        imageUrl: IMG_SURGICAL_TEST,
         question: 'Indirect form of "Is he married?"',
         options: ['Can you tell me if he is married?', 'Can you tell me if is he married?'],
         correctAnswer: 0
@@ -1464,6 +1636,7 @@ export const TOPICS: Topic[] = [
         id: '7-13',
         type: 'quiz',
         title: 'Spot the Mistake',
+        imageUrl: IMG_SURGICAL_TEST,
         question: 'Is "Do you know where does he work?" correct?',
         options: ['Yes', 'No, "where he works"'],
         correctAnswer: 1,
@@ -1473,6 +1646,7 @@ export const TOPICS: Topic[] = [
         id: '7-14',
         type: 'test',
         title: 'Rapid Fire',
+        imageUrl: IMG_SURGICAL_TEST,
         question: '"Who ____ the race?"',
         options: ['won', 'did win'],
         correctAnswer: 0
@@ -1481,6 +1655,7 @@ export const TOPICS: Topic[] = [
         id: '7-15',
         type: 'gap-fill',
         title: 'Gap Fill 1',
+        imageUrl: IMG_SURGICAL_CONCEPT,
         leadText: '"What __________ (happen) yesterday?"',
         correctAnswer: 'happened'
       },
@@ -1488,6 +1663,7 @@ export const TOPICS: Topic[] = [
         id: '7-16',
         type: 'gap-fill',
         title: 'Gap Fill 2',
+        imageUrl: IMG_SURGICAL_CONCEPT,
         leadText: '"Could you tell me how much __________ (cost / this ticket)?"',
         correctAnswer: 'this ticket costs'
       },
@@ -1495,6 +1671,7 @@ export const TOPICS: Topic[] = [
         id: '7-17',
         type: 'gap-fill',
         title: 'Gap Fill 3',
+        imageUrl: IMG_SURGICAL_CONCEPT,
         leadText: '"Who __________ (you / invite) to the party?"',
         correctAnswer: 'did you invite'
       },
@@ -1502,6 +1679,7 @@ export const TOPICS: Topic[] = [
         id: '7-18',
         type: 'reading',
         title: 'Reading Comprehension',
+        imageUrl: IMG_SURGICAL_TEST,
         passage: 'William James Sidis was a genius. **Who inspired him?** His parents. **What did he study?** Math at Harvard. Later, journalists asked, "**Could you tell us why you left academic life?**" Sidis wanted privacy. He wondered **why people were so interested** in him.',
         question: '"Could you tell us why you left..." is:',
         options: ['Direct question.', 'Indirect question.'],
@@ -1511,6 +1689,7 @@ export const TOPICS: Topic[] = [
         id: '7-19',
         type: 'speaking',
         title: 'Speaking Task',
+        imageUrl: IMG_SURGICAL_INTRO,
         leadText: 'Record polite questions for a stranger.',
         speakingPrompts: [
           'Ask them where they live, but politely.',
@@ -1528,6 +1707,7 @@ export const TOPICS: Topic[] = [
         id: '8-1',
         type: 'intro',
         title: 'Lead-in',
+        imageUrl: IMG_SURGICAL_INTRO,
         leadText: 'Fact vs Prediction',
         bulletPoints: [
             { lang: 'en', label: 'Fact (Zero)', text: '"If it rains, plants grow." (Always true).' },
@@ -1538,6 +1718,7 @@ export const TOPICS: Topic[] = [
         id: '8-2',
         type: 'concept',
         title: 'Meaning & Definition',
+        imageUrl: IMG_SURGICAL_CONCEPT,
         bulletPoints: [
             { lang: 'en', label: 'Zero Conditional', text: 'General truths, habits. (If + Present, ... Present).' },
             { lang: 'en', label: 'First Conditional', text: 'Possible future. (If + Present, ... Will).' },
@@ -1551,6 +1732,7 @@ export const TOPICS: Topic[] = [
         id: '8-3',
         type: 'quiz',
         title: 'Concept Check 1',
+        imageUrl: IMG_SURGICAL_TEST,
         question: '"If I miss the bus, I am late for work." (Every day)',
         options: ['Zero Conditional', 'First Conditional'],
         correctAnswer: 0,
@@ -1560,6 +1742,7 @@ export const TOPICS: Topic[] = [
         id: '8-4',
         type: 'quiz',
         title: 'Concept Check 2',
+        imageUrl: IMG_SURGICAL_TEST,
         question: '"If it rains tomorrow, we will stay home."',
         options: ['Zero Conditional', 'First Conditional'],
         correctAnswer: 1,
@@ -1569,6 +1752,7 @@ export const TOPICS: Topic[] = [
         id: '8-5',
         type: 'quiz',
         title: 'Concept Check 3',
+        imageUrl: IMG_SURGICAL_TEST,
         question: '"I won\'t go unless he calls."',
         options: ['I will go if he calls.', 'I will go if he doesn\'t call.'],
         correctAnswer: 0,
@@ -1590,6 +1774,7 @@ export const TOPICS: Topic[] = [
         id: '8-6-b',
         type: 'concept',
         title: 'Conditional Rules',
+        imageUrl: IMG_SURGICAL_CONCEPT,
         bulletPoints: [
             { lang: 'en', label: 'General Fact?', text: 'YES -> Present + Present (Zero)' },
             { lang: 'en', label: 'Future Possibility?', text: 'YES -> Present + Will (First)' }
@@ -1599,6 +1784,7 @@ export const TOPICS: Topic[] = [
         id: '8-7',
         type: 'concept',
         title: '3 Examples',
+        imageUrl: IMG_SURGICAL_CONCEPT,
         bulletPoints: [
             { lang: 'en', label: 'Zero', text: '"If you mix red and blue, you get purple."' },
             { lang: 'en', label: 'First', text: '"If you don\'t leave now, you will miss the train."' },
@@ -1609,6 +1795,7 @@ export const TOPICS: Topic[] = [
         id: '8-8',
         type: 'test',
         title: 'Test 1',
+        imageUrl: IMG_SURGICAL_TEST,
         question: 'If people eat too much, they ____ fat.',
         options: ['get', 'will get', 'got'],
         correctAnswer: 0,
@@ -1618,6 +1805,7 @@ export const TOPICS: Topic[] = [
         id: '8-9',
         type: 'test',
         title: 'Test 2',
+        imageUrl: IMG_SURGICAL_TEST,
         question: 'If I ____ her, I\'ll tell her.',
         options: ['see', 'will see', 'saw'],
         correctAnswer: 0,
@@ -1627,6 +1815,7 @@ export const TOPICS: Topic[] = [
         id: '8-10',
         type: 'test',
         title: 'Test 3',
+        imageUrl: IMG_SURGICAL_TEST,
         question: 'We won\'t win ____ we practice.',
         options: ['if', 'unless', 'when'],
         correctAnswer: 1,
@@ -1636,6 +1825,7 @@ export const TOPICS: Topic[] = [
         id: '8-11',
         type: 'quiz',
         title: 'True/False',
+        imageUrl: IMG_SURGICAL_TEST,
         question: 'In First Conditional, we use Future Tense in both parts?',
         options: ['True', 'False'],
         correctAnswer: 1,
@@ -1645,6 +1835,7 @@ export const TOPICS: Topic[] = [
         id: '8-12',
         type: 'quiz',
         title: 'Transformation',
+        imageUrl: IMG_SURGICAL_TEST,
         question: '"If you don\'t run, you won\'t catch it." -> Unless...',
         options: ['Unless you run, you won\'t catch it.', 'Unless you don\'t run...'],
         correctAnswer: 0
@@ -1653,6 +1844,7 @@ export const TOPICS: Topic[] = [
         id: '8-13',
         type: 'quiz',
         title: 'Matching',
+        imageUrl: IMG_SURGICAL_TEST,
         question: 'Match: "If water reaches 100°C..."',
         options: ['...it boils.', '...it will boil.'],
         correctAnswer: 0,
@@ -1662,6 +1854,7 @@ export const TOPICS: Topic[] = [
         id: '8-14',
         type: 'test',
         title: 'Rapid Fire',
+        imageUrl: IMG_SURGICAL_TEST,
         question: '"If you ____ (drop) glass, it breaks."',
         options: ['drop', 'will drop'],
         correctAnswer: 0
@@ -1670,6 +1863,7 @@ export const TOPICS: Topic[] = [
         id: '8-15',
         type: 'gap-fill',
         title: 'Gap Fill 1',
+        imageUrl: IMG_SURGICAL_CONCEPT,
         leadText: '"If you __________ (need) help, call me."',
         correctAnswer: 'need'
       },
@@ -1677,6 +1871,7 @@ export const TOPICS: Topic[] = [
         id: '8-16',
         type: 'gap-fill',
         title: 'Gap Fill 2',
+        imageUrl: IMG_SURGICAL_CONCEPT,
         leadText: '"Unless we leave now, we __________ (be) late."',
         correctAnswer: 'will be'
       },
@@ -1684,6 +1879,7 @@ export const TOPICS: Topic[] = [
         id: '8-17',
         type: 'gap-fill',
         title: 'Gap Fill 3',
+        imageUrl: IMG_SURGICAL_CONCEPT,
         leadText: '"If he __________ (not / come) soon, we will leave without him."',
         correctAnswer: 'doesn\'t come'
       },
@@ -1691,6 +1887,7 @@ export const TOPICS: Topic[] = [
         id: '8-18',
         type: 'reading',
         title: 'Reading Comprehension',
+        imageUrl: IMG_SURGICAL_TEST,
         passage: 'Happiness is simple. **If people enjoy their job, they are happier** (Zero). However, **if you change your routine, you will feel** strange (First). Experts say that **unless you sleep enough, you won\'t focus** well.',
         question: '"If you change your routine, you will feel strange." This is:',
         options: ['A likely result in the future.', 'A fact that always happens instantly.'],
@@ -1700,6 +1897,7 @@ export const TOPICS: Topic[] = [
         id: '8-19',
         type: 'speaking',
         title: 'Speaking Task',
+        imageUrl: IMG_SURGICAL_INTRO,
         leadText: 'Record your answer.',
         speakingPrompts: [
           'What will you do if it rains this weekend?',
@@ -1717,6 +1915,7 @@ export const TOPICS: Topic[] = [
         id: '9-1',
         type: 'intro',
         title: 'Lead-in',
+        imageUrl: IMG_SURGICAL_INTRO,
         leadText: 'Look at the scenario.',
         bulletPoints: [
           { lang: 'en', label: 'Fact', text: 'He PLAYED video games all night. He DIDN\'T study.' },
@@ -1728,6 +1927,7 @@ export const TOPICS: Topic[] = [
         id: '9-2',
         type: 'concept',
         title: 'Meaning & Definition',
+        imageUrl: IMG_SURGICAL_CONCEPT,
         bulletPoints: [
           { lang: 'en', label: 'Use', text: 'Criticize past actions or express regret.' },
           { lang: 'en', label: 'Formula', text: 'Should have + Past Participle (V3).' },
@@ -1739,6 +1939,7 @@ export const TOPICS: Topic[] = [
         id: '9-3',
         type: 'quiz',
         title: 'Concept Check 1',
+        imageUrl: IMG_SURGICAL_TEST,
         question: '"You should have called me." Did you call me?',
         options: ['Yes', 'No'],
         correctAnswer: 1,
@@ -1748,6 +1949,7 @@ export const TOPICS: Topic[] = [
         id: '9-4',
         type: 'quiz',
         title: 'Concept Check 2',
+        imageUrl: IMG_SURGICAL_TEST,
         question: '"I shouldn\'t have eaten that cake." How do I feel now?',
         options: ['Happy and full.', 'Sick or guilty.'],
         correctAnswer: 1,
@@ -1757,6 +1959,7 @@ export const TOPICS: Topic[] = [
         id: '9-5',
         type: 'quiz',
         title: 'Concept Check 3',
+        imageUrl: IMG_SURGICAL_TEST,
         question: 'Is "He should have been more careful" about Future or Past?',
         options: ['Future', 'Past'],
         correctAnswer: 1,
@@ -1778,6 +1981,7 @@ export const TOPICS: Topic[] = [
         id: '9-6-b',
         type: 'concept',
         title: 'Analysis',
+        imageUrl: IMG_SURGICAL_CONCEPT,
         bulletPoints: [
             { lang: 'en', label: 'Past Point', text: 'Mistake happens here.' },
             { lang: 'en', label: 'Present Point', text: 'Looking back with regret.' },
@@ -1788,6 +1992,7 @@ export const TOPICS: Topic[] = [
         id: '9-7',
         type: 'concept',
         title: '3 Examples',
+        imageUrl: IMG_SURGICAL_CONCEPT,
         bulletPoints: [
             { lang: 'en', label: 'Self-Regret', text: '"I SHOULD HAVE GONE to bed earlier."' },
             { lang: 'en', label: 'Criticism', text: '"You SHOULDN\'T HAVE LAUGHED at him."' },
@@ -1798,6 +2003,7 @@ export const TOPICS: Topic[] = [
         id: '9-8',
         type: 'test',
         title: 'Test 1',
+        imageUrl: IMG_SURGICAL_TEST,
         question: 'The movie was terrible. We ____ gone to see it.',
         options: ['should have', 'shouldn\'t have', 'must have'],
         correctAnswer: 1,
@@ -1807,6 +2013,7 @@ export const TOPICS: Topic[] = [
         id: '9-9',
         type: 'test',
         title: 'Test 2',
+        imageUrl: IMG_SURGICAL_TEST,
         question: 'You ____ invited Tom. He is really fun!',
         options: ['should have', 'shouldn\'t have', 'would have'],
         correctAnswer: 0,
@@ -1816,6 +2023,7 @@ export const TOPICS: Topic[] = [
         id: '9-10',
         type: 'test',
         title: 'Test 3',
+        imageUrl: IMG_SURGICAL_TEST,
         question: 'I ____ left my phone in the car. It got stolen.',
         options: ['shouldn\'t have', 'should have', 'didn\'t have'],
         correctAnswer: 0,
@@ -1825,6 +2033,7 @@ export const TOPICS: Topic[] = [
         id: '9-11',
         type: 'quiz',
         title: 'True/False',
+        imageUrl: IMG_SURGICAL_TEST,
         question: '"Should have" is used to give advice for the future.',
         options: ['True', 'False'],
         correctAnswer: 1,
@@ -1834,6 +2043,7 @@ export const TOPICS: Topic[] = [
         id: '9-12',
         type: 'quiz',
         title: 'Spot the Mistake',
+        imageUrl: IMG_SURGICAL_TEST,
         question: 'Is "You should have go to the doctor" correct?',
         options: ['Yes', 'No, "gone"'],
         correctAnswer: 1,
@@ -1843,6 +2053,7 @@ export const TOPICS: Topic[] = [
         id: '9-13',
         type: 'quiz',
         title: 'Context Match',
+        imageUrl: IMG_SURGICAL_TEST,
         question: 'You are wet because you forgot your umbrella.',
         options: ['I should have brought my umbrella.', 'I shouldn\'t have brought my umbrella.'],
         correctAnswer: 0
@@ -1851,6 +2062,7 @@ export const TOPICS: Topic[] = [
         id: '9-14',
         type: 'test',
         title: 'Rapid Fire',
+        imageUrl: IMG_SURGICAL_TEST,
         question: '"He ____ worn sunscreen."',
         options: ['should have', 'shouldn\'t have'],
         correctAnswer: 0
@@ -1859,6 +2071,7 @@ export const TOPICS: Topic[] = [
         id: '9-15',
         type: 'gap-fill',
         title: 'Gap Fill 1',
+        imageUrl: IMG_SURGICAL_CONCEPT,
         leadText: '"I didn\'t study for the test. I __________ (study) more."',
         correctAnswer: 'should have studied'
       },
@@ -1866,6 +2079,7 @@ export const TOPICS: Topic[] = [
         id: '9-16',
         type: 'gap-fill',
         title: 'Gap Fill 2',
+        imageUrl: IMG_SURGICAL_CONCEPT,
         leadText: '"We got lost. We __________ (take) a map."',
         correctAnswer: 'should have taken'
       },
@@ -1873,6 +2087,7 @@ export const TOPICS: Topic[] = [
         id: '9-17',
         type: 'gap-fill',
         title: 'Gap Fill 3',
+        imageUrl: IMG_SURGICAL_CONCEPT,
         leadText: '"My stomach hurts. I __________ (eat) so much chocolate."',
         correctAnswer: 'shouldn\'t have eaten'
       },
@@ -1880,6 +2095,7 @@ export const TOPICS: Topic[] = [
         id: '9-18',
         type: 'reading',
         title: 'Reading Comprehension',
+        imageUrl: IMG_SURGICAL_TEST,
         passage: 'The \'Love Bug\' virus was a disaster. Millions of people received an email with the subject \'I Love You\'. They opened it, and it destroyed their files. Security experts said people **should have been** more suspicious. They **shouldn\'t have opened** emails from strangers. Companies **should have warned** their employees sooner.',
         question: 'Did people open the email?',
         options: ['Yes.', 'No.'],
@@ -1889,6 +2105,7 @@ export const TOPICS: Topic[] = [
         id: '9-19',
         type: 'speaking',
         title: 'Speaking Task',
+        imageUrl: IMG_SURGICAL_INTRO,
         leadText: 'Record your opinion.',
         speakingPrompts: [
           'A girl posted a photo of her friend sleeping. Comment on it.',
@@ -1907,6 +2124,7 @@ export const TOPICS: Topic[] = [
         id: '10-1',
         type: 'intro',
         title: 'The Great Sage speaks.',
+        imageUrl: IMG_WUKONG_SAGE,
         leadText: 'Wukong is a master of time and change.',
         bulletPoints: [
           { lang: 'en', label: 'The Concept', text: 'When we report what someone said, we step BACK in time. Just like Wukong steps into the past.' },
@@ -1918,6 +2136,7 @@ export const TOPICS: Topic[] = [
         id: '10-2-a',
         type: 'concept',
         title: 'The Pronoun Shift',
+        imageUrl: IMG_WUKONG_SCROLL,
         leadText: 'Identity Transformation (72 Forms)',
         bulletPoints: [
           { lang: 'en', label: 'I becomes He/She', text: 'Wukong says "I am strong." -> He said HE was strong.' },
@@ -1929,6 +2148,7 @@ export const TOPICS: Topic[] = [
         id: '10-2-b',
         type: 'quiz',
         title: 'Pronoun Test',
+        imageUrl: IMG_WUKONG_CLOUD,
         question: 'Direct: "I lost my book." -> Reported: He said ____ lost ____ book.',
         options: ['I / my', 'he / his'],
         correctAnswer: 1,
@@ -1950,6 +2170,7 @@ export const TOPICS: Topic[] = [
         id: '10-3-b',
         type: 'concept',
         title: 'Analysis: Present -> Past',
+        imageUrl: IMG_WUKONG_SCROLL,
         leadText: 'One step backward.',
         bulletPoints: [
             { lang: 'en', label: 'Am/Is -> Was', text: '"I am ready." -> He said he WAS ready.' },
@@ -1962,6 +2183,7 @@ export const TOPICS: Topic[] = [
         id: '10-4',
         type: 'quiz',
         title: 'Quick Check: Present',
+        imageUrl: IMG_WUKONG_CLOUD,
         question: 'Wukong says: "I want the fan." -> He said he ____ the fan.',
         options: ['wants', 'wanted'],
         correctAnswer: 1,
@@ -1983,6 +2205,7 @@ export const TOPICS: Topic[] = [
         id: '10-5-b',
         type: 'concept',
         title: 'Analysis: Past -> Past Perfect',
+        imageUrl: IMG_WUKONG_SCROLL,
         leadText: 'The action was ALREADY past. Now it is ANCIENT.',
         bulletPoints: [
             { lang: 'en', label: 'V2 (Past) -> Had + V3', text: '"I defeated the demon." -> He said he HAD DEFEATED the demon.' },
@@ -1994,6 +2217,7 @@ export const TOPICS: Topic[] = [
         id: '10-6',
         type: 'quiz',
         title: 'Quick Check: Past',
+        imageUrl: IMG_WUKONG_CLOUD,
         question: 'Pigsy says: "I slept all day." -> He said he ____ all day.',
         options: ['slept', 'had slept'],
         correctAnswer: 1,
@@ -2015,6 +2239,7 @@ export const TOPICS: Topic[] = [
         id: '10-7-b',
         type: 'concept',
         title: 'Analysis: Modals',
+        imageUrl: IMG_WUKONG_SCROLL,
         leadText: 'The shape changes, but the meaning remains.',
         bulletPoints: [
             { lang: 'en', label: 'Will -> Would', text: '"I will go." -> He said he WOULD go.' },
@@ -2027,6 +2252,7 @@ export const TOPICS: Topic[] = [
         id: '10-8',
         type: 'quiz',
         title: 'Quick Check: Modals',
+        imageUrl: IMG_WUKONG_CLOUD,
         question: '"I can see the future." -> He said he ____ see the future.',
         options: ['can', 'could'],
         correctAnswer: 1,
@@ -2036,6 +2262,7 @@ export const TOPICS: Topic[] = [
         id: '10-9-a',
         type: 'concept',
         title: 'Time & Place Shifting',
+        imageUrl: IMG_WUKONG_SAGE,
         leadText: 'Teleportation Logic',
         bulletPoints: [
             { lang: 'en', label: 'Now -> Then', text: '"I am busy NOW." -> He was busy THEN.' },
@@ -2048,6 +2275,7 @@ export const TOPICS: Topic[] = [
         id: '10-9-b',
         type: 'quiz',
         title: 'Time Check',
+        imageUrl: IMG_WUKONG_CLOUD,
         question: '"I will arrive tomorrow." -> He said he would arrive ____.',
         options: ['tomorrow', 'the next day'],
         correctAnswer: 1,
@@ -2057,6 +2285,7 @@ export const TOPICS: Topic[] = [
         id: '10-10',
         type: 'test',
         title: 'Test 1: Present to Past',
+        imageUrl: IMG_WUKONG_SAGE,
         question: '"I live in the mountain." -> He said he ____ in the mountain.',
         options: ['lived', 'lives', 'had lived'],
         correctAnswer: 0,
@@ -2066,6 +2295,7 @@ export const TOPICS: Topic[] = [
         id: '10-11',
         type: 'test',
         title: 'Test 2: Past to Perfect',
+        imageUrl: IMG_WUKONG_SCROLL,
         question: '"I finished the training." -> He said he ____ the training.',
         options: ['finished', 'has finished', 'had finished'],
         correctAnswer: 2,
@@ -2075,6 +2305,7 @@ export const TOPICS: Topic[] = [
         id: '10-12',
         type: 'test',
         title: 'Test 3: Continuous',
+        imageUrl: IMG_WUKONG_CLOUD,
         question: '"I am meditating." -> She said she ____ meditating.',
         options: ['is', 'was', 'been'],
         correctAnswer: 1,
@@ -2084,6 +2315,7 @@ export const TOPICS: Topic[] = [
         id: '10-13',
         type: 'test',
         title: 'Test 4: Modals',
+        imageUrl: IMG_WUKONG_SAGE,
         question: '"I can help you." -> He said he ____ help me.',
         options: ['can', 'could', 'should'],
         correctAnswer: 1,
@@ -2093,6 +2325,7 @@ export const TOPICS: Topic[] = [
         id: '10-14',
         type: 'test',
         title: 'Test 5: Time Words',
+        imageUrl: IMG_WUKONG_CLOUD,
         question: '"I will see you tomorrow." -> He said he would see me ____.',
         options: ['tomorrow', 'the next day', 'yesterday'],
         correctAnswer: 1,
@@ -2102,6 +2335,7 @@ export const TOPICS: Topic[] = [
         id: '10-15',
         type: 'test',
         title: 'Test 6: Place Words',
+        imageUrl: IMG_WUKONG_SCROLL,
         question: '"Put the staff here." -> He told me to put it ____.',
         options: ['here', 'there'],
         correctAnswer: 1,
@@ -2111,6 +2345,7 @@ export const TOPICS: Topic[] = [
         id: '10-16',
         type: 'test',
         title: 'Test 7: Must',
+        imageUrl: IMG_WUKONG_SAGE,
         question: '"I must go." -> He said he ____ go.',
         options: ['must', 'had to', 'would'],
         correctAnswer: 1,
@@ -2120,6 +2355,7 @@ export const TOPICS: Topic[] = [
         id: '10-17',
         type: 'test',
         title: 'Test 8: Reporting Verbs',
+        imageUrl: IMG_WUKONG_SCROLL,
         question: 'He ____ me that he was hungry.',
         options: ['said', 'told', 'asked'],
         correctAnswer: 1,
@@ -2129,6 +2365,7 @@ export const TOPICS: Topic[] = [
         id: '10-18',
         type: 'test',
         title: 'Test 9: Past Perfect',
+        imageUrl: IMG_WUKONG_CLOUD,
         question: '"I had already eaten." -> He said he ____ already eaten.',
         options: ['had', 'has', 'have'],
         correctAnswer: 0,
@@ -2138,6 +2375,7 @@ export const TOPICS: Topic[] = [
         id: '10-19',
         type: 'test',
         title: 'Test 10: Will',
+        imageUrl: IMG_WUKONG_SAGE,
         question: '"It will rain fire." -> The forecast said it ____ rain fire.',
         options: ['will', 'would', 'is'],
         correctAnswer: 1,
@@ -2147,6 +2385,7 @@ export const TOPICS: Topic[] = [
         id: '10-30',
         type: 'gap-fill',
         title: 'Gap Fill 1',
+        imageUrl: IMG_WUKONG_SCROLL,
         leadText: '"I am happy." -> He said he __________ (be) happy.',
         correctAnswer: 'was'
       },
@@ -2154,6 +2393,7 @@ export const TOPICS: Topic[] = [
         id: '10-31',
         type: 'gap-fill',
         title: 'Gap Fill 2',
+        imageUrl: IMG_WUKONG_CLOUD,
         leadText: '"I have finished." -> She said she __________ (finish).',
         correctAnswer: 'had finished'
       },
@@ -2161,6 +2401,7 @@ export const TOPICS: Topic[] = [
         id: '10-32',
         type: 'gap-fill',
         title: 'Gap Fill 3',
+        imageUrl: IMG_WUKONG_SAGE,
         leadText: '"I will call." -> He said he __________ (call).',
         correctAnswer: 'would call'
       },
@@ -2168,6 +2409,7 @@ export const TOPICS: Topic[] = [
         id: '10-33',
         type: 'gap-fill',
         title: 'Gap Fill 4',
+        imageUrl: IMG_WUKONG_SCROLL,
         leadText: '"I can swim." -> She said she __________ (swim).',
         correctAnswer: 'could swim'
       },
@@ -2175,6 +2417,7 @@ export const TOPICS: Topic[] = [
         id: '10-34',
         type: 'gap-fill',
         title: 'Gap Fill 5',
+        imageUrl: IMG_WUKONG_CLOUD,
         leadText: '"I saw him yesterday." -> He said he had seen him the day __________.',
         correctAnswer: 'before'
       },
@@ -2182,6 +2425,7 @@ export const TOPICS: Topic[] = [
         id: '10-35',
         type: 'gap-fill',
         title: 'Gap Fill 6',
+        imageUrl: IMG_WUKONG_SAGE,
         leadText: '"I must go." -> He said he __________ (have to) go.',
         correctAnswer: 'had to'
       },
@@ -2189,6 +2433,7 @@ export const TOPICS: Topic[] = [
         id: '10-36',
         type: 'gap-fill',
         title: 'Gap Fill 7',
+        imageUrl: IMG_WUKONG_SCROLL,
         leadText: '"We are playing." -> They said they __________ (play).',
         correctAnswer: 'were playing'
       },
@@ -2196,6 +2441,7 @@ export const TOPICS: Topic[] = [
         id: '10-37',
         type: 'gap-fill',
         title: 'Gap Fill 8',
+        imageUrl: IMG_WUKONG_CLOUD,
         leadText: '"I don\'t know." -> He said he __________ (not / know).',
         correctAnswer: 'didn\'t know'
       },
@@ -2203,6 +2449,7 @@ export const TOPICS: Topic[] = [
         id: '10-38',
         type: 'gap-fill',
         title: 'Gap Fill 9',
+        imageUrl: IMG_WUKONG_SAGE,
         leadText: '"I am here." -> He said he was __________.',
         correctAnswer: 'there'
       },
@@ -2210,6 +2457,7 @@ export const TOPICS: Topic[] = [
         id: '10-39',
         type: 'gap-fill',
         title: 'Gap Fill 10',
+        imageUrl: IMG_WUKONG_SCROLL,
         leadText: '"I will do it tomorrow." -> He said he would do it the __________ day.',
         correctAnswer: 'next'
       },
@@ -2217,6 +2465,7 @@ export const TOPICS: Topic[] = [
         id: '10-40',
         type: 'reading',
         title: 'Reading Comprehension',
+        imageUrl: IMG_WUKONG_CLOUD,
         passage: 'He told me that he **loved** acting but he **hated** the paparazzi. He said that he **was working** on a new movie then. He mentioned that he **had seen** the script the week before. He promised that he **would give** me an exclusive interview.',
         question: 'What does "He loved acting" mean?',
         options: ['He used to love it.', 'He said, "I love acting."'],
@@ -2226,6 +2475,7 @@ export const TOPICS: Topic[] = [
         id: '10-41',
         type: 'speaking',
         title: 'Speaking Task',
+        imageUrl: IMG_WUKONG_SAGE,
         leadText: 'Report the gossip.',
         speakingPrompts: [
           'Ben said: "I am moving to a new school."',
@@ -2244,6 +2494,7 @@ export const TOPICS: Topic[] = [
         id: '11-1',
         type: 'intro',
         title: 'Lead-in',
+        imageUrl: IMG_WUKONG_SAGE,
         leadText: 'Compare Word Orders.',
         bulletPoints: [
           { lang: 'en', label: 'Direct', text: '"Where DO you live?" (V before S)' },
@@ -2255,6 +2506,7 @@ export const TOPICS: Topic[] = [
         id: '11-2',
         type: 'concept',
         title: 'Meaning & Definition',
+        imageUrl: IMG_WUKONG_SCROLL,
         bulletPoints: [
           { lang: 'en', label: 'Word Order', text: 'Change to Statement order (S-V). No do/does/did.' },
           { lang: 'en', label: 'Yes/No Questions', text: 'Use IF or WHETHER.' },
@@ -2267,6 +2519,7 @@ export const TOPICS: Topic[] = [
         id: '11-3',
         type: 'quiz',
         title: 'Concept Check 1',
+        imageUrl: IMG_WUKONG_CLOUD,
         question: 'He asked me where ____.',
         options: ['was I', 'I was'],
         correctAnswer: 1,
@@ -2276,6 +2529,7 @@ export const TOPICS: Topic[] = [
         id: '11-4',
         type: 'quiz',
         title: 'Concept Check 2',
+        imageUrl: IMG_WUKONG_SAGE,
         question: '"Where DO you work?" -> He asked where I ____.',
         options: ['did work', 'worked'],
         correctAnswer: 1,
@@ -2285,6 +2539,7 @@ export const TOPICS: Topic[] = [
         id: '11-5',
         type: 'quiz',
         title: 'Concept Check 3',
+        imageUrl: IMG_WUKONG_SCROLL,
         question: '"Are you happy?" -> He asked ____ I was happy.',
         options: ['that', 'if'],
         correctAnswer: 1,
@@ -2306,6 +2561,7 @@ export const TOPICS: Topic[] = [
         id: '11-6-b',
         type: 'concept',
         title: 'Transformation Rules',
+        imageUrl: IMG_WUKONG_CLOUD,
         bulletPoints: [
             { lang: 'en', label: 'Wh- Question?', text: 'YES -> Keep word. NO -> Add If/Whether.' },
             { lang: 'en', label: 'Action', text: 'Swap Subject/Verb. Backshift Tense. Remove do/did.' }
@@ -2315,6 +2571,7 @@ export const TOPICS: Topic[] = [
         id: '11-7',
         type: 'concept',
         title: '3 Examples',
+        imageUrl: IMG_WUKONG_SAGE,
         bulletPoints: [
             { lang: 'en', label: 'Wh- Question', text: '"What IS your name?" -> "Asked what my name WAS."' },
             { lang: 'en', label: 'Yes/No Question', text: '"DO you like coffee?" -> "Asked IF I LIKED coffee."' },
@@ -2325,6 +2582,7 @@ export const TOPICS: Topic[] = [
         id: '11-8',
         type: 'test',
         title: 'Test 1',
+        imageUrl: IMG_WUKONG_SCROLL,
         question: '"Where are you going?" -> He asked where ____.',
         options: ['was I going', 'I was going', 'I am going'],
         correctAnswer: 1,
@@ -2334,6 +2592,7 @@ export const TOPICS: Topic[] = [
         id: '11-9',
         type: 'test',
         title: 'Test 2',
+        imageUrl: IMG_WUKONG_CLOUD,
         question: '"Did you see Tom?" -> She asked if I ____ Tom.',
         options: ['saw', 'had seen', 'did see'],
         correctAnswer: 1,
@@ -2343,6 +2602,7 @@ export const TOPICS: Topic[] = [
         id: '11-10',
         type: 'test',
         title: 'Test 3',
+        imageUrl: IMG_WUKONG_SAGE,
         question: '"Can you swim?" -> He asked ____ I could swim.',
         options: ['whether', 'what', 'that'],
         correctAnswer: 0,
@@ -2352,6 +2612,7 @@ export const TOPICS: Topic[] = [
         id: '11-11',
         type: 'quiz',
         title: 'True/False',
+        imageUrl: IMG_WUKONG_SCROLL,
         question: 'We use a question mark (?) at the end of a reported question.',
         options: ['True', 'False'],
         correctAnswer: 1,
@@ -2361,6 +2622,7 @@ export const TOPICS: Topic[] = [
         id: '11-12',
         type: 'quiz',
         title: 'Spot the Mistake',
+        imageUrl: IMG_WUKONG_CLOUD,
         question: 'Is "She asked me where did I buy my bag" correct?',
         options: ['Yes', 'No, "where I bought"'],
         correctAnswer: 1,
@@ -2370,6 +2632,7 @@ export const TOPICS: Topic[] = [
         id: '11-13',
         type: 'quiz',
         title: 'Odd One Out',
+        imageUrl: IMG_WUKONG_SAGE,
         question: 'Select the odd one.',
         options: ['When', 'Why', 'If', 'Who'],
         correctAnswer: 2,
@@ -2379,6 +2642,7 @@ export const TOPICS: Topic[] = [
         id: '11-14',
         type: 'test',
         title: 'Rapid Fire',
+        imageUrl: IMG_WUKONG_SCROLL,
         question: '"Have you finished?" -> He asked if I ____.',
         options: ['finished', 'had finished'],
         correctAnswer: 1
@@ -2387,6 +2651,7 @@ export const TOPICS: Topic[] = [
         id: '11-15',
         type: 'gap-fill',
         title: 'Gap Fill 1',
+        imageUrl: IMG_WUKONG_CLOUD,
         leadText: '"Where do you work?" -> "He asked where I __________ (work)."',
         correctAnswer: 'worked'
       },
@@ -2394,6 +2659,7 @@ export const TOPICS: Topic[] = [
         id: '11-16',
         type: 'gap-fill',
         title: 'Gap Fill 2',
+        imageUrl: IMG_WUKONG_SAGE,
         leadText: '"Is it raining?" -> "She asked __________ (if/what) it was raining."',
         correctAnswer: 'if'
       },
@@ -2401,6 +2667,7 @@ export const TOPICS: Topic[] = [
         id: '11-17',
         type: 'gap-fill',
         title: 'Gap Fill 3',
+        imageUrl: IMG_WUKONG_SCROLL,
         leadText: '"When will you arrive?" -> "They asked when I __________ (arrive)."',
         correctAnswer: 'would arrive'
       },
@@ -2408,6 +2675,7 @@ export const TOPICS: Topic[] = [
         id: '11-18',
         type: 'reading',
         title: 'Reading Comprehension',
+        imageUrl: IMG_WUKONG_CLOUD,
         passage: 'I went for a job interview. First, **he asked me what my name was**. Then, **he asked if I had experience**. He wanted to know **why I had left my last job**. Finally, **he asked whether I could start on Monday**.',
         question: 'The direct question for "what my name was" is:',
         options: ['What was your name?', 'What is your name?'],
@@ -2417,6 +2685,7 @@ export const TOPICS: Topic[] = [
         id: '11-19',
         type: 'speaking',
         title: 'Speaking Task',
+        imageUrl: IMG_WUKONG_SAGE,
         leadText: 'Report your parents\' questions.',
         speakingPrompts: [
           'Mom asked: "Where have you been?"',
