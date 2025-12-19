@@ -1,4 +1,4 @@
-export type SlideType = 'intro' | 'concept' | 'quiz' | 'test' | 'gap-fill' | 'speaking' | 'reading' | 'timeline';
+export type SlideType = 'intro' | 'concept' | 'quiz' | 'test' | 'gap-fill' | 'speaking' | 'reading' | 'timeline' | 'match';
 
 export interface VisualPoint {
   label: string;
@@ -31,6 +31,12 @@ export interface SlideContent {
   options?: string[];
   correctAnswer?: string | number; // Index for options, string for gap-fill
   explanation?: string;
+  
+  // Match/Drag-Drop specific
+  pairs?: {
+    left: string;
+    right: string;
+  }[];
   
   // Reading specific
   passage?: string;

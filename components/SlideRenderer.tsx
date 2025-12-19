@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { SlideContent } from '../types';
 import { Card, Button, Badge } from './UI';
 import { Timeline3D } from './Timeline3D';
-import { Mic, CheckCircle, XCircle, Globe, Sparkles, Feather, Scroll, Wand2, BookOpen } from 'lucide-react';
+import { Mic, CheckCircle, XCircle, Globe, Sparkles, Feather, Scroll, Wand2, BookOpen, Link as LinkIcon } from 'lucide-react';
 import { checkAudio } from '../services/geminiService';
 
 interface SlideRendererProps {
@@ -37,6 +37,11 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({ slide, theme, dark
   const [isRecording, setIsRecording] = useState(false);
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   
+  // Match State
+  const [selectedLeft, setSelectedLeft] = useState<string | null>(null);
+  const [matchedPairs, setMatchedPairs] = useState<string[]>([]);
+  const [shuffledRight, setShuffledRight] = useState<{id: string, text: string}[]>([]);
+
   const [showRu, setShowRu] = useState(false);
   const [showUz, setShowUz] = useState(false);
 
@@ -82,6 +87,15 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({ slide, theme, dark
     setShowRu(false);
     setShowUz(false);
     setIsRecording(false);
+    setSelectedLeft(null);
+    setMatchedPairs([]);
+    
+    if (slide.type === 'match' && slide.pairs) {
+        // Shuffle right side
+        const rightItems = slide.pairs.map(p => ({ id: p.right, text: p.right }));
+        setShuffledRight(rightItems.sort(() => Math.random() - 0.5));
+    }
+
     if (mediaRecorderRef.current) {
         mediaRecorderRef.current.stop();
         mediaRecorderRef.current = null;
@@ -94,6 +108,28 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({ slide, theme, dark
     const isCorrect = index === slide.correctAnswer;
     onScore(isCorrect);
     setFeedback(isCorrect ? (slide.explanation || 'Excellent!') : 'Try again, wizard.');
+  };
+  
+  const handleMatch = (rightText: string) => {
+    if (!selectedLeft) return;
+    
+    // Find the correct pair for the selected left item
+    const pair = slide.pairs?.find(p => p.left === selectedLeft);
+    
+    if (pair && pair.right === rightText) {
+        // Correct
+        const newMatches = [...matchedPairs, selectedLeft];
+        setMatchedPairs(newMatches);
+        setSelectedLeft(null);
+        onScore(true);
+        if (newMatches.length === slide.pairs?.length) {
+            setFeedback("All connections established!");
+        }
+    } else {
+        // Incorrect
+        onScore(false);
+        setSelectedLeft(null); // Reset selection on fail
+    }
   };
 
   const handleStartRecording = async () => {
@@ -250,6 +286,77 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({ slide, theme, dark
                  {feedback}
                </div>
             )}
+          </div>
+        );
+      
+      case 'match':
+        return (
+          <div className="flex flex-col h-full gap-6 relative z-10">
+             <div className="text-center mb-4">
+               <h3 className={`text-3xl font-magic font-bold ${tc.text} flex items-center justify-center gap-2`}>
+                 <LinkIcon className="w-6 h-6" /> Magical Connections
+               </h3>
+               <p className={`${tc.subtext} text-sm mt-1 opacity-80`}>Tap left, then tap right to connect.</p>
+             </div>
+             
+             <div className="flex-1 grid grid-cols-2 gap-8 w-full max-w-5xl mx-auto items-center">
+                {/* Left Column */}
+                <div className="flex flex-col gap-4">
+                  {slide.pairs?.map((pair, idx) => {
+                     const isMatched = matchedPairs.includes(pair.left);
+                     const isSelected = selectedLeft === pair.left;
+                     return (
+                       <button 
+                         key={idx} 
+                         disabled={isMatched}
+                         onClick={() => setSelectedLeft(pair.left)}
+                         className={`p-4 rounded-lg border-2 text-lg font-bold transition-all relative overflow-hidden text-left ${
+                           isMatched 
+                             ? 'bg-green-500/20 border-green-500 text-green-300 opacity-50' 
+                             : isSelected 
+                               ? `${tc.accent} text-white scale-105 shadow-[0_0_15px_rgba(255,255,255,0.5)]` 
+                               : `${tc.buttonBg} ${tc.buttonBorder} ${tc.text} hover:scale-105`
+                         }`}
+                       >
+                         {pair.left}
+                         {isMatched && <CheckCircle className="absolute right-2 top-1/2 -translate-y-1/2 w-5 h-5 text-green-400" />}
+                       </button>
+                     );
+                  })}
+                </div>
+
+                {/* Right Column */}
+                <div className="flex flex-col gap-4">
+                  {shuffledRight.map((item, idx) => {
+                     // Check if this item is involved in any completed match
+                     const matchedLeft = slide.pairs?.find(p => p.right === item.text && matchedPairs.includes(p.left));
+                     const isMatched = !!matchedLeft;
+
+                     return (
+                       <button 
+                         key={idx}
+                         disabled={isMatched}
+                         onClick={() => handleMatch(item.text)}
+                         className={`p-4 rounded-lg border-2 text-lg font-bold transition-all relative text-left ${
+                           isMatched 
+                             ? 'bg-green-500/20 border-green-500 text-green-300 opacity-50' 
+                             : selectedLeft
+                               ? `${tc.buttonBg} ${tc.buttonBorder} ${tc.text} animate-pulse hover:${tc.accent} hover:text-white`
+                               : `${tc.buttonBg} ${tc.buttonBorder} ${tc.text} opacity-80`
+                         }`}
+                       >
+                         {item.text}
+                       </button>
+                     );
+                  })}
+                </div>
+             </div>
+
+             {feedback && (
+                <div className="absolute bottom-10 left-0 right-0 text-center animate-bounce">
+                   <Badge color="bg-green-500 text-white text-xl px-6 py-2 shadow-lg">{feedback}</Badge>
+                </div>
+             )}
           </div>
         );
 
